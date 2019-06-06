@@ -9,36 +9,14 @@
 
 <div class="parent">
     <div id="wrapper" class="shadow gradient">
-
-        <!--<div class="myMenu">
-            <div class="item gallery">
-                <div class="dot dot1"></div>
-                <div class="dot dot2"></div>
-                <div class="dot dot3"></div>
-                <div class="dot dot4"></div>
-                <div class="dot dot5"></div>
-                <div class="dot dot6"></div>
-            </div>
-
-            <div class="nav-items item1">
-                <i class="fas fa-hand-holding-usd"></i>
-            </div>
-            <div class="nav-items item2">
-                <i class="fas fa-users"></i>
-            </div>
-            <div class="nav-items item3">
-                <i class="fas fa-search"></i>
-            </div>
-            <div class="nav-items item4">
-                <i class="fas fa-folder"></i>
-            </div>
-        </div>-->
-
         <div class="container-fluid">
-            <div class="row">
-                <div class="col-6 d-flex flex-column justify-content-center" id="arba">
+            <div class="row justify-content-center">
+                <div class="col-6 col-xl-7 d-flex flex-column justify-content-center" id="arba">
                     <h3 class="arba" id="b_title">
-                        <span class="caps">A</span>ssociation des
+                        <q>
+                            <span class="caps">A</span>ssociation des
+                        </q>
+
                     </h3>
                     <h3 class="arba">
                         <span class="caps">R</span>essortissants de
@@ -47,7 +25,7 @@
                         <span class="caps">B</span>rou-<span class="caps">A</span>houssoukro
                     </h3>
                 </div>
-                <div class="col" style="z-index: 1;">
+                <div class="col col-xl-5" style="z-index: 1;">
                     <a role="button"
                        class="btn btn-primary btn-lg btn-block d-flex justify-content-between faa-parent animated-hover"
                        href="index.php?page=operations/type_operation" title="">

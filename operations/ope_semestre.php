@@ -34,8 +34,8 @@
 <table class="table table-sm table-hover bg-light font-weight-light" id="tab_cotisations">
     <thead class="bg-primary text-light">
     <tr>
-        <th class="col-1 text-center">N°</th>
-        <th class="col-9">Membre</th>
+        <th class="text-center">N°</th>
+        <th class="w-25">Membre</th>
         <th class="">Cotisation</th>
         <th class=""></th>
     </tr>

@@ -5,6 +5,8 @@
         $page = "accueil";
     }
     $page .= '.php';
+
+    $date = date('l, \l\e j F Y');
 ?>
 
 <!DOCTYPE html>
@@ -15,7 +17,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Bootstrap -->
-    <link rel="stylesheet" href="css/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="addons/bootstrap/css/bootstrap.css">
 
     <!-- Fontawesome -->
     <link rel="stylesheet" href="addons/css/all.min.css">
@@ -70,64 +72,13 @@
                 </div>
             </li>
         </ul>
-        <span class="navbar-text">Date</span>
+        <span class="navbar-text">
+            <?php echo $date;?>
+        </span>
     </div>
 </nav>
 
-<!--<nav class="navbar navbar-expand-lg navbar-primary bg-light sticky-top justify-content-between">
-
-    <div class="row">
-        <div class="col">
-            <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
-                <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Link</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-        <div class="col">
-            <a class="navbar-brand" href="index.php">
-                ARBA
-            </a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02"
-                    aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-        </div>
-    </div>
-
-</nav>-->
-<div class="container-fluid ">
-
-    <!--<div class="row menu">
-        <div class="col d-flex flex-row">
-            <div class="mx-1">
-                <a class="btn btn-outline-primary" href="">
-                    <span>Lien 1</span>
-                </a>
-            </div>
-            <div class="mx-1">
-                <a class="btn btn-outline-primary" href="index.php">
-                    <span>Lien 2</span>
-                </a>
-            </div>
-            <div class="mx-1">
-                <a class="btn btn-outline-primary" href="">
-                    <span>Lien 3</span>
-                </a>
-            </div>
-        </div>
-        <div class="col text-center">
-            <a class="btn btn-outline-primary" href="index.php">
-                <span>ARBA</span>
-            </a>
-        </div>
-        <div class="col text-right">Date</div>
-    </div>-->
+<div class="container-fluid">
 
     <div id="content">
         <?php include $page; ?>
@@ -137,13 +88,12 @@
     </button>
 </div>
 
-<script src="css/bootstrap/jquery-3.3.1.min.js"></script>
-<script src="css/bootstrap/popper-1.14.3.min.js"></script>
-<script src="css/bootstrap/js/bootstrap.js"></script>
+<script src="addons/bootstrap/jquery-3.3.1.min.js"></script>
+<script src="addons/bootstrap/popper-1.14.3.min.js"></script>
+<script src="addons/bootstrap/js/bootstrap.js"></script>
 
 <!-- Custom js file -->
 <script src="js/main.js"></script>
-<script src="js/myjs.js"></script>
 <script src="addons/awesomplete/awesomplete.js"></script>
 </body>
 </html>

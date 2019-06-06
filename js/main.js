@@ -4,8 +4,6 @@ $(document).ready(function () {
 
 let choix = '';
 
-// let monnaie, id_banque, id_pays;
-
 // When the user scrolls down 20px from the top of the document, show the button
 window.onscroll = function () {
     scrollFunction()
@@ -44,339 +42,6 @@ function fusionMilliers(str) {
 
     return str;
 }
-
-
-/*function selectionBanque(selector) {
-    let banque,
-        pays,
-        id_monnaie,
-        str = $(selector).attr('id');
-    let arr = str.split("_");
-
-    banque = arr[1];
-    pays = arr[2];
-    monnaie = arr[3];
-
-    id_banque = arr[5];
-    id_pays = arr[6];
-    id_monnaie = arr[7];
-
-    let text = banque + ' ' + pays + ' - ' + monnaie;
-    $('.titre').html(text);
-
-    $.ajax({
-        type: 'POST',
-        url: 'banques/ajax_banque_info.php',
-        data: {
-            banque: id_banque,
-            pays: id_pays,
-            monnaie: id_monnaie
-        },
-        success: function (result) {
-            json_data = JSON.parse(result);
-            let entite = json_data[0].entite,
-                solde_xof = json_data[0].solde_xof,
-                solde_devise = json_data[0].solde_devise,
-                sign = "";
-
-            switch (monnaie) {
-                case "USD":
-                    sign = '<i class="fas fa-dollar-sign text-uppercase"></i>';
-                    break;
-                case "EURO":
-                    sign = '<i class="fas fa-euro-sign text-uppercase"></i>';
-                    break;
-                default:
-                    sign = '<strong><span class="text-uppercase">' + monnaie + '</span></strong>';
-            }
-
-            $('#monnaie_devise').html(sign);
-            $('#entite').html('#' + entite);
-            $('#nature').prop('disabled', false);
-            $('#nombre').prop('disabled', false);
-            $('#saisir').prop('disabled', false);
-
-            $('#solde_xof').attr('value', separateurMilliers(solde_xof.toFixed(2)));
-            $('#solde_devise').attr('value', separateurMilliers(solde_devise.toFixed(2)));
-            $('#idbanque').html(id_banque);
-            $('#feedback').empty();
-
-            valider.prop('disabled', true);
-        }
-    });
-}
-
-function afficherSaisieOperations() {
-
-    let n = nombre.value,
-        nature = nature_.value;
-    // console.log(n + ' ' + nature);
-    let feedback = $('#feedback');
-
-    if (n !== '' && nature !== 'Sélectionner...') {
-        $.ajax({
-            type: 'POST',
-            url: 'operations/ajax_saisie_ope.php',
-            data: {
-                nbr: n,
-                nature: nature
-            },
-            success: function (resultat) {
-                // feedback.empty();
-                feedback.html(resultat);
-                valider.prop('disabled', false);
-            }
-        })
-    }
-}
-
-function ajoutBanque() {
-    let libelle_banque = $('#libelle').val().trim(),
-        pays_banque = $('#pays').val().trim(),
-        entite_banque = $('#entite').val().trim(),
-        monnaie_banque = $('#monnaie').val().trim(),
-        info, action;
-
-    if (libelle_banque === '' || pays_banque === '' || monnaie_banque === '' || entite_banque === '') {
-        $('#modal-check').modal('show');
-    }
-    else {
-        info = "libelle_banque=" + libelle_banque +
-            "&pays_banque=" + pays_banque +
-            "&entite_banque=" + entite_banque +
-            "&monnaie_banque=" + monnaie_banque;
-        action = "ajout_banque";
-
-        $.ajax({
-            type: 'POST',
-            url: 'banques/update_data_banques.php?action=' + action,
-            data: info,
-            success: function (data) {
-                $('#content-response').html(data);
-                $('#form_banque').trigger('reset');
-                $('#modal-response').modal('show');
-            }
-        });
-    }
-}
-
-function ajoutOperation() {
-    let compte_op = [],
-        libelle_op = [],
-        datesaisie_op = new Date(),
-        date_op = [],
-        designation_op = [],
-        cours_op = [],
-        devise_op = [],
-        xof_op = [],
-        statut = [],
-        observation_op = [],
-        nature = $("#nature").val(),
-        nbr = $("#nbr_").text();
-
-    // Initialisation de la date de saisie
-    datesaisie_op = datesaisie_op.getFullYear() + "-" + (datesaisie_op.getMonth() + 1) + "-" + datesaisie_op.getDate();
-
-    // Recuperation des infos pour chaque operation (ligne) saisie
-    let i, k = 0,
-        compte_,
-        libelle_,
-        date_,
-        designation_,
-        cours_,
-        devise_,
-        xof_,
-        statut_,
-        observation_;
-
-    for (i = 0; i < nbr; i++) {
-        compte_ = $('[id*="compte"]')[i].value.trim();
-        libelle_ = $('[id*="libelle"]')[i].value.trim();
-        date_ = $('[id*="date"]')[i].value.trim();
-        designation_ = $('[id*="operation"]')[i].value.trim();
-        cours_ = Number(fusionMilliers($('[id*="cours-"]')[i].value.trim()));
-        devise_ = Number(fusionMilliers($('[id*="mtt_devise-"]')[i].value.trim()));
-        xof_ = Number(fusionMilliers($('[id*="mtt_xof-"]')[i].value.trim()));
-        statut_ = $('[id*="statut"]')[i].value;
-        observation_ = $('[id*="observation"]')[i].value.trim();
-
-        if (compte_ !== '' && libelle_ !== '' && designation_ !== '' && devise_ !== '' && cours_ !== '' && date_ !== '') {
-            compte_op[k] = compte_;
-            libelle_op[k] = libelle_;
-            date_op[k] = date_;
-            designation_op[k] = designation_;
-            cours_op[k] = cours_;
-            devise_op[k] = devise_;
-            xof_op[k] = xof_;
-            statut[k] = statut_;
-            observation_op[k] = observation_;
-            k++;
-        }
-    }
-
-    if (k > 0) {
-        let json_compte_op = JSON.stringify(compte_op),
-            json_libelle_op = JSON.stringify(libelle_op),
-            json_date_op = JSON.stringify(date_op),
-            json_designation_op = JSON.stringify(designation_op),
-            json_cours_op = JSON.stringify(cours_op),
-            json_devise_op = JSON.stringify(devise_op),
-            json_xof_op = JSON.stringify(xof_op),
-            json_statut_op = JSON.stringify(statut),
-            json_observation_op = JSON.stringify(observation_op),
-            info = "nbr=" + k +
-                "&id_banque=" + id_banque +
-                "&id_type_operation=" + nature +
-                "&compte_operation=" + json_compte_op +
-                "&tag_operation=" + json_libelle_op +
-                "&date_saisie_operation=" + datesaisie_op +
-                "&date_operation=" + json_date_op +
-                "&designation_operation=" + json_designation_op +
-                "&cours_operation=" + json_cours_op +
-                "&montant_operation=" + json_devise_op +
-                "&montant_xof_operation=" + json_xof_op +
-                "&statut_operation=" + json_statut_op +
-                "&observation_operation=" + json_observation_op+
-                "&monnaie=" + monnaie +
-                "&pays=" + id_pays,
-            action = "ajout_operation";
-        $.ajax({
-            type: 'POST',
-            url: 'operations/update_data_operations.php?action=' + action,
-            data: info,
-            success: function (data) {
-                console.log(data);
-                $('#content-response').html(data);
-                $('#feedback').empty();
-                $('#modal-response').modal('show');
-                valider.prop('disabled', true);
-                //selectionBanque();
-            }
-        });
-    }
-}
-
-function consultationOperation() {
-    let debut = $('#debut').val(),
-        fin = $('#fin').val(),
-        entite = $('#entite').val();
-
-    choix = $("[name='rdo_nature']:checked").val();
-
-    if (debut === '' && fin === '') {
-        debut = '2018-01-01';
-        fin = '2018-12-31';
-    }
-    else if (debut === '' && fin !== '')
-        debut = '2018-01-01';
-    else if (debut !== '' && fin === '')
-        fin = '2018-12-31';
-
-    if (choix === undefined)
-        choix = 'simple';
-
-    console.log(debut + ' ' + fin + ' ' + choix);
-    $.ajax({
-        type: 'POST',
-        url: 'operations/ajax_consult_ope.php',
-        data: {
-            debut: debut,
-            fin: fin,
-            entite: entite,
-            choix: choix
-        },
-        success: function (data) {
-            $('#feedback_consultation').html(data);
-            let solde_avant = $('#solde_avt').val(),
-                solde_apres = $('#solde_apr').val();
-
-            solde_avant = (solde_avant === "") ? 0 : solde_avant;
-            solde_apres = (solde_apres === "") ? 0 : solde_apres;
-
-            $('#solde_avant').val(solde_avant);
-            $('#solde_apres').val(solde_apres);
-        }
-    })
-}
-
-$('#proceder').click(function () {
-    let param = $('#param_entite').val();
-
-    if (param !== 'Sélectionner...') {
-        $.ajax({
-            type: 'POST',
-            url: 'operations/form_consult_ope.php',
-            data: {
-                param: param
-            },
-            success: function (data) {
-                $('#content').html(data);
-            }
-        })
-    }
-});
-
-function majStatut(element) {
-    let id_ = Object.values(element)[0].parentElement.id;
-    let statut = element.value;
-    let arr = id_.split('_');
-    let id = arr[1];
-    let action = 'maj_statut';
-    let info = 'id=' + id + '&statut=' + statut;
-
-    $.ajax({
-        type: 'POST',
-        url: 'operations/update_data_operations.php?action=' + action,
-        data: info,
-        success: function (data) {
-            console.log(data);
-        }
-    });
-}
-
-function calculXof(element) {
-    let arr = element.id.split('-');
-    let i = arr[1];
-
-    let sel_mtt_devise = '#mtt_devise-' + i,
-        sel_cours = '#cours-' + i,
-        sel_mtt_xof = '#mtt_xof-' + i;
-
-    let devise = $(sel_mtt_devise).val(),
-        cours = $(sel_cours).val();
-    if (devise === '' || cours === '') {
-        console.log('One of devise or cours value is empty');
-    } else {
-        $(sel_mtt_xof).val(devise * cours);
-    }
-}
-
-function assignListeBanque() {
-    let liste = $('#lst_banq').val();
-    $('#select_liste_banques').val(liste);
-}
-
-function libelleCheck(element) {
-    let libelle = element.value,
-        info = 'libelle=' + libelle;
-    // console.log(element);
-
-    // Checks whether the libelle already exists
-    $.ajax({
-        type: 'POST',
-        url: 'banques/update_data_banques.php',
-        data: info,
-        success: function (data) {
-            // console.log(data);
-            if (data !== '0') {
-                $('#modal-check-libelle').modal('show');
-                element.value = '';
-                // element.focus();
-            }
-        }
-    });
-}
-*/
 
 const choixProceder = () => {
     const rdo = document.getElementsByName('rdoChoix');
@@ -490,19 +155,7 @@ const addRow = (nbr) => {
     load_list_membre();
 };
 
-/*function deleteRow(row) {
-    let i = row.parentNode.parentNode.rowIndex;
-    document.getElementById('tab_cotisations').deleteRow(i);
-}
-
-function checkTableRows() {
-    const tab = document.getElementById('tab_cotisations');
-
-    len = tab.rows.length;
-    console.log(len - 1);
-}*/
-
-const myFunction = (e) => {
+const loadMembreData = (e) => {
     // Verifier que le champ n'est pas vide
     if (e.value) {
         let mbr = e.value.split(' ');
@@ -568,8 +221,6 @@ const myFunction = (e) => {
 
                                 tr_td_input[i].value = arr_coti[j].montant_cotisation;
                                 tr_td_input[i].setAttribute('readonly', true);
-                                /*console.log(`i = ${i}, j = ${j}`);
-                                console.log(tr_td_input[i]);*/
                             }
                         }
                     }
@@ -589,32 +240,321 @@ const save_cotisations = () => {
         }
     }
 
-    //console.log(choix);
     if (choix === 0) {
-        // Cotisations annuelles
-        const tab = document.getElementById('tab_cotisations');
-        let n = tab.rows.length;
-        let row = tab.rows;
-        let row_td_info = [];
+        const arr = document.getElementById('tab_cotisations');
+        let rows = arr.rows;
+        let rows_nbr = rows.length;
 
-        for (let i = 1; i < n; i++) {
-            const row_td = row[i].childNodes;
-            let k = 0;
+        let nom_mbr = $('[id^=coti_mbr]');
+        let jan = $('[id^=jan]');
+        let fev = $('[id^=fev]');
+        let mars = $('[id^=mars]');
+        let avr = $('[id^=avr]');
+        let mai = $('[id^=mai]');
+        let juin = $('[id^=juin]');
+        let juil = $('[id^=juil]');
+        let aout = $('[id^=aout]');
+        let sep = $('[id^=sep]');
+        let oct = $('[id^=oct]');
+        let nov = $('[id^=nov]');
+        let dec = $('[id^=dec]');
 
-            //console.log(row_td);
-            for (let j = 3; j < row_td.length; j+=2) {
-                for (let l = 0; l < n; l++) {
-                    row_td_info[l][k] = row_td[j].childNodes[1].value;
+        let info_mbr = [nom_mbr, jan, fev, mars, avr, mai, juin, juil, aout, sep, oct, nov, dec];
+        let data =[];
+
+        let m = 0;
+        for (let i = 1; i < rows_nbr; i++) {
+            // line by line
+
+            // console.log(info_mbr[0][i - 1].attr('readonly'));
+            if (info_mbr[0][i - 1].value) {
+                let row_cells = rows[i].cells;
+                let row_cells_nbr = row_cells.length;
+                let n = 0;
+                data.push([]);
+
+                // console.log(i);
+                for (let j = 1; j < row_cells_nbr; j++) {
+                    // cell by cell
+
+                    let info_mbr_nbr = info_mbr.length;
+                    if (j <= info_mbr_nbr) {
+                        let info = info_mbr[j-1][i-1].value;
+                        if (info) {
+                            // console.log(`m=${m} n=${n} info=${info}`);
+                            let input = info_mbr[j-1][i-1];
+                            if (n === 0)
+                                data[m][n++] = info;
+                            else {
+                                if (!input.readOnly) {
+                                    data[m][n++] = j - 1 + '-' + info;
+                                }
+                            }
+                        }
+                    }
                 }
-                //row_td_info[k] = row_td[i].childNodes[1]
-                if (j === 27)
-                    break;
-                k++;
+                m++;
             }
         }
-        console.dir(row_td_info);
+        console.dir(data);
+    }
 
-    } else {
+    //console.log(choix);
+    if (choix === 2) {
+        // Cotisations annuelles
+        const arr = document.getElementById('tab_cotisations');
+        let rows = arr.rows;
+        let rows_nbr = rows.length;
+        let row_cell_info = [];
+        // let tab = [];
+
+        /*console.log(arr);
+        console.log(rows);
+        console.log(rows_nbr);*/
+
+        let k = 0;
+        // console.table(tab);
+        for (let i = 1; i < rows_nbr; i++) {
+            console.log(i);
+            row_cell_info.push([]);
+
+                let row_cells = rows[i].cells;
+                let row_cells_nbr = row_cells.length;
+
+                let nom_mbr = $('[id^=coti_mbr]');
+                let jan = $('[id^=jan]');
+                let fev = $('[id^=fev]');
+                let mars = $('[id^=mars]');
+                let avr = $('[id^=avr]');
+                let mai = $('[id^=mai]');
+                let juin = $('[id^=juin]');
+                let juil = $('[id^=juil]');
+                let aout = $('[id^=aout]');
+                let sep = $('[id^=sep]');
+                let oct = $('[id^=oct]');
+                let nov = $('[id^=nov]');
+                let dec = $('[id^=dec]');
+
+                if (nom_mbr[i-1] && nom_mbr[i-1].value) {
+
+                    let l = 0;
+                    let coti_mois = [];
+                    for (let j = 2; j < row_cells_nbr; j++) {
+                        // coti_mois[l] =
+                    }
+
+                    /*console.log("k = " + k + " l = " + l);
+                    row_cell_info[k][l++] = nom_mbr[i-1].value;
+                    if (jan[i-1].value) {
+                        console.log("jan");
+                        row_cell_info[k][l] = jan[i-1].value;
+
+                    }
+                    if (fev[i-1].value) {
+                        console.log("fev");
+                        row_cell_info[k][l] = jan[i-1].value;
+
+                    }
+                    if (mars[i-1].value) {
+                        console.log("mars");
+                        row_cell_info[k][l] = jan[i-1].value;
+
+                    }
+                    if (avr[i-1].value) {
+                        console.log("avr");
+                        row_cell_info[k][l] = jan[i-1].value;
+
+                    }
+                    if (mai[i-1].value) {
+                        console.log("mai");
+                        row_cell_info[k][l] = jan[i-1].value;
+
+                    }
+                    if (juin[i-1].value) {
+                        console.log("juin");
+                        row_cell_info[k][l] = jan[i-1].value;
+
+                    }
+                    if (juil[i-1].value) {
+                        console.log("juil");
+                        row_cell_info[k][l] = jan[i-1].value;
+
+                    }
+                    if (aout[i-1].value) {
+                        console.log("aout");
+                        row_cell_info[k][l] = jan[i-1].value;
+
+                    }
+
+                    console.log("l = " + l++);*/
+
+                    for (let j = 1; j < row_cells_nbr; j++) {
+                        //console.log(row_cells[j]);
+                        console.log(`[${i-1}, ${l}]`);
+                        console.log(`j = ${j}`);
+
+                        let test = false;
+
+                        if (j === 1) {
+                            console.log(`j = ${j}`);
+                            console.log(`nom_mbr[${i-1}].value = ${nom_mbr[i-1].value}`);
+                            row_cell_info[i-1].push(nom_mbr[i-1].value);
+                            //console.log(`row_cell_info[${i-1}][${l}] = nom_mbr[${i-1}].value`);
+                            test = true;
+
+                            continue;
+                        }
+
+                        console.log(`l = ${l}`);
+
+                        if (jan[i-1].value && !test && l === 1) {
+                            console.log(`j = ${j}`);
+                            console.log(`jan = ${jan[i-1].value}`);
+                            row_cell_info[i-1].push(`01-${jan[i-1].value}`);
+                            test = true;
+
+                            continue;
+                        }
+                        if (fev[i-1].value && !test && l === 2) {
+                            console.log(`j = ${j}`);
+                            console.log(`fev = ${fev[i-1].value}`);
+                            row_cell_info[i-1].push(`02-${fev[i-1].value}`);
+                            test = true;
+
+                            continue;
+                        }
+                        if (mars[i-1].value && !test && l === 3) {
+                            console.log(`j = ${j}`);
+                            console.log(`mars = ${mars[i-1].value}`);
+                            row_cell_info[i-1].push(`03-${mars[i-1].value}`);
+                            test = true;
+
+                            continue;
+                        }
+                        if (avr[i-1].value && !test && l === 4) {
+                            console.log(`j = ${j}`);
+                            console.log(`avr = ${avr[i-1].value}`);
+                            row_cell_info[i-1].push(`04-${avr[i-1].value}`);
+                            test = true;
+
+                            continue;
+                        }
+                        if (mai[i-1].value && !test && l === 5) {
+                            console.log(`j = ${j}`);
+                            console.log(`mai = ${mai[i-1].value}`);
+                            row_cell_info[i-1].push(`05-${mai[i-1].value}`);
+                            test = true;
+
+                            continue;
+                        }
+                        if (juin[i-1].value && !test && l === 6) {
+                            console.log(`juin = ${juin[i-1].value}`);
+                            row_cell_info[i-1].push(`06-${juin[i-1].value}`);
+                            test = true;
+
+                            continue;
+                        }
+                        if (juil[i-1].value && !test && l === 7) {
+                            console.log(`juil = ${juil[i-1].value}`);
+                            row_cell_info[i-1].push(`07-${juil[i-1].value}`);
+                            test = true;
+
+                            continue;
+                        }
+                        if (aout[i-1].value && !test && l === 8) {
+                            console.log(`aout = ${aout[i-1].value}`);
+                            row_cell_info[i-1].push(`08-${aout[i-1].value}`);
+                            test = true;
+
+                            continue;
+                        }
+                        if (sep[i-1].value && !test && l === 9) {
+                            console.log(`sep = ${sep[i-1].value}`);
+                            row_cell_info[i-1].push(`09-${sep[i-1]}`);
+                            test = true;
+
+                            continue;
+                        }
+                        if (oct[i-1].value && !test && l === 10) {
+                            console.log(`oct = ${oct[i-1].value}`);
+                            row_cell_info[i-1].push(`10-${oct[i-1].value}`);
+                            test = true;
+
+                            continue;
+                        }
+                        if (nov[i-1].value && !test && l === 11) {
+                            console.log(`nov = ${nov[i-1].value}`);
+                            row_cell_info[i-1].push(`11-${nov[i-1].value}`);
+                            test = true;
+
+                            continue;
+                        }
+                        if (dec[i-1].value && !test && l === 12) {
+                            console.log(`dec = ${dec[i-1].value}`);
+                            row_cell_info[i-1].push(`12-${dec[i-1].value}`);
+                            test = true;
+
+                            //continue;
+                        }
+
+                        if (test) l++;
+
+                        /*if (jan[i-1].value) {
+                            console.log("jan");
+                            row_cell_info[k][l] = jan[i-1].value;
+                        }
+                        if (fev[i-1].value) {
+                            console.log("fev");
+                            row_cell_info[k][l] = jan[i-1].value;
+
+                        }
+                        if (mars[i-1].value) {
+                            console.log("mars");
+                            row_cell_info[k][l] = jan[i-1].value;
+
+                        }
+                        if (avr[i-1].value) {
+                            console.log("avr");
+                            row_cell_info[k][l] = jan[i-1].value;
+
+                        }
+                        if (mai[i-1].value) {
+                            console.log("mai");
+                            row_cell_info[k][l] = jan[i-1].value;
+
+                        }
+                        if (juin[i-1].value) {
+                            console.log("juin");
+                            row_cell_info[k][l] = jan[i-1].value;
+
+                        }
+                        if (juil[i-1].value) {
+                            console.log("juil");
+                            row_cell_info[k][l] = jan[i-1].value;
+
+                        }
+                        if (aout[i-1].value) {
+                            console.log("aout");
+                            row_cell_info[k][l] = jan[i-1].value;
+
+                        }*/
+
+                        // console.log(`k = ${k}, l = ${l}, [${k}, ${l++}]`);
+                        // console.log(`[${k}, ${l++}]`);
+                    }
+                    // console.log(row_cell_info);
+                    /*for (let j = 0; j < row_cells.length; j++) {
+                        console.log(row_cells[j]);
+                        // console.log(row_cell[j]);
+                    }*/
+                //}
+                    console.log("k = " + k++);
+            }
+            //i++;
+        }
+        console.log(row_cell_info);
+    }
+    else if (choix === 1) {
         // Cotisations dernier semestre
         let info = [];
         let list_mbr = $('[id^=coti_mbr]'),
@@ -639,4 +579,8 @@ const save_cotisations = () => {
         })
     }
 
+};
+
+const enregistrer = () => {
+    alert("Function `enregistrer` called");
 };

@@ -35,7 +35,7 @@
     <thead class="bg-primary text-light">
     <tr>
         <th class="text-center">N°</th>
-        <th class="col-2">Membre</th>
+        <th class="w-25">Membre</th>
         <th class="">Jan</th>
         <th class="">Fev</th>
         <th class="">Mars</th>
@@ -57,7 +57,7 @@
             <span class="" id="numero">1</span>
         </td>
         <td>
-            <input type="text" id="coti_mbr" class="form-control form-control-sm text-uppercase awesomplete" onblur="myFunction(this)">
+            <input type="text" id="coti_mbr" class="form-control form-control-sm text-uppercase awesomplete" onblur="loadMembreData(this)">
         </td>
         <td>
             <input type="text" id="jan" class="form-control form-control-sm ">
