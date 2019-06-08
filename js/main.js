@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    load_list_membre();
+    // load_list_membre();
 });
 
 let choix = '';
@@ -108,8 +108,6 @@ const load_list_membre = () => {
         type: 'POST',
         url: 'operations/liste_membres.php',
         success: function (data) {
-            // console.log(JSON.parse(data));
-
             let input = $('[id^=coti_mbr]');
 
             for (let i = 0; i < input.length; i++) {
@@ -121,17 +119,14 @@ const load_list_membre = () => {
 };
 
 const addRow = (nbr) => {
-    const tab = document.getElementById('tab_cotisations');
+    // We take in account the table body only
+    const tab = document.getElementById('tab_cotisations').tBodies[0];
     let new_row, len, m, cel;
 
     const n = tab.rows.length - 1;
-
     for (let j = 0; j < nbr; j++) {
         new_row = tab.rows[n].cloneNode(true);
-
         len = tab.rows.length;
-        // console.log('len = ' + len);
-
         new_row.cells[0].innerHTML = len;
 
         m = new_row.cells.length;
@@ -146,10 +141,19 @@ const addRow = (nbr) => {
     }
 
     // To remove the add button at the end of each <tr> except the last one
-    for (let j = 1; j < len; j++) {
+    for (let j = 0; j < len; j++) {
         let node = tab.rows[j].cells[m - 1];
         if (node)
             node.parentNode.removeChild(node);
+    }
+
+    // To add a <td> to smooth things 😝
+    for (let j = 0; j < len; j++) {
+        let node = tab.rows[j].cells[m - 2];
+        let td = document.createElement('td');
+        // console.log(`len = ${len}`);
+        // console.log(`tab.rows[${j}].cells[${m} - 1]`);
+        node.parentNode.appendChild(td);
     }
 
     load_list_membre();
@@ -195,7 +199,7 @@ const loadMembreData = (e) => {
                     const tr_children_list = tr.childNodes; //console.log(tr_children_list);
                     let tr_td_input = [], j = 0;
 
-                    for (let i = 5; i < tr_children_list.length; i+=2) {
+                    for (let i = 5; i < tr_children_list.length; i += 2) {
                         tr_td_input[j] = tr_children_list[i].childNodes[1];
 
                         if (i === 29 || j === 11)
@@ -241,7 +245,7 @@ const save_cotisations = () => {
     }
 
     if (choix === 0) {
-        const arr = document.getElementById('tab_cotisations');
+        const arr = document.getElementById('tab_cotisations').tBodies[0];
         let rows = arr.rows;
         let rows_nbr = rows.length;
 
@@ -260,29 +264,27 @@ const save_cotisations = () => {
         let dec = $('[id^=dec]');
 
         let info_mbr = [nom_mbr, jan, fev, mars, avr, mai, juin, juil, aout, sep, oct, nov, dec];
-        let data =[];
+        let data = [];
 
         let m = 0;
-        for (let i = 1; i < rows_nbr; i++) {
-            // line by line
+        for (let i = 0; i < rows_nbr; i++) {// line by line
 
             // console.log(info_mbr[0][i - 1].attr('readonly'));
-            if (info_mbr[0][i - 1].value) {
+            if (info_mbr[0][i].value) {
                 let row_cells = rows[i].cells;
                 let row_cells_nbr = row_cells.length;
                 let n = 0;
                 data.push([]);
 
                 // console.log(i);
-                for (let j = 1; j < row_cells_nbr; j++) {
-                    // cell by cell
+                for (let j = 1; j < row_cells_nbr; j++) {// cell by cell
 
                     let info_mbr_nbr = info_mbr.length;
                     if (j <= info_mbr_nbr) {
-                        let info = info_mbr[j-1][i-1].value;
+                        let info = info_mbr[j - 1][i].value;
                         if (info) {
                             // console.log(`m=${m} n=${n} info=${info}`);
-                            let input = info_mbr[j-1][i-1];
+                            let input = info_mbr[j - 1][i];
                             if (n === 0)
                                 data[m][n++] = info;
                             else {
@@ -296,265 +298,29 @@ const save_cotisations = () => {
                 m++;
             }
         }
-        console.dir(data);
-    }
 
-    //console.log(choix);
-    if (choix === 2) {
-        // Cotisations annuelles
-        const arr = document.getElementById('tab_cotisations');
-        let rows = arr.rows;
-        let rows_nbr = rows.length;
-        let row_cell_info = [];
-        // let tab = [];
-
-        /*console.log(arr);
-        console.log(rows);
-        console.log(rows_nbr);*/
-
-        let k = 0;
-        // console.table(tab);
-        for (let i = 1; i < rows_nbr; i++) {
-            console.log(i);
-            row_cell_info.push([]);
-
-                let row_cells = rows[i].cells;
-                let row_cells_nbr = row_cells.length;
-
-                let nom_mbr = $('[id^=coti_mbr]');
-                let jan = $('[id^=jan]');
-                let fev = $('[id^=fev]');
-                let mars = $('[id^=mars]');
-                let avr = $('[id^=avr]');
-                let mai = $('[id^=mai]');
-                let juin = $('[id^=juin]');
-                let juil = $('[id^=juil]');
-                let aout = $('[id^=aout]');
-                let sep = $('[id^=sep]');
-                let oct = $('[id^=oct]');
-                let nov = $('[id^=nov]');
-                let dec = $('[id^=dec]');
-
-                if (nom_mbr[i-1] && nom_mbr[i-1].value) {
-
-                    let l = 0;
-                    let coti_mois = [];
-                    for (let j = 2; j < row_cells_nbr; j++) {
-                        // coti_mois[l] =
+        if (data.length) {
+            console.log(data);
+            // Ajax
+            $.ajax({
+                type: 'POST',
+                url: 'operations/ajax_save_cotisations.php',
+                data: {
+                    data: data
+                },
+                success: function (data) {
+                    // console.log(JSON.parse(data));
+                    let response = document.getElementById('feedback');
+                    while (response.firstChild) {
+                        response.removeChild(response.firstChild);
                     }
-
-                    /*console.log("k = " + k + " l = " + l);
-                    row_cell_info[k][l++] = nom_mbr[i-1].value;
-                    if (jan[i-1].value) {
-                        console.log("jan");
-                        row_cell_info[k][l] = jan[i-1].value;
-
-                    }
-                    if (fev[i-1].value) {
-                        console.log("fev");
-                        row_cell_info[k][l] = jan[i-1].value;
-
-                    }
-                    if (mars[i-1].value) {
-                        console.log("mars");
-                        row_cell_info[k][l] = jan[i-1].value;
-
-                    }
-                    if (avr[i-1].value) {
-                        console.log("avr");
-                        row_cell_info[k][l] = jan[i-1].value;
-
-                    }
-                    if (mai[i-1].value) {
-                        console.log("mai");
-                        row_cell_info[k][l] = jan[i-1].value;
-
-                    }
-                    if (juin[i-1].value) {
-                        console.log("juin");
-                        row_cell_info[k][l] = jan[i-1].value;
-
-                    }
-                    if (juil[i-1].value) {
-                        console.log("juil");
-                        row_cell_info[k][l] = jan[i-1].value;
-
-                    }
-                    if (aout[i-1].value) {
-                        console.log("aout");
-                        row_cell_info[k][l] = jan[i-1].value;
-
-                    }
-
-                    console.log("l = " + l++);*/
-
-                    for (let j = 1; j < row_cells_nbr; j++) {
-                        //console.log(row_cells[j]);
-                        console.log(`[${i-1}, ${l}]`);
-                        console.log(`j = ${j}`);
-
-                        let test = false;
-
-                        if (j === 1) {
-                            console.log(`j = ${j}`);
-                            console.log(`nom_mbr[${i-1}].value = ${nom_mbr[i-1].value}`);
-                            row_cell_info[i-1].push(nom_mbr[i-1].value);
-                            //console.log(`row_cell_info[${i-1}][${l}] = nom_mbr[${i-1}].value`);
-                            test = true;
-
-                            continue;
-                        }
-
-                        console.log(`l = ${l}`);
-
-                        if (jan[i-1].value && !test && l === 1) {
-                            console.log(`j = ${j}`);
-                            console.log(`jan = ${jan[i-1].value}`);
-                            row_cell_info[i-1].push(`01-${jan[i-1].value}`);
-                            test = true;
-
-                            continue;
-                        }
-                        if (fev[i-1].value && !test && l === 2) {
-                            console.log(`j = ${j}`);
-                            console.log(`fev = ${fev[i-1].value}`);
-                            row_cell_info[i-1].push(`02-${fev[i-1].value}`);
-                            test = true;
-
-                            continue;
-                        }
-                        if (mars[i-1].value && !test && l === 3) {
-                            console.log(`j = ${j}`);
-                            console.log(`mars = ${mars[i-1].value}`);
-                            row_cell_info[i-1].push(`03-${mars[i-1].value}`);
-                            test = true;
-
-                            continue;
-                        }
-                        if (avr[i-1].value && !test && l === 4) {
-                            console.log(`j = ${j}`);
-                            console.log(`avr = ${avr[i-1].value}`);
-                            row_cell_info[i-1].push(`04-${avr[i-1].value}`);
-                            test = true;
-
-                            continue;
-                        }
-                        if (mai[i-1].value && !test && l === 5) {
-                            console.log(`j = ${j}`);
-                            console.log(`mai = ${mai[i-1].value}`);
-                            row_cell_info[i-1].push(`05-${mai[i-1].value}`);
-                            test = true;
-
-                            continue;
-                        }
-                        if (juin[i-1].value && !test && l === 6) {
-                            console.log(`juin = ${juin[i-1].value}`);
-                            row_cell_info[i-1].push(`06-${juin[i-1].value}`);
-                            test = true;
-
-                            continue;
-                        }
-                        if (juil[i-1].value && !test && l === 7) {
-                            console.log(`juil = ${juil[i-1].value}`);
-                            row_cell_info[i-1].push(`07-${juil[i-1].value}`);
-                            test = true;
-
-                            continue;
-                        }
-                        if (aout[i-1].value && !test && l === 8) {
-                            console.log(`aout = ${aout[i-1].value}`);
-                            row_cell_info[i-1].push(`08-${aout[i-1].value}`);
-                            test = true;
-
-                            continue;
-                        }
-                        if (sep[i-1].value && !test && l === 9) {
-                            console.log(`sep = ${sep[i-1].value}`);
-                            row_cell_info[i-1].push(`09-${sep[i-1]}`);
-                            test = true;
-
-                            continue;
-                        }
-                        if (oct[i-1].value && !test && l === 10) {
-                            console.log(`oct = ${oct[i-1].value}`);
-                            row_cell_info[i-1].push(`10-${oct[i-1].value}`);
-                            test = true;
-
-                            continue;
-                        }
-                        if (nov[i-1].value && !test && l === 11) {
-                            console.log(`nov = ${nov[i-1].value}`);
-                            row_cell_info[i-1].push(`11-${nov[i-1].value}`);
-                            test = true;
-
-                            continue;
-                        }
-                        if (dec[i-1].value && !test && l === 12) {
-                            console.log(`dec = ${dec[i-1].value}`);
-                            row_cell_info[i-1].push(`12-${dec[i-1].value}`);
-                            test = true;
-
-                            //continue;
-                        }
-
-                        if (test) l++;
-
-                        /*if (jan[i-1].value) {
-                            console.log("jan");
-                            row_cell_info[k][l] = jan[i-1].value;
-                        }
-                        if (fev[i-1].value) {
-                            console.log("fev");
-                            row_cell_info[k][l] = jan[i-1].value;
-
-                        }
-                        if (mars[i-1].value) {
-                            console.log("mars");
-                            row_cell_info[k][l] = jan[i-1].value;
-
-                        }
-                        if (avr[i-1].value) {
-                            console.log("avr");
-                            row_cell_info[k][l] = jan[i-1].value;
-
-                        }
-                        if (mai[i-1].value) {
-                            console.log("mai");
-                            row_cell_info[k][l] = jan[i-1].value;
-
-                        }
-                        if (juin[i-1].value) {
-                            console.log("juin");
-                            row_cell_info[k][l] = jan[i-1].value;
-
-                        }
-                        if (juil[i-1].value) {
-                            console.log("juil");
-                            row_cell_info[k][l] = jan[i-1].value;
-
-                        }
-                        if (aout[i-1].value) {
-                            console.log("aout");
-                            row_cell_info[k][l] = jan[i-1].value;
-
-                        }*/
-
-                        // console.log(`k = ${k}, l = ${l}, [${k}, ${l++}]`);
-                        // console.log(`[${k}, ${l++}]`);
-                    }
-                    // console.log(row_cell_info);
-                    /*for (let j = 0; j < row_cells.length; j++) {
-                        console.log(row_cells[j]);
-                        // console.log(row_cell[j]);
-                    }*/
-                //}
-                    console.log("k = " + k++);
-            }
-            //i++;
+                    clearRadios();
+                    console.log(data);
+                }
+            });
         }
-        console.log(row_cell_info);
-    }
-    else if (choix === 1) {
+
+    } else if (choix === 1) {
         // Cotisations dernier semestre
         let info = [];
         let list_mbr = $('[id^=coti_mbr]'),
@@ -575,12 +341,17 @@ const save_cotisations = () => {
             success: function (data) {
                 // console.log(JSON.parse(data));
                 console.log(data);
+                choixCotisation();
             }
         })
     }
 
 };
 
-const enregistrer = () => {
-    alert("Function `enregistrer` called");
+const clearRadios = () => {
+    let grpRadios = document.getElementsByName('rdoChoix');
+    for (const rdo of grpRadios) {
+        rdo.checked = false;
+        // console.log(rdo.checked);
+    }
 };

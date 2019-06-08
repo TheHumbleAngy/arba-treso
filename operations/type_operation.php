@@ -27,5 +27,6 @@
         </div>
     </div>
 
+    <button class="btn btn-primary" onclick="clearRadios()">Clear radios!</button>
     <div id="feedback" class="mb-4"></div>
 </div>

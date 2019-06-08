@@ -37,7 +37,5 @@
         </div>
     </div>
 
-    <div id="feedback" class="mb-4">
-        <div id="response"></div>
-    </div>
+    <div id="feedback" class="mb-4"></div>
 </div>
