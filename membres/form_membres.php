@@ -33,10 +33,10 @@
             </div>
         </div>
 
-        <div style="position: relative">
+        <!--<div style="position: relative">
             <a class="retour mx-2" role="button" data-toggle="tooltip" data-placement="right"
                title="Accueil" href="index.php"><i class="fas fa-home fa-1-5x"></i></a>
-        </div>
+        </div>-->
 
         <div class="container-fluid">
             <div class="myBg align-items-center">

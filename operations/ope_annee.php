@@ -7,30 +7,6 @@
      */
 ?>
 
-<div class="row">
-    <button class="btn btn-block btn-outline-primary faa-parent animated-hover col-lg-2 col-sm-3 mx-auto my-4"
-            id="valider" onclick="save_cotisations()">
-        <i class="fas fa-save mr-2 faa-pulse"></i>
-        Enregistrer
-    </button>
-    <div class="modal fade" id="modal-response" tabindex="-1" role="dialog">
-        <div class="modal-dialog modal-sm" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Operation</h5>
-                    <button type="button" class="close" data-dismiss="modal"
-                            aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div id="content-response"></div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
 <table class="table table-sm table-hover bg-light font-weight-light" id="tab_cotisations">
     <thead class="bg-primary text-light">
     <tr>
@@ -60,40 +36,40 @@
             <input type="text" id="coti_mbr" class="form-control form-control-sm text-uppercase awesomplete" onblur="loadMembreData(this)">
         </td>
         <td>
-            <input type="text" id="jan" class="form-control form-control-sm ">
+            <input type="text" id="jan" class="form-control form-control-sm " title="Janvier">
         </td>
         <td>
-            <input type="text" id="fev" class="form-control form-control-sm ">
+            <input type="text" id="fev" class="form-control form-control-sm " title="Février">
         </td>
         <td>
-            <input type="text" id="mars" class="form-control form-control-sm ">
+            <input type="text" id="mars" class="form-control form-control-sm " title="Mars">
         </td>
         <td>
-            <input type="text" id="avr" class="form-control form-control-sm ">
+            <input type="text" id="avr" class="form-control form-control-sm " title="Avril">
         </td>
         <td class="">
-            <input type="text" id="mai" class="form-control form-control-sm ">
+            <input type="text" id="mai" class="form-control form-control-sm " title="Mai">
         </td>
         <td>
-            <input type="text" id="juin" class="form-control form-control-sm ">
+            <input type="text" id="juin" class="form-control form-control-sm " title="Juin">
         </td>
         <td>
-            <input type="text" id="juil" class="form-control form-control-sm ">
+            <input type="text" id="juil" class="form-control form-control-sm " title="Juillet">
         </td>
         <td>
-            <input type="text" id="aout" class="form-control form-control-sm ">
+            <input type="text" id="aout" class="form-control form-control-sm " title="Aout">
         </td>
         <td>
-            <input type="text" id="sep" class="form-control form-control-sm ">
+            <input type="text" id="sep" class="form-control form-control-sm " title="Septembre">
         </td>
         <td>
-            <input type="text" id="oct" class="form-control form-control-sm ">
+            <input type="text" id="oct" class="form-control form-control-sm " title="Octobre">
         </td>
         <td>
-            <input type="text" id="nov" class="form-control form-control-sm ">
+            <input type="text" id="nov" class="form-control form-control-sm " title="Novembre">
         </td>
         <td>
-            <input type="text" id="dec" class="form-control form-control-sm ">
+            <input type="text" id="dec" class="form-control form-control-sm " title="Décembre">
         </td>
         <td>
             <button class="btn btn-sm btn-outline-success" onclick="addRow(5)">

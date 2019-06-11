@@ -13,10 +13,7 @@
             <div class="row justify-content-center">
                 <div class="col-6 col-xl-7 d-flex flex-column justify-content-center" id="arba">
                     <h3 class="arba" id="b_title">
-                        <q>
-                            <span class="caps">A</span>ssociation des
-                        </q>
-
+                        <span class="caps">A</span>ssociation des
                     </h3>
                     <h3 class="arba">
                         <span class="caps">R</span>essortissants de
@@ -28,30 +25,26 @@
                 <div class="col col-xl-5" style="z-index: 1;">
                     <a role="button"
                        class="btn btn-primary btn-lg btn-block d-flex justify-content-between faa-parent animated-hover"
-                       href="index.php?page=operations/type_operation" title="">
-                        <i class="fas fa-hand-holding-usd mr-2 my-auto"></i>
-                        <span class="mr-auto">Opérations</span>
+                       href="index.php?page=operations/saisie_cotisations" title="">
+                        <span class="mr-auto">💰 Opérations</span>
                         <i class="fa fa-arrow-right my-auto faa-passing"></i>
                     </a>
                     <a role="button"
                        class="btn btn-primary btn-lg btn-block d-flex justify-content-between faa-parent animated-hover"
-                       href="index.php?page=membres/form_membres">
-                        <i class="fas fa-users mr-2 my-auto"></i>
-                        <span class="mr-auto">Membres</span>
+                           href="index.php?page=membres/form_membres">
+                        <span class="mr-auto">👪 Membres</span>
                         <i class="fa fa-arrow-right my-auto faa-passing"></i>
                     </a>
                     <a role="button"
                        class="btn btn-primary btn-lg btn-block d-flex justify-content-between faa-parent animated-hover"
-                       href="index.php?page=operations/param_consult_ope">
-                        <i class="fa fa-search mr-2 my-auto"></i>
-                        <span class="mr-auto">Consultation</span>
+                       href="index.php?page=operations/param_consultation">
+                        <span class="mr-auto">🔎 Consultation</span>
                         <i class="fa fa-arrow-right my-auto faa-passing"></i>
                     </a>
                     <a role="button"
                        class="btn btn-primary btn-lg btn-block d-flex justify-content-between faa-parent animated-hover"
                        href="index.php?page=reporting/param_reporting">
-                        <i class="fas fa-folder mr-2 my-auto"></i>
-                        <span class="mr-auto">Reporting</span>
+                        <span class="mr-auto">📂 Reporting</span>
                         <i class="fa fa-arrow-right my-auto faa-passing"></i>
                     </a>
                 </div>

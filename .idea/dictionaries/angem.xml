@@ -13,6 +13,7 @@
       <w>banques</w>
       <w>choix</w>
       <w>compte</w>
+      <w>coti</w>
       <w>cotisation</w>
       <w>cotisations</w>
       <w>cours</w>
@@ -26,6 +27,7 @@
       <w>geographique</w>
       <w>juil</w>
       <w>juin</w>
+      <w>kouakou</w>
       <w>libelle</w>
       <w>ligne</w>
       <w>lignes</w>
@@ -40,7 +42,9 @@
       <w>navbar</w>
       <w>ncare</w>
       <w>nombre</w>
+      <w>noms</w>
       <w>prec</w>
+      <w>prenoms</w>
       <w>proceder</w>
       <w>période</w>
       <w>regul</w>

@@ -2,10 +2,9 @@
     /**
      * Created by PhpStorm.
      * User: angem
-     * Date: 27-May-19
-     * Time: 11:56 AM
+     * Date: 11-Jun-19
+     * Time: 4:41 PM
      */
-
     $connection = mysqli_connect('localhost', 'root', '', 'gestion_treso_arba');
 
     $sql_mbr = "SELECT * FROM membres";

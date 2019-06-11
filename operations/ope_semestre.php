@@ -7,30 +7,6 @@
      */
 ?>
 
-<div class="row">
-    <button class="btn btn-block btn-outline-primary faa-parent animated-hover col-lg-2 col-sm-3 mx-auto my-4"
-            id="valider" onclick="save_cotisations()">
-        <i class="fas fa-save mr-2 faa-pulse"></i>
-        Enregistrer
-    </button>
-    <div class="modal fade" id="modal-response" tabindex="-1" role="dialog">
-        <div class="modal-dialog modal-sm" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Operation</h5>
-                    <button type="button" class="close" data-dismiss="modal"
-                            aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div id="content-response"></div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
 <table class="table table-sm table-hover bg-light font-weight-light" id="tab_cotisations">
     <thead class="bg-primary text-light">
     <tr>

@@ -33,10 +33,12 @@
     <link href='https://fonts.googleapis.com/css?family=Noto+Serif:400,400italic,700' rel='stylesheet' type='text/css'>
 
 </head>
-<body class="bg-light" style="height: 100vh">
+<body class="bg-light">
 
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="index.php">ARBA</a>
+<nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top" id="myNav">
+    <a class="navbar-brand" href="index.php">
+        <img src="images/logo_arba96x30_white.png" alt="ARBA">
+    </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText"
             aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -48,7 +50,7 @@
                     Opérations
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarOperations">
-                    <a class="dropdown-item" href="#">Annuelle</a>
+                    <a class="dropdown-item" href="index.php?page=operations/saisie_cotisations">Annuelle</a>
                     <a class="dropdown-item" href="#">Dernier Semèstre</a>
                 </div>
             </li>
@@ -58,7 +60,7 @@
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarMembres">
                     <a class="dropdown-item" href="#">Groupés</a>
-                    <a class="dropdown-item" href="#">Individuel</a>
+                    <a class="dropdown-item" href="index.php?page=membres/form_membres">Individuel</a>
                 </div>
             </li>
             <li class="nav-item dropdown">
@@ -66,7 +68,7 @@
                     Consultations
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarOperations">
-                    <a class="dropdown-item" href="#">Opérations</a>
+                    <a class="dropdown-item" href="index.php?page=operations/liste_cotisations">Opérations</a>
                     <a class="dropdown-item" href="#">Membres</a>
                     <a class="dropdown-item" href="#">Impayés</a>
                 </div>
@@ -78,7 +80,7 @@
     </div>
 </nav>
 
-<div class="container-fluid">
+<div class="container-fluid" style="height: 90%">
 
     <div id="content">
         <?php include $page; ?>

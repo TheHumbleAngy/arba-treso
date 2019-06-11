@@ -40,36 +40,14 @@ table.ncare th {
     vertical-align: middle;
 }
 
-body {
+:root {
     --wrapper-w: 55vw;
     --blue-color: #007bff;
 }
 
-/*body:after {
-    content: '';
-    height: 100%;
-    width: 100%;
-    display: block;
-    background-image: linear-gradient(90deg, rgba(255, 255, 255, .25) 1px, rgba(0, 0, 0, 0) 1px), linear-gradient(0deg, rgba(255, 255, 255, .25) 1px, rgba(0, 0, 0, 0) 1px);
-    background-position: 0 1px;
-    background-repeat: repeat;
-    background-size: 20px 20px;
-}*/
-
-html, body {
-
-}
-
-/*
-html {
-    background: #57c5fa linear-gradient(#57c5fa, #0a81fe);
-}
-
 body {
-    background: url("../images/handmade-paper.png") ;
-    opacity: .75;
+    height: 100vh;
 }
-*/
 
 #arba {
     /*background-color: aliceblue;*/
@@ -108,6 +86,12 @@ body {
     color: #c6c6c6;
     font-size: 5em;
     font-weight: bold;*/
+}
+
+#feedback {
+    max-height: 50vh;
+    overflow-y: auto;
+    overflow-x: hidden;
 }
 
 .parent {
@@ -159,7 +143,7 @@ h2.ncare {
 }
 
 #wrapper_consultation {
-    width: 40vw;
+    width: 35vw;
     height: 200px;
     background-color: #fff;
     border-radius: 10px;
@@ -169,6 +153,7 @@ h2.ncare {
     left: 0;
     right: 0;
     margin: 30vh auto;
+    padding: 1.5rem 3rem;
 }
 
 #wrapper_reporting {
@@ -233,6 +218,10 @@ h2.ncare {
     color: #1A74B8;
     border: solid 2px #1A74B8;
     border-radius: 4px;
+}
+
+.cadre-titre span {
+    font-size: smaller;
 }
 
 .insetshadow {
@@ -307,7 +296,7 @@ input.ncare {
 }
 
 #b_title::before {
-    content: '"AR';
+    /*content: '"AR';*/
     position: absolute;
     top: -20%;
     left: 10%;
@@ -323,7 +312,7 @@ input.ncare {
 }
 
 #e_title::after {
-    content: 'BA"';
+    /*content: 'BA"';*/
     position: absolute;
     top: 40%;
     left: 50%;

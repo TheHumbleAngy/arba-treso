@@ -5,7 +5,7 @@
      * Date: 06-Jun-19
      * Time: 6:51 PM
      */
-    if (isset($_POST['data'])) {
+    if (isset($_POST['data']) && isset($_POST['year'])) {
         $data = $_POST['data'];
         $n = sizeof($data);
         $mbr = array();
@@ -38,6 +38,7 @@
                 }
             }
 
+            //TODO: Gérer le cas où les noms sont renseignés mais pas les montants de cotisations
             // "KOUAKOU ANGE" "1, 2000" "2, 2000" "3, 1000" "4, 3000" "11, 2000"
             for ($j = 0; $j < sizeof($mois[$i]); $j++) {
                 if ((int)$mois[$i][$j] < 10)
@@ -50,7 +51,7 @@
             $nom_mbr = explode(' ', $mbr[$i], 2); //
             $nom = $nom_mbr[0];
             $prenoms = $nom_mbr[1];
-            $an = date('Y');
+            $an = $_POST['year'];
             $today = date('Y-m-d');
 
             // Getting the id of the current member, on line i

@@ -1,7 +1,3 @@
-$(document).ready(function () {
-    // load_list_membre();
-});
-
 let choix = '';
 
 // When the user scrolls down 20px from the top of the document, show the button
@@ -59,26 +55,29 @@ const choixProceder = () => {
 };
 
 const choixCotisation = () => {
-    const rdo = document.getElementsByName('rdoChoix'),
-        url = ['operations/ope_annee.php', 'operations/ope_semestre.php'];
-    let choix = 0,
-        response = document.getElementById('feedback');
+    const cbo = document.getElementById('param_annee');
+    let response = document.getElementById('feedback');
 
-    for (let i = 0; i < rdo.length; i++) {
-        if (rdo[i].checked) {
-            choix = parseInt(rdo[i].value);
-            break;
-        }
+    if (response.childNodes.length === 0 && cbo.value !== '') {
+        $.ajax({
+            type: 'POST',
+            url: 'operations/ope_annee.php',
+            success: function (data) {
+                document.getElementById('enregistrer').disabled = false;
+                response.innerHTML = data;
+                load_noms_membres('autocompletion');
+            }
+        })
     }
+};
 
-    $.ajax({
-        type: 'POST',
-        url: url[choix],
-        success: function (data) {
-            response.innerHTML = data;
-            load_list_membre();
-        }
-    })
+const choixConsultation = () => {
+    const cbo = document.getElementById('type_consultation');
+    const links = ['index.php?page=operations/liste_cotisations', 'index.php?page=membres/liste_membres'];
+    const button = document.getElementById('proceder_consultation');
+
+    if (cbo.value !== '')
+        button.setAttribute('href', links[cbo.value]);
 };
 
 const procederConsultation = () => {
@@ -103,10 +102,13 @@ const procederConsultation = () => {
     })
 };
 
-const load_list_membre = () => {
+const load_noms_membres = (usage) => {
     $.ajax({
         type: 'POST',
-        url: 'operations/liste_membres.php',
+        url: 'membres/noms_membres.php',
+        data: {
+            usage: usage
+        },
         success: function (data) {
             let input = $('[id^=coti_mbr]');
 
@@ -156,7 +158,7 @@ const addRow = (nbr) => {
         node.parentNode.appendChild(td);
     }
 
-    load_list_membre();
+    load_noms_membres('autocompletion');
 };
 
 const loadMembreData = (e) => {
@@ -235,16 +237,9 @@ const loadMembreData = (e) => {
 };
 
 const save_cotisations = () => {
-    let choix = 0;
-    const rdo = document.getElementsByName('rdoChoix');
-    for (let i = 0; i < rdo.length; i++) {
-        if (rdo[i].checked) {
-            choix = parseInt(rdo[i].value);
-            break;
-        }
-    }
+    let annee = document.getElementById('param_annee');
 
-    if (choix === 0) {
+    if (annee.value !== '') {
         const arr = document.getElementById('tab_cotisations').tBodies[0];
         let rows = arr.rows;
         let rows_nbr = rows.length;
@@ -268,7 +263,6 @@ const save_cotisations = () => {
 
         let m = 0;
         for (let i = 0; i < rows_nbr; i++) {// line by line
-
             // console.log(info_mbr[0][i - 1].attr('readonly'));
             if (info_mbr[0][i].value) {
                 let row_cells = rows[i].cells;
@@ -278,7 +272,6 @@ const save_cotisations = () => {
 
                 // console.log(i);
                 for (let j = 1; j < row_cells_nbr; j++) {// cell by cell
-
                     let info_mbr_nbr = info_mbr.length;
                     if (j <= info_mbr_nbr) {
                         let info = info_mbr[j - 1][i].value;
@@ -300,58 +293,85 @@ const save_cotisations = () => {
         }
 
         if (data.length) {
-            console.log(data);
+            // console.log(data);
             // Ajax
             $.ajax({
                 type: 'POST',
                 url: 'operations/ajax_save_cotisations.php',
                 data: {
-                    data: data
+                    data: data,
+                    year: annee.value
                 },
                 success: function (data) {
                     // console.log(JSON.parse(data));
+                    callModal('successModal');
                     let response = document.getElementById('feedback');
                     while (response.firstChild) {
                         response.removeChild(response.firstChild);
                     }
-                    clearRadios();
                     console.log(data);
+                    annee.selectedIndex = 0;
+                    document.getElementById('enregistrer').disabled = true;
                 }
             });
         }
-
-    } else if (choix === 1) {
-        // Cotisations dernier semestre
-        let info = [];
-        let list_mbr = $('[id^=coti_mbr]'),
-            list_coti = $('[id^=cotisation]');
-
-        for (let i = 0; i < list_mbr.length; i++) {
-            if (list_mbr[i].value && list_coti[i].value)
-                info[i] = list_mbr[i].value + "_" + list_coti[i].value;
-        }
-
-        // console.dir(info);
-        $.ajax({
-            type: 'POST',
-            data: {
-                info: info
-            },
-            url: 'operations/enregistrement_cotisations.php',
-            success: function (data) {
-                // console.log(JSON.parse(data));
-                console.log(data);
-                choixCotisation();
-            }
-        })
     }
-
+    else
+        callModal('errorYear');
 };
 
-const clearRadios = () => {
-    let grpRadios = document.getElementsByName('rdoChoix');
+const clearRadios = (name) => {
+    let grpRadios = document.getElementsByName(`${name}`);
     for (const rdo of grpRadios) {
         rdo.checked = false;
-        // console.log(rdo.checked);
+    }
+    document.getElementById('enregistrer').disabled = true;
+};
+
+const callModal = (id) => {
+    $('#' + id).modal('show');
+};
+
+const cboYearLoader = (nbr) => {
+    let cbo = document.getElementById('param_annee');
+    let n, elt;
+
+    for (let i = 0; i < nbr; i++) {
+        n = cbo.length - 1;
+        elt = cbo.options[n].cloneNode(true);
+        elt.value--;
+        elt.text = elt.value;
+        cbo.appendChild(elt);
     }
 };
+
+const filterMembre = (usage) => {
+    const response = document.getElementById('feedback');
+    let info, mbr = document.getElementById('membre').value;
+
+    info = mbr ? mbr : '';
+
+    $.ajax({
+        type: 'POST',
+        data: {
+            usage: usage,
+            info: info
+        },
+        url: 'membres/noms_membres.php',
+        success: function (data) {
+            // response.innerHTML = JSON.parse(data);
+            console.log(JSON.parse(data));
+        }
+    })
+};
+
+/* Load the necessary elements here */
+$(document).ready(function () {
+    if (document.getElementById('param_annee')) {
+        cboYearLoader(2);
+    }
+    
+    if (document.getElementById('type_consultation')) {
+        document.getElementById('type_consultation').value = '';
+    }
+});
