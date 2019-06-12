@@ -44,10 +44,11 @@
                 $mbr[$i++] = $nom_mbr . "&" . $pren_mbr . "&" . $adresse_mbr . "&" . $contact_mbr;*/
 
                 $mbr[$i][0] = $membre['id_membre'];
-                $mbr[$i][1] = $membre['nom_membre'];
-                $mbr[$i][2] = $membre['pren_membre'];
-                $mbr[$i][3] = $membre['adresse_membre'];
-                $mbr[$i++][4] = $membre['contact_membre'];
+                /*$mbr[$i][1] = $membre['nom_membre'];
+                $mbr[$i][2] = $membre['pren_membre'];*/
+                $mbr[$i][1] = $membre['nom_membre'] . " " .$membre['pren_membre'];
+                $mbr[$i][2] = $membre['adresse_membre'];
+                $mbr[$i++][3] = $membre['contact_membre'];
             }
 
             echo json_encode($mbr);
@@ -72,10 +73,11 @@
                 $mbr[$i++] = $nom_mbr . "&" . $pren_mbr . "&" . $adresse_mbr . "&" . $contact_mbr;*/
 
                 $mbr[$i][0] = $membre['id_membre'];
-                $mbr[$i][1] = $membre['nom_membre'];
-                $mbr[$i][2] = $membre['pren_membre'];
-                $mbr[$i][3] = $membre['adresse_membre'];
-                $mbr[$i++][4] = $membre['contact_membre'];
+                /*$mbr[$i][1] = $membre['nom_membre'];
+                $mbr[$i][2] = $membre['pren_membre'];*/
+                $mbr[$i][1] = $membre['nom_membre'] . " " .$membre['pren_membre'];
+                $mbr[$i][2] = $membre['adresse_membre'];
+                $mbr[$i++][3] = $membre['contact_membre'];
             }
 
             echo json_encode($mbr);

@@ -81,7 +81,7 @@ const choixConsultation = () => {
 };
 
 const procederConsultation = () => {
-    let param,
+    let param = '', annee = document.getElementById('param_annee').value,
         response = document.getElementById('feedback');
 
     choixProceder();
@@ -94,7 +94,8 @@ const procederConsultation = () => {
         url: 'operations/resultat_consultation.php',
         data: {
             choix: choix,
-            param: param
+            param: param,
+            year: annee
         },
         success: function (data) {
             response.innerHTML = data;
@@ -236,7 +237,7 @@ const loadMembreData = (e) => {
     }
 };
 
-const save_cotisations = () => {
+const saveCotisations = () => {
     let annee = document.getElementById('param_annee');
 
     if (annee.value !== '') {
@@ -320,6 +321,63 @@ const save_cotisations = () => {
         callModal('errorYear');
 };
 
+const fieldCheck = (field) => {
+    return document.getElementById(field).value === '';
+};
+
+const clearFields = (tag) => {
+    let elts = document.getElementsByTagName(tag);
+
+    for (const elt of elts) {
+        elt.value = '';
+    }
+};
+
+const saveMember = () => {
+    let arr = document.getElementsByTagName('input');
+    let test = true;
+
+    for (const elt of arr) {
+        if (elt.required) {
+            if (fieldCheck(elt.id)) {
+                test = false;
+                break;
+            }
+        }
+    }
+
+    if (test) {
+        // Save info
+        let nom = arr[0].value.trim();
+        let prenoms = arr[1].value.trim();
+        let adresse = arr[2].value.trim();
+        let contact = arr[3].value.trim();
+
+        $.ajax({
+            type: 'POST',
+            data: {
+                name: nom,
+                pname: prenoms,
+                addr: adresse,
+                contact: contact
+            },
+            url: 'membres/ajax_save_membre.php',
+            success: function (data) {
+                if (data === 'Error')
+                    callModal('errorModal');
+                else {
+                    console.log(`${data} has been successfully saved.`);
+                    clearFields('input');
+                    callModal('successModal');
+                }
+            }
+        })
+    } else {
+        // Call modal
+        callModal('errorModal');
+    }
+};
+
 const clearRadios = (name) => {
     let grpRadios = document.getElementsByName(`${name}`);
     for (const rdo of grpRadios) {
@@ -346,7 +404,6 @@ const cboYearLoader = (nbr) => {
 };
 
 const filterMembre = (usage) => {
-    const response = document.getElementById('feedback');
     let info, mbr = document.getElementById('membre').value;
 
     info = mbr ? mbr : '';
@@ -359,8 +416,41 @@ const filterMembre = (usage) => {
         },
         url: 'membres/noms_membres.php',
         success: function (data) {
-            // response.innerHTML = JSON.parse(data);
-            console.log(JSON.parse(data));
+            let arr = JSON.parse(data),
+                n = arr.length, row;
+            const tab = document.getElementById('liste_membres');
+
+            // row = tab.rows[]
+            // console.log(arr[0].length);
+
+            for (let i = 0; i < n; i++) {
+                row = tab.insertRow(-1);
+
+                let m = arr[i].length;
+                for (let j = 0; j < m; j++) {
+
+                    let newCell = row.insertCell(-1);
+
+                    let elt = '';
+                    let info = '';
+
+                    if (j === 0) {
+                        elt = i + 1;
+                    } else if (arr[i][j] !== null) {
+                        elt = arr[i][j];
+                    }
+
+                    info = document.createTextNode(elt);
+                    newCell.appendChild(info);
+                }
+            }
+
+            for (let i = 0; i < tab.rows.length; i++) {
+                let cell = tab.rows[i].cells[0];
+                cell.classList.add('text-center');
+                cell.classList.add('text-primary');
+                cell.classList.add('font-weight-light');
+            }
         }
     })
 };

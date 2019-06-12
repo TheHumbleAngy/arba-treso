@@ -46,7 +46,8 @@
                     $nom_mbr = $membre['nom_membre'];
                     $pren_mbr = $membre['pren_membre'];
 
-                    $an = date('Y');
+                    // $an = date('Y');
+                    $an = $_POST['year'];
                     $total = 0;
                     ?>
                     <tr>
@@ -104,7 +105,8 @@
                     <?php
                 }
             }
-        } else {
+        }
+        else {
         $sql_mbr = "SELECT * FROM membres";
 
         $resultat = mysqli_query($connection, $sql_mbr);
@@ -116,7 +118,7 @@
                     $nom_mbr = $membre['nom_membre'];
                     $pren_mbr = $membre['pren_membre'];
 
-                    $an = date('Y');
+                    $an = $_POST['year'];
                     $total = 0;
                     ?>
                     <tr>
@@ -176,6 +178,5 @@
             }
         }
     ?>
-
     </tbody>
 </table>

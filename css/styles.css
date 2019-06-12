@@ -130,7 +130,7 @@ h2.ncare {
 }
 
 #wrapper_membre {
-    width: var(--wrapper-w);
+    width: calc(var(--wrapper-w) - 5vw);
     background-color: #fff;
     border-radius: 10px;
     position: relative;
@@ -408,9 +408,9 @@ input.ncare {
     border-radius: 50%;
 }
 
-.table-hover.tab_consultation tbody tr:hover {
+/*.table-hover.tab_consultation tbody tr:hover {
     font-weight: bolder;
-}
+}*/
 
 .nav-items {
     width: 38px;

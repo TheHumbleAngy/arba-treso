@@ -27,7 +27,7 @@
     </div>
 
     <div id="feedback" class="my-4">
-        <table class="table table-sm table-hover bg-light">
+        <table class="table table-sm table-hover bg-light" id="tab_membres">
             <thead class="bg-primary text-light">
             <tr>
                 <th class="col-1 text-center">N°</th>
@@ -36,8 +36,8 @@
                 <th class="col">Adresse</th>
             </tr>
             </thead>
-            <tbody>
-            <tr>
+            <tbody id="liste_membres">
+            <!--<tr>
                 <td class="text-center text-primary font-weight-light">
                     <span class="" id="numero">1</span>
                 </td>
@@ -50,7 +50,7 @@
                 <td class="">
                     <span class="">Cocody</span>
                 </td>
-            </tr>
+            </tr>-->
             </tbody>
         </table>
     </div>

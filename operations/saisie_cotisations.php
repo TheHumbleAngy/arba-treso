@@ -33,7 +33,7 @@
     <div class="row">
         <button class="btn btn-block btn-outline-primary faa-parent animated-hover col-lg-2 col-sm-3 mx-auto my-4"
                 disabled
-                id="enregistrer" onclick="save_cotisations()">
+                id="enregistrer" onclick="saveCotisations()">
             <i class="fas fa-save mr-2 faa-pulse"></i>
             Enregistrer
         </button>

@@ -2,10 +2,12 @@
   <dictionary name="angem">
     <words>
       <w>accueil</w>
+      <w>adresse</w>
       <w>ajout</w>
       <w>angem</w>
       <w>aout</w>
       <w>apres</w>
+      <w>arba</w>
       <w>avant</w>
       <w>awesomplete</w>
       <w>banq</w>
@@ -25,6 +27,7 @@
       <w>etat</w>
       <w>fontawesome</w>
       <w>geographique</w>
+      <w>gestion</w>
       <w>juil</w>
       <w>juin</w>
       <w>kouakou</w>
@@ -43,6 +46,7 @@
       <w>ncare</w>
       <w>nombre</w>
       <w>noms</w>
+      <w>particulier</w>
       <w>prec</w>
       <w>prenoms</w>
       <w>proceder</w>
