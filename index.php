@@ -35,9 +35,9 @@
 </head>
 <body class="bg-light">
 
-<nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top" id="myNav">
+<nav class="navbar navbar-expand-lg navbar-light sticky-top" id="myNav" style="background-color: #e3f2fd;">
     <a class="navbar-brand" href="index.php">
-        <img src="images/logo_arba96x30_white.png" alt="ARBA">
+        <img src="images/logo_arba96x30.png" alt="ARBA">
     </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText"
             aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
@@ -50,7 +50,7 @@
                     Opérations
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarOperations">
-                    <a class="dropdown-item" href="index.php?page=operations/saisie_cotisations">Annuelle</a>
+                    <a class="dropdown-item" href="index.php?page=operations/form_cotisations">Annuelle</a>
                     <a class="dropdown-item" href="#">Dernier Semèstre</a>
                 </div>
             </li>

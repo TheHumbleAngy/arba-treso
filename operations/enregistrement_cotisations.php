@@ -61,13 +61,13 @@
                 }
 
                 // Verification de l'existence de l'operation à saisir
-                $check = "SELECT * FROM operations WHERE id_membre = '" . $id_membre . "' AND id_mois = '" . $id_mois . "' AND annee_cotisation = '" . $an . "'";
+                $check = "SELECT * FROM operations WHERE id_membre = '" . $id_membre . "' AND id_mois = '" . $id_mois . "' AND annee_operation = '" . $an . "'";
                 $res = mysqli_query($connection, $check);
 
 //                $tot[$i] = $res->num_rows;
                 // Si la ligne à insérer n'existe pas déjà
                 if ($res->num_rows < 1) {
-                    $sql_ope = "INSERT INTO operations (id_membre, id_mois, montant_cotisation, date_operation, annee_cotisation) VALUES ('" . $id_membre . "', '" . $id_mois . "', " . $coti[$i] . ", '" . $date . "', '" . $an . "')";
+                    $sql_ope = "INSERT INTO operations (id_membre, id_mois, montant_operation, date_operation, annee_operation) VALUES ('" . $id_membre . "', '" . $id_mois . "', " . $coti[$i] . ", '" . $date . "', '" . $an . "')";
                     $res = mysqli_query($connection, $sql_ope);
                     $j++;
                 } else {

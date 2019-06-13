@@ -69,7 +69,7 @@
 
                                 $mois = ($j < 10) ? "M0" . $j : "M". $j;
 
-                                $sql_cotisations = "SELECT * FROM operations WHERE id_membre = '" . $id_mbr . "' AND  annee_cotisation = '" . $an ."' AND  id_mois = '" . $mois ."'";
+                                $sql_cotisations = "SELECT * FROM operations WHERE id_membre = '" . $id_mbr . "' AND  annee_operation = '" . $an ."' AND  id_mois = '" . $mois ."'";
                                 $res = mysqli_query($connection, $sql_cotisations);
                                 $n = $res->num_rows;
                                 if ($res->num_rows > 0) {
@@ -79,8 +79,8 @@
                                         <td class="text-center">
                                             <span >
                                                 <?php
-                                                    echo number_format($cotisation['montant_cotisation'], 0, ',', '.');
-                                                    $total += $cotisation['montant_cotisation'];
+                                                    echo number_format($cotisation['montant_operation'], 0, ',', '.');
+                                                    $total += $cotisation['montant_operation'];
                                                 ?>
                                             </span>
                                         </td>
@@ -140,7 +140,7 @@
 
                                 $mois = ($j < 10) ? "M0" . $j : "M". $j;
 
-                                $sql_cotisations = "SELECT * FROM operations WHERE id_membre = '" . $id_mbr . "' AND  annee_cotisation = '" . $an ."' AND  id_mois = '" . $mois ."'";
+                                $sql_cotisations = "SELECT * FROM operations WHERE id_membre = '" . $id_mbr . "' AND  annee_operation = '" . $an ."' AND  id_mois = '" . $mois ."'";
                                 $res = mysqli_query($connection, $sql_cotisations);
                                 $n = $res->num_rows;
                                 if ($res->num_rows > 0) {
@@ -150,8 +150,8 @@
                                         <td class="text-center">
                                         <span>
                                             <?php
-                                                echo number_format($cotisation['montant_cotisation'], 0, ',', '.');
-                                                $total += $cotisation['montant_cotisation'];
+                                                echo number_format($cotisation['montant_operation'], 0, ',', '.');
+                                                $total += $cotisation['montant_operation'];
                                             ?>
                                         </span>
                                         </td>

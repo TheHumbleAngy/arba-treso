@@ -167,7 +167,7 @@ const loadMembreData = (e) => {
     if (e.value) {
         let mbr = e.value.split(' ');
         let nom_mbr, pren_mbr, sql, date = new Date();
-        let an = date.getFullYear();
+        let an = document.getElementById('param_annee').value;
 
         const mois = [];
 
@@ -182,11 +182,10 @@ const loadMembreData = (e) => {
                 pren_mbr += `${mbr[i]}`;
         }
 
-        sql = `SELECT id_mois, montant_cotisation
+        sql = `SELECT id_mois, montant_operation
             FROM operations o INNER JOIN membres m ON o.id_membre = m.id_membre
-            WHERE m.nom_membre = '${nom_mbr}' AND m.pren_membre = '${pren_mbr}' AND annee_cotisation = '${an}' ORDER BY id_mois;`;
+            WHERE m.nom_membre = '${nom_mbr}' AND m.pren_membre = '${pren_mbr}' AND annee_operation = '${an}' ORDER BY id_mois;`;
 
-        //console.dir(`${sql}`);
         $.ajax({
             type: 'POST',
             data: {
@@ -226,7 +225,7 @@ const loadMembreData = (e) => {
                             if (i === mois - 1) {
                                 // On vide tous les champs de saisie sauf celui du nom du membre, et on les rends modifiables
 
-                                tr_td_input[i].value = arr_coti[j].montant_cotisation;
+                                tr_td_input[i].value = arr_coti[j].montant_operation;
                                 tr_td_input[i].setAttribute('readonly', true);
                             }
                         }
@@ -263,21 +262,22 @@ const saveCotisations = () => {
         let data = [];
 
         let m = 0;
-        for (let i = 0; i < rows_nbr; i++) {// line by line
-            // console.log(info_mbr[0][i - 1].attr('readonly'));
+        for (let i = 0; i < rows_nbr; i++) {
+
             if (info_mbr[0][i].value) {
                 let row_cells = rows[i].cells;
                 let row_cells_nbr = row_cells.length;
                 let n = 0;
                 data.push([]);
 
-                // console.log(i);
-                for (let j = 1; j < row_cells_nbr; j++) {// cell by cell
+                for (let j = 1; j < row_cells_nbr; j++) {
+
                     let info_mbr_nbr = info_mbr.length;
                     if (j <= info_mbr_nbr) {
+
                         let info = info_mbr[j - 1][i].value;
                         if (info) {
-                            // console.log(`m=${m} n=${n} info=${info}`);
+
                             let input = info_mbr[j - 1][i];
                             if (n === 0)
                                 data[m][n++] = info;
@@ -293,28 +293,31 @@ const saveCotisations = () => {
             }
         }
 
-        if (data.length) {
-            // console.log(data);
-            // Ajax
-            $.ajax({
-                type: 'POST',
-                url: 'operations/ajax_save_cotisations.php',
-                data: {
-                    data: data,
-                    year: annee.value
-                },
-                success: function (data) {
-                    // console.log(JSON.parse(data));
-                    callModal('successModal');
-                    let response = document.getElementById('feedback');
-                    while (response.firstChild) {
-                        response.removeChild(response.firstChild);
+        let date_ope = document.getElementById('date_ope').value;
+        if (data.length && date_ope) {
+            if (data[0].length > 1) { // TODO: le cas des noms renseignés mais pas les montants est pris en compte ici
+                $.ajax({
+                    type: 'POST',
+                    url: 'operations/ajax_save_cotisations.php',
+                    data: {
+                        data: data,
+                        date_ope: date_ope,
+                        year: annee.value
+                    },
+                    success: function (data) {
+                        callModal('successModal');
+
+                        let response = document.getElementById('feedback');
+                        while (response.firstChild)
+                            response.removeChild(response.firstChild);
+
+                        console.log(data);
+                        annee.selectedIndex = 0;
+                        date_ope = '';
+                        document.getElementById('enregistrer').disabled = true;
                     }
-                    console.log(data);
-                    annee.selectedIndex = 0;
-                    document.getElementById('enregistrer').disabled = true;
-                }
-            });
+                });
+            }
         }
     }
     else
@@ -335,6 +338,7 @@ const clearFields = (tag) => {
 
 const saveMember = () => {
     let arr = document.getElementsByTagName('input');
+    let myForm = document.getElementById('form_membre');
     let test = true;
 
     for (const elt of arr) {
@@ -353,6 +357,8 @@ const saveMember = () => {
         let adresse = arr[2].value.trim();
         let contact = arr[3].value.trim();
 
+        //console.log(`${nom} ${prenoms} ${adresse} ${contact}`);
+
         $.ajax({
             type: 'POST',
             data: {
@@ -369,6 +375,7 @@ const saveMember = () => {
                     console.log(`${data} has been successfully saved.`);
                     clearFields('input');
                     callModal('successModal');
+                    myForm.reset();
                 }
             }
         })

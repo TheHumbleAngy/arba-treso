@@ -23,6 +23,8 @@
                             <?php echo date('Y'); ?>
                         </option>
                     </select>
+                    <label for="date_ope" class="col-sm-2 offset-1 col-form-label">Date</label>
+                    <input type="date" id="date_ope" class="form-control col-sm-3" aria-describedby="passwordHelpInline">
                 </div>
             </div>
         </form>

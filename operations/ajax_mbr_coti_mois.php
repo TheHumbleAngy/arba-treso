@@ -16,7 +16,7 @@
             $i = 0;
             foreach ($lignes as $ligne) {
                 $mois[$i++] = $ligne['id_mois'];
-                $cotisation[$i++] = $ligne['montant_cotisation'];
+                $cotisation[$i++] = $ligne['montant_operation'];
             }
 
             $n = 3; $k = 0;
