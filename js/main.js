@@ -1,11 +1,9 @@
+'use strict';
+
 let choix = '';
 
 // When the user scrolls down 20px from the top of the document, show the button
 window.onscroll = function () {
-    scrollFunction()
-};
-
-const scrollFunction = () => {
     if ($(document).scrollTop > 20 || document.documentElement.scrollTop > 20) {
         $('#goTop').css("display", "block");
     } else {
@@ -13,85 +11,102 @@ const scrollFunction = () => {
     }
 };
 
-// When the user clicks on the button, scroll to the top of the document
 function topFunction() {
     $('html').animate({scrollTop: 0}, 'slow');
 }
 
-function separateurMilliers(nStr) {
-    // To pass the value as a string
-    nStr += '';
-    x = nStr.split('.');
-    x1 = x[0];
-    x2 = x.length > 1 ? ',' + x[1] : '';
-    let rgx = /(\d+)(\d{3})/;
-    while (rgx.test(x1)) {
-        x1 = x1.replace(rgx, '$1' + ' ' + '$2');
-    }
-
-    return x1 + x2;
-}
-
-function fusionMilliers(str) {
-    str = str.toString().replace(' ', '');
-    str = str.includes(',') ? str.replace(',', '.') : str;
-
-    return str;
-}
-
-const choixProceder = () => {
-    const rdo = document.getElementsByName('rdoChoix');
-    choix = 0;
-
-    for (let i = 0; i < rdo.length; i++) {
-        if (rdo[i].checked) {
-            choix = parseInt(rdo[i].value);
-
-            break;
-        }
-    }
-
-    document.querySelector('#particulier_mbr').disabled = choix !== 2;
-};
-
-const choixCotisation = () => {
+const choixAnneeCotisation = () => {
     const cbo = document.getElementById('param_annee');
     let response = document.getElementById('feedback');
 
-    if (response.childNodes.length === 0 && cbo.value !== '') {
+    if (cbo.value !== '') {
         $.ajax({
             type: 'POST',
-            url: 'operations/ope_annee.php',
+            url: 'operations/entrees/cotisations/ajax/ajax_ope_annee.php',
             success: function (data) {
                 document.getElementById('enregistrer').disabled = false;
                 response.innerHTML = data;
-                load_noms_membres('autocompletion');
+                loadNomsMembres('autocompletion');
             }
         })
     }
 };
 
-const choixConsultation = () => {
-    const cbo = document.getElementById('type_consultation');
-    const links = ['index.php?page=operations/liste_cotisations', 'index.php?page=membres/liste_membres'];
-    const button = document.getElementById('proceder_consultation');
+const choixDateAdhesion = () => {
+    const dateAdhe = document.getElementById('date_adhe');
+    let response = document.getElementById('feedback');
 
-    if (cbo.value !== '')
-        button.setAttribute('href', links[cbo.value]);
+    if (dateAdhe.value !== '') {
+        $.ajax({
+            type: 'POST',
+            url: 'operations/entrees/adhesions/ajax/ajax_adhesions.php',
+            success: function (data) {
+                document.getElementById('enregistrer').disabled = false;
+                response.innerHTML = data;
+            }
+        })
+    }
 };
 
-const procederConsultation = () => {
-    let param = '', annee = document.getElementById('param_annee').value,
+const choixParametre = (option) => { // 0: operations, 1: consultations
+    const cbo = document.getElementById('type_param');
+    const links = [
+        ['index.php?page=operations/entrees/adhesions/form_adhesions', 'index.php?page=operations/entrees/cotisations/form_cotisations', 'index.php?page=operations/sorties/...'],
+        ['index.php?page=operations/entrees/cotisations/liste_cotisations', 'index.php?page=membres/liste_membres']
+    ];
+    const button = document.getElementById('proceder_param');
+
+    if (cbo.value !== '')
+        button.setAttribute('href', links[option][cbo.value]);
+};
+
+const setGender = (radio) => {
+    const rdos = document.getElementsByName(radio.name);
+    let mtt = document.getElementById('mtt');
+    choix = '';
+
+    for (const rdo of rdos) {
+        if (rdo.checked) {
+            choix = rdo.id;
+
+            break;
+        }
+    }
+    const tr = radio.closest('tr');
+
+    console.log(tr);
+    mtt.value = choix === 'rdo_F' ? 1000 : 2000;
+};
+
+const choixListeCotisation = (rdoName, fieldId) => {
+    const rdos = document.getElementsByName(rdoName);
+    choix = 0;
+
+    for (const rdo of rdos) {
+        if (rdo.checked) {
+            choix = parseInt(rdo.value);
+            // console.log(choix);
+
+            break;
+        }
+    }
+
+    document.getElementById(fieldId).disabled = choix !== 2;
+};
+
+const procederConsultation = (fieldId) => {
+    let param = '',
+        annee = document.getElementById('param_annee').value,
         response = document.getElementById('feedback');
 
-    choixProceder();
+    // choixProceder();
 
-    if (!document.querySelector('#particulier_mbr').disabled)
-        param = document.getElementById('particulier_mbr').value;
+    if (!document.getElementById(fieldId).disabled)
+        param = document.getElementById(fieldId).value;
 
     $.ajax({
         type: 'POST',
-        url: 'operations/resultat_consultation.php',
+        url: 'consultations/resultat_consultation.php',
         data: {
             choix: choix,
             param: param,
@@ -103,10 +118,10 @@ const procederConsultation = () => {
     })
 };
 
-const load_noms_membres = (usage) => {
+const loadNomsMembres = (usage) => {
     $.ajax({
         type: 'POST',
-        url: 'membres/noms_membres.php',
+        url: 'membres/ajax_noms_membres.php',
         data: {
             usage: usage
         },
@@ -114,37 +129,54 @@ const load_noms_membres = (usage) => {
             let input = $('[id^=coti_mbr]');
 
             for (let i = 0; i < input.length; i++) {
-                let list_mbr = new Awesomplete(input[i]);
-                list_mbr.list = JSON.parse(data);
+                let listMbr = new Awesomplete(input[i]);
+                listMbr.list = JSON.parse(data);
             }
         }
     })
 };
 
-const addRow = (nbr) => {
+const addRow = (tableId, rowNbr, option) => {
     // We take in account the table body only
-    const tab = document.getElementById('tab_cotisations').tBodies[0];
-    let new_row, len, m, cel;
+    const tab = document.getElementById(tableId).tBodies[0];
+    let newRow, len, m, cel, rdos;
 
     const n = tab.rows.length - 1;
-    for (let j = 0; j < nbr; j++) {
-        new_row = tab.rows[n].cloneNode(true);
+    for (let i = 0; i < rowNbr; i++) {
+        newRow = tab.rows[n].cloneNode(true);
         len = tab.rows.length;
-        new_row.cells[0].innerHTML = len;
+        newRow.cells[0].innerHTML = ++len;
 
-        m = new_row.cells.length;
-        for (let k = 1; k < m - 1; k++) {
-            cel = new_row.cells[k].getElementsByTagName('input')[0];
-            cel.id += len;
-            cel.value = '';
-            cel.removeAttribute('readonly');
+        m = newRow.cells.length;
+        for (let j = 1; j < m - 1; j++) {
+            // cel = newRow.cells[j].getElementsByTagName('input')[0];
+            cel = newRow.cells[j].getElementsByTagName('input');
+
+
+            if (j === 5) {
+                /*rdos = newRow.cells[j].getElementsByName('rdoGender');
+                if (rdos)
+                    console.log(`radio at position ${j}`);*/
+                for (let celElement of cel) {
+                    // console.dir(celElement);
+                    celElement.id += len;
+                    celElement.name += len;
+                }
+            } else {
+                cel[0].id += len;
+                cel[0].value = '';
+
+                if (!option)
+                    cel[0].removeAttribute('readonly');
+            }
+
         }
 
-        tab.appendChild(new_row);
+        tab.appendChild(newRow);
     }
 
     // To remove the add button at the end of each <tr> except the last one
-    for (let j = 0; j < len; j++) {
+    for (let j = 0; j < len - 1; j++) {
         let node = tab.rows[j].cells[m - 1];
         if (node)
             node.parentNode.removeChild(node);
@@ -154,79 +186,76 @@ const addRow = (nbr) => {
     for (let j = 0; j < len; j++) {
         let node = tab.rows[j].cells[m - 2];
         let td = document.createElement('td');
-        // console.log(`len = ${len}`);
-        // console.log(`tab.rows[${j}].cells[${m} - 1]`);
         node.parentNode.appendChild(td);
     }
 
-    load_noms_membres('autocompletion');
+    if (!option)
+        loadNomsMembres('autocompletion');
 };
 
 const loadMembreData = (e) => {
-    // Verifier que le champ n'est pas vide
+    // check the emptiness of the field
     if (e.value) {
         let mbr = e.value.split(' ');
-        let nom_mbr, pren_mbr, sql, date = new Date();
-        let an = document.getElementById('param_annee').value;
+        let nomMbr,
+            prenMbr = '',
+            sql;
+        let annee = document.getElementById('param_annee').value;
 
         const mois = [];
 
-        pren_mbr = '';
-
         for (let i = 0; i < mbr.length; i++) {
             if (i === 0)
-                nom_mbr = `${mbr[i]}`;
-            else if (pren_mbr[i])
-                pren_mbr += ` ${mbr[i]}`;
+                nomMbr = `${mbr[i]}`;
+            else if (prenMbr[i])
+                prenMbr += ` ${mbr[i]}`;
             else
-                pren_mbr += `${mbr[i]}`;
+                prenMbr += `${mbr[i]}`;
         }
 
-        sql = `SELECT id_mois, montant_operation
-            FROM operations o INNER JOIN membres m ON o.id_membre = m.id_membre
-            WHERE m.nom_membre = '${nom_mbr}' AND m.pren_membre = '${pren_mbr}' AND annee_operation = '${an}' ORDER BY id_mois;`;
+        sql = `SELECT id_mois, montant_operation FROM operations o INNER JOIN membres m ON o.id_membre = m.id_membre WHERE m.nom_membre = '${nomMbr}' AND m.pren_membre = '${prenMbr}' AND annee_operation = '${annee}' ORDER BY id_mois;`;
 
         $.ajax({
             type: 'POST',
             data: {
                 info: sql.trim()
             },
-            url: 'operations/ajax_mbr_coti_mois.php',
+            url: 'operations/entrees/cotisations/ajax/ajax_mbr_coti_mois.php',
             success: function (data) {
+                const tr = e.closest('tr'); //console.log(tr);
+                const trChildrenList = tr.childNodes; //console.log(tr_children_list);
+                let trTdInput = [], j = 0;
+
+                for (let i = 5; i < trChildrenList.length; i += 2) {
+                    trTdInput[j] = trChildrenList[i].childNodes[1];
+
+                    if (i === 29 || j === 11)
+                        break;
+                    j++;
+                }
+                // console.log(tr_td_input.length);
+                for (let elt of trTdInput) {
+                    if (elt.getAttribute('readonly'))
+                        elt.removeAttribute('readonly');
+                    elt.value = '';
+                }
+
                 if (data) {
-                    const arr_coti = JSON.parse(data);
-                    //console.log(arr_coti);
+                    const arrCoti = JSON.parse(data);
 
-                    const tr = e.closest('tr'); //console.log(tr);
-                    const tr_children_list = tr.childNodes; //console.log(tr_children_list);
-                    let tr_td_input = [], j = 0;
+                    for (let i = 0; i < trTdInput.length; i++) {
 
-                    for (let i = 5; i < tr_children_list.length; i += 2) {
-                        tr_td_input[j] = tr_children_list[i].childNodes[1];
+                        for (let j = 0; j < arrCoti.length; j++) {
 
-                        if (i === 29 || j === 11)
-                            break;
-                        j++;
-                    }
-                    //console.log(tr_td_input.length);
-                    for (let elt of tr_td_input) {
-                        //console.log(elt);
-                        if (elt.getAttribute('readonly'))
-                            elt.removeAttribute('readonly');
-                        elt.value = '';
-                    }
-
-                    for (let i = 0; i < tr_td_input.length; i++) {
-                        for (let j = 0; j < arr_coti.length; j++) {
                             // recuperation de l'id_mois et convertion en entier
-                            let mois = arr_coti[j].id_mois.slice(1);
+                            let mois = arrCoti[j].id_mois.slice(1);
                             mois = parseInt(mois);
 
                             if (i === mois - 1) {
                                 // On vide tous les champs de saisie sauf celui du nom du membre, et on les rends modifiables
 
-                                tr_td_input[i].value = arr_coti[j].montant_operation;
-                                tr_td_input[i].setAttribute('readonly', true);
+                                trTdInput[i].value = arrCoti[j].montant_operation;
+                                trTdInput[i].setAttribute('readonly', true);
                             }
                         }
                     }
@@ -240,11 +269,11 @@ const saveCotisations = () => {
     let annee = document.getElementById('param_annee');
 
     if (annee.value !== '') {
-        const arr = document.getElementById('tab_cotisations').tBodies[0];
+        const arr = document.getElementById('arr_cotisations').tBodies[0];
         let rows = arr.rows;
-        let rows_nbr = rows.length;
+        let rowsNbr = rows.length;
 
-        let nom_mbr = $('[id^=coti_mbr]');
+        let nomMbr = $('[id^=coti_mbr]');
         let jan = $('[id^=jan]');
         let fev = $('[id^=fev]');
         let mars = $('[id^=mars]');
@@ -258,27 +287,27 @@ const saveCotisations = () => {
         let nov = $('[id^=nov]');
         let dec = $('[id^=dec]');
 
-        let info_mbr = [nom_mbr, jan, fev, mars, avr, mai, juin, juil, aout, sep, oct, nov, dec];
+        let infoMbr = [nomMbr, jan, fev, mars, avr, mai, juin, juil, aout, sep, oct, nov, dec];
         let data = [];
 
         let m = 0;
-        for (let i = 0; i < rows_nbr; i++) {
+        for (let i = 0; i < rowsNbr; i++) {
 
-            if (info_mbr[0][i].value) {
-                let row_cells = rows[i].cells;
-                let row_cells_nbr = row_cells.length;
+            if (infoMbr[0][i].value) {
+                let rowCells = rows[i].cells;
+                let rowCellsNbr = rowCells.length;
                 let n = 0;
                 data.push([]);
 
-                for (let j = 1; j < row_cells_nbr; j++) {
+                for (let j = 1; j < rowCellsNbr; j++) {
 
-                    let info_mbr_nbr = info_mbr.length;
-                    if (j <= info_mbr_nbr) {
+                    let infoMbrNbr = infoMbr.length;
+                    if (j <= infoMbrNbr) {
 
-                        let info = info_mbr[j - 1][i].value;
+                        let info = infoMbr[j - 1][i].value;
                         if (info) {
 
-                            let input = info_mbr[j - 1][i];
+                            let input = infoMbr[j - 1][i];
                             if (n === 0)
                                 data[m][n++] = info;
                             else {
@@ -293,36 +322,40 @@ const saveCotisations = () => {
             }
         }
 
-        let date_ope = document.getElementById('date_ope').value;
-        if (data.length && date_ope) {
-            if (data[0].length > 1) { // TODO: le cas des noms renseignés mais pas les montants est pris en compte ici
-                $.ajax({
-                    type: 'POST',
-                    url: 'operations/ajax_save_cotisations.php',
-                    data: {
-                        data: data,
-                        date_ope: date_ope,
-                        year: annee.value
-                    },
-                    success: function (data) {
-                        callModal('successModal');
+        let dateOpe = document.getElementById('date_ope').value;
+        if (data.length && dateOpe && data[0].length > 1) { // TODO: le cas des noms renseignés mais pas les montants est pris en compte ici
+            $.ajax({
+                type: 'POST',
+                url: 'operations/entrees/cotisations/ajax/ajax_save_cotisations.php',
+                data: {
+                    data: data,
+                    date_ope: dateOpe,
+                    year: annee.value
+                },
+                success: function (data) {
+                    callModal('successModal');
 
-                        let response = document.getElementById('feedback');
-                        while (response.firstChild)
-                            response.removeChild(response.firstChild);
+                    let response = document.getElementById('feedback');
+                    while (response.firstChild)
+                        response.removeChild(response.firstChild);
 
-                        console.log(data);
-                        annee.selectedIndex = 0;
-                        date_ope = '';
-                        document.getElementById('enregistrer').disabled = true;
-                    }
-                });
-            }
+                    console.log(data);
+                    annee.selectedIndex = 0;
+                    dateOpe = '';
+                    // dateOpe.empty();
+                    document.getElementById('enregistrer').disabled = true;
+                }
+            });
         }
     }
     else
         callModal('errorYear');
 };
+
+/*const testing = () => {
+    let dateOpe = document.getElementById('date_ope');
+    dateOpe.reset();
+};*/
 
 const fieldCheck = (field) => {
     return document.getElementById(field).value === '';
@@ -357,8 +390,6 @@ const saveMember = () => {
         let adresse = arr[2].value.trim();
         let contact = arr[3].value.trim();
 
-        //console.log(`${nom} ${prenoms} ${adresse} ${contact}`);
-
         $.ajax({
             type: 'POST',
             data: {
@@ -367,7 +398,7 @@ const saveMember = () => {
                 addr: adresse,
                 contact: contact
             },
-            url: 'membres/ajax_save_membre.php',
+            url: 'membres/ajax/ajax_save_membre.php',
             success: function (data) {
                 if (data === 'Error')
                     callModal('errorModal');
@@ -385,13 +416,13 @@ const saveMember = () => {
     }
 };
 
-const clearRadios = (name) => {
+/*const clearRadios = (name) => {
     let grpRadios = document.getElementsByName(`${name}`);
     for (const rdo of grpRadios) {
         rdo.checked = false;
     }
     document.getElementById('enregistrer').disabled = true;
-};
+};*/
 
 const callModal = (id) => {
     $('#' + id).modal('show');
@@ -421,14 +452,11 @@ const filterMembre = (usage) => {
             usage: usage,
             info: info
         },
-        url: 'membres/noms_membres.php',
+        url: 'membres/ajax_noms_membres.php',
         success: function (data) {
             let arr = JSON.parse(data),
                 n = arr.length, row;
             const tab = document.getElementById('liste_membres');
-
-            // row = tab.rows[]
-            // console.log(arr[0].length);
 
             for (let i = 0; i < n; i++) {
                 row = tab.insertRow(-1);
@@ -467,8 +495,15 @@ $(document).ready(function () {
     if (document.getElementById('param_annee')) {
         cboYearLoader(2);
     }
-    
+
     if (document.getElementById('type_consultation')) {
         document.getElementById('type_consultation').value = '';
+    }
+
+    if (document.getElementById('proceder_param')) {
+        document.getElementById('proceder_param').addEventListener('click', () => {
+            if (document.getElementById('type_param').value === '')
+                event.preventDefault();
+        })
     }
 });

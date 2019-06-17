@@ -35,17 +35,7 @@
             $i = 0;
 
             foreach ($membres as $membre) {
-                /*$id_mbr = $membre['id_membre'];
-                $nom_mbr = $membre['nom_membre'];
-                $pren_mbr = $membre['pren_membre'];
-                $adresse_mbr = $membre['adresse_membre'];
-                $contact_mbr = $membre['contact_membre'];
-
-                $mbr[$i++] = $nom_mbr . "&" . $pren_mbr . "&" . $adresse_mbr . "&" . $contact_mbr;*/
-
                 $mbr[$i][0] = $membre['id_membre'];
-                /*$mbr[$i][1] = $membre['nom_membre'];
-                $mbr[$i][2] = $membre['pren_membre'];*/
                 $mbr[$i][1] = $membre['nom_membre'] . " " .$membre['pren_membre'];
                 $mbr[$i][2] = $membre['adresse_membre'];
                 $mbr[$i++][3] = $membre['contact_membre'];
@@ -64,17 +54,7 @@
             $i = 0;
 
             foreach ($membres as $membre) {
-                /*$id_mbr = $membre['id_membre'];
-                $nom_mbr = $membre['nom_membre'];
-                $pren_mbr = $membre['pren_membre'];
-                $adresse_mbr = $membre['adresse_membre'];
-                $contact_mbr = $membre['contact_membre'];
-
-                $mbr[$i++] = $nom_mbr . "&" . $pren_mbr . "&" . $adresse_mbr . "&" . $contact_mbr;*/
-
                 $mbr[$i][0] = $membre['id_membre'];
-                /*$mbr[$i][1] = $membre['nom_membre'];
-                $mbr[$i][2] = $membre['pren_membre'];*/
                 $mbr[$i][1] = $membre['nom_membre'] . " " .$membre['pren_membre'];
                 $mbr[$i][2] = $membre['adresse_membre'];
                 $mbr[$i++][3] = $membre['contact_membre'];

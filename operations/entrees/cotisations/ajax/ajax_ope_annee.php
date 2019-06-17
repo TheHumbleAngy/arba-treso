@@ -7,7 +7,7 @@
      */
 ?>
 
-<table class="table table-sm table-hover bg-light font-weight-light" id="tab_cotisations">
+<table class="table table-sm table-hover bg-light font-weight-light" id="arr_cotisations">
     <thead class="bg-primary text-light">
     <tr>
         <th class="text-center">N°</th>
@@ -33,7 +33,7 @@
             <span class="" id="numero">1</span>
         </td>
         <td>
-            <input type="text" id="coti_mbr" class="form-control form-control-sm text-uppercase awesomplete" onblur="loadMembreData(this)">
+            <input type="text" id="coti_mbr" class="form-control form-control-sm text-uppercase awesomplete" onblur="loadMembreData(this)" title="Membre">
         </td>
         <td>
             <input type="text" id="jan" class="form-control form-control-sm " title="Janvier">
@@ -72,7 +72,7 @@
             <input type="text" id="dec" class="form-control form-control-sm " title="Décembre">
         </td>
         <td>
-            <button class="btn btn-sm btn-outline-success" onclick="addRow(5)">
+            <button class="btn btn-sm btn-outline-success" onclick="addRow('arr_cotisations', 10)">
                 <i class="fas fa-plus-circle faa-float"></i>
             </button>
         </td>

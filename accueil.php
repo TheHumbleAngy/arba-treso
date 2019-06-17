@@ -25,7 +25,7 @@
                 <div class="col col-xl-5" style="z-index: 1;">
                     <a role="button"
                        class="btn btn-primary btn-lg btn-block d-flex justify-content-between faa-parent animated-hover"
-                       href="index.php?page=operations/form_cotisations" title="">
+                       href="index.php?page=operations/param_operation" title="">
                         <span class="mr-auto">💰 Opérations</span>
                         <i class="fa fa-arrow-right my-auto faa-passing"></i>
                     </a>
@@ -37,7 +37,7 @@
                     </a>
                     <a role="button"
                        class="btn btn-primary btn-lg btn-block d-flex justify-content-between faa-parent animated-hover"
-                       href="index.php?page=operations/param_consultation">
+                       href="index.php?page=consultations/param_consultation">
                         <span class="mr-auto">🔎 Consultation</span>
                         <i class="fa fa-arrow-right my-auto faa-passing"></i>
                     </a>

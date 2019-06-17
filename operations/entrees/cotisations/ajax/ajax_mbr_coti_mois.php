@@ -13,17 +13,6 @@
         $resultat = mysqli_query($connection, $sql);
         if ($resultat->num_rows) {
             $lignes = $resultat->fetch_all(MYSQLI_ASSOC);
-            $i = 0;
-            foreach ($lignes as $ligne) {
-                $mois[$i++] = $ligne['id_mois'];
-                $cotisation[$i++] = $ligne['montant_operation'];
-            }
-
-            $n = 3; $k = 0;
-            for ($i = 0; $i < $n; $i++) {
-                for ($j = 0; $j < $n; $j++)
-                    $data[$i][$j] = $k++;
-            }
 
             echo json_encode($lignes);
         }

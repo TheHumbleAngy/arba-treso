@@ -15,6 +15,7 @@
     <meta charset="UTF-8">
     <title>TRESO ARBA</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="icon" href="favicon.ico">
 
     <!-- Bootstrap -->
     <link rel="stylesheet" href="addons/bootstrap/css/bootstrap.css">
@@ -35,7 +36,7 @@
 </head>
 <body class="bg-light">
 
-<nav class="navbar navbar-expand-lg navbar-light sticky-top" id="myNav" style="background-color: #e3f2fd;">
+<nav class="navbar navbar-expand-lg navbar-light sticky-top" id="myNav" style="/*background-color: #e3f2fd;*/">
     <a class="navbar-brand" href="index.php">
         <img src="images/logo_arba96x30.png" alt="ARBA">
     </a>

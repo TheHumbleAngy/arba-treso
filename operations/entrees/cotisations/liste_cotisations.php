@@ -15,23 +15,24 @@
             <div class="col-8 my-2 cadre p-4 justify-content-center">
                 <div class="row">
                     <div class="col">
-                        <div class="custom-control custom-radio custom-control-inline">
+                        <div class="custom-control custom-radio custom-control-inline mx-2">
                             <input type="radio" id="general" name="rdoChoix" class="custom-control-input" value="1"
-                                   onchange="choixProceder()">
+                                   onchange="choixListeCotisation(this.name, 'param')">
                             <label class="custom-control-label" for="general">Général</label>
                         </div>
                     </div>
                     <div class="col">
                         <div class="custom-control custom-radio custom-control-inline">
                             <input type="radio" id="particulier" name="rdoChoix" class="custom-control-input" value="2"
-                                   onchange="choixProceder()">
+                                   onchange="choixListeCotisation(this.name, 'param')">
                             <label class="custom-control-label" for="particulier">Particulier</label>
                         </div>
                     </div>
                     <div class="col">
-                        <label for="particulier_mbr">
-                            <input type="text" class="form-control" id="particulier_mbr" placeholder="Membre..."
-                                   disabled>
+                        <label for="param">
+                            <input type="text" class="form-control text-uppercase" id="param" placeholder="Membre..."
+                                   disabled aria-describedby="textHelp">
+                            <small id="textHelp" class="form-text text-muted">Renseigner soit le nom ou le prénom.</small>
                         </label>
                     </div>
                 </div>
@@ -39,8 +40,7 @@
             <div class="col-3 ml-2 cadre my-2 p-4">
                 <div class="form-group row mb-0 mx-0">
                     <label for="param_annee" class="col col-form-label">Année</label>
-                    <select class="custom-select custom-select col" name="annee" id="param_annee"
-                            onchange="choixCotisation()">
+                    <select class="custom-select custom-select col" name="annee" id="param_annee">
                         <option value="<?php echo date('Y'); ?>">
                             <?php echo date('Y'); ?>
                         </option>
@@ -50,7 +50,7 @@
         </div>
 
         <div class="row justify-content-center my-4">
-            <button class="btn btn-primary col-lg-3 col-md-4" onclick="procederConsultation()">
+            <button class="btn btn-primary col-lg-3 col-md-4" onclick="procederConsultation('param')">
                 Proceder <i class="fa fa-arrow-right"></i>
             </button>
         </div>
