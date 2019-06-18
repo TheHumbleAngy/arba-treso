@@ -36,9 +36,9 @@
 </head>
 <body class="bg-light">
 
-<nav class="navbar navbar-expand-lg navbar-light sticky-top" id="myNav" style="/*background-color: #e3f2fd;*/">
+<nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top" id="myNav" style="/*background-color: #e3f2fd;*/">
     <a class="navbar-brand" href="index.php">
-        <img src="images/logo_arba96x30.png" alt="ARBA">
+        <img src="images/logo_arba96x30.png" alt="ARBA" class="img-fluid">
     </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText"
             aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">

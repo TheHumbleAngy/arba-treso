@@ -15,7 +15,7 @@
         $test_mbr_exist = true;
         $test_op_exist = false;
         $test_insert = true;
-        $id_categorie = "CAT01";
+        $id_categorie = "CAT02";
         $count = 0;
         $obs = "COTISATION MENSUELLE";
 

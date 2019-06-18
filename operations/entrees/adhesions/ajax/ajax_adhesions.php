@@ -15,7 +15,7 @@
         <th class="col-3">Prénoms</th>
         <th class="">Localité</th>
         <th class="">Contact</th>
-        <th class="col-2 text-center">Sexe</th>
+        <th class="text-center">Sexe</th>
         <th class="">Droit d'adhésion</th>
         <th class=""></th>
     </tr>
@@ -37,15 +37,12 @@
         <td>
             <input type="text" id="contact" class="form-control form-control-sm " title="Contact">
         </td>
-        <td class="text-center p-2">
-            <div class="custom-control custom-radio custom-control-inline">
-                <input type="radio" id="rdo_F" name="rdoGender" class="custom-control-input" title="Femme" onchange="setGender(this)">
-                <label class="custom-control-label" for="rdo_F">F</label>
-            </div>
-            <div class="custom-control custom-radio custom-control-inline mr-0">
-                <input type="radio" id="rdo_H" name="rdoGender" class="custom-control-input" title="Homme" onchange="setGender(this)">
-                <label class="custom-control-label" for="rdo_H">H</label>
-            </div>
+        <td class="text-center">
+            <label for="genre"></label><select class="custom-select custom-select-sm" id="genre" onchange="setGender(this)">
+                <option value=""></option>
+                <option value="F">F</option>
+                <option value="M">M</option>
+            </select>
         </td>
         <td class="">
             <input type="text" id="mtt" class="form-control form-control-sm text-right" title="Frais" readonly>

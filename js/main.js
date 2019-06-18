@@ -60,22 +60,13 @@ const choixParametre = (option) => { // 0: operations, 1: consultations
         button.setAttribute('href', links[option][cbo.value]);
 };
 
-const setGender = (radio) => {
-    const rdos = document.getElementsByName(radio.name);
-    let mtt = document.getElementById('mtt');
-    choix = '';
+const setGender = (e) => {
+    const tr = e.closest('tr'),
+        gender = e.value;
+    let n = tr.cells.length,
+        mtt = tr.cells[n - 2].getElementsByTagName('input')[0];
 
-    for (const rdo of rdos) {
-        if (rdo.checked) {
-            choix = rdo.id;
-
-            break;
-        }
-    }
-    const tr = radio.closest('tr');
-
-    console.log(tr);
-    mtt.value = choix === 'rdo_F' ? 1000 : 2000;
+    mtt.value = gender === 'M' ? 2000 : 1000;
 };
 
 const choixListeCotisation = (rdoName, fieldId) => {
@@ -139,7 +130,7 @@ const loadNomsMembres = (usage) => {
 const addRow = (tableId, rowNbr, option) => {
     // We take in account the table body only
     const tab = document.getElementById(tableId).tBodies[0];
-    let newRow, len, m, cel, rdos;
+    let newRow, len, m, input, select;
 
     const n = tab.rows.length - 1;
     for (let i = 0; i < rowNbr; i++) {
@@ -149,27 +140,17 @@ const addRow = (tableId, rowNbr, option) => {
 
         m = newRow.cells.length;
         for (let j = 1; j < m - 1; j++) {
-            // cel = newRow.cells[j].getElementsByTagName('input')[0];
-            cel = newRow.cells[j].getElementsByTagName('input');
-
-
-            if (j === 5) {
-                /*rdos = newRow.cells[j].getElementsByName('rdoGender');
-                if (rdos)
-                    console.log(`radio at position ${j}`);*/
-                for (let celElement of cel) {
-                    // console.dir(celElement);
-                    celElement.id += len;
-                    celElement.name += len;
-                }
-            } else {
-                cel[0].id += len;
-                cel[0].value = '';
-
+            input = newRow.cells[j].getElementsByTagName('input')[0];
+            if (input) {
+                input.id += len;
+                input.value = '';
                 if (!option)
-                    cel[0].removeAttribute('readonly');
+                    input.removeAttribute('readonly');
             }
 
+            select = newRow.cells[j].getElementsByTagName('select')[0];
+            if (select)
+                select.id += len;
         }
 
         tab.appendChild(newRow);
@@ -183,7 +164,7 @@ const addRow = (tableId, rowNbr, option) => {
     }
 
     // To add a <td> to smooth things 😝
-    for (let j = 0; j < len; j++) {
+    for (let j = 0; j < len - 1; j++) {
         let node = tab.rows[j].cells[m - 2];
         let td = document.createElement('td');
         node.parentNode.appendChild(td);
@@ -349,13 +330,86 @@ const saveCotisations = () => {
         }
     }
     else
-        callModal('errorYear');
+        callModal('errorModal');
 };
 
-/*const testing = () => {
-    let dateOpe = document.getElementById('date_ope');
-    dateOpe.reset();
-};*/
+const saveAdhesions = () => {
+    let date = document.getElementById('date_adhe');
+
+    if (date.value !== '') {
+        const arr = document.getElementById('arr_adhesions').tBodies[0];
+        let rows = arr.rows;
+        let rowsNbr = rows.length;
+
+        let nom = $('[id^=nom]');
+        let pren = $('[id^=pren]');
+        let gender = $('[id^=genre]');
+        let loc = $('[id^=loc]');
+        let contact = $('[id^=contact]');
+        let mtt = $('[id^=mtt]');
+
+        let infoMbr = [nom, pren,loc, contact, gender, mtt];
+        let data = [];
+
+        let m = 0;
+        // console.table(infoMbr[1][0].id);
+        for (let i = 0; i < rowsNbr; i++) {
+            let rowCells = rows[i].cells;
+            let rowCellsNbr = rowCells.length;
+            // console.log(rowCells);
+            // console.log(rowCellsNbr);
+
+            if (infoMbr[0][i].value) {
+                // console.log(infoMbr[0][i]);
+                let n = 0;
+                data.push([]);
+
+                for (let j = 1; j < rowCellsNbr; j++) {
+
+                    let infoMbrNbr = infoMbr.length;
+                    // console.log(infoMbrNbr);
+                    if (j <= infoMbrNbr) {
+
+                        let info = infoMbr[j - 1][i].value;
+                        // console.log(`i=${i}, j=${j}, info=${info}`);
+                        if (info) {
+
+                            data[m][n++] = info;
+                        }
+                    }
+                }
+                m++;
+            }
+        }
+
+        // console.table(data);
+        if (data.length && data[0].length > 1) {
+            $.ajax({
+                type: 'POST',
+                url: 'operations/entrees/adhesions/ajax/ajax_save_adhesions.php',
+                data: {
+                    arr: data,
+                    dateAdhe: date.value
+                },
+                success: function (data) {
+                    console.log('Done...');
+                    console.log((data));
+
+                    if (data === 'Data saved') {
+                        callModal('successModal', 'La liste des adhérents a bien été enregistrée 👍');
+                        date.value = '';
+                        document.getElementById('feedback').innerHTML = '';
+                        document.getElementById('enregistrer').disabled = true;
+                    }
+                    else
+                        callModal('errorModal', data);
+                }
+            })
+        }
+
+    } else
+        callModal('errorModal');
+};
 
 const fieldCheck = (field) => {
     return document.getElementById(field).value === '';
@@ -424,7 +478,9 @@ const saveMember = () => {
     document.getElementById('enregistrer').disabled = true;
 };*/
 
-const callModal = (id) => {
+const callModal = (id, msg) => {
+    if (msg)
+        document.getElementById(id).getElementsByTagName('p')[0].textContent = msg;
     $('#' + id).modal('show');
 };
 

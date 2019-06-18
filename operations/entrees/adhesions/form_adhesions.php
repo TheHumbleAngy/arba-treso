@@ -24,7 +24,7 @@
     <div class="row">
         <button class="btn btn-block btn-outline-primary faa-parent animated-hover col-lg-2 col-sm-3 mx-auto my-4"
                 disabled
-                id="enregistrer" onclick="">
+                id="enregistrer" onclick="saveAdhesions()">
             <i class="fas fa-save mr-2 faa-pulse"></i>
             Enregistrer
         </button>
@@ -44,19 +44,19 @@
                 </div>
                 <div class="modal-body">
                     <blockquote class="blockquote">
-                        <p class="mb-0">Les cotisations ont bien été enregistrées 👍</p>
+                        <p class="mb-0">La liste des adhérents a bien été enregistrée 👍</p>
                     </blockquote>
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="modal fade" id="errorYear" tabindex="-1" role="dialog" aria-labelledby="errorYearModalLabel"
+    <div class="modal fade" id="errorModal" tabindex="-1" role="dialog" aria-labelledby="errorYearModalLabel"
          aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title" id="errorYearModalLabel">ARBA 🚫</h4>
+                    <h4 class="modal-title" id="errorYearModalLabel">ARBA ❌</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>

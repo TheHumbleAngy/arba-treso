@@ -12,15 +12,7 @@
         <div class="container-fluid">
             <div class="row justify-content-center">
                 <div class="col-6 col-xl-7 d-flex flex-column justify-content-center" id="arba">
-                    <h3 class="arba" id="b_title">
-                        <span class="caps">A</span>ssociation des
-                    </h3>
-                    <h3 class="arba">
-                        <span class="caps">R</span>essortissants de
-                    </h3>
-                    <h3 class="arba" id="e_title">
-                        <span class="caps">B</span>rou-<span class="caps">A</span>houssoukro
-                    </h3>
+                    <img src="images/logo_arba976x668.png" alt="logo_arba" class="img-fluid mb-sm-2">
                 </div>
                 <div class="col col-xl-5" style="z-index: 1;">
                     <a role="button"
