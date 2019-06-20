@@ -29,16 +29,19 @@
     </div>
 
     <div id="feedback" class="my-4">
-        <table class="table table-sm table-hover bg-light" id="arr_membres">
-            <thead class="bg-primary text-light">
-            <tr>
-                <th class="col-1 text-center">N°</th>
-                <th class="col-4">Membre</th>
-                <th class="col-3">Contact</th>
-                <th class="col">Adresse</th>
-            </tr>
-            </thead>
-            <tbody id="liste_membres"></tbody>
-        </table>
+        <div class="border border-primary rounded">
+            <table class="table table-sm table-hover bg-light" id="arr_membres">
+                <thead class="bg-primary text-light">
+                <tr class="row mx-0">
+                    <th class="col-1 text-center">N°</th>
+                    <th class="col-4">Membre</th>
+                    <th class="col-3">Adresse</th>
+                    <th class="col-3">Contact</th>
+                    <th class="col-1 text-center">Genre</th>
+                </tr>
+                </thead>
+                <tbody id="liste_membres"></tbody>
+            </table>
+        </div>
     </div>
 </div>

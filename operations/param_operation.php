@@ -21,9 +21,8 @@
                             <select class="custom-select custom-select" name="entite" id="type_param"
                                     onchange="choixParametre(0)">
                                 <option value="">Sélectionner...</option>
-                                <option value="0">Adhésion</option>
-                                <option value="1">Cotisations</option>
-                                <option value="2">Dépenses</option>
+                                <option value="0">Cotisations</option>
+                                <option value="1">Dépenses</option>
                             </select>
                         </div>
                     </div>

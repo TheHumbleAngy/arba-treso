@@ -11,7 +11,6 @@
 
     <div class="container-fluid">
         <h2 class="w-50 text-center py-2 mx-auto mb-4 cadre-titre">Cotisations <span>💰</span></h2>
-
         <form class="row my-2 cadre p-4 justify-content-center mx-auto col-md-8">
             <div class="col ">
                 <div class="form-group row mb-0">
@@ -28,10 +27,8 @@
                 </div>
             </div>
         </form>
-
     </div>
 
-<!--    <button class="btn btn-primary" onclick="testing()">Test ✔️</button>-->
     <div class="row">
         <button class="btn btn-block btn-outline-primary faa-parent animated-hover col-lg-2 col-sm-3 mx-auto my-4"
                 disabled
@@ -74,7 +71,7 @@
                 </div>
                 <div class="modal-body">
                     <blockquote class="blockquote">
-                        <p class="mb-0">Veuillez sélectionner l'année SVP.</p>
+                        <p class="mb-0"></p>
                     </blockquote>
                 </div>
             </div>

@@ -30,6 +30,7 @@
       <w>dépense</w>
       <w>enregistrer</w>
       <w>entite</w>
+      <w>entrées</w>
       <w>etat</w>
       <w>fontawesome</w>
       <w>frais</w>
@@ -71,8 +72,10 @@
       <w>solde</w>
       <w>statut</w>
       <w>strtoupper</w>
+      <w>sélectionner</w>
       <w>treso</w>
       <w>valider</w>
+      <w>veuillez</w>
     </words>
   </dictionary>
 </component>

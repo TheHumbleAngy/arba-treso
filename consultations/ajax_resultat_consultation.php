@@ -12,7 +12,7 @@
         <thead class="bg-primary text-light">
         <tr>
             <th class="text-center">N°</th>
-            <th class="col-4">Membre</th>
+            <th class="">Membre</th>
             <th class="mx-lg-1 text-center">Jan.</th>
             <th class="mx-lg-1 text-center">Fev.</th>
             <th class="mx-lg-1 text-center">Mars</th>
@@ -67,9 +67,9 @@
                                 /* Debut liste cotisations */
                                 for ($j = 1; $j <= 12; $j++) {
 
-                                    $mois = ($j < 10) ? "M0" . $j : "M". $j;
+                                    $id_mois = ($j < 10) ? "M0" . $j : "M". $j;
 
-                                    $sql_cotisations = "SELECT * FROM operations WHERE id_membre = '" . $id_mbr . "' AND  annee_operation = '" . $an ."' AND  id_mois = '" . $mois ."'";
+                                    $sql_cotisations = "SELECT * FROM operations WHERE id_membre = '{$id_mbr}' AND annee_operation = '{$an}' AND id_mois = '{$id_mois}' AND id_categorie = 'CAT02'";
                                     $res = mysqli_query($connection, $sql_cotisations);
                                     $n = $res->num_rows;
                                     if ($res->num_rows > 0) {
@@ -137,9 +137,9 @@
                                 /* Debut liste cotisations annuelles */
                                 for ($j = 1; $j <= 12; $j++) {
 
-                                    $mois = ($j < 10) ? "M0" . $j : "M". $j;
+                                    $id_mois = ($j < 10) ? "M0" . $j : "M". $j;
 
-                                    $sql_cotisations = "SELECT * FROM operations WHERE id_membre = '" . $id_mbr . "' AND  annee_operation = '" . $an ."' AND  id_mois = '" . $mois ."'";
+                                    $sql_cotisations = "SELECT * FROM operations WHERE id_membre = '{$id_mbr}' AND annee_operation = '{$an}' AND id_mois = '{$id_mois}' AND id_categorie = 'CAT02'";
                                     $res = mysqli_query($connection, $sql_cotisations);
                                     $n = $res->num_rows;
                                     if ($res->num_rows > 0) {

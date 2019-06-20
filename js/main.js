@@ -1,4 +1,5 @@
 'use strict';
+// import {awesomeplete} from 'addons/awesomplete/awesomplete';
 
 let choix = '';
 
@@ -51,7 +52,7 @@ const choixDateAdhesion = () => {
 const choixParametre = (option) => { // 0: operations, 1: consultations
     const cbo = document.getElementById('type_param');
     const links = [
-        ['index.php?page=operations/entrees/adhesions/form_adhesions', 'index.php?page=operations/entrees/cotisations/form_cotisations', 'index.php?page=operations/sorties/...'],
+        ['index.php?page=operations/entrees/cotisations/form_cotisations', 'index.php?page=operations/sorties/...'],
         ['index.php?page=operations/entrees/cotisations/liste_cotisations', 'index.php?page=membres/liste_membres']
     ];
     const button = document.getElementById('proceder_param');
@@ -90,14 +91,12 @@ const procederConsultation = (fieldId) => {
         annee = document.getElementById('param_annee').value,
         response = document.getElementById('feedback');
 
-    // choixProceder();
-
     if (!document.getElementById(fieldId).disabled)
         param = document.getElementById(fieldId).value;
 
     $.ajax({
         type: 'POST',
-        url: 'consultations/resultat_consultation.php',
+        url: 'consultations/ajax_resultat_consultation.php',
         data: {
             choix: choix,
             param: param,
@@ -314,23 +313,27 @@ const saveCotisations = () => {
                     year: annee.value
                 },
                 success: function (data) {
-                    callModal('successModal');
+                    // console.log(JSON.parse(data));
+                    // callModal('successModal');
+                    if (data === 'Data saved!') {
+                        callModal('successModal');
 
-                    let response = document.getElementById('feedback');
-                    while (response.firstChild)
-                        response.removeChild(response.firstChild);
+                        let response = document.getElementById('feedback');
+                        response.innerHTML = '';
 
-                    console.log(data);
-                    annee.selectedIndex = 0;
-                    dateOpe = '';
-                    // dateOpe.empty();
-                    document.getElementById('enregistrer').disabled = true;
+                        console.log(data);
+                        annee.selectedIndex = 0;
+                        dateOpe = '';
+                        document.getElementById('enregistrer').disabled = true;
+                    } else
+                        callModal('errorModal', data);
+
                 }
             });
         }
     }
     else
-        callModal('errorModal');
+        callModal('errorModal', "Veuillez sélectionner l'année SVP.");
 };
 
 const saveAdhesions = () => {
@@ -352,15 +355,12 @@ const saveAdhesions = () => {
         let data = [];
 
         let m = 0;
-        // console.table(infoMbr[1][0].id);
         for (let i = 0; i < rowsNbr; i++) {
             let rowCells = rows[i].cells;
             let rowCellsNbr = rowCells.length;
-            // console.log(rowCells);
-            // console.log(rowCellsNbr);
 
             if (infoMbr[0][i].value) {
-                // console.log(infoMbr[0][i]);
+
                 let n = 0;
                 data.push([]);
 
@@ -371,9 +371,7 @@ const saveAdhesions = () => {
                     if (j <= infoMbrNbr) {
 
                         let info = infoMbr[j - 1][i].value;
-                        // console.log(`i=${i}, j=${j}, info=${info}`);
                         if (info) {
-
                             data[m][n++] = info;
                         }
                     }
@@ -406,7 +404,6 @@ const saveAdhesions = () => {
                 }
             })
         }
-
     } else
         callModal('errorModal');
 };
@@ -470,14 +467,6 @@ const saveMember = () => {
     }
 };
 
-/*const clearRadios = (name) => {
-    let grpRadios = document.getElementsByName(`${name}`);
-    for (const rdo of grpRadios) {
-        rdo.checked = false;
-    }
-    document.getElementById('enregistrer').disabled = true;
-};*/
-
 const callModal = (id, msg) => {
     if (msg)
         document.getElementById(id).getElementsByTagName('p')[0].textContent = msg;
@@ -513,6 +502,10 @@ const filterMembre = (usage) => {
             let arr = JSON.parse(data),
                 n = arr.length, row;
             const tab = document.getElementById('liste_membres');
+            // console.log(arr);
+
+            while (tab.firstChild)
+                tab.removeChild(tab.firstChild);
 
             for (let i = 0; i < n; i++) {
                 row = tab.insertRow(-1);
@@ -537,10 +530,31 @@ const filterMembre = (usage) => {
             }
 
             for (let i = 0; i < tab.rows.length; i++) {
+
+                // Styling the row
+                let tr = tab.rows[i];
+                tr.classList.add('row', 'mx-0');
+
+                // Styling the first cell of each line
                 let cell = tab.rows[i].cells[0];
-                cell.classList.add('text-center');
-                cell.classList.add('text-primary');
-                cell.classList.add('font-weight-light');
+                cell.classList.add('col-1');
+                cell.classList.add('text-center', 'text-primary', 'font-weight-light');
+
+                // Styling the 2nd cell of each line
+                cell = tab.rows[i].cells[1];
+                cell.classList.add('col-4');
+
+                // Styling the 3rd cell of each line
+                cell = tab.rows[i].cells[2];
+                cell.classList.add('col-3');
+
+                // Styling the 4th cell of each line
+                cell = tab.rows[i].cells[3];
+                cell.classList.add('col-3');
+
+                // Styling the last cell of each line
+                cell = tab.rows[i].cells[tab.rows[i].cells.length - 1];
+                cell.classList.add('col-1', 'text-center', 'text-primary', 'font-weight-bold');
             }
         }
     })
@@ -562,4 +576,6 @@ $(document).ready(function () {
                 event.preventDefault();
         })
     }
+
+    $('[data-toggle="tooltip"]').tooltip();
 });

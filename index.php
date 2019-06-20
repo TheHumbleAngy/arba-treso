@@ -51,28 +51,30 @@
                     Opérations
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarOperations">
-                    <a class="dropdown-item" href="index.php?page=operations/form_cotisations">Annuelle</a>
-                    <a class="dropdown-item" href="#">Dernier Semèstre</a>
+                    <a class="dropdown-item" href="index.php?page=operations/entrees/cotisations/form_cotisations">Cotisations</a>
+                    <a class="dropdown-item" href="#">Dépenses</a>
                 </div>
             </li>
             <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarMembres" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Membres
+                <a class="nav-link" href="index.php?page=operations/entrees/adhesions/form_adhesions" id="navbarAdhesions" role="button" aria-haspopup="true" aria-expanded="false">
+                    Adhésions
                 </a>
-                <div class="dropdown-menu" aria-labelledby="navbarMembres">
-                    <a class="dropdown-item" href="#">Groupés</a>
-                    <a class="dropdown-item" href="index.php?page=membres/form_membres">Individuel</a>
-                </div>
             </li>
             <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarOperations" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarConsultations" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Consultations
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarOperations">
-                    <a class="dropdown-item" href="index.php?page=operations/liste_cotisations">Opérations</a>
-                    <a class="dropdown-item" href="#">Membres</a>
-                    <a class="dropdown-item" href="#">Impayés</a>
+                    <a class="dropdown-item" href="index.php?page=operations/entrees/cotisations/liste_cotisations">Cotisations</a>
+                    <a class="dropdown-item" href="">Dépenses</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="index.php?page=membres/liste_membres">Membres</a>
                 </div>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link" href="#" id="navbarReporting" role="button" aria-haspopup="true" aria-expanded="false">
+                    Reporting
+                </a>
             </li>
         </ul>
         <span class="navbar-text">

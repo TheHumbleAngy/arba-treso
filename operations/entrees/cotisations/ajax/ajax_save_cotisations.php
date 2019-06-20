@@ -27,17 +27,12 @@
             for ($j = 0; $j < $m; $j++) {
 
                 if ($j == 0) {
-                    //$info[$i][$j] = $data[$i][$j];//
                     $mbr[$i] = $data[$i][$j];
-                } else {
+                }
+                else {
                     $coti = explode('-', $data[$i][$j]);
                     $mois[$i][$j - 1] = $coti[0];
                     $mtt[$i][$j - 1] = $coti[1];
-
-                    //$size_mois = sizeof($mois);//
-                    //$size_mtt = sizeof($mtt);//
-
-                    //$info[$i][$j] = "{$mois[$i][$j - 1]}, {$mtt[$i][$j - 1]}";//
                 }
             }
 
@@ -46,7 +41,8 @@
             for ($j = 0; $j < sizeof($mois[$i]); $j++) {
                 if ((int)$mois[$i][$j] < 10) {
                     $mois[$i][$j] = 'M0' . $mois[$i][$j];
-                } else {
+                }
+                else {
                     $mois[$i][$j] = 'M' . $mois[$i][$j];
                 }
             }
@@ -67,7 +63,9 @@
                 foreach ($lignes as $ligne) {
                     $id_mbr = $ligne['id_membre'];
                 }
-            } else {
+            }
+            else {
+                // The member already exists
                 $test_mbr_exist = false;
 
                 continue;
@@ -80,13 +78,14 @@
                 $montant = $mtt[$i][$j];
 
                 // Checking that info to be saved do not exist already
-                $sql_test_exist = "SELECT * FROM operations WHERE id_membre = '{$id_mbr}' AND id_mois = '{$id_mois}' AND montant_operation = '{$montant}' AND annee_operation = '{$an}'";
+                $sql_test_exist = "SELECT * FROM operations WHERE id_membre = '{$id_mbr}' AND id_mois = '{$id_mois}' AND id_categorie = 'CAT02' AND montant_operation = '{$montant}' AND annee_operation = '{$an}'";
                 $resultat = mysqli_query($connection, $sql_test_exist);
                 if ($resultat->num_rows) {
                     $test_op_exist = true;
 
                     break;
-                } else {
+                }
+                else {
                     $sql_last = "SELECT id_operation FROM operations ORDER BY id_operation DESC LIMIT 1";
 
                     $year = date('y');
@@ -131,5 +130,5 @@
         }
         //echo "test_op_exist {!$test_op_exist} | test_mbr_exist {$test_mbr_exist} | test_insert {$test_insert}";
         //$test = sprintf("%04d", 12);
-        //echo $test;
+        //echo json_encode($sql);
     }

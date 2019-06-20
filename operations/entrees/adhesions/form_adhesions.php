@@ -10,7 +10,7 @@
 <div class="bg-white col-xl-10 mx-lg-auto p-2" style="border-radius: 10px">
 
     <div class="container-fluid">
-        <h2 class="w-50 text-center py-2 mx-auto mb-4 cadre-titre">Adhésions <span>📝</span></h2>
+        <h2 class="w-50 text-center py-2 mx-auto mb-4 cadre-titre">Adhésions <span>🤝</span></h2>
         <div class="col-lg-8 mx-auto row my-2 cadre p-4 justify-content-center">
             <div class="col">
                 <label for="date_adhe">

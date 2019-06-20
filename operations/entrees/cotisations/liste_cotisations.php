@@ -32,7 +32,7 @@
                         <label for="param">
                             <input type="text" class="form-control text-uppercase" id="param" placeholder="Membre..."
                                    disabled aria-describedby="textHelp">
-                            <small id="textHelp" class="form-text text-muted">Renseigner soit le nom ou le prénom.</small>
+                            <small id="textHelp" class="form-text text-muted">Renseigner le nom ou le prénom.</small>
                         </label>
                     </div>
                 </div>

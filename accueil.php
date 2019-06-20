@@ -12,28 +12,28 @@
         <div class="container-fluid">
             <div class="row justify-content-center">
                 <div class="col-6 col-xl-7 d-flex flex-column justify-content-center" id="arba">
-                    <img src="images/logo_arba976x668.png" alt="logo_arba" class="img-fluid mb-sm-2">
+                    <img src="images/logo_arba944x668.png" alt="logo_arba" class="img-fluid mb-sm-2">
                 </div>
                 <div class="col col-xl-5" style="z-index: 1;">
-                    <a role="button"
+                    <a role="button" data-toggle="tooltip" data-placement="right" title="Saisir les entrées ou sorties d'argent"
                        class="btn btn-primary btn-lg btn-block d-flex justify-content-between faa-parent animated-hover"
-                       href="index.php?page=operations/param_operation" title="">
+                       href="index.php?page=operations/param_operation">
                         <span class="mr-auto">💰 Opérations</span>
                         <i class="fa fa-arrow-right my-auto faa-passing"></i>
                     </a>
-                    <a role="button"
+                    <a role="button" data-toggle="tooltip" data-placement="right" title="Saisir les adhésions"
                        class="btn btn-primary btn-lg btn-block d-flex justify-content-between faa-parent animated-hover"
-                           href="index.php?page=membres/form_membres">
-                        <span class="mr-auto">👪 Membres</span>
+                           href="index.php?page=operations/entrees/adhesions/form_adhesions">
+                        <span class="mr-auto">🤝 Adhésions</span>
                         <i class="fa fa-arrow-right my-auto faa-passing"></i>
                     </a>
-                    <a role="button"
+                    <a role="button" data-toggle="tooltip" data-placement="right" title="Consulter les états"
                        class="btn btn-primary btn-lg btn-block d-flex justify-content-between faa-parent animated-hover"
                        href="index.php?page=consultations/param_consultation">
                         <span class="mr-auto">🔎 Consultation</span>
                         <i class="fa fa-arrow-right my-auto faa-passing"></i>
                     </a>
-                    <a role="button"
+                    <a role="button" data-toggle="tooltip" data-placement="right" title="Produire des états"
                        class="btn btn-primary btn-lg btn-block d-flex justify-content-between faa-parent animated-hover"
                        href="index.php?page=reporting/param_reporting">
                         <span class="mr-auto">📂 Reporting</span>
