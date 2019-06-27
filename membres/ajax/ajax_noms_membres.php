@@ -39,7 +39,8 @@
                 $mbr[$i][1] = $membre['nom_membre'] . " " .$membre['pren_membre'];
                 $mbr[$i][2] = $membre['adresse_membre'];
                 $mbr[$i][3] = $membre['contact_membre'];
-                $mbr[$i++][4] = $membre['genre_membre'];
+                $mbr[$i][4] = $membre['genre_membre'];
+                $mbr[$i++][5] = $membre['date_crea_membre'];
             }
 
             echo json_encode($mbr);
@@ -59,7 +60,8 @@
                 $mbr[$i][1] = $membre['nom_membre'] . " " .$membre['pren_membre'];
                 $mbr[$i][2] = $membre['adresse_membre'];
                 $mbr[$i][3] = $membre['contact_membre'];
-                $mbr[$i++][4] = $membre['genre_membre'];
+                $mbr[$i][4] = $membre['genre_membre'];
+                $mbr[$i++][5] = $membre['date_crea_membre'];
             }
 
             echo json_encode($mbr);

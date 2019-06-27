@@ -14,7 +14,7 @@
         <form class="row my-2 cadre p-4 justify-content-center mx-auto col-md-8">
             <div class="col ">
                 <div class="form-group row mb-0">
-                    <label for="param_annee" class="col-sm-2 col-form-label">Année</label>
+                    <label for="param_annee" class="col-sm-2 col-form-label text-right">Année</label>
                     <select class="custom-select custom-select col-sm-3" name="annee" id="param_annee"
                             onchange="choixAnneeCotisation()">
                         <option value="">Sélectionner...</option>
@@ -22,7 +22,7 @@
                             <?php echo date('Y'); ?>
                         </option>
                     </select>
-                    <label for="date_ope" class="col-sm-2 offset-1 col-form-label">Date</label>
+                    <label for="date_ope" class="col-sm-2 offset-1 col-form-label text-right">Date</label>
                     <input type="date" id="date_ope" class="form-control col-sm-3" aria-describedby="passwordHelpInline">
                 </div>
             </div>

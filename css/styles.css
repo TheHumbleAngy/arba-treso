@@ -142,7 +142,7 @@ h2.ncare {
     margin: 20vh auto;*/
 }
 
-#wrapper_consultation {
+#wrapper_param {
     /*width: 50vw;*/
     /*height: 200px;*/
     background-color: #fff;
@@ -195,6 +195,10 @@ h2.ncare {
 
 .w-12 {
     width: 12% !important;
+}
+
+.w-15 {
+    width: 15% !important;
 }
 
 .fa-1-5x {

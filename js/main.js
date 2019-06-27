@@ -23,11 +23,11 @@ const choixAnneeCotisation = () => {
     if (cbo.value !== '') {
         $.ajax({
             type: 'POST',
-            url: 'operations/entrees/cotisations/ajax/ajax_ope_annee.php',
+            url: 'operations/entrees/cotisations/ajax/ajax_cotisations.php',
             success: function (data) {
                 document.getElementById('enregistrer').disabled = false;
                 response.innerHTML = data;
-                loadNomsMembres('autocompletion');
+                loadMembersNames('autocompletion');
             }
         })
     }
@@ -70,7 +70,7 @@ const setGender = (e) => {
     mtt.value = gender === 'M' ? 2000 : 1000;
 };
 
-const choixListeCotisation = (rdoName, fieldId) => {
+/*const choixListeCotisation = (rdoName, fieldId) => {
     const rdos = document.getElementsByName(rdoName);
     choix = 0;
 
@@ -84,7 +84,7 @@ const choixListeCotisation = (rdoName, fieldId) => {
     }
 
     document.getElementById(fieldId).disabled = choix !== 2;
-};
+};*/
 
 const procederConsultation = (fieldId) => {
     let param = '',
@@ -98,7 +98,6 @@ const procederConsultation = (fieldId) => {
         type: 'POST',
         url: 'consultations/ajax_resultat_consultation.php',
         data: {
-            choix: choix,
             param: param,
             year: annee
         },
@@ -108,10 +107,10 @@ const procederConsultation = (fieldId) => {
     })
 };
 
-const loadNomsMembres = (usage) => {
+const loadMembersNames = (usage) => {
     $.ajax({
         type: 'POST',
-        url: 'membres/ajax_noms_membres.php',
+        url: 'membres/ajax/ajax_noms_membres.php',
         data: {
             usage: usage
         },
@@ -170,10 +169,10 @@ const addRow = (tableId, rowNbr, option) => {
     }
 
     if (!option)
-        loadNomsMembres('autocompletion');
+        loadMembersNames('autocompletion');
 };
 
-const loadMembreData = (e) => {
+const loadMemberData = (e) => {
     // check the emptiness of the field
     if (e.value) {
         let mbr = e.value.split(' ');
@@ -497,7 +496,7 @@ const filterMembre = (usage) => {
             usage: usage,
             info: info
         },
-        url: 'membres/ajax_noms_membres.php',
+        url: 'membres/ajax/ajax_noms_membres.php',
         success: function (data) {
             let arr = JSON.parse(data),
                 n = arr.length, row;
@@ -546,15 +545,20 @@ const filterMembre = (usage) => {
 
                 // Styling the 3rd cell of each line
                 cell = tab.rows[i].cells[2];
-                cell.classList.add('col-3');
+                cell.classList.add('col-2');
 
                 // Styling the 4th cell of each line
                 cell = tab.rows[i].cells[3];
-                cell.classList.add('col-3');
+                cell.classList.add('col-2');
 
-                // Styling the last cell of each line
+                // Styling the 5th cell of each line
+                cell = tab.rows[i].cells[4];
+                cell.classList.add('col-1', 'text-primary', 'font-weight-bold');
+
+                // Styling the 6th cell of each line
                 cell = tab.rows[i].cells[tab.rows[i].cells.length - 1];
-                cell.classList.add('col-1', 'text-center', 'text-primary', 'font-weight-bold');
+                cell.classList.add('col-2');
+
             }
         }
     })

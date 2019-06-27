@@ -35,9 +35,10 @@
                 <tr class="row mx-0">
                     <th class="col-1 text-center">N°</th>
                     <th class="col-4">Membre</th>
-                    <th class="col-3">Adresse</th>
-                    <th class="col-3">Contact</th>
-                    <th class="col-1 text-center">Genre</th>
+                    <th class="col-2">Localité</th>
+                    <th class="col-2">Contact</th>
+                    <th class="col-1">Genre</th>
+                    <th class="col-2">Date d'adhésion</th>
                 </tr>
                 </thead>
                 <tbody id="liste_membres"></tbody>

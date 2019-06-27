@@ -8,16 +8,16 @@
 ?>
 <div class="row justify-content-center">
     <div class="col-6 col-lg-5">
-        <div id="wrapper_consultation" class="shadow gradient">
+        <div id="wrapper_param" class="shadow gradient">
             <div class="container-fluid row">
                 <form class="col-10 col-xl-11 mb-2">
                     <div class="row my-3">
-                        <div class="col-6 col-xl-5">
+                        <div class="col-6 col-xl-5 text-right">
                             <h6 class="my-2">
-                                <label for="type_param" class="m-0">Type d'opération</label>
+                                <label for="type_param" class="m-0">Liste des...</label>
                             </h6>
                         </div>
-                        <div class="col-6 col-lg-6 col-xl-4">
+                        <div class="col-6 col-lg-6 col-xl-5">
                             <select class="custom-select custom-select" name="entite" id="type_param"
                                     onchange="choixParametre(1)">
                                 <option value="">Sélectionner...</option>

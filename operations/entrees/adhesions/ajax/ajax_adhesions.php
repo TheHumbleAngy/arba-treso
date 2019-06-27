@@ -11,12 +11,12 @@
     <thead class="bg-primary text-light">
     <tr>
         <th class="text-center">N°</th>
-        <th class="col-2">Nom</th>
-        <th class="col-3">Prénoms</th>
+        <th class="w-15">Nom</th>
+        <th class="w-25">Prénoms</th>
         <th class="">Localité</th>
         <th class="">Contact</th>
-        <th class="text-center">Sexe</th>
-        <th class="">Droit d'adhésion</th>
+        <th class="text-center">Genre</th>
+        <th class="w-10" title="Droit d'adhésion">Droit d'adhé.</th>
         <th class=""></th>
     </tr>
     </thead>
