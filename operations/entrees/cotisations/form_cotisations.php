@@ -16,7 +16,7 @@
                 <div class="form-group row mb-0">
                     <label for="param_annee" class="col-sm-2 col-form-label text-right">Année</label>
                     <select class="custom-select custom-select col-sm-3" name="annee" id="param_annee"
-                            onchange="choixAnneeCotisation()">
+                            onchange="setYearCotisation()">
                         <option value="">Sélectionner...</option>
                         <option value="<?php echo date('Y'); ?>">
                             <?php echo date('Y'); ?>

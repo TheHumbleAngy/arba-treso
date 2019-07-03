@@ -2,10 +2,10 @@
     /**
      * Created by PhpStorm.
      * User: angem
-     * Date: 11-Jun-19
-     * Time: 1:08 PM
+     * Date: 27-Jun-19
+     * Time: 5:16 PM
      */
-?>
+    ?>
 <div class="row justify-content-center">
     <div class="col-6 col-lg-5">
         <div id="wrapper_param" class="shadow gradient">
@@ -14,15 +14,16 @@
                     <div class="row my-3">
                         <div class="col-6 col-xl-5 text-right">
                             <h6 class="my-2">
-                                <label for="type_param" class="m-0">Liste des...</label>
+                                <label for="type_param" class="m-0">Entité</label>
                             </h6>
                         </div>
                         <div class="col-6 col-lg-6 col-xl-5">
                             <select class="custom-select custom-select" name="entite" id="type_param"
-                                    onchange="setParameter(1)">
+                                    onchange="setParameter(2)">
                                 <option value="">Sélectionner...</option>
                                 <option value="0">Cotisations</option>
-                                <option value="1">Membres</option>
+                                <option value="1">Dépenses</option>
+                                <option value="2">Membres</option>
                             </select>
                         </div>
                     </div>

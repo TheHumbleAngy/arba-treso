@@ -20,7 +20,7 @@
                 </label>
             </div>
             <div class="col justify-content-center">
-                <button class="btn btn-primary col-6" onclick="filterMembre('listing')">
+                <button class="btn btn-primary col-6" onclick="filterMember('listing')">
                     Filtrer <i class="fa fa-arrow-right"></i>
                 </button>
             </div>

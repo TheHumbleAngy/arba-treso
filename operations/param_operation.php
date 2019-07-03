@@ -19,7 +19,7 @@
                         </div>
                         <div class="col-6 col-lg-6 col-xl-5">
                             <select class="custom-select custom-select" name="entite" id="type_param"
-                                    onchange="choixParametre(0)">
+                                    onchange="setParameter(0)">
                                 <option value="">Sélectionner...</option>
                                 <option value="0">Cotisations</option>
                                 <option value="1">Dépenses</option>

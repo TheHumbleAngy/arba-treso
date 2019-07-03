@@ -30,13 +30,19 @@
                     <a role="button" data-toggle="tooltip" data-placement="right" title="Consulter les états"
                        class="btn btn-primary btn-lg btn-block d-flex justify-content-between faa-parent animated-hover"
                        href="index.php?page=consultations/param_consultation">
-                        <span class="mr-auto">🔎 Consultation</span>
+                        <span class="mr-auto">👀 Consultation</span>
                         <i class="fa fa-arrow-right my-auto faa-passing"></i>
                     </a>
-                    <a role="button" data-toggle="tooltip" data-placement="right" title="Produire des états"
+                    <a role="button" data-toggle="tooltip" data-placement="right" title="Recherches approfondies"
+                       class="btn btn-primary btn-lg btn-block d-flex justify-content-between faa-parent animated-hover"
+                       href="index.php?page=recherches/param_reporting">
+                        <span class="mr-auto">🔎 Recherche</span>
+                        <i class="fa fa-arrow-right my-auto faa-passing"></i>
+                    </a>
+                    <a role="button" data-toggle="tooltip" data-placement="right" title="Etats statistiques"
                        class="btn btn-primary btn-lg btn-block d-flex justify-content-between faa-parent animated-hover"
                        href="index.php?page=reporting/param_reporting">
-                        <span class="mr-auto">📂 Reporting</span>
+                        <span class="mr-auto">📊 Statistiques</span>
                         <i class="fa fa-arrow-right my-auto faa-passing"></i>
                     </a>
                 </div>

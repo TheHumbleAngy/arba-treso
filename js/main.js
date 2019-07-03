@@ -1,7 +1,23 @@
 'use strict';
-// import {awesomeplete} from 'addons/awesomplete/awesomplete';
+/* Load the necessary elements here */
+$(document).ready(function () {
+    if (document.getElementById('param_annee')) {
+        cboYearLoader(2);
+    }
 
-let choix = '';
+    if (document.getElementById('type_consultation')) {
+        document.getElementById('type_consultation').value = '';
+    }
+
+    if (document.getElementById('proceder_param')) {
+        document.getElementById('proceder_param').addEventListener('click', () => {
+            if (document.getElementById('type_param').value === '')
+                event.preventDefault();
+        })
+    }
+
+    $('[data-toggle="tooltip"]').tooltip();
+});
 
 // When the user scrolls down 20px from the top of the document, show the button
 window.onscroll = function () {
@@ -16,7 +32,9 @@ function topFunction() {
     $('html').animate({scrollTop: 0}, 'slow');
 }
 
-const choixAnneeCotisation = () => {
+/* Setters and loaders */
+
+const setYearCotisation = () => {
     const cbo = document.getElementById('param_annee');
     let response = document.getElementById('feedback');
 
@@ -27,13 +45,13 @@ const choixAnneeCotisation = () => {
             success: function (data) {
                 document.getElementById('enregistrer').disabled = false;
                 response.innerHTML = data;
-                loadMembersNames('autocompletion');
+                membersNamesLoader('autocompletion');
             }
         })
     }
 };
 
-const choixDateAdhesion = () => {
+const setDateAdhesion = () => {
     const dateAdhe = document.getElementById('date_adhe');
     let response = document.getElementById('feedback');
 
@@ -49,11 +67,12 @@ const choixDateAdhesion = () => {
     }
 };
 
-const choixParametre = (option) => { // 0: operations, 1: consultations
+const setParameter = (option) => { // 0: operations, 1: consultations
     const cbo = document.getElementById('type_param');
     const links = [
         ['index.php?page=operations/entrees/cotisations/form_cotisations', 'index.php?page=operations/sorties/...'],
-        ['index.php?page=operations/entrees/cotisations/liste_cotisations', 'index.php?page=membres/liste_membres']
+        ['index.php?page=operations/entrees/cotisations/liste_cotisations', 'index.php?page=membres/liste_membres'],
+        ['index.php?page=recherches/report_cotisations', 'index.php?page=recherches/report_depenses', 'index.php?page=recherches/report_membres']
     ];
     const button = document.getElementById('proceder_param');
 
@@ -70,44 +89,20 @@ const setGender = (e) => {
     mtt.value = gender === 'M' ? 2000 : 1000;
 };
 
-/*const choixListeCotisation = (rdoName, fieldId) => {
-    const rdos = document.getElementsByName(rdoName);
-    choix = 0;
+const cboYearLoader = (nbr) => {
+    let cbo = document.getElementById('param_annee');
+    let n, elt;
 
-    for (const rdo of rdos) {
-        if (rdo.checked) {
-            choix = parseInt(rdo.value);
-            // console.log(choix);
-
-            break;
-        }
+    for (let i = 0; i < nbr; i++) {
+        n = cbo.length - 1;
+        elt = cbo.options[n].cloneNode(true);
+        elt.value--;
+        elt.text = elt.value;
+        cbo.appendChild(elt);
     }
-
-    document.getElementById(fieldId).disabled = choix !== 2;
-};*/
-
-const procederConsultation = (fieldId) => {
-    let param = '',
-        annee = document.getElementById('param_annee').value,
-        response = document.getElementById('feedback');
-
-    if (!document.getElementById(fieldId).disabled)
-        param = document.getElementById(fieldId).value;
-
-    $.ajax({
-        type: 'POST',
-        url: 'consultations/ajax_resultat_consultation.php',
-        data: {
-            param: param,
-            year: annee
-        },
-        success: function (data) {
-            response.innerHTML = data;
-        }
-    })
 };
 
-const loadMembersNames = (usage) => {
+const membersNamesLoader = (usage) => {
     $.ajax({
         type: 'POST',
         url: 'membres/ajax/ajax_noms_membres.php',
@@ -125,54 +120,7 @@ const loadMembersNames = (usage) => {
     })
 };
 
-const addRow = (tableId, rowNbr, option) => {
-    // We take in account the table body only
-    const tab = document.getElementById(tableId).tBodies[0];
-    let newRow, len, m, input, select;
-
-    const n = tab.rows.length - 1;
-    for (let i = 0; i < rowNbr; i++) {
-        newRow = tab.rows[n].cloneNode(true);
-        len = tab.rows.length;
-        newRow.cells[0].innerHTML = ++len;
-
-        m = newRow.cells.length;
-        for (let j = 1; j < m - 1; j++) {
-            input = newRow.cells[j].getElementsByTagName('input')[0];
-            if (input) {
-                input.id += len;
-                input.value = '';
-                if (!option)
-                    input.removeAttribute('readonly');
-            }
-
-            select = newRow.cells[j].getElementsByTagName('select')[0];
-            if (select)
-                select.id += len;
-        }
-
-        tab.appendChild(newRow);
-    }
-
-    // To remove the add button at the end of each <tr> except the last one
-    for (let j = 0; j < len - 1; j++) {
-        let node = tab.rows[j].cells[m - 1];
-        if (node)
-            node.parentNode.removeChild(node);
-    }
-
-    // To add a <td> to smooth things 😝
-    for (let j = 0; j < len - 1; j++) {
-        let node = tab.rows[j].cells[m - 2];
-        let td = document.createElement('td');
-        node.parentNode.appendChild(td);
-    }
-
-    if (!option)
-        loadMembersNames('autocompletion');
-};
-
-const loadMemberData = (e) => {
+const memberDataLoader = (e) => {
     // check the emptiness of the field
     if (e.value) {
         let mbr = e.value.split(' ');
@@ -243,6 +191,98 @@ const loadMemberData = (e) => {
         })
     }
 };
+
+
+/* Custom functions */
+
+const procederConsultation = (fieldId) => {
+    let param = '',
+        annee = document.getElementById('param_annee').value,
+        response = document.getElementById('feedback');
+
+    if (!document.getElementById(fieldId).disabled)
+        param = document.getElementById(fieldId).value;
+
+    $.ajax({
+        type: 'POST',
+        url: 'consultations/ajax_resultat_consultation.php',
+        data: {
+            param: param,
+            year: annee
+        },
+        success: function (data) {
+            response.innerHTML = data;
+        }
+    })
+};
+
+const addRow = (tableId, rowNbr, option) => {
+    // We take in account the table body only
+    const tab = document.getElementById(tableId).tBodies[0];
+    let newRow, len, m, input, select;
+
+    const n = tab.rows.length - 1;
+    for (let i = 0; i < rowNbr; i++) {
+        newRow = tab.rows[n].cloneNode(true);
+        len = tab.rows.length;
+        newRow.cells[0].innerHTML = ++len;
+
+        m = newRow.cells.length;
+        for (let j = 1; j < m - 1; j++) {
+            input = newRow.cells[j].getElementsByTagName('input')[0];
+            if (input) {
+                input.id += len;
+                input.value = '';
+                if (!option)
+                    input.removeAttribute('readonly');
+            }
+
+            select = newRow.cells[j].getElementsByTagName('select')[0];
+            if (select)
+                select.id += len;
+        }
+
+        tab.appendChild(newRow);
+    }
+
+    // To remove the add button at the end of each <tr> except the last one
+    for (let j = 0; j < len - 1; j++) {
+        let node = tab.rows[j].cells[m - 1];
+        if (node)
+            node.parentNode.removeChild(node);
+    }
+
+    // To add a <td> to smooth things 😝
+    for (let j = 0; j < len - 1; j++) {
+        let node = tab.rows[j].cells[m - 2];
+        let td = document.createElement('td');
+        node.parentNode.appendChild(td);
+    }
+
+    if (!option)
+        membersNamesLoader('autocompletion');
+};
+
+const fieldCheck = (field) => {
+    return document.getElementById(field).value === '';
+};
+
+const clearFields = (tag) => {
+    let elts = document.getElementsByTagName(tag);
+
+    for (const elt of elts) {
+        elt.value = '';
+    }
+};
+
+const callModal = (id, msg) => {
+    if (msg)
+        document.getElementById(id).getElementsByTagName('p')[0].textContent = msg;
+    $('#' + id).modal('show');
+};
+
+
+/* Savers */
 
 const saveCotisations = () => {
     let annee = document.getElementById('param_annee');
@@ -407,18 +447,6 @@ const saveAdhesions = () => {
         callModal('errorModal');
 };
 
-const fieldCheck = (field) => {
-    return document.getElementById(field).value === '';
-};
-
-const clearFields = (tag) => {
-    let elts = document.getElementsByTagName(tag);
-
-    for (const elt of elts) {
-        elt.value = '';
-    }
-};
-
 const saveMember = () => {
     let arr = document.getElementsByTagName('input');
     let myForm = document.getElementById('form_membre');
@@ -466,26 +494,10 @@ const saveMember = () => {
     }
 };
 
-const callModal = (id, msg) => {
-    if (msg)
-        document.getElementById(id).getElementsByTagName('p')[0].textContent = msg;
-    $('#' + id).modal('show');
-};
 
-const cboYearLoader = (nbr) => {
-    let cbo = document.getElementById('param_annee');
-    let n, elt;
+/* Searchers */
 
-    for (let i = 0; i < nbr; i++) {
-        n = cbo.length - 1;
-        elt = cbo.options[n].cloneNode(true);
-        elt.value--;
-        elt.text = elt.value;
-        cbo.appendChild(elt);
-    }
-};
-
-const filterMembre = (usage) => {
+const filterMember = (usage) => {
     let info, mbr = document.getElementById('membre').value;
 
     info = mbr ? mbr : '';
@@ -564,22 +576,32 @@ const filterMembre = (usage) => {
     })
 };
 
-/* Load the necessary elements here */
-$(document).ready(function () {
-    if (document.getElementById('param_annee')) {
-        cboYearLoader(2);
-    }
+const searchMember = (type) => {
 
-    if (document.getElementById('type_consultation')) {
-        document.getElementById('type_consultation').value = '';
-    }
+    if (type === 'recherche') {
+        let nom, prenoms, genre, date, localite, arr, items;
 
-    if (document.getElementById('proceder_param')) {
-        document.getElementById('proceder_param').addEventListener('click', () => {
-            if (document.getElementById('type_param').value === '')
-                event.preventDefault();
-        })
-    }
+        /*nom = 'nom-' + document.getElementById('nom').value;
+        prenoms = 'prenoms-' + document.getElementById('prenoms').value;
+        genre = 'genre-' + document.getElementById('genre').value;
+        date = 'date-' + document.getElementById('date_adhe').value;
+        localite = 'localite-' + document.getElementById('localite').value;*/
 
-    $('[data-toggle="tooltip"]').tooltip();
-});
+        nom = document.getElementById('nom').value;
+        prenoms = document.getElementById('prenoms').value;
+        genre = document.getElementById('genre').value;
+        date = document.getElementById('date_adhe').value;
+        localite = document.getElementById('localite').value;
+
+        items = [nom, prenoms, genre, date, localite];
+        arr = [];
+
+        let n = 0;
+        for (const item of items) {
+            if (item)
+                arr[n++] = item;
+        }
+
+        console.log(arr);
+    }
+};

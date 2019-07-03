@@ -33,7 +33,7 @@
             <span class="" id="numero">1</span>
         </td>
         <td>
-            <input type="text" id="coti_mbr" class="form-control form-control-sm text-uppercase awesomplete" onblur="loadMemberData(this)" title="Membre">
+            <input type="text" id="coti_mbr" class="form-control form-control-sm text-uppercase awesomplete" onblur="memberDataLoader(this)" title="Membre">
         </td>
         <td>
             <input type="text" id="jan" class="form-control form-control-sm " title="Janvier">
@@ -47,7 +47,7 @@
         <td>
             <input type="text" id="avr" class="form-control form-control-sm " title="Avril">
         </td>
-        <td class="">
+        <td>
             <input type="text" id="mai" class="form-control form-control-sm " title="Mai">
         </td>
         <td>

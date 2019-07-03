@@ -55,7 +55,7 @@
                     <a class="dropdown-item" href="#">Dépenses</a>
                 </div>
             </li>
-            <li class="nav-item dropdown">
+            <li class="nav-item">
                 <a class="nav-link" href="index.php?page=operations/entrees/adhesions/form_adhesions" id="navbarAdhesions" role="button" aria-haspopup="true" aria-expanded="false">
                     Adhésions
                 </a>
@@ -72,8 +72,19 @@
                 </div>
             </li>
             <li class="nav-item dropdown">
-                <a class="nav-link" href="#" id="navbarReporting" role="button" aria-haspopup="true" aria-expanded="false">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarReporting" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Reporting
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarOperations">
+                    <a class="dropdown-item" href="index.php?page=">Cotisations</a>
+                    <a class="dropdown-item" href="index.php?page=">Dépenses</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="index.php?page=">Membres</a>
+                </div>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#" id="navbarStats" role="button" aria-haspopup="true" aria-expanded="false">
+                    Statistiques
                 </a>
             </li>
         </ul>
