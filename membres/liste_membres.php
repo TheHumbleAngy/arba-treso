@@ -38,7 +38,7 @@
                     <th class="col-2">Localité</th>
                     <th class="col-2">Contact</th>
                     <th class="col-1">Genre</th>
-                    <th class="col-2">Date d'adhésion</th>
+                    <th class="col-2">Adhésion</th>
                 </tr>
                 </thead>
                 <tbody id="liste_membres"></tbody>

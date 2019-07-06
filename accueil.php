@@ -35,13 +35,13 @@
                     </a>
                     <a role="button" data-toggle="tooltip" data-placement="right" title="Recherches approfondies"
                        class="btn btn-primary btn-lg btn-block d-flex justify-content-between faa-parent animated-hover"
-                       href="index.php?page=recherches/param_reporting">
+                       href="index.php?page=recherches/param_recherches">
                         <span class="mr-auto">🔎 Recherche</span>
                         <i class="fa fa-arrow-right my-auto faa-passing"></i>
                     </a>
                     <a role="button" data-toggle="tooltip" data-placement="right" title="Etats statistiques"
                        class="btn btn-primary btn-lg btn-block d-flex justify-content-between faa-parent animated-hover"
-                       href="index.php?page=reporting/param_reporting">
+                       href="index.php?page=stats/param_stats">
                         <span class="mr-auto">📊 Statistiques</span>
                         <i class="fa fa-arrow-right my-auto faa-passing"></i>
                     </a>

@@ -72,7 +72,8 @@ const setParameter = (option) => { // 0: operations, 1: consultations
     const links = [
         ['index.php?page=operations/entrees/cotisations/form_cotisations', 'index.php?page=operations/sorties/...'],
         ['index.php?page=operations/entrees/cotisations/liste_cotisations', 'index.php?page=membres/liste_membres'],
-        ['index.php?page=recherches/report_cotisations', 'index.php?page=recherches/report_depenses', 'index.php?page=recherches/report_membres']
+        ['index.php?page=recherches/recherche_cotisations', 'index.php?page=recherches/recherche_depenses', 'index.php?page=recherches/recherche_membres'],
+        ['index.php?page=stats/stats_cotisations', 'index.php?page=stats/stats_depenses', 'index.php?page=stats/stats_membres']
     ];
     const button = document.getElementById('proceder_param');
 
@@ -579,29 +580,61 @@ const filterMember = (usage) => {
 const searchMember = (type) => {
 
     if (type === 'recherche') {
-        let nom, prenoms, genre, date, localite, arr, items;
-
-        /*nom = 'nom-' + document.getElementById('nom').value;
-        prenoms = 'prenoms-' + document.getElementById('prenoms').value;
-        genre = 'genre-' + document.getElementById('genre').value;
-        date = 'date-' + document.getElementById('date_adhe').value;
-        localite = 'localite-' + document.getElementById('localite').value;*/
+        let nom, prenoms, genre, localite, sql;
+        let response = document.getElementById('feedback');
 
         nom = document.getElementById('nom').value;
         prenoms = document.getElementById('prenoms').value;
         genre = document.getElementById('genre').value;
-        date = document.getElementById('date_adhe').value;
         localite = document.getElementById('localite').value;
 
-        items = [nom, prenoms, genre, date, localite];
-        arr = [];
+        sql = "SELECT * FROM membres WHERE ";
 
-        let n = 0;
-        for (const item of items) {
-            if (item)
-                arr[n++] = item;
+        /* Searching name */
+        if (nom)
+            sql += `nom_membre = '${nom}'`;
+
+        /* Searching prenoms */
+        if (nom && prenoms)
+            sql += ` AND pren_membre = '${prenoms}'`;
+        else if (prenoms)
+            sql += `pren_membre = '${prenoms}'`;
+
+        /* Searching gender */
+        if ((nom && genre) || (prenoms && genre))
+            sql += ` AND genre_membre = '${genre}'`;
+        else if (genre)
+            sql += `genre_membre = '${genre}'`;
+
+        /* Searching address */
+        if ((nom && localite) || (prenoms && localite) || (genre && localite))
+            sql += ` AND adresse_membre LIKE '%${localite}%'`;
+        else if (localite)
+            sql += `adresse_membre LIKE '%${localite}%'`;
+
+        if (sql !== "SELECT * FROM membres WHERE ") {
+            $.ajax({
+                type: 'POST',
+                data: {
+                    info: sql.trim()
+                },
+                url: 'recherches/ajax/ajax_search_membres.php',
+                success: function (data) {
+                    response.innerHTML = data;
+                }
+            })
         }
-
-        console.log(arr);
     }
+};
+
+
+/* Stats */
+
+const getStatsMember = () => {
+    let nom, genre, loc;
+
+    nom = document.getElementById('nom');
+    genre = document.getElementById('genre');
+    loc = document.getElementById('localite');
+    
 };

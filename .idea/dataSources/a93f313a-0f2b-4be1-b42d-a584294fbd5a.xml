@@ -989,7 +989,7 @@
     </column>
     <column id="246" parent="233" name="genre_membre">
       <Position>4</Position>
-      <Comment>H/F</Comment>
+      <Comment>M/F</Comment>
       <DataType>char(1)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>

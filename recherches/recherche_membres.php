@@ -14,31 +14,21 @@
 
         <div class="col-12 mx-auto my-2 cadre p-4">
             <div class="row justify-content-center">
-                <label for="nom" class="col-4">
+                <label for="nom" class="col-3">
                     <input type="text" class="form-control text-uppercase" id="nom" placeholder="Nom..." aria-describedby="textHelp">
-                    <!--<small id="textHelp" class="form-text text-muted">Renseigner soit le nom ou le prénom.</small>-->
                 </label>
-                <label for="prenoms" class="col-4">
+                <label for="prenoms" class="col">
                     <input type="text" class="form-control text-uppercase" id="prenoms" placeholder="Prénoms..." aria-describedby="textHelp">
-                    <!--<small id="textHelp" class="form-text text-muted">Renseigner soit le nom ou le prénom.</small>-->
                 </label>
-                <label for="genre" class="col-1">
-                    <select class="custom-select custom-select" id="genre" aria-describedby="textHelp">
-                        <option></option>
-                        <option value="F">F</option>
-                        <option value="M">M</option>
+                <label for="genre" class="col-2">
+                    <select class="custom-select custom-select" id="genre">
+                        <option value="">Genre</option>
+                        <option value="F">Feminin</option>
+                        <option value="M">Masculin</option>
                     </select>
-                    <small id="textHelp" class="form-text text-muted">Genre</small>
                 </label>
-                <label for="date_adhe" class="col">
-                    <input type="date" id="date_adhe" class="form-control" aria-describedby="textHelp">
-                    <small id="textHelp" class="form-text text-muted">Renseigner la date d'adhésion.</small>
-                </label>
-            </div>
-            <div class="row ">
-                <label for="localite" class="col-4">
+                <label for="localite" class="col-3">
                     <input type="text" class="form-control text-uppercase" id="localite" placeholder="Localité..." aria-describedby="textHelp">
-                    <!--<small id="textHelp" class="form-text text-muted">Renseigner soit le nom ou le prénom.</small>-->
                 </label>
             </div>
             <div class="row mt-2 justify-content-center">

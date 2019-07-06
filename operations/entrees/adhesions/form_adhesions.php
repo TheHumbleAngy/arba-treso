@@ -15,7 +15,7 @@
             <div class="col">
                 <label for="date_adhe">
                     <input type="date" id="date_adhe" class="form-control" aria-describedby="textHelp" onchange="setDateAdhesion()">
-                    <small id="textHelp" class="form-text text-muted">Renseigner la date d'adhésion.</small>
+                    <small id="textHelp" class="form-text text-muted">Renseigner la Adhésion.</small>
                 </label>
             </div>
         </div>

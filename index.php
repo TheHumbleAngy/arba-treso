@@ -73,7 +73,7 @@
             </li>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarReporting" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Reporting
+                    Recherche
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarOperations">
                     <a class="dropdown-item" href="index.php?page=">Cotisations</a>
