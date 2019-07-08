@@ -1,5 +1,7 @@
 'use strict';
-/* Load the necessary elements here */
+let selectedLabel, unselectedLabel;
+
+    /* Load the necessary elements here */
 $(document).ready(function () {
     if (document.getElementById('param_annee')) {
         cboYearLoader(2);
@@ -31,6 +33,7 @@ window.onscroll = function () {
 function topFunction() {
     $('html').animate({scrollTop: 0}, 'slow');
 }
+
 
 /* Setters and loaders */
 
@@ -192,6 +195,42 @@ const memberDataLoader = (e) => {
         })
     }
 };
+
+const setGraphLabelColor = (rdoName) => {
+    let elt, radios;
+
+    radios = document.getElementsByName(rdoName);
+
+    for (const radio of radios) {
+        if (radio.checked) {
+            elt = radio.nextSibling;
+
+            while (elt) {
+                if (elt.nodeName === 'LABEL') {
+                    selectedLabel = elt;
+                    break;
+                }
+                elt = elt.nextSibling;
+            }
+            if (selectedLabel)
+                selectedLabel.classList.add('text-primary');
+        } else {
+            elt = radio.nextSibling;
+
+            while (elt) {
+                if (elt.nodeName === 'LABEL') {
+                    unselectedLabel = elt;
+                    break;
+                }
+                elt = elt.nextSibling;
+            }
+            if (unselectedLabel)
+                unselectedLabel.classList.remove('text-primary');
+        }
+    }
+};
+
+
 
 
 /* Custom functions */
@@ -636,5 +675,86 @@ const getStatsMember = () => {
     nom = document.getElementById('nom');
     genre = document.getElementById('genre');
     loc = document.getElementById('localite');
-    
+
+};
+
+const displayGraph = (entity) => {
+    let prop, graphType;
+    prop = document.getElementById('prop').value;
+
+    if (selectedLabel && prop) {
+        graphType = selectedLabel.textContent.trim();
+
+        switch (graphType) {
+            case 'Histogramme':
+                graphType = 'bar';
+                break;
+            case 'Barres':
+                graphType = 'horizontalBar';
+                break;
+            default:
+                graphType = 'pie';
+                break;
+        }
+
+        $.ajax({
+            type: 'POST',
+            data: {
+                entity: entity,
+                prop: prop
+            },
+            url: 'stats/ajax/ajax_stats_membres.php',
+            success: function (data) {
+                let chart = document.getElementById('myChart');
+                let labels = data[0];
+                let dataValues = data[1];
+                let title;
+                let label = entity.substr(0, 1).toUpperCase() + entity.substr(1).toLowerCase();
+
+                chartDrawer(chart, graphType, label, labels, label, dataValues);
+            }
+        })
+    }
+};
+
+const chartDrawer = (chart, type, title, labels, label, dataValues) => {
+    let myChart = chart.getContext('2d');
+    let massPopChart = new Chart(myChart, {
+        type: type, // bar, horizontalBar, pie, line, doughnut, radar, polarArea
+        data: {
+            labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+            // labels: labels,
+            datasets: [{
+                label: label,
+                data: [12, 19, 3, 5, 2, 3],
+                // data: dataValues,
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(255, 159, 64, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)'
+                ],
+                borderWidth: 1,
+                hoverBorderWidth: 3,
+                // hoverBorderColor: '#777'
+            }]
+        },
+        options: {
+            title: {
+                display: true,
+                text: title,
+                fontSize: 16
+            }
+        }
+    })
 };

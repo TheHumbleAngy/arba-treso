@@ -8,6 +8,7 @@
       <w>adhésion</w>
       <w>adhésions</w>
       <w>adresse</w>
+      <w>afficher</w>
       <w>ajout</w>
       <w>angem</w>
       <w>aout</w>
@@ -20,12 +21,14 @@
       <w>banque</w>
       <w>banques</w>
       <w>categorie</w>
+      <w>chartjs</w>
       <w>choix</w>
       <w>compte</w>
       <w>coti</w>
       <w>cotisation</w>
       <w>cotisations</w>
       <w>cours</w>
+      <w>datasets</w>
       <w>datepicker</w>
       <w>depenses</w>
       <w>dropdown</w>
@@ -34,10 +37,13 @@
       <w>entite</w>
       <w>entrées</w>
       <w>etat</w>
+      <w>femmes</w>
       <w>fontawesome</w>
       <w>frais</w>
       <w>geographique</w>
       <w>gestion</w>
+      <w>histogramme</w>
+      <w>hommes</w>
       <w>juil</w>
       <w>juin</w>
       <w>kouakou</w>
@@ -73,6 +79,7 @@
       <w>resultat</w>
       <w>saisie</w>
       <w>saisir</w>
+      <w>secteurs</w>
       <w>separateur</w>
       <w>sigle</w>
       <w>signe</w>
@@ -80,6 +87,7 @@
       <w>statut</w>
       <w>strtoupper</w>
       <w>sélectionner</w>
+      <w>sélectionnez</w>
       <w>treso</w>
       <w>valider</w>
       <w>veuillez</w>
