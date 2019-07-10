@@ -18,7 +18,6 @@
                     <select class="custom-select custom-select" id="prop">
                         <option value="">Proprieté</option>
                         <option value="genre">Genre</option>
-                        <option value="nom">Nom</option>
                         <option value="localite">Localité</option>
                     </select>
                     <small id="textHelp" class="form-text text-muted">
@@ -60,43 +59,74 @@
 
     <script>
         let myChart = document.getElementById('myChart').getContext('2d');
-        let massPopChart = new Chart(myChart, {
-            type: 'pie', // bar, horizontalBar, pie, line, doughnut, radar, polarArea
-            data: {
-                labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-                // labels: labels,
-                datasets: [{
-                    label: 'Population',
-                    data: [12, 19, 3, 5, 2, 3],
-                    // data: dataValues,
-                    backgroundColor: [
-                        'rgba(255, 99, 132, 0.2)',
-                        'rgba(54, 162, 235, 0.2)',
-                        'rgba(255, 206, 86, 0.2)',
-                        'rgba(75, 192, 192, 0.2)',
-                        'rgba(153, 102, 255, 0.2)',
-                        'rgba(255, 159, 64, 0.2)'
-                    ],
-                    borderColor: [
-                        'rgba(255, 99, 132, 1)',
-                        'rgba(54, 162, 235, 1)',
-                        'rgba(255, 206, 86, 1)',
-                        'rgba(75, 192, 192, 1)',
-                        'rgba(153, 102, 255, 1)',
-                        'rgba(255, 159, 64, 1)'
-                    ],
-                    borderWidth: 1,
-                    hoverBorderWidth: 3,
-                    // hoverBorderColor: '#777'
-                }]
-            },
-            options: {
-                title: {
-                    display: true,
-                    text: 'My Title',
-                    fontSize: 16
+
+        const testChart = () =>
+            massPopChart = new Chart(myChart, {
+                type: 'pie', // bar, horizontalBar, pie, line, doughnut, radar, polarArea
+                data: {
+                    labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+                    // labels: labels,
+                    datasets: [{
+                        label: 'Population',
+                        data: [12, 19, 3, 5, 2, 3],
+                        // data: dataValues,
+                        /*backgroundColor: [
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(255, 206, 86, 0.2)',
+                            'rgba(75, 192, 192, 0.2)',
+                            'rgba(153, 102, 255, 0.2)',
+                            'rgba(255, 159, 64, 0.2)'
+                        ],
+                        borderColor: [
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)',
+                            'rgba(255, 159, 64, 1)'
+                        ],*/
+                        backgroundColor: [
+                            'rgba(230, 25, 75, 0.2)',
+                            'rgba(60, 180, 75, 0.2)',
+                            'rgba(255, 225, 25, 0.2)',
+                            'rgba(0, 130, 200, 0.2)',
+                            'rgba(245, 130, 48, 0.2)',
+                            'rgba(145, 30, 180, 0.2)',
+                            'rgba(70, 240, 240, 0.2)',
+                            'rgba(240, 50, 230, 0.2)',
+                            'rgba(210, 245, 60, 0.2)',
+                            'rgba(0, 128, 128, 0.2)',
+                            'rgba(170, 110, 40, 0.2)',
+                            'rgba(128, 128, 0, 0.2)'
+                        ],
+                        borderColor: [
+                            'rgba(230, 25, 75, 1)',
+                            'rgba(60, 180, 75, 1)',
+                            'rgba(255, 225, 25, 1)',
+                            'rgba(0, 130, 200, 1)',
+                            'rgba(245, 130, 48, 1)',
+                            'rgba(145, 30, 180, 1)',
+                            'rgba(70, 240, 240, 1)',
+                            'rgba(240, 50, 230, 1)',
+                            'rgba(210, 245, 60, 1)',
+                            'rgba(0, 128, 128, 1)',
+                            'rgba(170, 110, 40, 1)',
+                            'rgba(128, 128, 0, 1)'
+                        ],
+                        borderWidth: 1,
+                        hoverBorderWidth: 3,
+                        // hoverBorderColor: '#777'
+                    }]
+                },
+                options: {
+                    title: {
+                        display: true,
+                        text: 'My Title',
+                        fontSize: 16
+                    }
                 }
-            }
-        })
+            });
+        //testChart();
     </script>
 </div>

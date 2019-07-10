@@ -34,7 +34,7 @@
     <link href='https://fonts.googleapis.com/css?family=Noto+Serif:400,400italic,700' rel='stylesheet' type='text/css'>
 
     <!-- Chartjs -->
-    <script src="addons/node_modules/chart.js/dist/Chart.min.js"></script>
+    <script src="addons/node_modules/chart.js/dist/Chart.js"></script>
 </head>
 <body class="bg-light">
 
