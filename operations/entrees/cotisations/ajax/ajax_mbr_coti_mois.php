@@ -10,10 +10,13 @@
         $sql = $_POST['info'];
 
         $connection = mysqli_connect('localhost', 'root', '', 'gestion_treso_arba');
-        $resultat = mysqli_query($connection, $sql);
-        if ($resultat->num_rows) {
-            $lignes = $resultat->fetch_all(MYSQLI_ASSOC);
+        $result = mysqli_query($connection, $sql);
+        if ($result->num_rows) {
+            $lignes = $result->fetch_all(MYSQLI_ASSOC);
 
             echo json_encode($lignes);
         }
+
+        $result->free();
+        $connection->close();
     }

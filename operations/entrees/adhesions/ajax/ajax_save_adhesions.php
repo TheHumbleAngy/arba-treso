@@ -25,13 +25,13 @@
             $pren = strtoupper(trim($data[$i][1]));
             $adresse = strtoupper(trim($data[$i][2]));
             $contact = $data[$i][3];
-            $gender = $data[$i][4];
+            $genre = $data[$i][4];
             $mtt = $data[$i][5];
 
             // Checking that info to be saved do not exist already
-            $sql_mbr_exist = "SELECT * FROM membres WHERE nom_membre = '{$nom}' AND pren_membre = '{$pren}' AND genre_membre = '{$gender}'";
-            $resultat = mysqli_query($connection, $sql_mbr_exist);
-            if ($resultat->num_rows) {
+            $sql_mbr_exist = "SELECT * FROM membres WHERE nom_membre = '{$nom}' AND pren_membre = '{$pren}' AND genre_membre = '{$genre}'";
+            $result = mysqli_query($connection, $sql_mbr_exist);
+            if ($result->num_rows) {
                 $test_mbr_exist = true;
 
                 break;
@@ -43,9 +43,9 @@
 
                 $year = date('y');
                 $number = '000';
-                $resultat = mysqli_query($connection, $sql_last);
-                if ($resultat->num_rows > 0) {
-                    $membres = $resultat->fetch_all(MYSQLI_ASSOC);
+                $result = mysqli_query($connection, $sql_last);
+                if ($result->num_rows > 0) {
+                    $membres = $result->fetch_all(MYSQLI_ASSOC);
 
                     foreach ($membres as $membre) {
                         $id_last_mbr = $membre['id_membre'];
@@ -61,17 +61,17 @@
                 $nom = mysqli_escape_string($connection, strtoupper($nom));
                 $pren = mysqli_escape_string($connection, strtoupper($pren));
 
-                $sql_mbr = "INSERT INTO membres (id_membre, nom_membre, pren_membre, genre_membre, adresse_membre, contact_membre) VALUES ('$id_mbr', '$nom', '$pren', '$gender', '$adresse', '$contact')";
-                if ($resultat = mysqli_query($connection, $sql_mbr)) {
+                $sql_mbr = "INSERT INTO membres (id_membre, nom_membre, pren_membre, genre_membre, adresse_membre, contact_membre) VALUES ('{$id_mbr}', '{$nom}', '{$pren}', '{$genre}', '{$adresse}', '{$contact}')";
+                if ($result = mysqli_query($connection, $sql_mbr)) {
 
                     // ...operation
                     $sql_last = "SELECT id_operation FROM operations ORDER BY id_operation DESC LIMIT 1";
 
                     $year = date('y');
-                    $resultat = mysqli_query($connection, $sql_last);
+                    $result = mysqli_query($connection, $sql_last);
                     $number = 0;
-                    if ($resultat->num_rows > 0) {
-                        $ids = $resultat->fetch_all(MYSQLI_ASSOC);
+                    if ($result->num_rows > 0) {
+                        $ids = $result->fetch_all(MYSQLI_ASSOC);
 
                         foreach ($ids as $id) {
                             $id_last_op = $id['id_operation'];
@@ -90,7 +90,7 @@
                     $an = substr($date, 0, 4);
 
                     $sql_op = "INSERT INTO operations (id_operation, id_membre, id_mois, id_categorie, montant_operation, obs_operation, date_saisie_operation, date_operation, annee_operation) VALUES ('{$id_ope}', '{$id_mbr}', '{$id_mois}', '{$id_categorie}', {$mtt}, '{$obs}', '{$today}', '{$date_ope}', {$an})";
-                    if ($resultat = mysqli_query($connection, $sql_op)) {
+                    if ($result = mysqli_query($connection, $sql_op)) {
                         $test_insert = true;
                     } else {
                         $test_insert = false;
@@ -112,4 +112,7 @@
             echo "Error while inserting data";
         else
             echo "Data saved";
+
+        $result->free();
+        $connection->close();
     }

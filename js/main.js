@@ -382,7 +382,7 @@ const saveCotisations = () => {
         }
 
         let dateOpe = document.getElementById('date_ope').value;
-        if (data.length && dateOpe && data[0].length > 1) { // TODO: le cas des noms renseignés mais pas les montants est pris en compte ici
+        if (data.length && dateOpe && data[0].length > 1) { // DONE: le cas des noms renseignés mais pas les montants est pris en compte ici
             $.ajax({
                 type: 'POST',
                 url: 'operations/entrees/cotisations/ajax/ajax_save_cotisations.php',

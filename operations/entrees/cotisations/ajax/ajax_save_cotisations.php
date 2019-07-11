@@ -36,7 +36,6 @@
                 }
             }
 
-            //TODO: Gérer le cas où les noms sont renseignés mais pas les montants de cotisations
             // "KOUAKOU ANGE" "1, 2000" "2, 2000" "3, 1000" "4, 3000" "11, 2000"
             for ($j = 0; $j < sizeof($mois[$i]); $j++) {
                 if ((int)$mois[$i][$j] < 10) {
@@ -57,9 +56,9 @@
             // Getting the id of the current member, on line i
             $sql_mbr = "SELECT id_membre FROM membres WHERE nom_membre = '{$nom}' AND pren_membre = '{$prenoms}'";
 
-            $resultat = mysqli_query($connection, $sql_mbr);
-            if ($resultat->num_rows) {
-                $lignes = $resultat->fetch_all(MYSQLI_ASSOC);
+            $result = mysqli_query($connection, $sql_mbr);
+            if ($result->num_rows) {
+                $lignes = $result->fetch_all(MYSQLI_ASSOC);
                 foreach ($lignes as $ligne) {
                     $id_mbr = $ligne['id_membre'];
                 }
@@ -79,8 +78,8 @@
 
                 // Checking that info to be saved do not exist already
                 $sql_test_exist = "SELECT * FROM operations WHERE id_membre = '{$id_mbr}' AND id_mois = '{$id_mois}' AND id_categorie = 'CAT02' AND montant_operation = '{$montant}' AND annee_operation = '{$an}'";
-                $resultat = mysqli_query($connection, $sql_test_exist);
-                if ($resultat->num_rows) {
+                $result = mysqli_query($connection, $sql_test_exist);
+                if ($result->num_rows) {
                     $test_op_exist = true;
 
                     break;
@@ -89,10 +88,10 @@
                     $sql_last = "SELECT id_operation FROM operations ORDER BY id_operation DESC LIMIT 1";
 
                     $year = date('y');
-                    $resultat = mysqli_query($connection, $sql_last);
+                    $result = mysqli_query($connection, $sql_last);
                     $number = 0;
-                    if ($resultat->num_rows > 0) {
-                        $ids = $resultat->fetch_all(MYSQLI_ASSOC);
+                    if ($result->num_rows > 0) {
+                        $ids = $result->fetch_all(MYSQLI_ASSOC);
 
                         foreach ($ids as $id) {
                             $id_last_op = $id['id_operation'];
@@ -108,7 +107,7 @@
                     $date_ope = $_POST['date_ope'];
 
                     $sql = "INSERT INTO operations (id_operation, id_membre, id_mois, id_categorie, montant_operation, obs_operation, date_saisie_operation, date_operation, annee_operation) VALUES ('{$id_ope}', '{$id_mbr}', '{$id_mois}', '{$id_categorie}', {$montant}, '{$obs}', '{$today}', '{$date_ope}', {$an})";
-                    if ($resultat = mysqli_query($connection, $sql)) {
+                    if ($result = mysqli_query($connection, $sql)) {
                         $count++;
                     } else {
                         $test_insert = false;
@@ -128,7 +127,7 @@
         } else {
             echo "Data not saved. Some data already exist";
         }
-        //echo "test_op_exist {!$test_op_exist} | test_mbr_exist {$test_mbr_exist} | test_insert {$test_insert}";
-        //$test = sprintf("%04d", 12);
-        //echo json_encode($sql);
+
+        $result->free();
+        $connection->close();
     }

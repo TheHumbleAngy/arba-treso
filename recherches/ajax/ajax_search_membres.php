@@ -27,9 +27,9 @@
             if (isset($_POST['info'])) {
                 $sql = $_POST['info'];
 
-                $resultat = mysqli_query($connection, $sql);
-                if ($resultat->num_rows > 0) {
-                    $membres = $resultat->fetch_all(MYSQLI_ASSOC);
+                $result = mysqli_query($connection, $sql);
+                if ($result->num_rows > 0) {
+                    $membres = $result->fetch_all(MYSQLI_ASSOC);
                     $i = 0;
                     foreach ($membres as $membre) {
                         $nom_mbr = $membre['nom_membre'];
@@ -79,6 +79,9 @@
                         <?php
                     }
                 }
+
+                $result->free();
+                $connection->close();
             }
         ?>
         </tbody>

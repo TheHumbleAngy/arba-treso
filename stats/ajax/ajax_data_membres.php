@@ -23,16 +23,16 @@
 
                 $sql = "SELECT genre_membre, COUNT(genre_membre) FROM membres WHERE genre_membre NOT LIKE '' GROUP BY genre_membre";
 
-                $resultat = mysqli_query($connection, $sql);
-                if ($resultat->num_rows) {
+                $result = mysqli_query($connection, $sql);
+                if ($result->num_rows) {
                     $i = 0;
-                    while ($row = mysqli_fetch_row($resultat)) {
+                    while ($row = mysqli_fetch_row($result)) {
                         $genre[$i] = $row[0];
                         $data[$i++] = $row[1];
                     }
                 }
 
-                $resultat->free();
+                $result->free();
                 $connection->close();
 
                 /**
@@ -53,17 +53,16 @@
 
                 $sql = "SELECT adresse_membre, COUNT(adresse_membre) FROM membres WHERE adresse_membre NOT LIKE '' GROUP BY adresse_membre";
 
-                $resultat = mysqli_query($connection, $sql);
-                if ($resultat->num_rows) {
-                    // TODO: update all ajax calls that only get value to fit with the below pattern
+                $result = mysqli_query($connection, $sql);
+                if ($result->num_rows) {
                     $i = 0;
-                    while ($row = mysqli_fetch_row($resultat)) {
+                    while ($row = mysqli_fetch_row($result)) {
                         $localite[$i] = $row[0];
                         $data[$i++] = $row[1];
                     }
                 }
 
-                $resultat->free();
+                $result->free();
                 $connection->close();
 
                 echo json_encode([$localite, $data]);

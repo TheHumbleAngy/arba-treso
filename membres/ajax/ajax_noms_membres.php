@@ -11,9 +11,9 @@
     if ($_POST['usage'] == 'autocompletion') {
         $sql_mbr = "SELECT * FROM membres";
 
-        $resultat = mysqli_query($connection, $sql_mbr);
-        if ($resultat->num_rows > 0) {
-            $membres = $resultat->fetch_all(MYSQLI_ASSOC);
+        $result = mysqli_query($connection, $sql_mbr);
+        if ($result->num_rows > 0) {
+            $membres = $result->fetch_all(MYSQLI_ASSOC);
             $i = 0;
 
             foreach ($membres as $membre) {
@@ -24,14 +24,17 @@
                 $mbr[$i++] = $nom_mbr . " " . $pren_mbr;
             }
 
+            $result->free();
+            $connection->close();
+
             echo json_encode($mbr);
         }
     } elseif ($_POST['usage'] == 'listing' && $_POST['info'] == '') {
         $sql_mbr = "SELECT * FROM membres";
 
-        $resultat = mysqli_query($connection, $sql_mbr);
-        if ($resultat->num_rows > 0) {
-            $membres = $resultat->fetch_all(MYSQLI_ASSOC);
+        $result = mysqli_query($connection, $sql_mbr);
+        if ($result->num_rows > 0) {
+            $membres = $result->fetch_all(MYSQLI_ASSOC);
             $i = 0;
 
             foreach ($membres as $membre) {
@@ -42,17 +45,20 @@
                 $mbr[$i][4] = $membre['genre_membre'];
                 $mbr[$i++][5] = $membre['date_crea_membre'];
             }
+
+            $result->free();
+            $connection->close();
 
             echo json_encode($mbr);
         }
     } elseif ($_POST['usage'] == 'listing' && $_POST['info'] != '') {
         $param = $_POST['info'];
 
-        $sql_mbr = "SELECT * FROM membres WHERE nom_membre LIKE '%" . $param . "%' OR pren_membre LIKE '%" . $param . "%'";
+        $sql_mbr = "SELECT * FROM membres WHERE nom_membre LIKE '%{$param}%' OR pren_membre LIKE '%{$param}%'";
 
-        $resultat = mysqli_query($connection, $sql_mbr);
-        if ($resultat->num_rows > 0) {
-            $membres = $resultat->fetch_all(MYSQLI_ASSOC);
+        $result = mysqli_query($connection, $sql_mbr);
+        if ($result->num_rows > 0) {
+            $membres = $result->fetch_all(MYSQLI_ASSOC);
             $i = 0;
 
             foreach ($membres as $membre) {
@@ -63,6 +69,9 @@
                 $mbr[$i][4] = $membre['genre_membre'];
                 $mbr[$i++][5] = $membre['date_crea_membre'];
             }
+
+            $result->free();
+            $connection->close();
 
             echo json_encode($mbr);
         }
