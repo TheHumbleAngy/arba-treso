@@ -75,7 +75,7 @@ const setParameter = (option) => { // 0: operations, 1: consultations
     const links = [
         ['index.php?page=operations/entrees/cotisations/form_cotisations', 'index.php?page=operations/sorties/...'],
         ['index.php?page=operations/entrees/cotisations/liste_cotisations', 'index.php?page=membres/liste_membres'],
-        ['index.php?page=recherches/recherche_cotisations', 'index.php?page=recherches/recherche_depenses', 'index.php?page=recherches/recherche_membres'],
+        ['index.php?page=recherches/recherche_membres', 'index.php?page=recherches/recherche_operations'],
         ['index.php?page=stats/stats_cotisations', 'index.php?page=stats/stats_depenses', 'index.php?page=stats/stats_membres']
     ];
     const button = document.getElementById('proceder_param');
@@ -670,8 +670,6 @@ const searchMember = (type) => {
 /* Stats */
 
 const canvasCreator = (id, height, parentId) => {
-    /* Create the <canvas> to display the graph */
-
     let nested = document.getElementById(id);
     let top = document.getElementById(parentId);
     if (nested)
@@ -682,14 +680,65 @@ const canvasCreator = (id, height, parentId) => {
     canvas.style.height = height;
 
     top.appendChild(canvas);
+};
 
-    /************/
+const chartDrawer = (chart, type, title, labels, label, dataValues) => {
+    let myChart = document.getElementById(chart).getContext('2d');
+
+    return new Chart(myChart, {
+        type: type, // bar, horizontalBar, pie, line, doughnut, radar, polarArea
+        data: {
+            labels: labels,
+            datasets: [{
+                label: label,
+                data: dataValues,
+                backgroundColor: [
+                    'rgba(230, 25, 75, 0.2)',
+                    'rgba(0, 130, 200, 0.2)',
+                    'rgba(255, 225, 25, 0.2)',
+                    'rgba(60, 180, 75, 0.2)',
+                    'rgba(245, 130, 48, 0.2)',
+                    'rgba(145, 30, 180, 0.2)',
+                    'rgba(70, 240, 240, 0.2)',
+                    'rgba(240, 50, 230, 0.2)',
+                    'rgba(210, 245, 60, 0.2)',
+                    'rgba(0, 128, 128, 0.2)',
+                    'rgba(170, 110, 40, 0.2)',
+                    'rgba(128, 128, 0, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(230, 25, 75, 1)',
+                    'rgba(0, 130, 200, 1)',
+                    'rgba(255, 225, 25, 1)',
+                    'rgba(60, 180, 75, 1)',
+                    'rgba(245, 130, 48, 1)',
+                    'rgba(145, 30, 180, 1)',
+                    'rgba(70, 240, 240, 1)',
+                    'rgba(240, 50, 230, 1)',
+                    'rgba(210, 245, 60, 1)',
+                    'rgba(0, 128, 128, 1)',
+                    'rgba(170, 110, 40, 1)',
+                    'rgba(128, 128, 0, 1)'
+                ],
+                borderWidth: 1,
+                hoverBorderWidth: 3,
+            }]
+        },
+        options: {
+            title: {
+                display: true,
+                text: title,
+                fontSize: 18
+            }
+        }
+    })
 };
 
 const displayGraph = (entity) => {
     let prop, graphType, labels, label, title, dataValues;
 
     prop = document.getElementById('prop').value;
+    labels = [];
     dataValues = [];
 
     if (prop && selectedLabel) {
@@ -743,56 +792,4 @@ const displayGraph = (entity) => {
 
         chartDrawer('myChart', graphType, title, labels, label, dataValues);
     }
-};
-
- const chartDrawer = (chart, type, title, labels, label, dataValues) => {
-    let myChart = document.getElementById(chart).getContext('2d');
-
-    return new Chart(myChart, {
-        type: type, // bar, horizontalBar, pie, line, doughnut, radar, polarArea
-        data: {
-            labels: labels,
-            datasets: [{
-                label: label,
-                data: dataValues,
-                backgroundColor: [
-                    'rgba(230, 25, 75, 0.2)',
-                    'rgba(0, 130, 200, 0.2)',
-                    'rgba(255, 225, 25, 0.2)',
-                    'rgba(60, 180, 75, 0.2)',
-                    'rgba(245, 130, 48, 0.2)',
-                    'rgba(145, 30, 180, 0.2)',
-                    'rgba(70, 240, 240, 0.2)',
-                    'rgba(240, 50, 230, 0.2)',
-                    'rgba(210, 245, 60, 0.2)',
-                    'rgba(0, 128, 128, 0.2)',
-                    'rgba(170, 110, 40, 0.2)',
-                    'rgba(128, 128, 0, 0.2)'
-                ],
-                borderColor: [
-                    'rgba(230, 25, 75, 1)',
-                    'rgba(0, 130, 200, 1)',
-                    'rgba(255, 225, 25, 1)',
-                    'rgba(60, 180, 75, 1)',
-                    'rgba(245, 130, 48, 1)',
-                    'rgba(145, 30, 180, 1)',
-                    'rgba(70, 240, 240, 1)',
-                    'rgba(240, 50, 230, 1)',
-                    'rgba(210, 245, 60, 1)',
-                    'rgba(0, 128, 128, 1)',
-                    'rgba(170, 110, 40, 1)',
-                    'rgba(128, 128, 0, 1)'
-                ],
-                borderWidth: 1,
-                hoverBorderWidth: 3,
-            }]
-        },
-        options: {
-            title: {
-                display: true,
-                text: title,
-                fontSize: 18
-            }
-        }
-    })
 };

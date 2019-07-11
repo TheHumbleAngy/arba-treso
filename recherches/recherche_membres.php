@@ -15,20 +15,20 @@
         <div class="col-12 mx-auto my-2 cadre p-4">
             <div class="row justify-content-center">
                 <label for="nom" class="col-3">
-                    <input type="text" class="form-control text-uppercase" id="nom" placeholder="Nom..." aria-describedby="textHelp">
+                    <input type="text" class="form-control form-control-sm text-uppercase" id="nom" placeholder="Nom..." aria-describedby="textHelp">
                 </label>
                 <label for="prenoms" class="col">
-                    <input type="text" class="form-control text-uppercase" id="prenoms" placeholder="Prénoms..." aria-describedby="textHelp">
+                    <input type="text" class="form-control form-control-sm text-uppercase" id="prenoms" placeholder="Prénoms..." aria-describedby="textHelp">
                 </label>
                 <label for="genre" class="col-2">
-                    <select class="custom-select custom-select" id="genre">
+                    <select class="custom-select custom-select-sm" id="genre">
                         <option value="">Genre</option>
-                        <option value="F">Feminin</option>
-                        <option value="M">Masculin</option>
+                        <option value="F">Femme</option>
+                        <option value="M">Homme</option>
                     </select>
                 </label>
                 <label for="localite" class="col-3">
-                    <input type="text" class="form-control text-uppercase" id="localite" placeholder="Localité..." aria-describedby="textHelp">
+                    <input type="text" class="form-control form-control-sm text-uppercase" id="localite" placeholder="Localité..." aria-describedby="textHelp">
                 </label>
             </div>
             <div class="row mt-2 justify-content-center">
