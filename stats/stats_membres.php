@@ -54,7 +54,7 @@
     </div>
 
     <div id="feedback" class="my-4">
-        <canvas id="myChart" height="100vh"></canvas>
+        <canvas id="myChart" height="50vh"></canvas>
     </div>
 
     <script>
@@ -88,9 +88,9 @@
                         ],*/
                         backgroundColor: [
                             'rgba(230, 25, 75, 0.2)',
-                            'rgba(60, 180, 75, 0.2)',
-                            'rgba(255, 225, 25, 0.2)',
                             'rgba(0, 130, 200, 0.2)',
+                            'rgba(255, 225, 25, 0.2)',
+                            'rgba(60, 180, 75, 0.2)',
                             'rgba(245, 130, 48, 0.2)',
                             'rgba(145, 30, 180, 0.2)',
                             'rgba(70, 240, 240, 0.2)',
@@ -102,9 +102,9 @@
                         ],
                         borderColor: [
                             'rgba(230, 25, 75, 1)',
-                            'rgba(60, 180, 75, 1)',
-                            'rgba(255, 225, 25, 1)',
                             'rgba(0, 130, 200, 1)',
+                            'rgba(255, 225, 25, 1)',
+                            'rgba(60, 180, 75, 1)',
                             'rgba(245, 130, 48, 1)',
                             'rgba(145, 30, 180, 1)',
                             'rgba(70, 240, 240, 1)',

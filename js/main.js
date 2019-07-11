@@ -669,36 +669,52 @@ const searchMember = (type) => {
 
 /* Stats */
 
+const canvasCreator = (id, height, parentId) => {
+    /* Create the <canvas> to display the graph */
+
+    let nested = document.getElementById(id);
+    let top = document.getElementById(parentId);
+    if (nested)
+        top.removeChild(nested);
+
+    let canvas = document.createElement('canvas');
+    canvas.id = id;
+    canvas.style.height = height;
+
+    top.appendChild(canvas);
+
+    /************/
+};
+
 const displayGraph = (entity) => {
-    let prop, graphType, labels, label, bgColor, bderColor, title, dataValues;
+    let prop, graphType, labels, label, title, dataValues;
 
     prop = document.getElementById('prop').value;
     dataValues = [];
 
     if (prop && selectedLabel) {
-        /* Create the <canvas> to display the graph */
+        canvasCreator('myChart', '50vh', 'feedback');
 
-        let nested = document.getElementById('myChart');
-        let top = document.getElementById('feedback');
-        if (nested)
-            top.removeChild(nested);
-
-        let canvas = document.createElement('canvas');
-        canvas.id = 'myChart';
-        canvas.style.height = '150px';
-
-        top.appendChild(canvas);
-
-        /************/
+        graphType = selectedLabel.textContent.trim();
 
         switch (prop) {
-            case 'genre':
-                labels = ['Femmes', 'Hommes'];
-                break;
-
             case 'localite':
                 $.ajax({
-                    url: 'stats/ajax/ajax_localite.php',
+                    url: 'stats/ajax/ajax_data_membres.php?entity=' + entity + '&prop=' + prop,
+                    type: 'GET',
+                    async: false,
+                    success: function (arr) {
+                        let data = JSON.parse(arr);
+                        labels = data[0];
+                        dataValues = data[1];
+                        prop = 'localité';
+                    }
+                });
+                break;
+
+            default:
+                $.ajax({
+                    url: 'stats/ajax/ajax_data_membres.php?entity=' + entity + '&prop=' + prop,
                     type: 'GET',
                     async: false,
                     success: function (arr) {
@@ -709,8 +725,6 @@ const displayGraph = (entity) => {
                 });
                 break;
         }
-
-        graphType = selectedLabel.textContent.trim();
 
         switch (graphType) {
             case 'Histogramme':
@@ -724,8 +738,6 @@ const displayGraph = (entity) => {
                 break;
         }
 
-        // console.log(labels);
-        // console.log(dataValues);
         title = prop.substr(0, 1).toUpperCase() + prop.substr(1);
         label = entity.substr(0, 1).toUpperCase() + entity.substr(1).toLowerCase();
 
@@ -735,6 +747,7 @@ const displayGraph = (entity) => {
 
  const chartDrawer = (chart, type, title, labels, label, dataValues) => {
     let myChart = document.getElementById(chart).getContext('2d');
+
     return new Chart(myChart, {
         type: type, // bar, horizontalBar, pie, line, doughnut, radar, polarArea
         data: {
@@ -744,9 +757,9 @@ const displayGraph = (entity) => {
                 data: dataValues,
                 backgroundColor: [
                     'rgba(230, 25, 75, 0.2)',
-                    'rgba(60, 180, 75, 0.2)',
-                    'rgba(255, 225, 25, 0.2)',
                     'rgba(0, 130, 200, 0.2)',
+                    'rgba(255, 225, 25, 0.2)',
+                    'rgba(60, 180, 75, 0.2)',
                     'rgba(245, 130, 48, 0.2)',
                     'rgba(145, 30, 180, 0.2)',
                     'rgba(70, 240, 240, 0.2)',
@@ -758,9 +771,9 @@ const displayGraph = (entity) => {
                 ],
                 borderColor: [
                     'rgba(230, 25, 75, 1)',
-                    'rgba(60, 180, 75, 1)',
-                    'rgba(255, 225, 25, 1)',
                     'rgba(0, 130, 200, 1)',
+                    'rgba(255, 225, 25, 1)',
+                    'rgba(60, 180, 75, 1)',
                     'rgba(245, 130, 48, 1)',
                     'rgba(145, 30, 180, 1)',
                     'rgba(70, 240, 240, 1)',
@@ -778,14 +791,8 @@ const displayGraph = (entity) => {
             title: {
                 display: true,
                 text: title,
-                fontSize: 16
+                fontSize: 18
             }
         }
     })
 };
-
- function test() {
-     $.get('stats/ajax/ajax_localite.php', function (data) {
-         console.log(data);
-     });
- }
