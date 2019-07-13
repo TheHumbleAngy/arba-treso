@@ -7,7 +7,7 @@
      */
 ?>
 
-<div class="bg-white col-xl-10 mx-lg-auto p-2" style="border-radius: 10px">
+<div class="bg-white col-xl-11 mx-auto p-2" style="border-radius: 10px">
 
     <div class="container-fluid">
         <h2 class="w-50 text-center py-2 mx-auto mb-4 cadre-titre">Cotisations <span>💰</span></h2>

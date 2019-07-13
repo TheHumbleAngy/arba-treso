@@ -7,7 +7,7 @@
      */
 ?>
 
-<div class="bg-white col-xl-10 mx-lg-auto p-2" style="border-radius: 10px">
+<div class="bg-white col-xl-11 mx-auto p-2" style="border-radius: 10px">
 
     <div class="container-fluid">
         <h2 class="w-50 text-center py-2 mx-auto mb-4 cadre-titre">Adhésions <span>🤝</span></h2>
@@ -15,7 +15,7 @@
             <div class="col">
                 <label for="date_adhe">
                     <input type="date" id="date_adhe" class="form-control" aria-describedby="textHelp" onchange="setDateAdhesion()">
-                    <small id="textHelp" class="form-text text-muted">Renseigner la Adhésion.</small>
+                    <small id="textHelp" class="form-text text-muted">Entrez la date.</small>
                 </label>
             </div>
         </div>

@@ -13,10 +13,11 @@
         <th class="text-center">N°</th>
         <th class="w-15">Nom</th>
         <th class="w-25">Prénoms</th>
-        <th class="">Localité</th>
         <th class="">Contact</th>
+        <th class="">Commune</th>
+        <th class="">Ville</th>
         <th class="text-center">Genre</th>
-        <th class="w-10" title="Droit d'adhésion">Droit d'adhé.</th>
+        <th class="w-6" title="Droit d'adhésion">Droit A.</th>
         <th class=""></th>
     </tr>
     </thead>
@@ -32,16 +33,23 @@
             <input type="text" id="pren" class="form-control form-control-sm text-uppercase" title="Prénoms">
         </td>
         <td>
-            <input type="text" id="loc" class="form-control form-control-sm text-uppercase" title="Localité">
+            <input type="text" id="contact" class="form-control form-control-sm " title="Contact">
         </td>
         <td>
-            <input type="text" id="contact" class="form-control form-control-sm " title="Contact">
+            <label for="com"></label><select class="custom-select custom-select-sm" id="com">
+                <option value=""></option>
+            </select>
+        </td>
+        <td>
+            <label for="vil"></label><select class="custom-select custom-select-sm" id="vil">
+                <option value=""></option>
+            </select>
         </td>
         <td class="text-center">
             <label for="genre"></label><select class="custom-select custom-select-sm" id="genre" onchange="setGender(this)">
                 <option value=""></option>
                 <option value="F">F</option>
-                <option value="M">M</option>
+                <option value="H">H</option>
             </select>
         </td>
         <td class="">

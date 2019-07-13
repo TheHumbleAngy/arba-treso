@@ -90,7 +90,7 @@ const setGender = (e) => {
     let n = tr.cells.length,
         mtt = tr.cells[n - 2].getElementsByTagName('input')[0];
 
-    mtt.value = gender === 'M' ? 2000 : 1000;
+    mtt.value = gender === 'H' ? 2000 : 1000;
 };
 
 const cboYearLoader = (nbr) => {
@@ -461,7 +461,38 @@ const saveCotisations = () => {
 const saveAdhesions = () => {
     let date = document.getElementById('date_adhe');
 
-    if (date.value !== '') {
+    $.ajax({
+        type: 'GET',
+        url: 'operations/entrees/adhesions/ajax/liste_communes_villes.php',
+        success: function (data) {
+            let arr = JSON.parse(data);
+            let arrCom = arr[0];
+            let arrVil = arr[1];
+
+            // console.table(arrCom);
+            // console.table(arrVil);
+
+            const selectCom = document.getElementById('com');
+            const selectVil = document.getElementById('vil');
+
+            for (const elt of arrCom) {
+                let option = document.createElement('option');
+                option.value = elt[0];
+                option.innerText = elt[1];
+
+                selectCom.appendChild(option);
+            }
+
+            for (const elt of arrVil) {
+                let option = document.createElement('option');
+                option.value = elt[0];
+                option.innerText = elt[1];
+
+                selectVil.appendChild(option);
+            }
+        }
+    });
+    /*if (date.value !== '') {
         const arr = document.getElementById('arr_adhesions').tBodies[0];
         let rows = arr.rows;
         let rowsNbr = rows.length;
@@ -527,7 +558,7 @@ const saveAdhesions = () => {
             })
         }
     } else
-        callModal('errorModal');
+        callModal('errorModal');*/
 };
 
 const saveMember = () => {

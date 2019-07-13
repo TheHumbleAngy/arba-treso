@@ -1200,7 +1200,13 @@
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <key id="284" parent="236" name="PRIMARY">
+    <column id="284" parent="236" name="region_ville">
+      <Position>3</Position>
+      <DataType>varchar(20)|0s</DataType>
+      <NotNull>1</NotNull>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <key id="285" parent="236" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id_ville</ColNames>
       <Primary>1</Primary>
