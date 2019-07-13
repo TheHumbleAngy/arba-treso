@@ -230,6 +230,49 @@ const setGraphLabelColor = (rdoName) => {
     }
 };
 
+const setCategorie = (cbo) => {
+    let val = cbo.value;
+
+    if (val) {
+        // console.log(cbo.value);
+        let select = document.getElementById('cate');
+        let option = document.createElement('option');
+
+        for (const childNode of select.childNodes) {
+            if (childNode.nodeName === 'OPTION') {
+                console.log(childNode.nodeName);
+                console.log(childNode.innerHTML);
+
+            }
+        }
+        /*let test = true;
+        console.log(test);
+
+        while (select.firstChild.nodeName === 'OPTION' && test) {
+            if (select.firstChild.innerText !== 'Catégorie')
+                select.removeChild(select.firstChild);
+            else
+                test = false;
+        }
+        console.log(test);
+
+        if (cbo.value === '0') {
+            option.value = 'CAT03';
+            option.innerText = 'Festivité';
+            select.appendChild(option);
+
+        }
+        else if (cbo.value === '1') {
+            option.value = 'CAT01';
+            option.innerText = 'Adhésion';
+            select.appendChild(option);
+
+            option.value = 'CAT02';
+            option.innerText = 'Cotisation';
+            select.appendChild(option);
+        }*/
+    }
+};
 
 
 

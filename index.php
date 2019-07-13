@@ -106,12 +106,12 @@
     </button>
 </div>
 
-<script src="addons/bootstrap/jquery-3.3.1.min.js"></script>
-<script src="addons/bootstrap/popper-1.14.3.min.js"></script>
-<script src="addons/bootstrap/js/bootstrap.js"></script>
+<script type="text/javascript" src="addons/bootstrap/jquery-3.3.1.min.js"></script>
+<script type="text/javascript" src="addons/bootstrap/popper-1.14.3.min.js"></script>
+<script type="text/javascript" src="addons/bootstrap/js/bootstrap.js"></script>
 
 <!-- Custom js file -->
-<script src="js/main.js"></script>
-<script src="addons/awesomplete/awesomplete.js"></script>
+<script type="text/javascript" src="js/main.js"></script>
+<script type="text/javascript" src="addons/awesomplete/awesomplete.js"></script>
 </body>
 </html>
