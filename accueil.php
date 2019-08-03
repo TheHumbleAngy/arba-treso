@@ -15,16 +15,16 @@
                     <img src="images/logo_arba944x668.png" alt="logo_arba" class="img-fluid mb-sm-2">
                 </div>
                 <div class="col col-xl-5" style="z-index: 1;">
+                    <a role="button" data-toggle="tooltip" data-placement="right" title="Saisir les adhésions"
+                       class="btn btn-primary btn-lg btn-block d-flex justify-content-between faa-parent animated-hover"
+                       href="index.php?page=operations/entrees/adhesions/form_adhesions">
+                        <span class="mr-auto">🤝 Adhésions</span>
+                        <i class="fa fa-arrow-right my-auto faa-passing"></i>
+                    </a>
                     <a role="button" data-toggle="tooltip" data-placement="right" title="Saisir les entrées ou sorties d'argent"
                        class="btn btn-primary btn-lg btn-block d-flex justify-content-between faa-parent animated-hover"
                        href="index.php?page=operations/param_operation">
                         <span class="mr-auto">💰 Opérations</span>
-                        <i class="fa fa-arrow-right my-auto faa-passing"></i>
-                    </a>
-                    <a role="button" data-toggle="tooltip" data-placement="right" title="Saisir les adhésions"
-                       class="btn btn-primary btn-lg btn-block d-flex justify-content-between faa-parent animated-hover"
-                           href="index.php?page=operations/entrees/adhesions/form_adhesions">
-                        <span class="mr-auto">🤝 Adhésions</span>
                         <i class="fa fa-arrow-right my-auto faa-passing"></i>
                     </a>
                     <a role="button" data-toggle="tooltip" data-placement="right" title="Consulter les états"

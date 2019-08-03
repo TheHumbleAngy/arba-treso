@@ -3,8 +3,82 @@ let selectedLabel, unselectedLabel;
 
     /* Load the necessary elements here */
 $(document).ready(function () {
-    if (document.getElementById('param_annee')) {
-        cboYearLoader(2);
+    let paramAnnee = document.getElementById('param_annee');
+    if (paramAnnee) {
+        cboYearLoader(paramAnnee, 2);
+    }
+
+    let annee = document.getElementById('annee');
+    if (annee) {
+        cboYearLoader(annee, 4);
+    }
+
+    let cagnotteAnnee = document.getElementById('cagnotte_annee');
+    if (cagnotteAnnee) {
+        cboYearLoader(cagnotteAnnee, 2);
+    }
+
+    let mois = document.getElementById('mois');
+    if (mois) {
+        let elt, cbo;
+
+        cbo = mois;
+
+        elt = cbo.options[cbo.length - 1].cloneNode(true);
+        elt.value = 'M02';
+        elt.text = 'Février';
+        cbo.appendChild(elt);
+
+        elt = cbo.options[cbo.length - 1].cloneNode(true);
+        elt.value = 'M03';
+        elt.text = 'Mars';
+        cbo.appendChild(elt);
+
+        elt = cbo.options[cbo.length - 1].cloneNode(true);
+        elt.value = 'M04';
+        elt.text = 'Avril';
+        cbo.appendChild(elt);
+        console.log(cbo.length);
+
+        elt = cbo.options[cbo.length - 1].cloneNode(true);
+        elt.value = 'M05';
+        elt.text = 'Mai';
+        cbo.appendChild(elt);
+
+        elt = cbo.options[cbo.length - 1].cloneNode(true);
+        elt.value = 'M06';
+        elt.text = 'Juin';
+        cbo.appendChild(elt);
+
+        elt = cbo.options[cbo.length - 1].cloneNode(true);
+        elt.value = 'M07';
+        elt.text = 'Juillet';
+        cbo.appendChild(elt);
+
+        elt = cbo.options[cbo.length - 1].cloneNode(true);
+        elt.value = 'M08';
+        elt.text = 'Août';
+        cbo.appendChild(elt);
+
+        elt = cbo.options[cbo.length - 1].cloneNode(true);
+        elt.value = 'M09';
+        elt.text = 'Septembre';
+        cbo.appendChild(elt);
+
+        elt = cbo.options[cbo.length - 1].cloneNode(true);
+        elt.value = 'M10';
+        elt.text = 'Octobre';
+        cbo.appendChild(elt);
+
+        elt = cbo.options[cbo.length - 1].cloneNode(true);
+        elt.value = 'M11';
+        elt.text = 'Novembre';
+        cbo.appendChild(elt);
+
+        elt = cbo.options[cbo.length - 1].cloneNode(true);
+        elt.value = 'M12';
+        elt.text = 'Décembre';
+        cbo.appendChild(elt);
     }
 
     if (document.getElementById('type_consultation')) {
@@ -65,6 +139,38 @@ const setDateAdhesion = () => {
             success: function (data) {
                 document.getElementById('enregistrer').disabled = false;
                 response.innerHTML = data;
+
+                const selectCom = document.getElementById('com');
+                const selectVil = document.getElementById('vil');
+                if (selectCom && selectVil) {
+                    $.ajax({
+                        type: 'GET',
+                        url: 'operations/entrees/adhesions/ajax/liste_communes_villes.php',
+                        success: function (data) {
+                            let arr = JSON.parse(data);
+                            let arrCom = arr[0];
+                            let arrVil = arr[1];
+
+                            /*Fill list of communes*/
+                            for (const elt of arrCom) {
+                                let option = document.createElement('option');
+                                option.value = elt[0];
+                                option.innerText = elt[1];
+
+                                selectCom.appendChild(option);
+                            }
+
+                            /*Fill list of villes*/
+                            for (const elt of arrVil) {
+                                let option = document.createElement('option');
+                                option.value = elt[0];
+                                option.innerText = elt[1];
+
+                                selectVil.appendChild(option);
+                            }
+                        }
+                    });
+                }
             }
         })
     }
@@ -93,8 +199,7 @@ const setGender = (e) => {
     mtt.value = gender === 'H' ? 2000 : 1000;
 };
 
-const cboYearLoader = (nbr) => {
-    let cbo = document.getElementById('param_annee');
+const cboYearLoader = (cbo, nbr) => {
     let n, elt;
 
     for (let i = 0; i < nbr; i++) {
@@ -144,7 +249,7 @@ const memberDataLoader = (e) => {
                 prenMbr += `${mbr[i]}`;
         }
 
-        sql = `SELECT id_mois, montant_operation FROM operations o INNER JOIN membres m ON o.id_membre = m.id_membre WHERE m.nom_membre = '${nomMbr}' AND m.pren_membre = '${prenMbr}' AND annee_operation = '${annee}' ORDER BY id_mois;`;
+        sql = `SELECT id_mois, montant_operation FROM operations o INNER JOIN membres m ON o.id_membre = m.id_membre WHERE m.nom_membre = '${nomMbr}' AND m.pren_membre = '${prenMbr}' AND o.annee_operation = '${annee}' AND o.id_categorie = 'CAT02' ORDER BY id_mois;`;
 
         $.ajax({
             type: 'POST',
@@ -153,8 +258,8 @@ const memberDataLoader = (e) => {
             },
             url: 'operations/entrees/cotisations/ajax/ajax_mbr_coti_mois.php',
             success: function (data) {
-                const tr = e.closest('tr'); //console.log(tr);
-                const trChildrenList = tr.childNodes; //console.log(tr_children_list);
+                const tr = e.closest('tr');
+                const trChildrenList = tr.childNodes;
                 let trTdInput = [], j = 0;
 
                 for (let i = 5; i < trChildrenList.length; i += 2) {
@@ -274,6 +379,94 @@ const setCategorie = (cbo) => {
     }
 };
 
+const setMoisCagnotte = (e) => {
+    let listeMois = document.getElementById('cagnotte_mois');
+
+    if (e.value) {
+        listeMois.disabled = false;
+        let cbo = document.getElementById('cagnotte_mois');
+
+        if (cbo.length === 1) {
+            let sql = `SELECT * FROM mois`;
+
+            $.ajax({
+                type: 'POST',
+                data: {
+                    info: sql.trim()
+                },
+                url: 'operations/entrees/cotisations/ajax/ajax_mbr_coti_mois.php',
+                success: function (data) {
+                    let months = JSON.parse(data);
+                    for (const month of months) {
+                        let n = cbo.length - 1;
+                        let elt = cbo.options[n].cloneNode(true);
+                        elt.value = month.numero_mois;
+                        elt.text = month.libelle_mois.toUpperCase();
+                        cbo.appendChild(elt);
+                    }
+                }
+            });
+        }
+    } else {
+        listeMois.options[0].selected = true;
+        listeMois.disabled = true;
+        document.getElementById('cagnotte').value = 0;
+        document.getElementById('recette').value = 0;
+    }
+};
+
+const getCagnotteMoisAnnee = (e) => {
+    const annee = document.getElementById('cagnotte_annee').value;
+    const mois = e.value;
+
+    if (annee && mois) {
+        let sql = `SELECT SUM(montant_operation) as total
+FROM operations o INNER JOIN mois m ON o.id_mois = m.id_mois
+WHERE numero_mois = '${mois}' AND annee_operation = ${annee}`;
+
+        $.ajax({
+            type: 'POST',
+            url: 'operations/entrees/cotisations/ajax/ajax_mbr_coti_mois.php',
+            data: {
+                qry: sql
+            },
+            success: function (data) {
+                const info = JSON.parse(data);
+                // console.log(info[0]);
+
+                let cagnotte = document.getElementById('cagnotte');
+                cagnotte.value = numberFormat(info[0].total) || 0;
+            }
+        })
+    }
+};
+
+const getRecetteMoisAnnee = (e) => {
+    const annee = document.getElementById('cagnotte_annee').value;
+    const mois = e.value;
+
+    if (annee && mois) {
+        let sql = `SELECT SUM(montant_operation) as total
+FROM operations o INNER JOIN mois m ON o.id_mois = m.id_mois
+  INNER JOIN categories c on o.id_categorie = c.id_categorie
+  INNER JOIN types_operation t on c.id_typ_op = t.id_typ_op
+WHERE MONTH(date_operation) = ${mois} AND YEAR(date_operation) = ${annee} AND c.id_typ_op = 1`;
+
+        $.ajax({
+            type: 'POST',
+            url: 'operations/entrees/cotisations/ajax/ajax_mbr_coti_mois.php',
+            data: {
+                qry: sql
+            },
+            success: function (data) {
+                const info = JSON.parse(data);
+                let recette = document.getElementById('recette');
+                let total = info[0].total;
+                recette.value = total ? numberFormat(total) || 0 : 0;
+            }
+        })
+    }
+};
 
 
 /* Custom functions */
@@ -363,6 +556,11 @@ const callModal = (id, msg) => {
         document.getElementById(id).getElementsByTagName('p')[0].textContent = msg;
     $('#' + id).modal('show');
 };
+
+function numberFormat(nbr) {
+    if (nbr)
+        return nbr.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+}
 
 
 /* Savers */
@@ -461,38 +659,7 @@ const saveCotisations = () => {
 const saveAdhesions = () => {
     let date = document.getElementById('date_adhe');
 
-    $.ajax({
-        type: 'GET',
-        url: 'operations/entrees/adhesions/ajax/liste_communes_villes.php',
-        success: function (data) {
-            let arr = JSON.parse(data);
-            let arrCom = arr[0];
-            let arrVil = arr[1];
-
-            // console.table(arrCom);
-            // console.table(arrVil);
-
-            const selectCom = document.getElementById('com');
-            const selectVil = document.getElementById('vil');
-
-            for (const elt of arrCom) {
-                let option = document.createElement('option');
-                option.value = elt[0];
-                option.innerText = elt[1];
-
-                selectCom.appendChild(option);
-            }
-
-            for (const elt of arrVil) {
-                let option = document.createElement('option');
-                option.value = elt[0];
-                option.innerText = elt[1];
-
-                selectVil.appendChild(option);
-            }
-        }
-    });
-    /*if (date.value !== '') {
+    if (date.value !== '') {
         const arr = document.getElementById('arr_adhesions').tBodies[0];
         let rows = arr.rows;
         let rowsNbr = rows.length;
@@ -500,11 +667,12 @@ const saveAdhesions = () => {
         let nom = $('[id^=nom]');
         let pren = $('[id^=pren]');
         let gender = $('[id^=genre]');
-        let loc = $('[id^=loc]');
         let contact = $('[id^=contact]');
+        let com = $('[id^=com]');
+        let vil = $('[id^=vil]');
         let mtt = $('[id^=mtt]');
 
-        let infoMbr = [nom, pren,loc, contact, gender, mtt];
+        let infoMbr = [nom, pren, contact, com, vil, gender, mtt];
         let data = [];
 
         let m = 0;
@@ -520,20 +688,21 @@ const saveAdhesions = () => {
                 for (let j = 1; j < rowCellsNbr; j++) {
 
                     let infoMbrNbr = infoMbr.length;
-                    // console.log(infoMbrNbr);
                     if (j <= infoMbrNbr) {
 
-                        let info = infoMbr[j - 1][i].value;
-                        if (info) {
+                        // let info = infoMbr[j - 1][i].value;
+                        data[m][n++] = infoMbr[j - 1][i].value;
+                        /*if (info) {
                             data[m][n++] = info;
-                        }
+                        }*/
                     }
                 }
                 m++;
             }
         }
 
-        // console.table(data);
+        // console.log(data.length, data[0].length);
+
         if (data.length && data[0].length > 1) {
             $.ajax({
                 type: 'POST',
@@ -544,7 +713,7 @@ const saveAdhesions = () => {
                 },
                 success: function (data) {
                     console.log('Done...');
-                    console.log((data));
+                    console.log(data);
 
                     if (data === 'Data saved') {
                         callModal('successModal', 'La liste des adhérents a bien été enregistrée 👍');
@@ -558,54 +727,7 @@ const saveAdhesions = () => {
             })
         }
     } else
-        callModal('errorModal');*/
-};
-
-const saveMember = () => {
-    let arr = document.getElementsByTagName('input');
-    let myForm = document.getElementById('form_membre');
-    let test = true;
-
-    for (const elt of arr) {
-        if (elt.required) {
-            if (fieldCheck(elt.id)) {
-                test = false;
-                break;
-            }
-        }
-    }
-
-    if (test) {
-        // Save info
-        let nom = arr[0].value.trim();
-        let prenoms = arr[1].value.trim();
-        let adresse = arr[2].value.trim();
-        let contact = arr[3].value.trim();
-
-        $.ajax({
-            type: 'POST',
-            data: {
-                name: nom,
-                pname: prenoms,
-                addr: adresse,
-                contact: contact
-            },
-            url: 'membres/ajax/ajax_save_membre.php',
-            success: function (data) {
-                if (data === 'Error')
-                    callModal('errorModal');
-                else {
-                    console.log(`${data} has been successfully saved.`);
-                    clearFields('input');
-                    callModal('successModal');
-                    myForm.reset();
-                }
-            }
-        })
-    } else {
-        // Call modal
         callModal('errorModal');
-    }
 };
 
 

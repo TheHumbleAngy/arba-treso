@@ -12,6 +12,7 @@
       <w>ajout</w>
       <w>angem</w>
       <w>aout</w>
+      <w>août</w>
       <w>apres</w>
       <w>arba</w>
       <w>autocompletion</w>
@@ -20,6 +21,8 @@
       <w>banq</w>
       <w>banque</w>
       <w>banques</w>
+      <w>cagnote</w>
+      <w>cagnotte</w>
       <w>categorie</w>
       <w>catégorie</w>
       <w>chartjs</w>
@@ -33,6 +36,7 @@
       <w>datepicker</w>
       <w>depenses</w>
       <w>dropdown</w>
+      <w>décembre</w>
       <w>dépense</w>
       <w>enregistrer</w>
       <w>entite</w>
@@ -42,11 +46,13 @@
       <w>festivité</w>
       <w>fontawesome</w>
       <w>frais</w>
+      <w>février</w>
       <w>geographique</w>
       <w>gestion</w>
       <w>histogramme</w>
       <w>hommes</w>
       <w>juil</w>
+      <w>juillet</w>
       <w>juin</w>
       <w>kouakou</w>
       <w>libelle</w>
@@ -68,7 +74,9 @@
       <w>ncare</w>
       <w>nombre</w>
       <w>noms</w>
+      <w>novembre</w>
       <w>numero</w>
+      <w>octobre</w>
       <w>parametre</w>
       <w>particulier</w>
       <w>prec</w>
@@ -84,6 +92,7 @@
       <w>saisir</w>
       <w>secteurs</w>
       <w>separateur</w>
+      <w>septembre</w>
       <w>sigle</w>
       <w>signe</w>
       <w>solde</w>
@@ -94,6 +103,7 @@
       <w>treso</w>
       <w>valider</w>
       <w>veuillez</w>
+      <w>villes</w>
     </words>
   </dictionary>
 </component>

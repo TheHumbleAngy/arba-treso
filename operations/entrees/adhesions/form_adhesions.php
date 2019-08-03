@@ -11,24 +11,27 @@
 
     <div class="container-fluid">
         <h2 class="w-50 text-center py-2 mx-auto mb-4 cadre-titre">Adhésions <span>🤝</span></h2>
-        <div class="col-lg-8 mx-auto row my-2 cadre p-4 justify-content-center">
-            <div class="col">
-                <label for="date_adhe">
+        <div class="row mx-0 my-2 cadre p-4 justify-content-center">
+            <div class="col-4 col-lg-2">
+                <label for="date_adhe" class="m-0">
                     <input type="date" id="date_adhe" class="form-control" aria-describedby="textHelp" onchange="setDateAdhesion()">
                     <small id="textHelp" class="form-text text-muted">Entrez la date.</small>
                 </label>
             </div>
+            <div class="col">
+                <div class="row">
+                    <button class="btn btn-block btn-outline-primary faa-parent animated-hover col-6 col-xl-2 col-md-4 mx-auto mt-2"
+                            disabled
+                            id="enregistrer" onclick="saveAdhesions()">
+                        <i class="fas fa-save mr-2 faa-pulse"></i>
+                        Enregistrer
+                    </button>
+                </div>
+            </div>
         </div>
     </div>
 
-    <div class="row">
-        <button class="btn btn-block btn-outline-primary faa-parent animated-hover col-lg-2 col-sm-3 mx-auto my-4"
-                disabled
-                id="enregistrer" onclick="saveAdhesions()">
-            <i class="fas fa-save mr-2 faa-pulse"></i>
-            Enregistrer
-        </button>
-    </div>
+
     <div id="feedback" class="mb-4"></div>
 
     <!-- Modals -->

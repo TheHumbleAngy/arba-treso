@@ -128,6 +128,6 @@
             echo "Data not saved. Some data already exist";
         }
 
-        $result->free();
+//        $result->free();
         $connection->close();
     }

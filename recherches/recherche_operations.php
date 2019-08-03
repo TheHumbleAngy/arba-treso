@@ -36,14 +36,12 @@
                         <label for="annee" class="col">
                             <select class="custom-select custom-select-sm" id="annee">
                                 <option value="2019">2019</option>
-                                <option value="2018">2018</option>
                             </select>
                         </label>
                         <label for="mois" class="col">
                             <select class="custom-select custom-select-sm" id="mois">
                                 <option value="">Mois...</option>
                                 <option value="M01">Janvier</option>
-                                <option value="M02">Février</option>
                             </select>
                         </label>
                     </div>
@@ -70,13 +68,13 @@
                                 <option value="M">Homme</option>
                             </select>
                         </label>
-                        <label for="ville" class="col">
-                            <input type="text" class="form-control form-control-sm text-uppercase" id="ville"
-                                   placeholder="Ville">
-                        </label>
                         <label for="commune" class="col">
                             <input type="text" class="form-control form-control-sm text-uppercase" id="commune"
                                    placeholder="Commune">
+                        </label>
+                        <label for="ville" class="col">
+                            <input type="text" class="form-control form-control-sm text-uppercase" id="ville"
+                                   placeholder="Ville">
                         </label>
                     </div>
                 </div>

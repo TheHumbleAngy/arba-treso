@@ -39,7 +39,7 @@
 <body class="bg-light">
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top" id="myNav" style="/*background-color: #e3f2fd;*/">
-    <a class="navbar-brand" href="index.php">
+    <a class="navbar-brand" href="index.php" title="Accueil">
         <img src="images/logo_arba96x30.png" alt="ARBA" class="img-fluid">
     </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText"
@@ -48,6 +48,11 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarText">
         <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="index.php?page=operations/entrees/adhesions/form_adhesions" id="navbarAdhesions" role="button" aria-haspopup="true" aria-expanded="false">
+                    Adhésions
+                </a>
+            </li>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarOperations" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Opérations
@@ -56,11 +61,6 @@
                     <a class="dropdown-item" href="index.php?page=operations/entrees/cotisations/form_cotisations">Cotisations</a>
                     <a class="dropdown-item" href="#">Dépenses</a>
                 </div>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="index.php?page=operations/entrees/adhesions/form_adhesions" id="navbarAdhesions" role="button" aria-haspopup="true" aria-expanded="false">
-                    Adhésions
-                </a>
             </li>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarConsultations" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
