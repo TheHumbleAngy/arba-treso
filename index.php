@@ -70,6 +70,7 @@
                     <a class="dropdown-item" href="index.php?page=operations/entrees/cotisations/liste_cotisations">Cotisations</a>
                     <a class="dropdown-item" href="">Dépenses</a>
                     <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="index.php?page=operations/entrees/adhesions/liste_membres">Adhésions</a>
                     <a class="dropdown-item" href="index.php?page=membres/liste_membres">Membres</a>
                 </div>
             </li>

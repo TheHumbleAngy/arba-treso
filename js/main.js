@@ -747,15 +747,14 @@ const filterMember = (usage) => {
         url: 'membres/ajax/ajax_noms_membres.php',
         success: function (data) {
             let arr = JSON.parse(data),
-                n = arr.length, row;
+                n = arr.length;
             const tab = document.getElementById('liste_membres');
-            // console.log(arr);
 
             while (tab.firstChild)
                 tab.removeChild(tab.firstChild);
 
             for (let i = 0; i < n; i++) {
-                row = tab.insertRow(-1);
+                let row = tab.insertRow(-1);
 
                 let m = arr[i].length;
                 for (let j = 0; j < m; j++) {
@@ -789,7 +788,7 @@ const filterMember = (usage) => {
 
                 // Styling the 2nd cell of each line
                 cell = tab.rows[i].cells[1];
-                cell.classList.add('col-4');
+                cell.classList.add('col');
 
                 // Styling the 3rd cell of each line
                 cell = tab.rows[i].cells[2];
@@ -801,6 +800,10 @@ const filterMember = (usage) => {
 
                 // Styling the 5th cell of each line
                 cell = tab.rows[i].cells[4];
+                cell.classList.add('col-2');
+
+                // Styling the 6th cell of each line
+                cell = tab.rows[i].cells[5];
                 cell.classList.add('col-1', 'text-primary', 'font-weight-bold');
 
                 // Styling the 6th cell of each line

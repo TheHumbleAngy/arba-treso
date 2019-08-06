@@ -34,9 +34,10 @@
                 <thead class="bg-primary text-light">
                 <tr class="row mx-0">
                     <th class="col-1 text-center">N°</th>
-                    <th class="col-4">Membre</th>
-                    <th class="col-2">Localité</th>
+                    <th class="col">Membre</th>
                     <th class="col-2">Contact</th>
+                    <th class="col-2">Commune</th>
+                    <th class="col-2">Ville</th>
                     <th class="col-1">Genre</th>
                     <th class="col-2">Adhésion</th>
                 </tr>
