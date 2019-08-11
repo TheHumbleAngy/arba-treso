@@ -7,7 +7,7 @@
      */
 ?>
 <div class="row justify-content-center">
-    <div class="col-6 col-lg-5">
+    <div class="col-6 col-md-8 col-xl-5">
         <div id="wrapper_param" class="shadow gradient">
             <div class="container-fluid row">
                 <form class="col-10 col-xl-11 mb-2">
@@ -21,14 +21,55 @@
                             <select class="custom-select custom-select" name="entite" id="type_param"
                                     onchange="setParameter(0)">
                                 <option value="">Sélectionner...</option>
-                                <option value="0">Cotisations</option>
-                                <option value="1">Dépenses</option>
+                                <option value="0">Entrée</option>
+                                <option value="1">Sortie</option>
                             </select>
                         </div>
                     </div>
                 </form>
-                <div class="col-2 col-xl-1 d-flex flex-column justify-content-center" id="fa_ico">
-                    <i class="fas fa-cog faa-spin animated fa-2x mx-auto"></i>
+                <div class="d-flex flex-column justify-content-center">
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#newOperationModal">
+                        <i class="fas fa-cog faa-spin animated fa-1-5x mx-auto"></i>
+                    </button>
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="newOperationModal" tabindex="-1" role="dialog" aria-labelledby="newOperationModalLabel"
+                         aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="newOperationModalLabel">ARBA ⚙️</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <blockquote class="blockquote">
+                                        <form>
+                                            <div class="form-group">
+                                                <label for="categorie">Catégorie</label>
+                                                <input type="text" class="form-control text-uppercase" id="categorie" placeholder="...">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="type_ope">Type d'opération</label>
+                                                <select class="custom-select text-uppercase" id="type_ope">
+                                                    <option selected>-</option>
+                                                    <option value="0">Dépense</option>
+                                                    <option value="1">Recette</option>
+                                                </select>
+                                            </div>
+                                        </form>
+                                    </blockquote>
+                                </div>
+                                <div class="modal-footer">
+
+                                    <div id="alert_msg" class="mr-auto"></div>
+                                    <button type="button" class="btn btn-primary" id="btn_save" onclick="saveCategorie()">Enregistrer</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="row">

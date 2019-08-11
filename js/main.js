@@ -730,6 +730,62 @@ const saveAdhesions = () => {
         callModal('errorModal');
 };
 
+const saveCategorie = () => {
+    let libelle = document.getElementById('categorie');
+    let typeOperation = document.getElementById('type_ope');
+
+    if (libelle.value && typeOperation.value) {
+        $.post(
+            'operations/ajax_new_categorie.php',
+            {
+                libelle: libelle.value,
+                type: typeOperation.value
+            },
+            function (data) {
+                let feedback = document.getElementById('alert_msg');
+                let alertType;
+
+                if (data === "Data saved") {
+                    alertType = 'success';
+                    libelle.textContent = "";
+                    typeOperation.selectedIndex = 0;
+                }
+                else if (data === "Error while saving data")
+                    alertType = 'danger';
+                else
+                    alertType = 'info';
+
+                callAlert(alertType, data, feedback);
+            }
+        );
+    }
+};
+
+const callAlert = (type, msg, parentNode) => {
+    const alertType = 'alert-' + type;
+
+    let div = document.createElement('div');
+    div.setAttribute('role', 'alert');
+    div.classList.add('alert', alertType, 'alert-dismissible', 'fade', 'show', 'my-0')
+
+    let textContent = document.createTextNode(msg);
+    div.appendChild(textContent);
+
+    let button = document.createElement('button');
+    button.setAttribute('type', 'button');
+    button.setAttribute('data-dismiss', 'alert');
+    button.setAttribute('aria-label', 'Close');
+    button.classList.add('close');
+
+    let span = document.createElement('span');
+    span.setAttribute('aria-hidden', 'true');
+    span.appendChild(document.createTextNode('×'));
+
+    button.appendChild(span);
+    div.appendChild(button);
+
+    parentNode.appendChild(div);
+};
 
 /* Searchers */
 
