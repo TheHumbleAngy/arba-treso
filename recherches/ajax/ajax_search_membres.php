@@ -10,13 +10,14 @@
     <table class="table table-sm table-hover bg-light" id="arr_membres">
         <thead class="bg-primary text-light">
         <tr class="row mx-0">
-            <th class="col-1 text-center">N°</th>
-            <th class="col-2">Nom</th>
-            <th class="col-3">Prénoms</th>
-            <th class="col-2">Localité</th>
-            <th class="col-2">Contact</th>
-            <th class="col-1 text-center">Genre</th>
-            <th class="col-1">Adhésion</th>
+            <th class="text-center">N°</th>
+            <th class="col">Nom</th>
+            <th class="col">Prénoms</th>
+            <th class="col-1">Genre</th>
+            <th class="col-2">Contacts</th>
+            <th class="col-2">Commune</th>
+            <th class="col-2">Ville</th>
+            <th class="col-2">Adhésion</th>
         </tr>
         </thead>
         <tbody id="liste_membres">
@@ -34,7 +35,8 @@
                     foreach ($membres as $membre) {
                         $nom_mbr = $membre['nom_membre'];
                         $pren_mbr = $membre['pren_membre'];
-                        $loc = $membre['adresse_membre'];
+                        $com = $membre['libelle_commune'];
+                        $vil = $membre['libelle_ville'];
                         $tel = $membre['contact_membre'];
                         $date = $membre['date_crea_membre'];
                         $gender = $membre['genre_membre'];

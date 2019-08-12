@@ -92,6 +92,11 @@ $(document).ready(function () {
         })
     }
 
+    if (document.getElementById('commune') && document.getElementById('ville')) {
+        namesLoader('autocompletion', 'commune', 'communes');
+        namesLoader('autocompletion', 'ville', 'villes');
+    }
+
     $('[data-toggle="tooltip"]').tooltip();
 });
 
@@ -122,7 +127,7 @@ const setYearCotisation = () => {
             success: function (data) {
                 document.getElementById('enregistrer').disabled = false;
                 response.innerHTML = data;
-                membersNamesLoader('autocompletion');
+                namesLoader('autocompletion', 'coti_mbr', 'membres');
             }
         })
     }
@@ -211,15 +216,17 @@ const cboYearLoader = (cbo, nbr) => {
     }
 };
 
-const membersNamesLoader = (usage) => {
+const namesLoader = (usage, id, entity) => {
     $.ajax({
         type: 'POST',
-        url: 'membres/ajax/ajax_noms_membres.php',
+        url: 'membres/ajax/ajax_noms_entites.php',
         data: {
-            usage: usage
+            usage: usage,
+            entity: entity
         },
         success: function (data) {
-            let input = $('[id^=coti_mbr]');
+            let input;
+            input = $('[id^=' + id + ']');
 
             for (let i = 0; i < input.length; i++) {
                 let listMbr = new Awesomplete(input[i]);
@@ -536,7 +543,7 @@ const addRow = (tableId, rowNbr, option) => {
     }
 
     if (!option)
-        membersNamesLoader('autocompletion');
+        namesLoader('autocompletion');
 };
 
 const fieldCheck = (field) => {
@@ -800,7 +807,7 @@ const filterMember = (usage) => {
             usage: usage,
             info: info
         },
-        url: 'membres/ajax/ajax_noms_membres.php',
+        url: 'membres/ajax/ajax_noms_entites.php',
         success: function (data) {
             let arr = JSON.parse(data),
                 n = arr.length;
@@ -882,23 +889,23 @@ const searchMember = (type) => {
         genre = document.getElementById('genre').value;
         localite = document.getElementById('localite').value;
 
-        sql = "SELECT * FROM membres WHERE ";
+        sql = "SELECT * FROM membres m INNER JOIN villes v on m.id_ville = v.id_ville INNER JOIN communes c on m.id_commune = c.id_commune WHERE ";
 
         /* Searching name */
         if (nom)
-            sql += `nom_membre = '${nom}'`;
+            sql += `m.nom_membre = '${nom}'`;
 
         /* Searching prenoms */
         if (nom && prenoms)
-            sql += ` AND pren_membre = '${prenoms}'`;
+            sql += ` AND m.pren_membre = '${prenoms}'`;
         else if (prenoms)
-            sql += `pren_membre = '${prenoms}'`;
+            sql += `m.pren_membre = '${prenoms}'`;
 
         /* Searching gender */
         if ((nom && genre) || (prenoms && genre))
-            sql += ` AND genre_membre = '${genre}'`;
+            sql += ` AND m.genre_membre = '${genre}'`;
         else if (genre)
-            sql += `genre_membre = '${genre}'`;
+            sql += `m.genre_membre = '${genre}'`;
 
         /* Searching address */
         if ((nom && localite) || (prenoms && localite) || (genre && localite))
