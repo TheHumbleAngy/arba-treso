@@ -881,49 +881,66 @@ const filterMember = (usage) => {
 const searchMember = (type) => {
 
     if (type === 'recherche') {
-        let nom, prenoms, genre, localite, sql;
+        let nom, prenoms, genre, commune, ville, sql;
         let response = document.getElementById('feedback');
 
         nom = document.getElementById('nom').value;
         prenoms = document.getElementById('prenoms').value;
         genre = document.getElementById('genre').value;
-        localite = document.getElementById('localite').value;
+        commune = document.getElementById('commune').value;
+        ville = document.getElementById('ville').value;
 
-        sql = "SELECT * FROM membres m INNER JOIN villes v on m.id_ville = v.id_ville INNER JOIN communes c on m.id_commune = c.id_commune WHERE ";
+        if (nom !== '' || prenoms !== '' || genre !== '' || commune !== '' || ville !== '') {
+            sql = "SELECT * FROM membres m INNER JOIN villes v on m.id_ville = v.id_ville INNER JOIN communes c on m.id_commune = c.id_commune WHERE ";
 
-        /* Searching name */
-        if (nom)
-            sql += `m.nom_membre = '${nom}'`;
+            if (nom) {
+                if (sql.endsWith("'"))
+                    sql += ` AND m.nom_membre = '${nom}'`;
+                else
+                    sql += `m.nom_membre = '${nom}'`;
+            }
 
-        /* Searching prenoms */
-        if (nom && prenoms)
-            sql += ` AND m.pren_membre = '${prenoms}'`;
-        else if (prenoms)
-            sql += `m.pren_membre = '${prenoms}'`;
+            if (prenoms) {
+                if (sql.endsWith("'"))
+                    sql += ` AND m.pren_membre = '${prenoms}'`;
+                else
+                    sql += `m.pren_membre = '${prenoms}'`;
+            }
 
-        /* Searching gender */
-        if ((nom && genre) || (prenoms && genre))
-            sql += ` AND m.genre_membre = '${genre}'`;
-        else if (genre)
-            sql += `m.genre_membre = '${genre}'`;
+            if (genre) {
+                if (sql.endsWith("'"))
+                    sql += ` AND m.genre_membre = '${genre}'`;
+                else
+                    sql += `m.genre_membre = '${genre}'`;
+            }
 
-        /* Searching address */
-        if ((nom && localite) || (prenoms && localite) || (genre && localite))
-            sql += ` AND adresse_membre LIKE '%${localite}%'`;
-        else if (localite)
-            sql += `adresse_membre LIKE '%${localite}%'`;
+            if (commune) {
+                if (sql.endsWith("'"))
+                    sql += ` AND c.libelle_commune LIKE '%${commune}%'`;
+                else
+                    sql += `c.libelle_commune LIKE '%${commune}%'`;
+            }
 
-        if (sql !== "SELECT * FROM membres WHERE ") {
-            $.ajax({
-                type: 'POST',
-                data: {
-                    info: sql.trim()
-                },
-                url: 'recherches/ajax/ajax_search_membres.php',
-                success: function (data) {
-                    response.innerHTML = data;
-                }
-            })
+            if (ville) {
+                if (sql.endsWith("'"))
+                    sql += ` AND v.libelle_ville LIKE '%${ville}%'`;
+                else
+                    sql += `v.libelle_ville LIKE '%${ville}%'`;
+            }
+
+            // console.log(sql);
+            if (sql !== "SELECT * FROM membres WHERE ") {
+                $.ajax({
+                    type: 'POST',
+                    data: {
+                        info: sql.trim()
+                    },
+                    url: 'recherches/ajax/ajax_search_membres.php',
+                    success: function (data) {
+                        response.innerHTML = data;
+                    }
+                })
+            }
         }
     }
 };

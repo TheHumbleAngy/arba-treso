@@ -49,8 +49,6 @@
                         </label>
                     </div>
                 </div>
-
-
             </div>
             <div class="row mt-2 justify-content-center">
                 <div class="col-2">
@@ -60,7 +58,6 @@
                 </div>
             </div>
         </div>
-
     </div>
 
     <div id="feedback" class="my-4"></div>

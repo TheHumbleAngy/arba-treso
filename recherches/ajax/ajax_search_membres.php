@@ -13,11 +13,11 @@
             <th class="text-center">N°</th>
             <th class="col">Nom</th>
             <th class="col">Prénoms</th>
-            <th class="col-1">Genre</th>
-            <th class="col-2">Contacts</th>
-            <th class="col-2">Commune</th>
-            <th class="col-2">Ville</th>
-            <th class="col-2">Adhésion</th>
+            <th class="col-1 text-center">Genre</th>
+            <th class="col">Contacts</th>
+            <th class="col">Commune</th>
+            <th class="col">Ville</th>
+            <!--<th class="col">Adhésion</th>-->
         </tr>
         </thead>
         <tbody id="liste_membres">
@@ -35,36 +35,26 @@
                     foreach ($membres as $membre) {
                         $nom_mbr = $membre['nom_membre'];
                         $pren_mbr = $membre['pren_membre'];
+                        $gender = $membre['genre_membre'];
+                        $contacts = $membre['contact_membre'];
                         $com = $membre['libelle_commune'];
                         $vil = $membre['libelle_ville'];
-                        $tel = $membre['contact_membre'];
                         $date = $membre['date_crea_membre'];
-                        $gender = $membre['genre_membre'];
                         ?>
                         <tr class="row mx-0">
-                            <td class="col-1 text-center text-primary font-weight-light">
+                            <td class="text-center text-primary font-weight-light">
                                 <span class="">
                                     <?php echo ++$i; ?>
                                 </span>
                             </td>
-                            <td class="col-2">
+                            <td class="col">
                                 <span class="text-uppercase">
                                     <?php echo $nom_mbr; ?>
                                 </span>
                             </td>
-                            <td class="col-3">
+                            <td class="col">
                                 <span class="text-uppercase">
                                     <?php echo $pren_mbr; ?>
-                                </span>
-                            </td>
-                            <td class="col-2">
-                                <span class="text-uppercase">
-                                    <?php echo $loc; ?>
-                                </span>
-                            </td>
-                            <td class="col-2">
-                                <span class="text-uppercase">
-                                    <?php echo $tel; ?>
                                 </span>
                             </td>
                             <td class="col-1 text-center">
@@ -72,9 +62,19 @@
                                     <?php echo $gender; ?>
                                 </span>
                             </td>
-                            <td class="col-1">
+                            <td class="col">
                                 <span class="text-uppercase">
-                                    <?php echo $date; ?>
+                                    <?php echo $contacts; ?>
+                                </span>
+                            </td>
+                            <td class="col">
+                                <span class="text-uppercase">
+                                    <?php echo $com; ?>
+                                </span>
+                            </td>
+                            <td class="col">
+                                <span class="text-uppercase">
+                                    <?php echo $vil; ?>
                                 </span>
                             </td>
                         </tr>
