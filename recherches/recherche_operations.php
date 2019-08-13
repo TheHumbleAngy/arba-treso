@@ -27,7 +27,7 @@
                                 </label>
                                 <label for="cate" class="col">
                                     <select class="custom-select custom-select-sm text-uppercase" id="categorie">
-                                        <option value="">Catégorie...</option>
+                                        <option value="">Categorie...</option>
                                     </select>
                                 </label>
                             </div>
@@ -37,7 +37,7 @@
                             <div class="row">
                                 <label for="annee" class="col">
                                     <select class="custom-select custom-select-sm text-uppercase" id="annee">
-                                        <option value="">Année...</option>
+                                        <option value="">Annee...</option>
                                         <option value="2019">2019</option>
                                     </select>
                                 </label>
@@ -65,10 +65,10 @@
                             </div>
                             <div class="row">
                                 <label for="genre" class="col-3">
-                                    <select class="custom-select custom-select-sm" id="genre">
+                                    <select class="custom-select custom-select-sm text-uppercase" id="genre">
                                         <option value="">Genre...</option>
                                         <option value="F">Femme</option>
-                                        <option value="M">Homme</option>
+                                        <option value="H">Homme</option>
                                     </select>
                                 </label>
                                 <label for="commune" class="col">
@@ -114,8 +114,7 @@
                 </div>
             </div>
 
-
-            <div class="row my-4 justify-content-center">
+            <div class="row my-2 justify-content-center">
                 <div class="col-2">
                     <button class="btn btn-primary col" onclick="searchOperation()" title="Rechercher">
                         <i class="fa fa-search"></i>

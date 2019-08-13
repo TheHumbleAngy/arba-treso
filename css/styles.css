@@ -616,3 +616,9 @@ input.ncare {
 /*form:focus-within {
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);
 }*/
+
+.col-05 {
+    -ms-flex: 0 0 4.1666665%;
+    flex: 0 0 4.1666665%;
+    max-width: 4.1666665%;
+}

@@ -945,7 +945,7 @@ const searchMember = (type) => {
 };
 
 const searchOperation = () => {
-    let typ_op,
+    let typOp,
         categorie,
         annee,
         mois,
@@ -954,12 +954,12 @@ const searchOperation = () => {
         genre,
         ville,
         commune,
-        date_op,
-        date_saisie;
+        dateOp,
+        dateSaisie;
     let sql;
     let response = document.getElementById('feedback');
 
-    typ_op = document.getElementById('typ_op').value;
+    typOp = document.getElementById('typ_op').value;
     categorie = document.getElementById('categorie').value;
 
     annee = document.getElementById('annee').value;
@@ -971,17 +971,17 @@ const searchOperation = () => {
     ville = document.getElementById('ville').value;
     commune = document.getElementById('commune').value;
 
-    date_op = document.getElementById('date_ope').value;
-    date_saisie = document.getElementById('date_saisie').value;
+    dateOp = document.getElementById('date_ope').value;
+    dateSaisie = document.getElementById('date_saisie').value;
 
-    if (typ_op !== '' || categorie !== '' || annee !== '' || mois !== '' || nom !== '' || prenoms !== '' || genre !== '' || commune !== '' || ville !== '' || date_op !== '' || date_saisie !== '') {
+    if (typOp !== '' || categorie !== '' || annee !== '' || mois !== '' || nom !== '' || prenoms !== '' || genre !== '' || commune !== '' || ville !== '' || dateOp !== '' || dateSaisie !== '') {
         sql = `SELECT * FROM operations o INNER JOIN membres m on o.id_membre = m.id_membre INNER JOIN communes c on m.id_commune = c.id_commune INNER JOIN villes v on m.id_ville = v.id_ville INNER JOIN categories cat on o.id_categorie = cat.id_categorie INNER JOIN types_operation typ on cat.id_typ_op = typ.id_typ_op INNER JOIN mois mo on o.id_mois = mo.id_mois WHERE `;
 
-        if (typ_op) {
+        if (typOp) {
             if (sql.endsWith("'"))
-                sql += ` AND typ.id_typ_op = ${typ_op}`;
+                sql += ` AND typ.id_typ_op = ${typOp}`;
             else
-                sql += `typ.id_typ_op = ${typ_op}`;
+                sql += `typ.id_typ_op = '${typOp}'`;
         }
 
         if (categorie) {
@@ -995,14 +995,14 @@ const searchOperation = () => {
             if (sql.endsWith("'"))
                 sql += ` AND o.annee_operation = ${annee}`;
             else
-                sql += `o.annee_operation = ${annee}`;
+                sql += `o.annee_operation = '${annee}'`;
         }
 
         if (mois) {
             if (sql.endsWith("'"))
-                sql += ` AND mo.libelle_mois = '${mois}'`;
+                sql += ` AND mo.id_mois = '${mois}'`;
             else
-                sql += `mo.libelle_mois = '${mois}'`;
+                sql += `mo.id_mois = '${mois}'`;
         }
 
         if (nom) {
@@ -1040,22 +1040,71 @@ const searchOperation = () => {
                 sql += `v.libelle_ville LIKE '%${ville}%'`;
         }
 
-        if (date_op) {
+        if (dateOp) {
             if (sql.endsWith("'"))
-                sql += ` AND o.date_operation = '${date_op}'`;
+                sql += ` AND o.date_operation = '${dateOp}'`;
             else
-                sql += `o.date_operation = '${date_op}'`;
+                sql += `o.date_operation = '${dateOp}'`;
         }
 
-        if (date_saisie) {
+        if (dateSaisie) {
             if (sql.endsWith("'"))
-                sql += ` AND o.date_saisie_operation = '${date_saisie}'`;
+                sql += ` AND o.date_saisie_operation = '${dateSaisie}'`;
             else
-                sql += `o.date_saisie_operation = '${date_saisie}'`;
+                sql += `o.date_saisie_operation = '${dateSaisie}'`;
         }
 
-        console.log(sql);
+        // console.log(sql);
         if (sql !== "SELECT * FROM membres WHERE ") {
+            $.ajax({
+                type: 'POST',
+                data: {
+                    info: sql.trim()
+                },
+                url: 'recherches/ajax/ajax_search_operations.php',
+                success: function (data) {
+                    let aDiv = document.getElementById('added_div');
+                    if (aDiv)
+                        aDiv.parentNode.removeChild(aDiv);
+
+                    let div = document.createElement('div');
+                    div.setAttribute('id', 'added_div');
+                    div.classList.add('row', 'justify-content-end', 'mt-4', 'mx-0', 'container-fluid');
+
+                    let formInline = document.createElement('form');
+                    formInline.classList.add('form-inline');
+
+                    let label = document.createElement('label');
+                    label.classList.add('mr-2');
+
+                    let text = document.createTextNode('Montant Total');
+
+                    let input = document.createElement('input');
+                    input.setAttribute('type', 'text');
+                    input.setAttribute('id', 'montant_total');
+                    input.setAttribute('readonly', 'true');
+                    input.classList.add('form-control', 'form-control-sm', 'text-right', 'font-weight-bold');
+
+                    label.appendChild(text);
+                    formInline.appendChild(label);
+                    formInline.appendChild(input);
+                    div.appendChild(formInline);
+
+                    let parent = response.parentNode;
+                    parent.insertBefore(div, response);
+
+                    response.style.height = '40vh';
+                    response.style.overflow = 'auto';
+                    response.innerHTML = data;
+
+                    let total = 0;
+                    if (document.getElementById('total') && document.getElementById('montant_total')) {
+                        total = document.getElementById('total').value;
+                        total = numberFormat(total);
+                    }
+                    document.getElementById('montant_total').value = total;
+                }
+            })
         }
     }
 };

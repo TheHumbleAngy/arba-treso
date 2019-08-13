@@ -10,7 +10,7 @@
     <table class="table table-sm table-hover bg-light" id="arr_membres">
         <thead class="bg-primary text-light">
         <tr class="row mx-0">
-            <th class="text-center">N°</th>
+            <th class="text-center col-1">N°</th>
             <th class="col">Nom</th>
             <th class="col">Prénoms</th>
             <th class="col-1 text-center">Genre</th>
@@ -42,7 +42,7 @@
                         $date = $membre['date_crea_membre'];
                         ?>
                         <tr class="row mx-0">
-                            <td class="text-center text-primary font-weight-light">
+                            <td class="text-center text-primary font-weight-light col-1">
                                 <span class="">
                                     <?php echo ++$i; ?>
                                 </span>
@@ -58,9 +58,13 @@
                                 </span>
                             </td>
                             <td class="col-1 text-center">
-                                <span class="text-uppercase">
-                                    <?php echo $gender; ?>
-                                </span>
+                                <?php if ($gender == 'H') { ?>
+                                    <span class="text-uppercase text-primary" title="Homme">
+                                <?php } else { ?>
+                                    <span class="text-uppercase text-primary" title="Femme">
+                                <?php } ?>
+                                <?php echo $gender; ?>
+                                    </span>
                             </td>
                             <td class="col">
                                 <span class="text-uppercase">
