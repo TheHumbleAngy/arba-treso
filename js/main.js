@@ -38,7 +38,6 @@ $(document).ready(function () {
         elt.value = 'M04';
         elt.text = 'Avril';
         cbo.appendChild(elt);
-        console.log(cbo.length);
 
         elt = cbo.options[cbo.length - 1].cloneNode(true);
         elt.value = 'M05';
@@ -945,6 +944,121 @@ const searchMember = (type) => {
     }
 };
 
+const searchOperation = () => {
+    let typ_op,
+        categorie,
+        annee,
+        mois,
+        nom,
+        prenoms,
+        genre,
+        ville,
+        commune,
+        date_op,
+        date_saisie;
+    let sql;
+    let response = document.getElementById('feedback');
+
+    typ_op = document.getElementById('typ_op').value;
+    categorie = document.getElementById('categorie').value;
+
+    annee = document.getElementById('annee').value;
+    mois = document.getElementById('mois').value;
+
+    nom = document.getElementById('nom').value;
+    prenoms = document.getElementById('prenoms').value;
+    genre = document.getElementById('genre').value;
+    ville = document.getElementById('ville').value;
+    commune = document.getElementById('commune').value;
+
+    date_op = document.getElementById('date_ope').value;
+    date_saisie = document.getElementById('date_saisie').value;
+
+    if (typ_op !== '' || categorie !== '' || annee !== '' || mois !== '' || nom !== '' || prenoms !== '' || genre !== '' || commune !== '' || ville !== '' || date_op !== '' || date_saisie !== '') {
+        sql = `SELECT * FROM operations o INNER JOIN membres m on o.id_membre = m.id_membre INNER JOIN communes c on m.id_commune = c.id_commune INNER JOIN villes v on m.id_ville = v.id_ville INNER JOIN categories cat on o.id_categorie = cat.id_categorie INNER JOIN types_operation typ on cat.id_typ_op = typ.id_typ_op INNER JOIN mois mo on o.id_mois = mo.id_mois WHERE `;
+
+        if (typ_op) {
+            if (sql.endsWith("'"))
+                sql += ` AND typ.id_typ_op = ${typ_op}`;
+            else
+                sql += `typ.id_typ_op = ${typ_op}`;
+        }
+
+        if (categorie) {
+            if (sql.endsWith("'"))
+                sql += ` AND cat.libelle_categorie = '${categorie}'`;
+            else
+                sql += `cat.libelle_categorie = '${categorie}'`;
+        }
+
+        if (annee) {
+            if (sql.endsWith("'"))
+                sql += ` AND o.annee_operation = ${annee}`;
+            else
+                sql += `o.annee_operation = ${annee}`;
+        }
+
+        if (mois) {
+            if (sql.endsWith("'"))
+                sql += ` AND mo.libelle_mois = '${mois}'`;
+            else
+                sql += `mo.libelle_mois = '${mois}'`;
+        }
+
+        if (nom) {
+            if (sql.endsWith("'"))
+                sql += ` AND m.nom_membre LIKE '%${nom}%'`;
+            else
+                sql += `m.nom_membre LIKE '%${nom}%'`;
+        }
+
+        if (prenoms) {
+            if (sql.endsWith("'"))
+                sql += ` AND m.pren_membre LIKE '%${prenoms}%'`;
+            else
+                sql += `m.pren_membre LIKE '%${prenoms}%'`;
+        }
+
+        if (genre) {
+            if (sql.endsWith("'"))
+                sql += ` AND m.genre_membre = '${genre}'`;
+            else
+                sql += `m.genre_membre = '${genre}'`;
+        }
+
+        if (commune) {
+            if (sql.endsWith("'"))
+                sql += ` AND c.libelle_commune LIKE '%${commune}%'`;
+            else
+                sql += `c.libelle_commune LIKE '%${commune}%'`;
+        }
+
+        if (ville) {
+            if (sql.endsWith("'"))
+                sql += ` AND v.libelle_ville LIKE '%${ville}%'`;
+            else
+                sql += `v.libelle_ville LIKE '%${ville}%'`;
+        }
+
+        if (date_op) {
+            if (sql.endsWith("'"))
+                sql += ` AND o.date_operation = '${date_op}'`;
+            else
+                sql += `o.date_operation = '${date_op}'`;
+        }
+
+        if (date_saisie) {
+            if (sql.endsWith("'"))
+                sql += ` AND o.date_saisie_operation = '${date_saisie}'`;
+            else
+                sql += `o.date_saisie_operation = '${date_saisie}'`;
+        }
+
+        console.log(sql);
+        if (sql !== "SELECT * FROM membres WHERE ") {
+        }
+    }
+};
 
 /* Stats */
 
