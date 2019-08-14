@@ -183,7 +183,7 @@ const setDateAdhesion = () => {
 const setParameter = (option) => { // 0: operations, 1: consultations
     const cbo = document.getElementById('type_param');
     const links = [
-        ['index.php?page=operations/entrees/cotisations/form_cotisations', 'index.php?page=operations/sorties/...'],
+        ['index.php?page=operations/sorties/...', 'index.php?page=operations/entrees/cotisations/form_cotisations'],
         ['index.php?page=operations/entrees/cotisations/liste_cotisations', 'index.php?page=membres/liste_membres'],
         ['index.php?page=recherches/recherche_membres', 'index.php?page=recherches/recherche_operations'],
         ['index.php?page=stats/stats_cotisations', 'index.php?page=stats/stats_depenses', 'index.php?page=stats/stats_membres']
@@ -341,47 +341,31 @@ const setGraphLabelColor = (rdoName) => {
     }
 };
 
-const setCategorie = (cbo) => {
-    let val = cbo.value;
+const setCategorie = (e) => {
+    let cbo = document.getElementById('cate');
 
-    if (val) {
-        // console.log(cbo.value);
-        let select = document.getElementById('cate');
-        let option = document.createElement('option');
+    if (e.value) {
+        if (cbo.length === 1) {
+            let sql = `SELECT * FROM categories WHERE id_typ_op = ${e.value}`;
 
-        for (const childNode of select.childNodes) {
-            if (childNode.nodeName === 'OPTION') {
-                console.log(childNode.nodeName);
-                console.log(childNode.innerHTML);
-
-            }
+            $.ajax({
+                type: 'POST',
+                data: {
+                    info: sql.trim()
+                },
+                url: 'operations/ajax_categorie.php',
+                success: function (data) {
+                    let categories = JSON.parse(data);
+                    for (const category of categories) {
+                        let n = cbo.length - 1;
+                        let elt = cbo.options[n].cloneNode(true);
+                        elt.value = category.id_categorie;
+                        elt.text = category.libelle_categorie.toUpperCase();
+                        cbo.appendChild(elt);
+                    }
+                }
+            })
         }
-        /*let test = true;
-        console.log(test);
-
-        while (select.firstChild.nodeName === 'OPTION' && test) {
-            if (select.firstChild.innerText !== 'Catégorie')
-                select.removeChild(select.firstChild);
-            else
-                test = false;
-        }
-        console.log(test);
-
-        if (cbo.value === '0') {
-            option.value = 'CAT03';
-            option.innerText = 'Festivité';
-            select.appendChild(option);
-
-        }
-        else if (cbo.value === '1') {
-            option.value = 'CAT01';
-            option.innerText = 'Adhésion';
-            select.appendChild(option);
-
-            option.value = 'CAT02';
-            option.innerText = 'Cotisation';
-            select.appendChild(option);
-        }*/
     }
 };
 
@@ -742,7 +726,7 @@ const saveCategorie = () => {
 
     if (libelle.value && typeOperation.value) {
         $.post(
-            'operations/ajax_new_categorie.php',
+            'operations/ajax_categorie.php',
             {
                 libelle: libelle.value,
                 type: typeOperation.value

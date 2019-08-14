@@ -9,32 +9,35 @@
 <div class="row justify-content-center">
     <div class="col-6 col-md-8 col-xl-5">
         <div id="wrapper_param" class="shadow gradient">
-            <div class="row">
-                <form class="col-10">
-                    <div class="row my-3">
-                        <div class="col-6 col-sm-4 col-xl-5 text-right">
-                            <h6 class="my-2">
-                                <label for="type_param" class="m-0">Type d'opération</label>
-                            </h6>
-                        </div>
-                        <div class="col-6 col-sm-8 col-xl-5">
-                            <select class="custom-select custom-select" name="entite" id="type_param"
-                                    onchange="setParameter(0)">
-                                <option value="">Sélectionner...</option>
-                                <option value="0">Entrée</option>
-                                <option value="1">Sortie</option>
-                            </select>
-                        </div>
-                    </div>
+            <div class="row my-2">
+                <form class="col-10 row form-inline">
+                    <label for="type_param" class="col">Type d'opération</label>
+                    <select class="custom-select col" name="entite" id="type_param"
+                            onchange="setCategorie(this)">
+                        <option value="">Sélectionner...</option>
+                        <option value="0">Sortie</option>
+                        <option value="1">Entrée</option>
+                    </select>
+                </form>
+            </div>
+            <div class="row my-2">
+                <form class="col-10 row form-inline">
+                    <label for="cate" class="col">Catégorie</label>
+                    <select class="custom-select col" name="entite" id="cate"
+                            onchange="setParameter(0)">
+                        <option value="">Sélectionner...</option>
+                    </select>
                 </form>
                 <div class="col">
                     <!-- Button trigger modal -->
-                    <button type="button" class="btn btn-sm btn-primary my-3" data-toggle="modal" data-target="#newOperationModal">
+                    <button type="button" class="btn btn-sm btn-primary" data-toggle="modal"
+                            data-target="#newOperationModal">
                         <i class="fas fa-cog faa-spin animated fa-1-5x mx-auto"></i>
                     </button>
 
                     <!-- Modal -->
-                    <div class="modal fade" id="newOperationModal" tabindex="-1" role="dialog" aria-labelledby="newOperationModalLabel"
+                    <div class="modal fade" id="newOperationModal" tabindex="-1" role="dialog"
+                         aria-labelledby="newOperationModalLabel"
                          aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered" role="document">
                             <div class="modal-content">
@@ -49,7 +52,8 @@
                                         <form>
                                             <div class="form-group">
                                                 <label for="categorie">Catégorie</label>
-                                                <input type="text" class="form-control text-uppercase" id="categorie" placeholder="...">
+                                                <input type="text" class="form-control text-uppercase" id="categorie"
+                                                       placeholder="...">
                                             </div>
                                             <div class="form-group">
                                                 <label for="type_ope">Type d'opération</label>
@@ -65,7 +69,9 @@
                                 <div class="modal-footer">
 
                                     <div id="alert_msg" class="mr-auto"></div>
-                                    <button type="button" class="btn btn-primary" id="btn_save" onclick="saveCategorie()">Enregistrer</button>
+                                    <button type="button" class="btn btn-primary" id="btn_save"
+                                            onclick="saveCategorie()">Enregistrer
+                                    </button>
                                 </div>
                             </div>
                         </div>

@@ -44,3 +44,17 @@
 
         $connection->close();
     }
+    elseif (isset($_POST['info'])) {
+        $sql = strtoupper($_POST['info']);
+
+        $connection = mysqli_connect('localhost', 'root', '', 'gestion_treso_arba');
+        $result = mysqli_query($connection, $sql);
+        if ($result->num_rows > 0) {
+            $set = $result->fetch_all(MYSQLI_ASSOC);
+
+            echo json_encode($set);
+        }
+
+        $result->free();
+        $connection->close();
+    }

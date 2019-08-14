@@ -28,7 +28,7 @@
                     <label for="param">
                         <input type="text" class="form-control form-control-sm text-uppercase" id="param" placeholder="Membre..."
                                aria-describedby="textHelp">
-                        <small id="textHelp" class="form-text text-muted">Renseigner le nom ou le prénom.</small>
+                        <small id="textHelp" class="form-text text-muted">Entrer le nom <strong>OU</strong> le prénom.</small>
                     </label>
                 </div>
                 <div class="col col-lg-3">
