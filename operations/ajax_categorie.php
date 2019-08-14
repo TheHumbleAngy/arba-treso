@@ -36,7 +36,13 @@
 
             $sql = "INSERT INTO categories (id_categorie, id_typ_op, libelle_categorie) VALUES ('{$id_cat}', '{$type}', '{$libelle}')";
             if ($result = mysqli_query($connection, $sql))
-                echo "Data saved";
+                echo json_encode([
+                    [
+                        'id_categorie' => $id_cat,
+                        'id_typ_op' => $type,
+                        'libelle_categorie' => $libelle
+                    ]
+                ]);
             else
                 echo "Error while saving data";
         } else
@@ -45,7 +51,7 @@
         $connection->close();
     }
     elseif (isset($_POST['info'])) {
-        $sql = strtoupper($_POST['info']);
+        $sql = $_POST['info'];
 
         $connection = mysqli_connect('localhost', 'root', '', 'gestion_treso_arba');
         $result = mysqli_query($connection, $sql);

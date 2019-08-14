@@ -341,31 +341,41 @@ const setGraphLabelColor = (rdoName) => {
     }
 };
 
+function categoriesFill(categories, cbo, status) {
+    if (status === 'update') {
+        // Delete the existing list
+        if (cbo.options.length > 1) {
+            while (cbo.lastChild && cbo.lastChild.value !== '')
+                cbo.removeChild(cbo.lastChild);
+        }
+    }
+    for (let category of categories) {
+        let n = cbo.length - 1;
+        let elt = cbo.options[n].cloneNode(true);
+        elt.value = category.id_categorie;
+        elt.text = category.libelle_categorie.toUpperCase();
+        cbo.appendChild(elt);
+    }
+}
+
 const setCategorie = (e) => {
     let cbo = document.getElementById('cate');
 
     if (e.value) {
-        if (cbo.length === 1) {
-            let sql = `SELECT * FROM categories WHERE id_typ_op = ${e.value}`;
+        let sql = `SELECT * FROM categories WHERE id_typ_op = ${e.value}`;
 
-            $.ajax({
-                type: 'POST',
-                data: {
-                    info: sql.trim()
-                },
-                url: 'operations/ajax_categorie.php',
-                success: function (data) {
-                    let categories = JSON.parse(data);
-                    for (const category of categories) {
-                        let n = cbo.length - 1;
-                        let elt = cbo.options[n].cloneNode(true);
-                        elt.value = category.id_categorie;
-                        elt.text = category.libelle_categorie.toUpperCase();
-                        cbo.appendChild(elt);
-                    }
-                }
-            })
-        }
+        $.ajax({
+            type: 'POST',
+            data: {
+                info: sql.trim()
+            },
+            url: 'operations/ajax_categorie.php',
+            success: function (data) {
+                let categories = JSON.parse(data);
+                // console.log(categories);
+                categoriesFill(categories, cbo, 'update');
+            }
+        })
     }
 };
 
@@ -721,8 +731,8 @@ const saveAdhesions = () => {
 };
 
 const saveCategorie = () => {
-    let libelle = document.getElementById('categorie');
-    let typeOperation = document.getElementById('type_ope');
+    let libelle = document.getElementById('sav_categorie');
+    let typeOperation = document.getElementById('sav_type_ope');
 
     if (libelle.value && typeOperation.value) {
         $.post(
@@ -734,11 +744,17 @@ const saveCategorie = () => {
             function (data) {
                 let feedback = document.getElementById('alert_msg');
                 let alertType;
+                let arr = JSON.parse(data);
+                let cbo = document.getElementById('cate');
 
-                if (data === "Data saved") {
+                // console.log(arr);
+                categoriesFill(arr, cbo, 'new');
+
+                if (data !== "Error while saving data" && data !== "Already in database") {
                     alertType = 'success';
-                    libelle.textContent = "";
+                    libelle.value = "";
                     typeOperation.selectedIndex = 0;
+                    data = `'${arr[0].libelle_categorie}' a été ajoutée.`;
                 }
                 else if (data === "Error while saving data")
                     alertType = 'danger';
@@ -756,7 +772,7 @@ const callAlert = (type, msg, parentNode) => {
 
     let div = document.createElement('div');
     div.setAttribute('role', 'alert');
-    div.classList.add('alert', alertType, 'alert-dismissible', 'fade', 'show', 'my-0')
+    div.classList.add('alert', alertType, 'alert-dismissible', 'fade', 'show', 'my-0');
 
     let textContent = document.createTextNode(msg);
     div.appendChild(textContent);
