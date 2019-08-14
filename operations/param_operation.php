@@ -6,29 +6,34 @@
      * Time: 3:57 PM
      */
 ?>
-<div class="row justify-content-center">
-    <div class="col-6 col-xl-5">
+<div class="row">
+    <div class="col-auto mx-auto">
         <div id="wrapper_param" class="shadow gradient">
+            <h3 class="mx-5 px-md-5 px-lg-0 mb-4">Parametrage Opération</h3>
             <div class="row my-3">
-                <form class="col-10 row form-inline">
-                    <label for="type_param" class="col">Type d'opération</label>
-                    <select class="custom-select custom-select-sm col" name="entite" id="type_param"
+                <div class="col-6 col-md-5">
+                    <label for="type_param">Type d'opération</label>
+                </div>
+                <div class="col-auto ">
+                    <select class="custom-select custom-select-sm" id="type_param"
                             onchange="setCategorie(this)">
                         <option value="">Sélectionner...</option>
                         <option value="0">Sortie</option>
                         <option value="1">Entrée</option>
                     </select>
-                </form>
+                </div>
             </div>
             <div class="row my-3">
-                <form class="col-10 row form-inline">
-                    <label for="cate" class="col">Catégorie</label>
-                    <select class="custom-select custom-select-sm col" name="entite" id="cate"
+                <div class="col-6 col-md-5">
+                    <label for="cate">Catégorie</label>
+                </div>
+                <div class="col-auto">
+                    <select class="custom-select custom-select-sm" name="entite" id="cate"
                             onchange="setParameter(0)">
                         <option value="">Sélectionner...</option>
                     </select>
-                </form>
-                <div class="col">
+                </div>
+                <div class="col-2">
                     <!-- Button trigger modal -->
                     <button type="button" class="btn btn-sm btn-primary" data-toggle="modal"
                             data-target="#newOperationModal">
@@ -78,9 +83,10 @@
                     </div>
                 </div>
             </div>
+
             <div class="row">
                 <a href="" id="proceder_param" role="button"
-                   class="btn btn-primary btn-block my-2 mx-auto faa-parent animated-hover col-5 col-lg-4 justify-content-between">
+                   class="btn btn-primary btn-block my-2 mx-auto faa-parent animated-hover w-50 justify-content-between">
                     Procéder
                     <i class="fa fa-arrow-right my-auto faa-passing ml-2"></i>
                 </a>

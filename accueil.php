@@ -6,7 +6,6 @@
      * Time: 2:35 PM
      */
 ?>
-
 <div class="parent">
     <div id="wrapper" class="shadow gradient">
         <div class="container-fluid">
@@ -14,7 +13,7 @@
                 <div class="col-6 col-xl-7 d-flex flex-column justify-content-center" id="arba">
                     <img src="images/logo_arba944x668.png" alt="logo_arba" class="img-fluid mb-sm-2">
                 </div>
-                <div class="col col-xl-5" style="z-index: 1;">
+                <div class="col col-xl-5 my-auto" style="z-index: 1;">
                     <a role="button" data-toggle="tooltip" data-placement="right" title="Saisir les adhésions"
                        class="btn btn-primary btn-lg btn-block d-flex justify-content-between faa-parent animated-hover"
                        href="index.php?page=operations/entrees/adhesions/form_adhesions">

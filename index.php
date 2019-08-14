@@ -97,7 +97,7 @@
     </div>
 </nav>
 
-<div class="container-fluid" style="height: 90%">
+<div class="container-fluid">
 
     <div id="content">
         <?php include $page; ?>

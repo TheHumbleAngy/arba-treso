@@ -1,7 +1,8 @@
-'use strict';
+"use strict";
+
 let selectedLabel, unselectedLabel;
 
-    /* Load the necessary elements here */
+/* Load the necessary elements here */
 $(document).ready(function () {
     let paramAnnee = document.getElementById('param_annee');
     if (paramAnnee) {
@@ -180,13 +181,27 @@ const setDateAdhesion = () => {
     }
 };
 
-const setParameter = (option) => { // 0: operations, 1: consultations
+const setParameter = (option) => {
+    // 0: operations, 1: consultations
     const cbo = document.getElementById('type_param');
     const links = [
-        ['index.php?page=operations/sorties/...', 'index.php?page=operations/entrees/cotisations/form_cotisations'],
-        ['index.php?page=operations/entrees/cotisations/liste_cotisations', 'index.php?page=membres/liste_membres'],
-        ['index.php?page=recherches/recherche_membres', 'index.php?page=recherches/recherche_operations'],
-        ['index.php?page=stats/stats_cotisations', 'index.php?page=stats/stats_depenses', 'index.php?page=stats/stats_membres']
+        [ // operations
+            'index.php?page=operations/sorties/...', // [0, 0]
+            'index.php?page=operations/entrees/cotisations/form_cotisations' // [0, 1]
+        ],
+        [ // listes
+            'index.php?page=operations/entrees/adhesions/liste_adhesions', // [1, 0]
+            'index.php?page=operations/entrees/cotisations/liste_cotisations',  // [1, 1]
+            'index.php?page=membres/liste_membres' // [1, 2]
+        ],
+        [ // recherches
+            'index.php?page=recherches/recherche_membres', // [2, 0]
+            'index.php?page=recherches/recherche_operations'  // [2, 1]
+        ],
+        [ // stats
+            'index.php?page=stats/stats_membres', // [3, 0]
+            'index.php?page=stats/stats_operations', // [3, 1]
+        ]
     ];
     const button = document.getElementById('proceder_param');
 
@@ -362,7 +377,7 @@ const setCategorie = (e) => {
     let cbo = document.getElementById('cate');
 
     if (e.value) {
-        let sql = `SELECT * FROM categories WHERE id_typ_op = ${e.value}`;
+        let sql = `SELECT * FROM categories WHERE id_typ_op = ${e.value} AND libelle_categorie <> 'adhesion'`;
 
         $.ajax({
             type: 'POST',
@@ -372,7 +387,7 @@ const setCategorie = (e) => {
             url: 'operations/ajax_categorie.php',
             success: function (data) {
                 let categories = JSON.parse(data);
-                // console.log(categories);
+                console.log(categories);
                 categoriesFill(categories, cbo, 'update');
             }
         })
@@ -1093,7 +1108,7 @@ const searchOperation = () => {
                     let parent = response.parentNode;
                     parent.insertBefore(div, response);
 
-                    response.style.height = '40vh';
+                    // response.style.height = '40vh';
                     response.style.overflow = 'auto';
                     response.innerHTML = data;
 
