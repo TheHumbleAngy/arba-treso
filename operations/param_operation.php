@@ -28,8 +28,8 @@
                     <label for="cate">Catégorie</label>
                 </div>
                 <div class="col-auto">
-                    <select class="custom-select custom-select-sm" name="entite" id="cate"
-                            onchange="setParameter(0)">
+                    <select class="custom-select custom-select-sm" id="cate"
+                            onchange="setParameter(this, 0)">
                         <option value="">Sélectionner...</option>
                     </select>
                 </div>

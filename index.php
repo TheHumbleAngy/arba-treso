@@ -54,13 +54,9 @@
                 </a>
             </li>
             <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarOperations" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <a class="nav-link" href="index.php?page=operations/param_operation" id="navbarOperations" role="button" aria-haspopup="true" aria-expanded="false">
                     Opérations
                 </a>
-                <div class="dropdown-menu" aria-labelledby="navbarOperations">
-                    <a class="dropdown-item" href="index.php?page=operations/entrees/cotisations/form_cotisations">Cotisations</a>
-                    <a class="dropdown-item" href="#">Dépenses</a>
-                </div>
             </li>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarConsultations" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

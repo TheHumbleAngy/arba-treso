@@ -181,12 +181,11 @@ const setDateAdhesion = () => {
     }
 };
 
-const setParameter = (option) => {
-    // 0: operations, 1: consultations
+const setParameter = (e, option) => {
     const cbo = document.getElementById('type_param');
     const links = [
         [ // operations
-            'index.php?page=operations/sorties/...', // [0, 0]
+            'index.php?page=operations/sorties/form_sortie&cat=', // [0, 0]
             'index.php?page=operations/entrees/cotisations/form_cotisations' // [0, 1]
         ],
         [ // listes
@@ -205,8 +204,14 @@ const setParameter = (option) => {
     ];
     const button = document.getElementById('proceder_param');
 
-    if (cbo.value !== '')
-        button.setAttribute('href', links[option][cbo.value]);
+    if (cbo.value !== '') {
+        let attr = links[option][cbo.value];
+        if (cbo.value === '0' && e.value)
+            attr += e.value;
+
+        button.setAttribute('href', attr);
+    }
+
 };
 
 const setGender = (e) => {
@@ -215,7 +220,7 @@ const setGender = (e) => {
     let n = tr.cells.length,
         mtt = tr.cells[n - 2].getElementsByTagName('input')[0];
 
-    mtt.value = gender === 'H' ? 2000 : 1000;
+    mtt.value = gender === 'H' ? numberFormat(2000) : numberFormat(1000);
 };
 
 const cboYearLoader = (cbo, nbr) => {
@@ -377,7 +382,7 @@ const setCategorie = (e) => {
     let cbo = document.getElementById('cate');
 
     if (e.value) {
-        let sql = `SELECT * FROM categories WHERE id_typ_op = ${e.value} AND libelle_categorie <> 'adhesion'`;
+        let sql = `SELECT * FROM categories WHERE id_typ_op = ${e.value} AND libelle_categorie <> 'adhesion' ORDER BY libelle_categorie`;
 
         $.ajax({
             type: 'POST',
@@ -387,8 +392,12 @@ const setCategorie = (e) => {
             url: 'operations/ajax_categorie.php',
             success: function (data) {
                 let categories = JSON.parse(data);
-                console.log(categories);
-                categoriesFill(categories, cbo, 'update');
+                // console.log(categories);
+                if (categories !== 'Empty') {
+                    categoriesFill(categories, cbo, 'update');
+                    document.getElementById('proceder_param').setAttribute('href', '');
+                }
+
             }
         })
     }
@@ -748,6 +757,7 @@ const saveAdhesions = () => {
 const saveCategorie = () => {
     let libelle = document.getElementById('sav_categorie');
     let typeOperation = document.getElementById('sav_type_ope');
+    let typeParam = document.getElementById('type_param');
 
     if (libelle.value && typeOperation.value) {
         $.post(
@@ -762,8 +772,9 @@ const saveCategorie = () => {
                 let arr = JSON.parse(data);
                 let cbo = document.getElementById('cate');
 
-                // console.log(arr);
-                categoriesFill(arr, cbo, 'new');
+                // console.log(typeParam.value, arr[0].id_typ_op);
+                if (typeParam.value === arr[0].id_typ_op)
+                    categoriesFill(arr, cbo, 'new');
 
                 if (data !== "Error while saving data" && data !== "Already in database") {
                     alertType = 'success';

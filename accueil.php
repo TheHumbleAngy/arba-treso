@@ -6,7 +6,7 @@
      * Time: 2:35 PM
      */
 ?>
-<div class="parent">
+<div class="parent mt-5">
     <div id="wrapper" class="shadow gradient">
         <div class="container-fluid">
             <div class="row justify-content-center">

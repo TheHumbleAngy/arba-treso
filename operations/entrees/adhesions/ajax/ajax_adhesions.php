@@ -17,7 +17,7 @@
         <th class="">Commune</th>
         <th class="">Ville</th>
         <th class="text-center">Genre</th>
-        <th class="w-6" title="Droit d'adhésion">Droit A.</th>
+        <th class="w-auto" title="Droit d'adhésion">Droit A.</th>
         <th class=""></th>
     </tr>
     </thead>

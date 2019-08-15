@@ -59,7 +59,8 @@
             $set = $result->fetch_all(MYSQLI_ASSOC);
 
             echo json_encode($set);
-        }
+        } else
+            echo json_encode("Empty");
 
         $result->free();
         $connection->close();
