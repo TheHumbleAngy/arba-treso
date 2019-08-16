@@ -2,8 +2,23 @@
 
 let selectedLabel, unselectedLabel;
 
+const titlePageUpdater = (title) => {
+    let children = document.getElementsByTagName('head')[0].children;
+    for (let child of children) {
+        if (child.nodeName === 'TITLE') {
+            child.text += ` - ${title.charAt(0).toUpperCase() + title.slice(1)}`;
+
+            break;
+        }
+    }
+};
+
 /* Load the necessary elements here */
 $(document).ready(function () {
+    let pageTitle = document.getElementById('head_title').value;
+    if (pageTitle)
+        titlePageUpdater(pageTitle);
+
     let paramAnnee = document.getElementById('param_annee');
     if (paramAnnee) {
         cboYearLoader(paramAnnee, 2);
@@ -81,12 +96,14 @@ $(document).ready(function () {
         cbo.appendChild(elt);
     }
 
-    if (document.getElementById('type_consultation')) {
-        document.getElementById('type_consultation').value = '';
+    let typeConsultation = document.getElementById('type_consultation');
+    if (typeConsultation) {
+        typeConsultation.value = '';
     }
 
-    if (document.getElementById('proceder_param')) {
-        document.getElementById('proceder_param').addEventListener('click', () => {
+    let procederParam = document.getElementById('proceder_param');
+    if (procederParam) {
+        procederParam.addEventListener('click', () => {
             if (document.getElementById('type_param').value === '')
                 event.preventDefault();
         })
@@ -95,6 +112,11 @@ $(document).ready(function () {
     if (document.getElementById('commune') && document.getElementById('ville')) {
         namesLoader('autocompletion', 'commune', 'communes');
         namesLoader('autocompletion', 'ville', 'villes');
+    }
+
+    let ordre_de = document.getElementById('ordre_de');
+    if (ordre_de) {
+        namesLoader('autocompletion', 'ordre_de', 'membres');
     }
 
     $('[data-toggle="tooltip"]').tooltip();
@@ -244,13 +266,19 @@ const namesLoader = (usage, id, entity) => {
             entity: entity
         },
         success: function (data) {
-            let input;
-            input = $('[id^=' + id + ']');
+            if (usage === 'autocompletion') {
+                let input;
+                input = $('[id^=' + id + ']');
 
-            for (let i = 0; i < input.length; i++) {
-                let listMbr = new Awesomplete(input[i]);
-                listMbr.list = JSON.parse(data);
+                for (let i = 0; i < input.length; i++) {
+                    let listMbr = new Awesomplete(input[i]);
+                    listMbr.list = JSON.parse(data);
+                }
+            } else {
+                return ("The list is the following...");
+                // return JSON.parse(data);
             }
+
         }
     })
 };
@@ -361,7 +389,7 @@ const setGraphLabelColor = (rdoName) => {
     }
 };
 
-function categoriesFill(categories, cbo, status) {
+function fillCategories(list, cbo, status) {
     if (status === 'update') {
         // Delete the existing list
         if (cbo.options.length > 1) {
@@ -369,12 +397,24 @@ function categoriesFill(categories, cbo, status) {
                 cbo.removeChild(cbo.lastChild);
         }
     }
-    for (let category of categories) {
+    for (let category of list) {
         let n = cbo.length - 1;
         let elt = cbo.options[n].cloneNode(true);
         elt.value = category.id_categorie;
         elt.text = category.libelle_categorie.toUpperCase();
         cbo.appendChild(elt);
+    }
+}
+
+function fillMembers(list, cbo) {
+    if (cbo.length === 1) {
+        for (const member of list) {
+            let n = cbo.length - 1;
+            let elt = cbo.options[n].cloneNode(true);
+            elt.value = member.id_membre;
+            elt.text = member.nom_membre + ' ' + member.pren_membre;
+            cbo.appendChild(elt);
+        }
     }
 }
 
@@ -394,7 +434,7 @@ const setCategorie = (e) => {
                 let categories = JSON.parse(data);
                 // console.log(categories);
                 if (categories !== 'Empty') {
-                    categoriesFill(categories, cbo, 'update');
+                    fillCategories(categories, cbo, 'update');
                     document.getElementById('proceder_param').setAttribute('href', '');
                 }
 
@@ -774,7 +814,7 @@ const saveCategorie = () => {
 
                 // console.log(typeParam.value, arr[0].id_typ_op);
                 if (typeParam.value === arr[0].id_typ_op)
-                    categoriesFill(arr, cbo, 'new');
+                    fillCategories(arr, cbo, 'new');
 
                 if (data !== "Error while saving data" && data !== "Already in database") {
                     alertType = 'success';

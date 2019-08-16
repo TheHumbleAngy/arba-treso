@@ -6,7 +6,7 @@
      * Time: 5:39 PM
      */
 ?>
-
+<input type="hidden" id="head_title" value="adhésions">
 <div class="bg-white col-11a col-xl-10 mx-auto p-2" style="border-radius: 10px">
 
     <div class="container-fluid">

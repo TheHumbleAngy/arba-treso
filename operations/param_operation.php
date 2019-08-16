@@ -6,11 +6,14 @@
      * Time: 3:57 PM
      */
 ?>
+<input type="hidden" id="head_title" value="parametrage Operation">
 <div class="row">
     <div class="col-auto mx-auto">
         <div id="wrapper_param" class="shadow gradient">
-            <h3 class="mx-5 px-md-5 px-lg-0 mb-4">Parametrage Opération</h3>
-            <div class="row my-3">
+            <div id="param_title">
+                <h3 class="mr-5 pr-5">Parametrage Opération</h3>
+            </div>
+            <div class="row my-3 mx-0">
                 <div class="col-6 col-md-5">
                     <label for="type_param">Type d'opération</label>
                 </div>
@@ -23,7 +26,7 @@
                     </select>
                 </div>
             </div>
-            <div class="row my-3">
+            <div class="row my-3 mx-0">
                 <div class="col-6 col-md-5">
                     <label for="cate">Catégorie</label>
                 </div>
@@ -86,7 +89,7 @@
 
             <div class="row">
                 <a href="" id="proceder_param" role="button"
-                   class="btn btn-primary btn-block my-2 mx-auto faa-parent animated-hover w-50 justify-content-between">
+                   class="btn btn-primary my-2 mx-auto faa-parent animated-hover w-50">
                     Procéder
                     <i class="fa fa-arrow-right my-auto faa-passing ml-2"></i>
                 </a>

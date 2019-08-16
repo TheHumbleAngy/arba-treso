@@ -6,6 +6,7 @@
      * Time: 2:35 PM
      */
 ?>
+<input type="hidden" id="head_title" value="accueil">
 <div class="parent mt-5">
     <div id="wrapper" class="shadow gradient">
         <div class="container-fluid">

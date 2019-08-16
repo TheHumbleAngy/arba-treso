@@ -622,3 +622,15 @@ input.ncare {
     flex: 0 0 4.1666665%;
     max-width: 4.1666665%;
 }
+
+.border-left {
+    border-top-left-radius: 0!important;
+}
+
+#param_title::after {
+    content: '';
+    display: block;
+    width: 25%;
+    border-bottom: 0.15em solid #c3c3c3;
+    margin: 1em 0;
+}
