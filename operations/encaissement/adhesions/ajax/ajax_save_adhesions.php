@@ -66,7 +66,6 @@
 
                 $sql_mbr = "INSERT INTO membres (id_membre, id_commune, id_ville, nom_membre, pren_membre, genre_membre, contact_membre, date_crea_membre) VALUES ('{$id_mbr}', '{$id_commune}', '{$id_ville}', '{$nom}', '{$pren}', '{$genre}', '{$contact}', '{$date}')";
                 if (mysqli_query($connection, $sql_mbr)) {
-                //if (1) {
                     // ...operation
                     $sql_last = "SELECT id_operation FROM operations ORDER BY id_operation DESC LIMIT 1";
 
@@ -87,11 +86,8 @@
 
                     $number = sprintf('%04d', ++$number);
                     $id_ope = $year . "-OP-" . $number;
-                    // $date_ope = $date;
-                    // $today = date('Y-m-d');
                     $id_mois = "M" . date('m');
                     $an = substr($date, 0, 4);
-                    // $obs = mysqli_escape_string($connection, $obs);
 
                     $sql_op = "INSERT INTO operations (id_operation, id_membre, id_mois, id_categorie, montant_operation, obs_operation, date_saisie_operation, date_operation, annee_operation) VALUES ('{$id_ope}', '{$id_mbr}', '{$id_mois}', '{$id_categorie}', {$mtt}, '{$obs}', '{$date}', '{$date}', {$an})";
                     if ($result = mysqli_query($connection, $sql_op)) {

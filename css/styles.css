@@ -143,16 +143,9 @@ h2.ncare {
 }
 
 #wrapper_param {
-    /*width: 50vw;*/
-    /*height: 200px;*/
     background-color: #fff;
     border-radius: 10px;
-    /*position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;*/
-    margin: 20vh auto;
+    margin: 20vh;
     padding: 1.5rem 3rem;
 }
 
@@ -625,6 +618,10 @@ input.ncare {
 
 .border-left {
     border-top-left-radius: 0!important;
+}
+
+#param_title {
+    min-width: 30vw;
 }
 
 #param_title::after {

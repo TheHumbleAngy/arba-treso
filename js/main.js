@@ -114,8 +114,8 @@ $(document).ready(function () {
         namesLoader('autocompletion', 'ville', 'villes');
     }
 
-    let ordre_de = document.getElementById('ordre_de');
-    if (ordre_de) {
+    let ordreDe = document.getElementById('ordre_de');
+    if (ordreDe) {
         namesLoader('autocompletion', 'ordre_de', 'membres');
     }
 
@@ -145,7 +145,7 @@ const setYearCotisation = () => {
     if (cbo.value !== '') {
         $.ajax({
             type: 'POST',
-            url: 'operations/entrees/cotisations/ajax/ajax_cotisations.php',
+            url: 'operations/encaissement/cotisations/ajax/ajax_cotisations.php',
             success: function (data) {
                 document.getElementById('enregistrer').disabled = false;
                 response.innerHTML = data;
@@ -162,7 +162,7 @@ const setDateAdhesion = () => {
     if (dateAdhe.value !== '') {
         $.ajax({
             type: 'POST',
-            url: 'operations/entrees/adhesions/ajax/ajax_adhesions.php',
+            url: 'operations/encaissement/adhesions/ajax/ajax_adhesions.php',
             success: function (data) {
                 document.getElementById('enregistrer').disabled = false;
                 response.innerHTML = data;
@@ -172,7 +172,7 @@ const setDateAdhesion = () => {
                 if (selectCom && selectVil) {
                     $.ajax({
                         type: 'GET',
-                        url: 'operations/entrees/adhesions/ajax/liste_communes_villes.php',
+                        url: 'operations/encaissement/adhesions/ajax/liste_communes_villes.php',
                         success: function (data) {
                             let arr = JSON.parse(data);
                             let arrCom = arr[0];
@@ -207,12 +207,12 @@ const setParameter = (e, option) => {
     const cbo = document.getElementById('type_param');
     const links = [
         [ // operations
-            'index.php?page=operations/sorties/form_sortie&cat=', // [0, 0]
-            'index.php?page=operations/entrees/cotisations/form_cotisations' // [0, 1]
+            'index.php?page=operations/decaissement/form_decaissement&cat=', // [0, 0]
+            'index.php?page=operations/encaissement/cotisations/form_cotisations' // [0, 1]
         ],
         [ // listes
-            'index.php?page=operations/entrees/adhesions/liste_adhesions', // [1, 0]
-            'index.php?page=operations/entrees/cotisations/liste_cotisations',  // [1, 1]
+            'index.php?page=operations/encaissement/adhesions/liste_adhesions', // [1, 0]
+            'index.php?page=operations/encaissement/cotisations/liste_cotisations',  // [1, 1]
             'index.php?page=membres/liste_membres' // [1, 2]
         ],
         [ // recherches
@@ -310,7 +310,7 @@ const memberDataLoader = (e) => {
             data: {
                 info: sql.trim()
             },
-            url: 'operations/entrees/cotisations/ajax/ajax_mbr_coti_mois.php',
+            url: 'operations/encaissement/cotisations/ajax/ajax_mbr_coti_mois.php',
             success: function (data) {
                 const tr = e.closest('tr');
                 const trChildrenList = tr.childNodes;
@@ -458,7 +458,7 @@ const setMoisCagnotte = (e) => {
                 data: {
                     info: sql.trim()
                 },
-                url: 'operations/entrees/cotisations/ajax/ajax_mbr_coti_mois.php',
+                url: 'operations/encaissement/cotisations/ajax/ajax_mbr_coti_mois.php',
                 success: function (data) {
                     let months = JSON.parse(data);
                     for (const month of months) {
@@ -490,7 +490,7 @@ WHERE numero_mois = '${mois}' AND annee_operation = ${annee}`;
 
         $.ajax({
             type: 'POST',
-            url: 'operations/entrees/cotisations/ajax/ajax_mbr_coti_mois.php',
+            url: 'operations/encaissement/cotisations/ajax/ajax_mbr_coti_mois.php',
             data: {
                 qry: sql
             },
@@ -518,7 +518,7 @@ WHERE MONTH(date_operation) = ${mois} AND YEAR(date_operation) = ${annee} AND c.
 
         $.ajax({
             type: 'POST',
-            url: 'operations/entrees/cotisations/ajax/ajax_mbr_coti_mois.php',
+            url: 'operations/encaissement/cotisations/ajax/ajax_mbr_coti_mois.php',
             data: {
                 qry: sql
             },
@@ -534,6 +534,14 @@ WHERE MONTH(date_operation) = ${mois} AND YEAR(date_operation) = ${annee} AND c.
 
 
 /* Custom functions */
+
+const cssAnimation = (e) => {
+    // console.log(e)
+
+    e.classList.add()
+    let classList = e.classList;
+    console.log(classList)
+};
 
 const procederConsultation = (fieldId) => {
     let param = '',
@@ -690,7 +698,7 @@ const saveCotisations = () => {
         if (data.length && dateOpe && data[0].length > 1) { // DONE: le cas des noms renseignés mais pas les montants est pris en compte ici
             $.ajax({
                 type: 'POST',
-                url: 'operations/entrees/cotisations/ajax/ajax_save_cotisations.php',
+                url: 'operations/encaissement/cotisations/ajax/ajax_save_cotisations.php',
                 data: {
                     data: data,
                     date_ope: dateOpe,
@@ -770,7 +778,7 @@ const saveAdhesions = () => {
         if (data.length && data[0].length > 1) {
             $.ajax({
                 type: 'POST',
-                url: 'operations/entrees/adhesions/ajax/ajax_save_adhesions.php',
+                url: 'operations/encaissement/adhesions/ajax/ajax_save_adhesions.php',
                 data: {
                     arr: data,
                     dateAdhe: date.value
@@ -830,6 +838,43 @@ const saveCategorie = () => {
                 callAlert(alertType, data, feedback);
             }
         );
+    }
+};
+
+const saveDecaissement = () => {
+    let dateOpe = document.getElementById('date_ope');
+    let destinataire = document.getElementById('mbr_destinataire');
+    let mtt = document.getElementById('mtt_decaisse');
+    let ordreDe = document.getElementById('ordre_de');
+    let commentaires = document.getElementById('commentaires');
+    let categorie = document.getElementById('cate');
+
+    if (dateOpe && destinataire && mtt && ordreDe && commentaires) {
+        $.post(
+            'operations/decaissement/ajax/ajax_save_decaissement.php',
+            {
+                dateOpe: dateOpe.value,
+                dest: destinataire.value,
+                mtt: mtt.value,
+                ordr: ordreDe.value,
+                com: commentaires.value,
+                cate: categorie.value
+            },
+            function (response) {
+                console.log(response);
+                if (response === 'Saved') {
+                    callModal('successModal');
+                    dateOpe = "";
+                    destinataire = "";
+                    mtt = "";
+                    ordreDe = "";
+                    commentaires = "";
+                    categorie = "";
+                }
+                else if (response === 'Not saved')
+                    callModal('errorModal', "Une erreur est survenue lors de la tentative d'enregistrement.");
+            }
+        )
     }
 };
 

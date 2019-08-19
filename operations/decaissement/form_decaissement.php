@@ -19,13 +19,24 @@
             mysqli_free_result($result);
             ?>
 
-            <input type="hidden" id="head_title" value="sortie">
+            <input type="hidden" id="head_title" value="décaissement">
+            <input type="hidden" id="cate" value="<?php echo $id_categorie; ?>">
             <div class="row">
                 <div class="col-auto mx-auto">
-                    <div id="wrapper_param" class="shadow gradient">
-                        <h3 class="mb-4 rounded-left border-left border-bottom border-primary px-2 pb-1">Formulaire <?php echo $libelle ?></h3>
+                    <div id="wrapper_param" class="shadow gradient mt-5">
+                        <div id="param_title" class="mb-md-4">
+                            <h2 class="">Fiche de Décaissement <span class="badge badge-primary"><?php echo $libelle ?></span></h2>
+                        </div>
                         <div class="row my-3 mx-0">
                             <form>
+                                <div class="row my-3">
+                                    <div class="col-sm-5 col-md-4 ">
+                                        <label for="date_ope">Date</label>
+                                    </div>
+                                    <div class="col">
+                                        <input type="date" class="form-control form-control-sm" id="date_ope">
+                                    </div>
+                                </div>
                                 <div class="row my-3">
                                     <div class="col-sm-5 col-md-4 ">
                                         <label for="mbr_destinataire">Destinataire</label>
@@ -79,10 +90,56 @@
                                         <label for="commentaires">Commentaires</label>
                                     </div>
                                     <div class="col">
-                                        <textarea id="commentaires" class="form-control" cols="40"></textarea>
+                                        <textarea id="commentaires" class="form-control" cols="30"></textarea>
                                     </div>
                                 </div>
                             </form>
+                        </div>
+                        <div class="row">
+                            <button class="btn btn-primary faa-parent col-6 col-md-5 animated-hover col-lg-4 mx-auto my-4"
+                                    id="enregistrer" onclick="saveDecaissement()">
+                                <i class="fas fa-save mr-2 faa-pulse"></i>
+                                Enregistrer
+                            </button>
+
+                            <!-- Modals -->
+                            <div class="modal fade" id="successModal" tabindex="-1" role="dialog" aria-labelledby="successModalLabel"
+                                 aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h4 class="modal-title" id="successModalLabel">ARBA ✔️</h4>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <blockquote class="blockquote">
+                                                <p class="mb-0">Le décaissement a bien été enregistré 👍</p>
+                                            </blockquote>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="modal fade" id="errorModal" tabindex="-1" role="dialog" aria-labelledby="errorYearModalLabel"
+                                 aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h4 class="modal-title" id="errorYearModalLabel">ARBA 🚫</h4>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <blockquote class="blockquote">
+                                                <p class="mb-0"></p>
+                                            </blockquote>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

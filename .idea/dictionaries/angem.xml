@@ -27,6 +27,7 @@
       <w>catégorie</w>
       <w>chartjs</w>
       <w>choix</w>
+      <w>commentaires</w>
       <w>compte</w>
       <w>coti</w>
       <w>cotisation</w>
@@ -34,10 +35,14 @@
       <w>cours</w>
       <w>datasets</w>
       <w>datepicker</w>
+      <w>decaisse</w>
+      <w>decaissement</w>
       <w>depenses</w>
       <w>dropdown</w>
+      <w>décaissement</w>
       <w>décembre</w>
       <w>dépense</w>
+      <w>encaissement</w>
       <w>enregistrer</w>
       <w>entite</w>
       <w>entrée</w>
@@ -78,6 +83,8 @@
       <w>novembre</w>
       <w>numero</w>
       <w>octobre</w>
+      <w>opération</w>
+      <w>parametrage</w>
       <w>parametre</w>
       <w>particulier</w>
       <w>prec</w>

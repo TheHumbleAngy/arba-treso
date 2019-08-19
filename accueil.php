@@ -17,11 +17,11 @@
                 <div class="col col-xl-5 my-auto" style="z-index: 1;">
                     <a role="button" data-toggle="tooltip" data-placement="right" title="Saisir les adhésions"
                        class="btn btn-primary btn-lg btn-block d-flex justify-content-between faa-parent animated-hover"
-                       href="index.php?page=operations/entrees/adhesions/form_adhesions">
+                       href="index.php?page=operations/encaissement/adhesions/form_adhesions">
                         <span class="mr-auto">🤝 Adhésions</span>
                         <i class="fa fa-arrow-right my-auto faa-passing"></i>
                     </a>
-                    <a role="button" data-toggle="tooltip" data-placement="right" title="Saisir les entrées ou sorties d'argent"
+                    <a role="button" data-toggle="tooltip" data-placement="right" title="Saisir les entrées ou decaissement d'argent"
                        class="btn btn-primary btn-lg btn-block d-flex justify-content-between faa-parent animated-hover"
                        href="index.php?page=operations/param_operation">
                         <span class="mr-auto">💰 Opérations</span>

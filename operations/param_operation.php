@@ -10,19 +10,19 @@
 <div class="row">
     <div class="col-auto mx-auto">
         <div id="wrapper_param" class="shadow gradient">
-            <div id="param_title">
-                <h3 class="mr-5 pr-5">Parametrage Opération</h3>
+            <div id="param_title" class="mb-md-4">
+                <h3 class="">Parametrage Opération</h3>
             </div>
             <div class="row my-3 mx-0">
                 <div class="col-6 col-md-5">
                     <label for="type_param">Type d'opération</label>
                 </div>
-                <div class="col-auto ">
+                <div class="col">
                     <select class="custom-select custom-select-sm" id="type_param"
                             onchange="setCategorie(this)">
                         <option value="">Sélectionner...</option>
-                        <option value="0">Sortie</option>
-                        <option value="1">Entrée</option>
+                        <option value="0">Décaissement</option>
+                        <option value="1">Encaissement</option>
                     </select>
                 </div>
             </div>
@@ -30,7 +30,7 @@
                 <div class="col-6 col-md-5">
                     <label for="cate">Catégorie</label>
                 </div>
-                <div class="col-auto">
+                <div class="col">
                     <select class="custom-select custom-select-sm" id="cate"
                             onchange="setParameter(this, 0)">
                         <option value="">Sélectionner...</option>
@@ -67,7 +67,7 @@
                                                 <label for="sav_type_ope">Type d'opération</label>
                                                 <select class="custom-select text-uppercase" id="sav_type_ope">
                                                     <option selected>-</option>
-                                                    <option value="0">Sortie</option>
+                                                    <option value="0">Décaissement</option>
                                                     <option value="1">Entrée</option>
                                                 </select>
                                             </div>
@@ -89,7 +89,7 @@
 
             <div class="row">
                 <a href="" id="proceder_param" role="button"
-                   class="btn btn-primary my-2 mx-auto faa-parent animated-hover w-50">
+                   class="btn btn-primary my-2 mx-auto faa-parent animated-hover col-6 col-md-5 col-lg-4">
                     Procéder
                     <i class="fa fa-arrow-right my-auto faa-passing ml-2"></i>
                 </a>

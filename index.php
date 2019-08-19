@@ -49,7 +49,7 @@
     <div class="collapse navbar-collapse" id="navbarText">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item">
-                <a class="nav-link" href="index.php?page=operations/entrees/adhesions/form_adhesions" id="navbarAdhesions" role="button" aria-haspopup="true" aria-expanded="false">
+                <a class="nav-link" href="index.php?page=operations/encaissement/adhesions/form_adhesions" id="navbarAdhesions" role="button" aria-haspopup="true" aria-expanded="false">
                     Adhésions
                 </a>
             </li>
@@ -63,10 +63,10 @@
                     Consultations
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarOperations">
-                    <a class="dropdown-item" href="index.php?page=operations/entrees/cotisations/liste_cotisations">Cotisations</a>
+                    <a class="dropdown-item" href="index.php?page=operations/encaissement/cotisations/liste_cotisations">Cotisations</a>
                     <a class="dropdown-item" href="">Dépenses</a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="index.php?page=operations/entrees/adhesions/liste_membres">Adhésions</a>
+                    <a class="dropdown-item" href="index.php?page=operations/encaissement/adhesions/liste_membres">Adhésions</a>
                     <a class="dropdown-item" href="index.php?page=membres/liste_membres">Membres</a>
                 </div>
             </li>
