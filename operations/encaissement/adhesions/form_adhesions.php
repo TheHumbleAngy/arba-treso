@@ -20,7 +20,7 @@
             </div>
             <div class="col">
                 <div class="row">
-                    <button class="btn btn-block btn-outline-primary faa-parent animated-hover col-6 col-xl-2 col-md-4 mx-auto mt-2"
+                    <button class="btn btn-block btn-outline-primary faa-parent animated-hover w-25 mx-auto"
                             disabled
                             id="enregistrer" onclick="saveAdhesions()">
                         <i class="fas fa-save mr-2 faa-pulse"></i>

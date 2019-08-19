@@ -68,7 +68,7 @@
                                                 <select class="custom-select text-uppercase" id="sav_type_ope">
                                                     <option selected>-</option>
                                                     <option value="0">Décaissement</option>
-                                                    <option value="1">Entrée</option>
+                                                    <option value="1">Encaissement</option>
                                                 </select>
                                             </div>
                                         </form>

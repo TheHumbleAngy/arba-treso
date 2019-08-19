@@ -207,8 +207,13 @@ const setParameter = (e, option) => {
     const cbo = document.getElementById('type_param');
     const links = [
         [ // operations
-            'index.php?page=operations/decaissement/form_decaissement&cat=', // [0, 0]
-            'index.php?page=operations/encaissement/cotisations/form_cotisations' // [0, 1]
+            [
+                'index.php?page=operations/decaissement/form_decaissement&cat=', // [0, 0, 0]
+                'index.php?page=operations/encaissement/form_encaissement&cat=' // [0, 0, 1]
+            ],
+            [
+                'index.php?page=operations/encaissement/cotisations/form_cotisations' // [0, 1, 0]
+            ]
         ],
         [ // listes
             'index.php?page=operations/encaissement/adhesions/liste_adhesions', // [1, 0]
@@ -227,9 +232,18 @@ const setParameter = (e, option) => {
     const button = document.getElementById('proceder_param');
 
     if (cbo.value !== '') {
-        let attr = links[option][cbo.value];
-        if (cbo.value === '0' && e.value)
+        let attr;
+        if (cbo.value === '0' && e.value) {
+            attr = links[option][cbo.value][0];
             attr += e.value;
+        } else if (cbo.value === '1' && e.value) {
+            if (e.value === 'CAT02') // modifier la valeur selon le code la categorie "cotisation"
+                attr = links[option][cbo.value];
+            else {
+                attr = links[option][0][cbo.value];
+                attr += e.value;
+            }
+        }
 
         button.setAttribute('href', attr);
     }
@@ -429,7 +443,7 @@ const setCategorie = (e) => {
             data: {
                 info: sql.trim()
             },
-            url: 'operations/ajax_categorie.php',
+            url: 'operations/ajax/ajax_categorie.php',
             success: function (data) {
                 let categories = JSON.parse(data);
                 // console.log(categories);
@@ -809,7 +823,7 @@ const saveCategorie = () => {
 
     if (libelle.value && typeOperation.value) {
         $.post(
-            'operations/ajax_categorie.php',
+            'operations/ajax/ajax_categorie.php',
             {
                 libelle: libelle.value,
                 type: typeOperation.value
@@ -864,12 +878,12 @@ const saveDecaissement = () => {
                 console.log(response);
                 if (response === 'Saved') {
                     callModal('successModal');
-                    dateOpe = "";
-                    destinataire = "";
-                    mtt = "";
-                    ordreDe = "";
-                    commentaires = "";
-                    categorie = "";
+                    dateOpe.value = "";
+                    destinataire.value = "";
+                    mtt.value = "";
+                    ordreDe.value = "";
+                    commentaires.value = "";
+                    categorie.value = "";
                 }
                 else if (response === 'Not saved')
                     callModal('errorModal', "Une erreur est survenue lors de la tentative d'enregistrement.");

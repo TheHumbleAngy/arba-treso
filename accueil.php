@@ -21,7 +21,7 @@
                         <span class="mr-auto">🤝 Adhésions</span>
                         <i class="fa fa-arrow-right my-auto faa-passing"></i>
                     </a>
-                    <a role="button" data-toggle="tooltip" data-placement="right" title="Saisir les entrées ou decaissement d'argent"
+                    <a role="button" data-toggle="tooltip" data-placement="right" title="Saisir les encaissements ou decaissement d'argent"
                        class="btn btn-primary btn-lg btn-block d-flex justify-content-between faa-parent animated-hover"
                        href="index.php?page=operations/param_operation">
                         <span class="mr-auto">💰 Opérations</span>
