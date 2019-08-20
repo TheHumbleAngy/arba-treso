@@ -38,9 +38,9 @@
                 </div>
                 <div class="col-2">
                     <!-- Button trigger modal -->
-                    <button type="button" class="btn btn-sm btn-primary" data-toggle="modal"
+                    <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" title="Ajouter une catégorie"
                             data-target="#newOperationModal">
-                        <i class="fas fa-cog faa-spin animated fa-1-5x mx-auto"></i>
+                        <i class="fas fa-cog faa-spin animated-hover fa-1-5x mx-auto"></i>
                     </button>
 
                     <!-- Modal -->
@@ -78,7 +78,9 @@
 
                                     <div id="alert_msg" class="mr-auto"></div>
                                     <button type="button" class="btn btn-primary" id="btn_save"
-                                            onclick="saveCategorie()">Enregistrer
+                                            onclick="saveCategorie()">
+                                        <i class="fa fa-save my-auto faa-passing ml-2"></i>
+                                        Enregistrer
                                     </button>
                                 </div>
                             </div>

@@ -47,7 +47,7 @@
                                             <option value="">Sélectionner...</option>
 
                                             <?php
-                                                $sql = "SELECT id_membre, nom_membre, pren_membre FROM membres ORDER BY nom_membre";
+                                                $sql = "SELECT * FROM membres m INNER JOIN fonctions f ON m.id_fonction = f.id_fonction INNER JOIN groupes g ON f.id_groupe = g.id_groupe WHERE g.id_groupe = 'GRP01' ORDER BY m.nom_membre";
                                                 $result = mysqli_query($connection, $sql);
                                                 if ($result->num_rows) {
                                                     $set = $result->fetch_all(MYSQLI_ASSOC);

@@ -38,15 +38,15 @@
                                 </div>
                                 <div class="row my-3">
                                     <div class="col-sm-5 col-md-4 ">
-                                        <label for="mbr_destinataire">Réceptionné par</label>
+                                        <label for="mbr_reception">Réceptionné par</label>
                                     </div>
                                     <div class="col">
-                                        <select id="mbr_destinataire"
+                                        <select id="mbr_reception"
                                                 class="custom-select custom-select-sm">
                                             <option value="">Sélectionner...</option>
 
                                             <?php
-                                                $sql = "SELECT id_membre, nom_membre, pren_membre FROM membres ORDER BY nom_membre";
+                                                $sql = "SELECT * FROM membres m INNER JOIN fonctions f ON m.id_fonction = f.id_fonction INNER JOIN groupes g ON f.id_groupe = g.id_groupe WHERE g.id_groupe = 'GRP01' ORDER BY m.nom_membre";
                                                 $result = mysqli_query($connection, $sql);
                                                 if ($result->num_rows) {
                                                     $set = $result->fetch_all(MYSQLI_ASSOC);
@@ -68,10 +68,10 @@
                                 </div>
                                 <div class="row my-3">
                                     <div class="col-sm-5 col-md-4 ">
-                                        <label for="mtt_decaisse">Montant encaissé</label>
+                                        <label for="mtt_encaisse">Montant encaissé</label>
                                     </div>
                                     <div class="col">
-                                        <input type="text" class="form-control form-control-sm text-right" id="mtt_decaisse"
+                                        <input type="text" class="form-control form-control-sm text-right" id="mtt_encaisse"
                                                placeholder="0">
                                     </div>
                                 </div>
@@ -87,7 +87,7 @@
                         </div>
                         <div class="row">
                             <button class="btn btn-primary faa-parent col-6 col-md-5 animated-hover col-lg-4 mx-auto my-4"
-                                    id="enregistrer" onclick="saveDecaissement()">
+                                    id="enregistrer" onclick="saveEncaissement()">
                                 <i class="fas fa-save mr-2 faa-pulse"></i>
                                 Enregistrer
                             </button>

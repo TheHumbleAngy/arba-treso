@@ -775,12 +775,7 @@ const saveAdhesions = () => {
 
                     let infoMbrNbr = infoMbr.length;
                     if (j <= infoMbrNbr) {
-
-                        // let info = infoMbr[j - 1][i].value;
                         data[m][n++] = infoMbr[j - 1][i].value;
-                        /*if (info) {
-                            data[m][n++] = info;
-                        }*/
                     }
                 }
                 m++;
@@ -882,6 +877,40 @@ const saveDecaissement = () => {
                     destinataire.value = "";
                     mtt.value = "";
                     ordreDe.value = "";
+                    commentaires.value = "";
+                    categorie.value = "";
+                }
+                else if (response === 'Not saved')
+                    callModal('errorModal', "Une erreur est survenue lors de la tentative d'enregistrement.");
+            }
+        )
+    }
+};
+
+const saveEncaissement = () => {
+    let dateOpe = document.getElementById('date_ope');
+    let reception = document.getElementById('mbr_reception');
+    let mtt = document.getElementById('mtt_encaisse');
+    let commentaires = document.getElementById('commentaires');
+    let categorie = document.getElementById('cate');
+
+    if (dateOpe && reception && mtt && commentaires) {
+        $.post(
+            'operations/encaissement/ajax/ajax_save_encaissement.php',
+            {
+                dateOpe: dateOpe.value,
+                rcp: reception.value,
+                mtt: mtt.value,
+                com: commentaires.value,
+                cate: categorie.value
+            },
+            function (response) {
+                console.log(response);
+                if (response === 'Saved') {
+                    callModal('successModal');
+                    dateOpe.value = "";
+                    reception.value = "";
+                    mtt.value = "";
                     commentaires.value = "";
                     categorie.value = "";
                 }

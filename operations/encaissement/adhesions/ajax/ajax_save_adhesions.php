@@ -13,6 +13,7 @@
         $test_mbr_exist = false;
         $test_insert = true;
         $id_categorie = "CAT01";
+        $id_fonction = "FCT04"; // membre regulier
         $count = 0;
         $obs = "FRAIS ADHESION";
 
@@ -64,7 +65,7 @@
                 $nom = mysqli_escape_string($connection, strtoupper($nom));
                 $pren = mysqli_escape_string($connection, strtoupper($pren));
 
-                $sql_mbr = "INSERT INTO membres (id_membre, id_commune, id_ville, nom_membre, pren_membre, genre_membre, contact_membre, date_crea_membre) VALUES ('{$id_mbr}', '{$id_commune}', '{$id_ville}', '{$nom}', '{$pren}', '{$genre}', '{$contact}', '{$date}')";
+                $sql_mbr = "INSERT INTO membres (id_membre, id_fonction, id_commune, id_ville, nom_membre, pren_membre, genre_membre, contact_membre, date_crea_membre) VALUES ('{$id_mbr}', '{$id_fonction}', '{$id_commune}', '{$id_ville}', '{$nom}', '{$pren}', '{$genre}', '{$contact}', '{$date}')";
                 if (mysqli_query($connection, $sql_mbr)) {
                     // ...operation
                     $sql_last = "SELECT id_operation FROM operations ORDER BY id_operation DESC LIMIT 1";
