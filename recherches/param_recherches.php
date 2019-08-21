@@ -19,7 +19,7 @@
                 </div>
                 <div class="col-auto ">
                     <select class="custom-select custom-select-sm" id="type_param"
-                            onchange="setParameter(2)">
+                            onchange="setParameter(this, 2)">
                         <option value="">Sélectionner...</option>
                         <option value="0">Membres</option>
                         <option value="1">Opérations</option>

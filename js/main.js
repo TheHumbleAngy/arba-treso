@@ -109,14 +109,24 @@ $(document).ready(function () {
         })
     }
 
-    if (document.getElementById('commune') && document.getElementById('ville')) {
+    let commune = document.getElementById('commune');
+    if (commune) {
         namesLoader('autocompletion', 'commune', 'communes');
+    }
+
+    let ville = document.getElementById('ville');
+    if (ville) {
         namesLoader('autocompletion', 'ville', 'villes');
     }
 
     let ordreDe = document.getElementById('ordre_de');
     if (ordreDe) {
         namesLoader('autocompletion', 'ordre_de', 'membres');
+    }
+
+    let recuDe = document.getElementById('recu_de');
+    if (recuDe) {
+        namesLoader('autocompletion', 'recu_de', 'membres');
     }
 
     $('[data-toggle="tooltip"]').tooltip();
@@ -230,12 +240,15 @@ const setParameter = (e, option) => {
         ]
     ];
     const button = document.getElementById('proceder_param');
+    console.log(cbo.value);
 
     if (cbo.value !== '') {
         let attr;
         if (cbo.value === '0' && e.value) {
             attr = links[option][cbo.value][0];
             attr += e.value;
+        } else if (cbo.value === 0) {
+            attr = links[option][cbo.value]
         } else if (cbo.value === '1' && e.value) {
             if (e.value === 'CAT02') // modifier la valeur selon le code la categorie "cotisation"
                 attr = links[option][cbo.value];
@@ -244,7 +257,7 @@ const setParameter = (e, option) => {
                 attr += e.value;
             }
         }
-
+        console.log(attr);
         button.setAttribute('href', attr);
     }
 
@@ -288,11 +301,7 @@ const namesLoader = (usage, id, entity) => {
                     let listMbr = new Awesomplete(input[i]);
                     listMbr.list = JSON.parse(data);
                 }
-            } else {
-                return ("The list is the following...");
-                // return JSON.parse(data);
             }
-
         }
     })
 };
@@ -857,17 +866,23 @@ const saveDecaissement = () => {
     let ordreDe = document.getElementById('ordre_de');
     let commentaires = document.getElementById('commentaires');
     let categorie = document.getElementById('cate');
+    let titre = document.getElementById('titre');
+    let contact = document.getElementById('contact');
+    let commune = document.getElementById('commune');
 
     if (dateOpe && destinataire && mtt && ordreDe && commentaires) {
         $.post(
             'operations/decaissement/ajax/ajax_save_decaissement.php',
             {
-                dateOpe: dateOpe.value,
-                dest: destinataire.value,
-                mtt: mtt.value,
-                ordr: ordreDe.value,
-                com: commentaires.value,
-                cate: categorie.value
+                dateOpe: dateOpe.value.trim(),
+                dest: destinataire.value.trim().toUpperCase(),
+                mtt: mtt.value.trim(),
+                ordr: ordreDe.value.trim().toUpperCase(),
+                com: commentaires.value.trim().toUpperCase(),
+                cate: categorie.value.trim(),
+                titre: titre.value.trim().toUpperCase(),
+                contact: contact.value.trim(),
+                commune: commune.value.trim().toUpperCase(),
             },
             function (response) {
                 console.log(response);
@@ -879,9 +894,12 @@ const saveDecaissement = () => {
                     ordreDe.value = "";
                     commentaires.value = "";
                     categorie.value = "";
+                    titre.value = "";
+                    contact.value = "";
+                    commune.value = "";
                 }
-                else if (response === 'Not saved')
-                    callModal('errorModal', "Une erreur est survenue lors de la tentative d'enregistrement.");
+                else
+                    callModal('errorModal', response);
             }
         )
     }

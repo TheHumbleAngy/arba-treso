@@ -29,7 +29,7 @@
                         <div class="row my-3 mx-0">
                             <form>
                                 <div class="row my-3">
-                                    <div class="col-sm-5 col-md-4 ">
+                                    <div class="col-5">
                                         <label for="date_ope">Date</label>
                                     </div>
                                     <div class="col">
@@ -37,7 +37,7 @@
                                     </div>
                                 </div>
                                 <div class="row my-3">
-                                    <div class="col-sm-5 col-md-4 ">
+                                    <div class="col-5">
                                         <label for="mbr_reception">Réceptionné par</label>
                                     </div>
                                     <div class="col">
@@ -67,7 +67,7 @@
                                     </div>
                                 </div>
                                 <div class="row my-3">
-                                    <div class="col-sm-5 col-md-4 ">
+                                    <div class="col-5">
                                         <label for="mtt_encaisse">Montant encaissé</label>
                                     </div>
                                     <div class="col">
@@ -76,7 +76,15 @@
                                     </div>
                                 </div>
                                 <div class="row my-3">
-                                    <div class="col-sm-5 col-md-4 ">
+                                    <div class="col-5">
+                                        <label for="recu_de">Reçu de</label>
+                                    </div>
+                                    <div class="col">
+                                        <input type="text" class="form-control form-control-sm" id="recu_de">
+                                    </div>
+                                </div>
+                                <div class="row my-3">
+                                    <div class="col-5">
                                         <label for="commentaires">Commentaires</label>
                                     </div>
                                     <div class="col">

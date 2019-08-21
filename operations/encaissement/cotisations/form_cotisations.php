@@ -6,7 +6,7 @@
      * Time: 5:15 PM
      */
 ?>
-
+<input type="hidden" id="head_title" value="cotisations">
 <div class="bg-white col-xl-11 mx-auto p-2" style="border-radius: 10px">
 
     <div class="container-fluid">

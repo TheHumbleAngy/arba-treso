@@ -28,69 +28,82 @@
                             <h2 class="">Fiche de Décaissement <span class="badge badge-primary"><?php echo $libelle ?></span></h2>
                         </div>
                         <div class="row my-3 mx-0">
-                            <form>
-                                <div class="row my-3">
-                                    <div class="col-sm-5 col-md-4 ">
+                            <form class="col">
+                                <div class="row my-3 col col-lg-10">
+                                    <div class="col-5 col-xl-6">
                                         <label for="date_ope">Date</label>
                                     </div>
-                                    <div class="col">
+                                    <div class="col-auto col-xl-6">
                                         <input type="date" class="form-control form-control-sm" id="date_ope">
                                     </div>
                                 </div>
-                                <div class="row my-3">
-                                    <div class="col-sm-5 col-md-4 ">
-                                        <label for="mbr_destinataire">Destinataire</label>
-                                    </div>
-                                    <div class="col">
-                                        <select id="mbr_destinataire"
-                                                class="custom-select custom-select-sm">
-                                            <option value="">Sélectionner...</option>
-
-                                            <?php
-                                                $sql = "SELECT * FROM membres m INNER JOIN fonctions f ON m.id_fonction = f.id_fonction INNER JOIN groupes g ON f.id_groupe = g.id_groupe WHERE g.id_groupe = 'GRP01' ORDER BY m.nom_membre";
-                                                $result = mysqli_query($connection, $sql);
-                                                if ($result->num_rows) {
-                                                    $set = $result->fetch_all(MYSQLI_ASSOC);
-
-                                                    foreach ($set as $membre) {
-                                                        ?>
-
-                                                        <option value="<?php echo $membre['id_membre']; ?>">
-                                                            <?php echo $membre['nom_membre'] . " " . $membre['pren_membre']; ?>
-                                                        </option>
-
-                                                        <?php
-                                                    }
-                                                }
-                                            ?>
-
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="row my-3">
-                                    <div class="col-sm-5 col-md-4 ">
+                                <div class="row my-3 col col-lg-10">
+                                    <div class="col-5 col-xl-6">
                                         <label for="mtt_decaisse">Montant décaissé</label>
                                     </div>
-                                    <div class="col">
+                                    <div class="col col-xl-auto">
                                         <input type="text" class="form-control form-control-sm text-right" id="mtt_decaisse"
                                                placeholder="0">
                                     </div>
                                 </div>
-                                <div class="row my-3">
-                                    <div class="col-sm-5 col-md-4 ">
-                                        <label for="ordre_de">A l'ordre de</label>
+                                <div class="row my-4 col">
+                                    <div class="col">
+                                        <h5 class="cadre-titre-search">A l'endroit de...</h5>
+                                        <div class="form-group">
+                                            <label for="ordre_de" class="sr-only"></label>
+                                            <input type="text" class="form-control form-control-sm text-uppercase" id="ordre_de" placeholder="Nom & Prénoms">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="titre" class="sr-only"></label>
+                                            <input type="text" class="form-control form-control-sm text-uppercase" id="titre" placeholder="Titre">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="contact" class="sr-only"></label>
+                                            <input type="text" class="form-control form-control-sm text-uppercase" id="contact" placeholder="Contact">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="commune" class="sr-only"></label>
+                                            <input type="text" class="form-control form-control-sm text-uppercase" id="commune"
+                                                   placeholder="Commune">
+                                        </div>
                                     </div>
                                     <div class="col">
-                                        <input type="text" class="form-control form-control-sm" id="ordre_de"
-                                               placeholder="">
+                                        <h5 class="cadre-titre-search">Receptionné par...</h5>
+                                        <div class="form-group">
+                                            <label for="mbr_destinataire" class="sr-only"></label>
+                                            <select id="mbr_destinataire"
+                                                    class="custom-select custom-select-sm">
+                                                <option value="">Sélectionner...</option>
+
+                                                <?php
+                                                    $sql = "SELECT * FROM membres m INNER JOIN fonctions f ON m.id_fonction = f.id_fonction INNER JOIN groupes g ON f.id_groupe = g.id_groupe WHERE g.id_groupe = 'GRP01' ORDER BY m.nom_membre";
+                                                    $result = mysqli_query($connection, $sql);
+                                                    if ($result->num_rows) {
+                                                        $set = $result->fetch_all(MYSQLI_ASSOC);
+
+                                                        foreach ($set as $membre) {
+                                                            ?>
+
+                                                            <option value="<?php echo $membre['id_membre']; ?>">
+                                                                <?php echo $membre['nom_membre'] . " " . $membre['pren_membre']; ?>
+                                                            </option>
+
+                                                            <?php
+                                                        }
+                                                    }
+                                                ?>
+
+                                            </select>
+                                        </div>
+
                                     </div>
                                 </div>
-                                <div class="row my-3">
-                                    <div class="col-sm-5 col-md-4 ">
+                                <div class="col-auto row my-3">
+                                    <div class="col-5 col-xl-3">
                                         <label for="commentaires">Commentaires</label>
                                     </div>
                                     <div class="col">
-                                        <textarea id="commentaires" class="form-control" cols="30"></textarea>
+                                        <textarea id="commentaires" class="form-control"></textarea>
                                     </div>
                                 </div>
                             </form>
