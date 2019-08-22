@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Aug 19, 2019 at 06:50 PM
+-- Generation Time: Aug 22, 2019 at 06:49 PM
 -- Server version: 5.7.26
 -- PHP Version: 7.2.18
 
@@ -267,6 +267,44 @@ INSERT INTO `communes` (`id_commune`, `libelle_commune`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `fonctions`
+--
+
+DROP TABLE IF EXISTS `fonctions`;
+CREATE TABLE IF NOT EXISTS `fonctions` (
+  `id_fonction` varchar(5) NOT NULL,
+  `id_groupe` varchar(5) NOT NULL,
+  `libelle_fonction` varchar(40) NOT NULL,
+  PRIMARY KEY (`id_fonction`),
+  KEY `id_groupe` (`id_groupe`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `fonctions`
+--
+
+INSERT INTO `fonctions` (`id_fonction`, `id_groupe`, `libelle_fonction`) VALUES
+('FCT01', 'GRP02', 'REGULIER'),
+('FCT02', 'GRP01', 'PRESIDENT'),
+('FCT03', 'GRP01', 'VICE-PRESIDENT 1'),
+('FCT04', 'GRP01', 'VICE-PRESIDENT 2'),
+('FCT05', 'GRP01', 'SECRETAIRE GENERAL'),
+('FCT06', 'GRP01', 'SECRETAIRE GENERAL ADJOINT'),
+('FCT07', 'GRP01', 'TRESORIER GENERAL'),
+('FCT08', 'GRP01', 'TRESORIER GENERAL ADJOINT'),
+('FCT09', 'GRP01', 'COMMISSAIRE AUX COMPTES'),
+('FCT10', 'GRP01', 'CHARGE DES AFFAIRES SOCIALES'),
+('FCT11', 'GRP01', 'CHARGE DES AFFAIRES SOCIALES ADJOINT 1'),
+('FCT12', 'GRP01', 'CHARGE DES AFFAIRES SOCIALES ADJOINT 2'),
+('FCT13', 'GRP01', 'CHARGE DES AFFAIRES SOCIALES ADJOINT 3'),
+('FCT14', 'GRP01', 'CHARGE DE L\'ORGANISATION'),
+('FCT15', 'GRP01', 'CHARGE DE L\'ORGANISATION ADJOINT 1'),
+('FCT16', 'GRP01', 'CHARGE DE L\'ORGANISATION ADJOINT 2'),
+('FCT17', 'GRP02', 'RESPONSABLE DE COMMUNE');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `groupes`
 --
 
@@ -288,38 +326,75 @@ INSERT INTO `groupes` (`id_groupe`, `libelle_groupe`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `interlocuteurs`
+--
+
+DROP TABLE IF EXISTS `interlocuteurs`;
+CREATE TABLE IF NOT EXISTS `interlocuteurs` (
+  `id_interlocuteur` varchar(6) NOT NULL,
+  `nom_interlocuteur` varchar(30) NOT NULL,
+  `pren_interlocuteur` varchar(30) NOT NULL,
+  `titre_interlocuteur` varchar(30) NOT NULL,
+  `contact_interlocuteur` varchar(30) NOT NULL,
+  `localite_interlocuteur` varchar(100) NOT NULL,
+  PRIMARY KEY (`id_interlocuteur`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `interlocuteurs`
+--
+
+INSERT INTO `interlocuteurs` (`id_interlocuteur`, `nom_interlocuteur`, `pren_interlocuteur`, `titre_interlocuteur`, `contact_interlocuteur`, `localite_interlocuteur`) VALUES
+('ITL01', 'ADJE', 'LEOPOLD', 'GARDIEN', '20 21 22 04', 'ADJAME');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `membres`
 --
 
 DROP TABLE IF EXISTS `membres`;
 CREATE TABLE IF NOT EXISTS `membres` (
   `id_membre` varchar(10) NOT NULL,
-  `id_groupe` varchar(5) NOT NULL,
+  `id_fonction` varchar(5) NOT NULL,
   `id_commune` varchar(6) NOT NULL,
   `id_ville` varchar(6) NOT NULL,
   `nom_membre` varchar(20) NOT NULL,
   `pren_membre` varchar(30) NOT NULL,
   `genre_membre` char(1) NOT NULL COMMENT 'F/H',
   `contact_membre` varchar(11) DEFAULT NULL,
-  `date_crea_membre` date NOT NULL,
+  `date_crea_membre` date DEFAULT NULL,
   PRIMARY KEY (`id_membre`),
   KEY `id_commune` (`id_commune`),
   KEY `id_ville` (`id_ville`),
-  KEY `id_groupe` (`id_groupe`)
+  KEY `id_fonction` (`id_fonction`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `membres`
 --
 
-INSERT INTO `membres` (`id_membre`, `id_groupe`, `id_commune`, `id_ville`, `nom_membre`, `pren_membre`, `genre_membre`, `contact_membre`, `date_crea_membre`) VALUES
-('M19001', 'GRP01', 'COM048', 'VIL02', 'KOUAKOU', 'ANGE', 'H', '47 11 29 97', '2019-08-02'),
-('M19002', 'GRP01', 'COM197', 'VIL02', 'KOUASSI', 'AMENAN JOELLE', 'F', '48 97 09 40', '2019-08-02'),
-('M19003', 'GRP02', 'COM048', 'VIL02', 'KOUASSI', 'LOUKOU DONALD', 'H', '', '2019-08-03'),
-('M19004', 'GRP02', 'COM048', 'VIL02', 'KOUASSI', 'BROU SAMUEL', 'H', '', '2019-08-03'),
-('M19005', 'GRP02', 'COM048', 'VIL02', 'DJAN', 'KATO ALBERT', 'H', '', '2019-08-03'),
-('M19006', 'GRP02', 'COM002', 'VIL02', 'LOKOSSUE', 'PAUL', 'H', '07 02 03 05', '2019-08-04'),
-('M19007', 'GRP02', 'COM113', 'VIL02', 'BROU', 'SOUMAN', 'H', '01 02 03 04', '2019-08-04');
+INSERT INTO `membres` (`id_membre`, `id_fonction`, `id_commune`, `id_ville`, `nom_membre`, `pren_membre`, `genre_membre`, `contact_membre`, `date_crea_membre`) VALUES
+('M19001', 'FCT07', 'COM048', 'VIL02', 'KOUAKOU', 'ANGE', 'H', '47 11 29 97', NULL),
+('M19002', 'FCT08', 'COM197', 'VIL02', 'KOUADIO', 'AMENAN JOELLE', 'F', '48 97 09 40', NULL),
+('M19003', 'FCT01', 'COM048', 'VIL02', 'KOUASSI', 'LOUKOU DONALD', 'H', NULL, NULL),
+('M19004', 'FCT01', 'COM048', 'VIL02', 'KOUASSI', 'BROU SAMUEL', 'H', NULL, NULL),
+('M19005', 'FCT01', 'COM048', 'VIL02', 'DJAN', 'KATO ALBERT', 'H', NULL, NULL),
+('M19006', 'FCT01', 'COM002', 'VIL02', 'LOKOSSUE', 'PAUL', 'H', '07 02 03 05', NULL),
+('M19007', 'FCT01', 'COM113', 'VIL02', 'BROU', 'SOUMAN', 'H', '01 02 03 04', NULL),
+('M19008', 'FCT02', 'COM048', 'VIL03', 'M\'BRA', 'KOUASSI RICHARD', 'H', '47 30 40 41', NULL),
+('M19009', 'FCT03', 'COM197', 'VIL04', 'KOUADIO', 'MARIE', 'F', '09 96 37 56', NULL),
+('M19010', 'FCT04', 'COM048', 'VIL05', 'KOUASSI', 'N\'GORAN LAURENT', 'H', '47 08 29 57', NULL),
+('M19011', 'FCT05', 'COM048', 'VIL06', 'DIBY', 'SYLVESTRE', 'H', '07 96 09 09', NULL),
+('M19012', 'FCT06', 'COM113', 'VIL07', 'N\'DRI', 'KOUASSI FRANCOIS', 'H', NULL, NULL),
+('M19013', 'FCT09', 'COM197', 'VIL08', 'KOUAKOU', 'AMENAN CECILE', 'F', '04 00 11 06', NULL),
+('M19014', 'FCT10', 'COM002', 'VIL09', 'KONAN', 'KONAN PIERRE', 'H', '58 33 48 84', NULL),
+('M19015', 'FCT11', 'COM048', 'VIL10', 'KONGO', 'FIRMIN', 'H', '07 66 34 98', NULL),
+('M19016', 'FCT12', 'COM197', 'VIL11', 'N\'GOHISSE', 'LUCIE', 'F', '06 91 39 06', NULL),
+('M19017', 'FCT13', 'COM197', 'VIL12', 'BROU', 'MARIETTE', 'F', NULL, NULL),
+('M19018', 'FCT14', 'COM002', 'VIL13', 'KOFFI', 'JONAS', 'H', '07 79 88 57', NULL),
+('M19019', 'FCT15', 'COM048', 'VIL14', 'KONAN', 'KAN GEORGES', 'H', '05 36 66 92', NULL),
+('M19020', 'FCT16', 'COM048', 'VIL15', 'TANOH', 'KOUAME PARFAIT', 'H', '49 12 05 16', NULL);
 
 -- --------------------------------------------------------
 
@@ -371,9 +446,9 @@ CREATE TABLE IF NOT EXISTS `operations` (
   `date_operation` date NOT NULL,
   `annee_operation` smallint(4) NOT NULL,
   PRIMARY KEY (`id_operation`),
-  KEY `id_membre` (`id_membre`),
   KEY `id_mois` (`id_mois`),
-  KEY `id_categorie` (`id_categorie`)
+  KEY `id_categorie` (`id_categorie`),
+  KEY `id_membre` (`id_membre`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -404,7 +479,33 @@ INSERT INTO `operations` (`id_operation`, `id_membre`, `id_mois`, `id_categorie`
 ('19-OP-0021', 'M19002', 'M07', 'CAT02', 1000, 'COTISATION MENSUELLE', '2019-08-04', '2019-08-04', 2019),
 ('19-OP-0022', 'M19001', 'M08', 'CAT02', 2000, 'COTISATION MENSUELLE', '2019-08-04', '2019-08-04', 2019),
 ('19-OP-0023', 'M19002', 'M08', 'CAT04', 3000, 'A l\'ordre de GARDIEN.\nPour les frais de location de la salle Ã  ce jour.', '2019-08-19', '2019-08-04', 2019),
-('19-OP-0024', 'M19006', 'M08', 'CAT03', 200000, 'A l\'ordre de LOKOSSUE PAUL.\nPour le compte des frais de l\'AG', '2019-08-19', '2019-02-03', 2019);
+('19-OP-0024', 'M19006', 'M08', 'CAT03', 200000, 'A l\'ordre de LOKOSSUE PAUL.\nPour le compte des frais de l\'AG', '2019-08-19', '2019-02-03', 2019),
+('19-OP-0025', 'M19008', 'M08', 'CAT01', 1, 'FRAIS ADHESION', '2019-08-21', '2019-08-21', 2019),
+('19-OP-0026', 'M19008', 'M08', 'CAT02', 1000, 'COTISATION MENSUELLE', '2019-08-21', '2019-08-21', 2019),
+('19-OP-0027', 'M19002', 'M08', 'CAT04', 3000, 'DECAISSEMENT', '2019-08-22', '2019-08-22', 2019);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `operations_interlocuteurs`
+--
+
+DROP TABLE IF EXISTS `operations_interlocuteurs`;
+CREATE TABLE IF NOT EXISTS `operations_interlocuteurs` (
+  `id_operation` varchar(10) NOT NULL,
+  `id_interlocuteur` varchar(6) NOT NULL,
+  `date_operation_interlocuteur` date NOT NULL,
+  `commentaires` varchar(100) NOT NULL,
+  KEY `id_operation` (`id_operation`),
+  KEY `id_interlocuteur` (`id_interlocuteur`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `operations_interlocuteurs`
+--
+
+INSERT INTO `operations_interlocuteurs` (`id_operation`, `id_interlocuteur`, `date_operation_interlocuteur`, `commentaires`) VALUES
+('19-OP-0027', 'ITL01', '2019-08-22', 'FRAIS DE LOCATION DE LA SALLE DE RÃ‰UNION.');
 
 -- --------------------------------------------------------
 
@@ -498,20 +599,33 @@ ALTER TABLE `categories`
   ADD CONSTRAINT `categories_ibfk_1` FOREIGN KEY (`id_typ_op`) REFERENCES `types_operation` (`id_typ_op`);
 
 --
+-- Constraints for table `fonctions`
+--
+ALTER TABLE `fonctions`
+  ADD CONSTRAINT `fonctions_ibfk_1` FOREIGN KEY (`id_groupe`) REFERENCES `groupes` (`id_groupe`);
+
+--
 -- Constraints for table `membres`
 --
 ALTER TABLE `membres`
   ADD CONSTRAINT `membres_ibfk_1` FOREIGN KEY (`id_commune`) REFERENCES `communes` (`id_commune`),
   ADD CONSTRAINT `membres_ibfk_2` FOREIGN KEY (`id_ville`) REFERENCES `villes` (`id_ville`),
-  ADD CONSTRAINT `membres_ibfk_3` FOREIGN KEY (`id_groupe`) REFERENCES `groupes` (`id_groupe`);
+  ADD CONSTRAINT `membres_ibfk_3` FOREIGN KEY (`id_fonction`) REFERENCES `fonctions` (`id_fonction`);
 
 --
 -- Constraints for table `operations`
 --
 ALTER TABLE `operations`
-  ADD CONSTRAINT `operations_ibfk_1` FOREIGN KEY (`id_membre`) REFERENCES `membres` (`id_membre`),
   ADD CONSTRAINT `operations_ibfk_2` FOREIGN KEY (`id_mois`) REFERENCES `mois` (`id_mois`),
-  ADD CONSTRAINT `operations_ibfk_3` FOREIGN KEY (`id_categorie`) REFERENCES `categories` (`id_categorie`);
+  ADD CONSTRAINT `operations_ibfk_3` FOREIGN KEY (`id_categorie`) REFERENCES `categories` (`id_categorie`),
+  ADD CONSTRAINT `operations_ibfk_4` FOREIGN KEY (`id_membre`) REFERENCES `membres` (`id_membre`);
+
+--
+-- Constraints for table `operations_interlocuteurs`
+--
+ALTER TABLE `operations_interlocuteurs`
+  ADD CONSTRAINT `operations_interlocuteurs_ibfk_1` FOREIGN KEY (`id_operation`) REFERENCES `operations` (`id_operation`),
+  ADD CONSTRAINT `operations_interlocuteurs_ibfk_2` FOREIGN KEY (`id_interlocuteur`) REFERENCES `interlocuteurs` (`id_interlocuteur`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
