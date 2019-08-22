@@ -39,7 +39,7 @@
                                 </div>
                                 <div class="row my-3 col col-lg-10">
                                     <div class="col-5 col-xl-6">
-                                        <label for="mtt_decaisse">Montant décaissé</label>
+                                        <label for="mtt_decaisse" class="font-weight-bold">Montant décaissé</label>
                                     </div>
                                     <div class="col col-xl-auto">
                                         <input type="text" class="form-control form-control-sm text-right" id="mtt_decaisse"
@@ -48,68 +48,57 @@
                                 </div>
                                 <div class="row my-4 col">
                                     <div class="col">
-                                        <h5 class="cadre-titre-search">A l'endroit de...</h5>
+                                        <h5 class="cadre-titre-search font-weight-bolder">Le Destinataire...</h5>
                                         <div class="form-group">
-                                            <label for="ordre_de" class="sr-only"></label>
-                                            <input type="text" class="form-control form-control-sm text-uppercase" id="ordre_de" placeholder="Nom & Prénoms">
+                                            <label for="nom_dest" class="">Nom</label>
+                                            <input type="text" class="form-control form-control-sm text-uppercase" id="nom_dest"
+                                                   placeholder="Nom">
                                         </div>
                                         <div class="form-group">
-                                            <label for="titre" class="sr-only"></label>
-                                            <input type="text" class="form-control form-control-sm text-uppercase" id="titre" placeholder="Titre">
+                                            <label for="pren_dest" class="">Prénoms</label>
+                                            <input type="text" class="form-control form-control-sm text-uppercase" id="pren_dest"
+                                                   placeholder="Prenoms">
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group col">
+                                                <label for="titre_dest" class="">Titre</label>
+                                                <input type="text" class="form-control form-control-sm text-uppercase" id="titre_dest"
+                                                       placeholder="Titre">
+                                            </div>
+                                            <div class="form-group col">
+                                                <label for="tel_dest" class="">Contact</label>
+                                                <input type="text" class="form-control form-control-sm text-uppercase" id="tel_dest"
+                                                       placeholder="Contact">
+                                            </div>
                                         </div>
                                         <div class="form-group">
-                                            <label for="contact" class="sr-only"></label>
-                                            <input type="text" class="form-control form-control-sm text-uppercase" id="contact" placeholder="Contact">
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="commune" class="sr-only"></label>
+                                            <label for="commune" class="">Commune</label>
                                             <input type="text" class="form-control form-control-sm text-uppercase" id="commune"
                                                    placeholder="Commune">
                                         </div>
                                     </div>
-                                    <div class="col">
-                                        <h5 class="cadre-titre-search">Receptionné par...</h5>
-                                        <div class="form-group">
-                                            <label for="mbr_destinataire" class="sr-only"></label>
-                                            <select id="mbr_destinataire"
-                                                    class="custom-select custom-select-sm">
-                                                <option value="">Sélectionner...</option>
-
-                                                <?php
-                                                    $sql = "SELECT * FROM membres m INNER JOIN fonctions f ON m.id_fonction = f.id_fonction INNER JOIN groupes g ON f.id_groupe = g.id_groupe WHERE g.id_groupe = 'GRP01' ORDER BY m.nom_membre";
-                                                    $result = mysqli_query($connection, $sql);
-                                                    if ($result->num_rows) {
-                                                        $set = $result->fetch_all(MYSQLI_ASSOC);
-
-                                                        foreach ($set as $membre) {
-                                                            ?>
-
-                                                            <option value="<?php echo $membre['id_membre']; ?>">
-                                                                <?php echo $membre['nom_membre'] . " " . $membre['pren_membre']; ?>
-                                                            </option>
-
-                                                            <?php
-                                                        }
-                                                    }
-                                                ?>
-
-                                            </select>
-                                        </div>
-
-                                    </div>
                                 </div>
-                                <div class="col-auto row my-3">
-                                    <div class="col-5 col-xl-3">
-                                        <label for="commentaires">Commentaires</label>
-                                    </div>
+                                <div class="row my-4 col">
                                     <div class="col">
-                                        <textarea id="commentaires" class="form-control"></textarea>
+                                        <h5 class="cadre-titre-search font-weight-bolder">L'Intermédiaire...</h5>
+                                        <div class="row">
+                                            <div class="form-group col-auto col-lg">
+                                                <label for="mbr_inter" class="">Membre</label>
+                                                <input type="text" class="form-control form-control-sm text-uppercase" id="mbr_inter"
+                                                       placeholder="Membre">
+
+                                            </div>
+                                            <div class="form-group col-auto col-lg">
+                                                <label for="commentaires" class="">Commentaires</label>
+                                                <textarea id="commentaires" class="form-control"></textarea>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </form>
                         </div>
                         <div class="row">
-                            <button class="btn btn-primary faa-parent col-6 col-md-5 animated-hover col-lg-4 mx-auto my-4"
+                            <button class="btn btn-primary faa-parent col-6 col-md-5 animated-hover col-lg-4 mx-auto"
                                     id="enregistrer" onclick="saveDecaissement()">
                                 <i class="fas fa-save mr-2 faa-pulse"></i>
                                 Enregistrer

@@ -23,8 +23,8 @@
 
             $m = sizeof($data[$i]);
 
-            $nom = strtoupper(trim($data[$i][0]));
-            $pren = strtoupper(trim($data[$i][1]));
+            $nom = mysqli_real_escape_string($connection, strtoupper(trim($data[$i][0])));
+            $pren = mysqli_real_escape_string($connection, strtoupper(trim($data[$i][1])));
             $contact = $data[$i][2];
             $id_commune = strtoupper(trim($data[$i][3]));
             $id_ville = strtoupper(trim($data[$i][4]));

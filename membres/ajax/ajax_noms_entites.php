@@ -11,6 +11,8 @@
     if ($_POST['usage'] == 'autocompletion' && $_POST['entity'] == 'membres') {
         $sql_mbr = "SELECT * FROM membres";
 
+        $state = isset($_POST['state']) ? $_POST['state'] : 0;
+
         $result = mysqli_query($connection, $sql_mbr);
         if ($result->num_rows > 0) {
             $membres = $result->fetch_all(MYSQLI_ASSOC);
@@ -21,7 +23,29 @@
                 $nom_mbr = $membre['nom_membre'];
                 $pren_mbr = $membre['pren_membre'];
 
-                $mbr[$i++] = $nom_mbr . " " . $pren_mbr;
+                if ($state == 0)
+                    $mbr[$i++] = $nom_mbr . " " . $pren_mbr;
+                else {
+                    $mbr[$i][0] = $nom_mbr;
+                    $mbr[$i++][1] = $pren_mbr;
+                }
+            }
+
+            if ($state != 0) {
+                $sql_inter = "SELECT * FROM interlocuteurs";
+                $result = mysqli_query($connection, $sql_inter);
+                if ($result->num_rows > 0) {
+                    $inters = $result->fetch_all(MYSQLI_ASSOC);
+
+                    foreach ($inters as $inter) {
+                        $id_inter = $inter['id_interlocuteur'];
+                        $nom_inter = $inter['nom_interlocuteur'];
+                        $pren_inter = $inter['pren_interlocuteur'];
+
+                        $mbr[$i][0] = $nom_inter;
+                        $mbr[$i++][1] = $pren_inter;
+                    }
+                }
             }
 
             $result->free();

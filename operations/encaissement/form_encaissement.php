@@ -27,74 +27,76 @@
                             <h2 class="">Fiche d'Encaissement <span class="badge badge-primary"><?php echo $libelle ?></span></h2>
                         </div>
                         <div class="row my-3 mx-0">
-                            <form>
-                                <div class="row my-3">
-                                    <div class="col-5">
+                            <form class="col">
+                                <div class="row my-3 col col-lg-10">
+                                    <div class="col-5 col-xl-6">
                                         <label for="date_ope">Date</label>
                                     </div>
-                                    <div class="col">
+                                    <div class="col-auto col-xl-6">
                                         <input type="date" class="form-control form-control-sm" id="date_ope">
                                     </div>
                                 </div>
-                                <div class="row my-3">
-                                    <div class="col-5">
-                                        <label for="mbr_reception">Réceptionné par</label>
+                                <div class="row my-3 col col-lg-10">
+                                    <div class="col-5 col-xl-6">
+                                        <label for="mtt_encaisse" class="font-weight-bold">Montant encaissé</label>
                                     </div>
-                                    <div class="col">
-                                        <select id="mbr_reception"
-                                                class="custom-select custom-select-sm">
-                                            <option value="">Sélectionner...</option>
-
-                                            <?php
-                                                $sql = "SELECT * FROM membres m INNER JOIN fonctions f ON m.id_fonction = f.id_fonction INNER JOIN groupes g ON f.id_groupe = g.id_groupe WHERE g.id_groupe = 'GRP01' ORDER BY m.nom_membre";
-                                                $result = mysqli_query($connection, $sql);
-                                                if ($result->num_rows) {
-                                                    $set = $result->fetch_all(MYSQLI_ASSOC);
-
-                                                    foreach ($set as $membre) {
-                                                        ?>
-
-                                                        <option value="<?php echo $membre['id_membre']; ?>">
-                                                            <?php echo $membre['nom_membre'] . " " . $membre['pren_membre']; ?>
-                                                        </option>
-
-                                                        <?php
-                                                    }
-                                                }
-                                            ?>
-
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="row my-3">
-                                    <div class="col-5">
-                                        <label for="mtt_encaisse">Montant encaissé</label>
-                                    </div>
-                                    <div class="col">
+                                    <div class="col col-xl-auto">
                                         <input type="text" class="form-control form-control-sm text-right" id="mtt_encaisse"
                                                placeholder="0">
                                     </div>
                                 </div>
-                                <div class="row my-3">
-                                    <div class="col-5">
-                                        <label for="recu_de">Reçu de</label>
-                                    </div>
+                                <div class="row my-4 col">
                                     <div class="col">
-                                        <input type="text" class="form-control form-control-sm" id="recu_de">
+                                        <h5 class="cadre-titre-search font-weight-bolder">Le Donateur...</h5>
+                                        <div class="form-group">
+                                            <label for="nom_don" class="">Nom</label>
+                                            <input type="text" class="form-control form-control-sm text-uppercase" id="nom_don"
+                                                   placeholder="Nom">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="pren_don" class="">Prénoms</label>
+                                            <input type="text" class="form-control form-control-sm text-uppercase" id="pren_don"
+                                                   placeholder="Prenoms">
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group col">
+                                                <label for="titre_don" class="">Titre</label>
+                                                <input type="text" class="form-control form-control-sm text-uppercase" id="titre_don"
+                                                       placeholder="Titre">
+                                            </div>
+                                            <div class="form-group col">
+                                                <label for="tel_don" class="">Contact</label>
+                                                <input type="text" class="form-control form-control-sm text-uppercase" id="tel_don"
+                                                       placeholder="Contact">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="commune" class="">Commune</label>
+                                            <input type="text" class="form-control form-control-sm text-uppercase" id="commune"
+                                                   placeholder="Commune">
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="row my-3">
-                                    <div class="col-5">
-                                        <label for="commentaires">Commentaires</label>
-                                    </div>
+                                <div class="row my-4 col">
                                     <div class="col">
-                                        <textarea id="commentaires" class="form-control" cols="30"></textarea>
+                                        <h5 class="cadre-titre-search font-weight-bolder">Réceptionné par...</h5>
+                                        <div class="row">
+                                            <div class="form-group col-auto col-lg">
+                                                <label for="mbr_inter" class="">Membre</label>
+                                                <input type="text" class="form-control form-control-sm text-uppercase" id="mbr_inter"
+                                                       placeholder="Membre">
+                                            </div>
+                                            <div class="form-group col-auto col-lg">
+                                                <label for="commentaires" class="">Commentaires</label>
+                                                <textarea id="commentaires" class="form-control"></textarea>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </form>
                         </div>
                         <div class="row">
-                            <button class="btn btn-primary faa-parent col-6 col-md-5 animated-hover col-lg-4 mx-auto my-4"
+                            <button class="btn btn-primary faa-parent col-6 col-md-5 animated-hover col-lg-4 mx-auto"
                                     id="enregistrer" onclick="saveEncaissement()">
                                 <i class="fas fa-save mr-2 faa-pulse"></i>
                                 Enregistrer
@@ -142,7 +144,6 @@
                     </div>
                 </div>
             </div>
-
             <?php
         }
     }

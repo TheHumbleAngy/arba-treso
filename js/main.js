@@ -119,14 +119,29 @@ $(document).ready(function () {
         namesLoader('autocompletion', 'ville', 'villes');
     }
 
-    let ordreDe = document.getElementById('ordre_de');
-    if (ordreDe) {
-        namesLoader('autocompletion', 'ordre_de', 'membres');
+    let nomDest = document.getElementById('nom_dest');
+    if (nomDest) {
+        namesLoader('autocompletion', 'nom_dest', 'membres', 1, 0);
     }
 
-    let recuDe = document.getElementById('recu_de');
-    if (recuDe) {
-        namesLoader('autocompletion', 'recu_de', 'membres');
+    let prenDest = document.getElementById('pren_dest');
+    if (prenDest) {
+        namesLoader('autocompletion', 'pren_dest', 'membres', 1, 1);
+    }
+
+    let nomDon = document.getElementById('nom_don');
+    if (nomDon) {
+        namesLoader('autocompletion', 'nom_don', 'membres', 1, 0);
+    }
+
+    let prenDon = document.getElementById('pren_don');
+    if (prenDon) {
+        namesLoader('autocompletion', 'pren_don', 'membres', 1, 1);
+    }
+
+    let mbrInter = document.getElementById('mbr_inter');
+    if (mbrInter) {
+        namesLoader('autocompletion', 'mbr_inter', 'membres');
     }
 
     $('[data-toggle="tooltip"]').tooltip();
@@ -284,22 +299,36 @@ const cboYearLoader = (cbo, nbr) => {
     }
 };
 
-const namesLoader = (usage, id, entity) => {
+const namesLoader = (usage, id, entity, state, key) => {
     $.ajax({
         type: 'POST',
         url: 'membres/ajax/ajax_noms_entites.php',
         data: {
             usage: usage,
-            entity: entity
+            entity: entity,
+            state: state
         },
         success: function (data) {
+            let arr = JSON.parse(data);
+            // console.log(arr, key);
             if (usage === 'autocompletion') {
                 let input;
+                let listMbr;
+                let temp = [];
+
                 input = $('[id^=' + id + ']');
 
                 for (let i = 0; i < input.length; i++) {
-                    let listMbr = new Awesomplete(input[i]);
-                    listMbr.list = JSON.parse(data);
+                    listMbr = new Awesomplete(input[i]);
+
+                    if (key === 1 || key === 0){
+                        for (let j = 0; j < arr.length; j++) {
+                            temp[j] = arr[j][key];
+                        }
+                        listMbr.list = temp;
+                    }
+                    else
+                        listMbr.list = arr;
                 }
             }
         }
@@ -861,42 +890,44 @@ const saveCategorie = () => {
 
 const saveDecaissement = () => {
     let dateOpe = document.getElementById('date_ope');
-    let destinataire = document.getElementById('mbr_destinataire');
     let mtt = document.getElementById('mtt_decaisse');
-    let ordreDe = document.getElementById('ordre_de');
+    let nomDest = document.getElementById('nom_dest');
+    let prenDest = document.getElementById('pren_dest');
+    let titreDest = document.getElementById('titre_dest');
+    let telDest = document.getElementById('tel_dest');
+    let comDest = document.getElementById('commune');
+    let mbrInter = document.getElementById('mbr_inter');
     let commentaires = document.getElementById('commentaires');
     let categorie = document.getElementById('cate');
-    let titre = document.getElementById('titre');
-    let contact = document.getElementById('contact');
-    let commune = document.getElementById('commune');
 
-    if (dateOpe && destinataire && mtt && ordreDe && commentaires) {
+    if (dateOpe && nomDest && mtt && mbrInter && commentaires) {
         $.post(
             'operations/decaissement/ajax/ajax_save_decaissement.php',
             {
                 dateOpe: dateOpe.value.trim(),
-                dest: destinataire.value.trim().toUpperCase(),
                 mtt: mtt.value.trim(),
-                ordr: ordreDe.value.trim().toUpperCase(),
+                nom_dest: nomDest.value.trim().toUpperCase(),
+                pren_dest: prenDest.value.trim().toUpperCase(),
+                titre_dest: titreDest.value.trim().toUpperCase(),
+                tel_dest: telDest.value.trim(),
+                com_dest: comDest.value.trim().toUpperCase(),
+                mbr_inter: mbrInter.value.trim().toUpperCase(),
                 com: commentaires.value.trim().toUpperCase(),
-                cate: categorie.value.trim(),
-                titre: titre.value.trim().toUpperCase(),
-                contact: contact.value.trim(),
-                commune: commune.value.trim().toUpperCase(),
+                cate: categorie.value.trim()
             },
             function (response) {
                 console.log(response);
                 if (response === 'Saved') {
                     callModal('successModal');
                     dateOpe.value = "";
-                    destinataire.value = "";
                     mtt.value = "";
-                    ordreDe.value = "";
+                    nomDest.value = "";
+                    prenDest.value = "";
+                    titreDest.value = "";
+                    telDest.value = "";
+                    comDest.value = "";
+                    mbrInter.value = "";
                     commentaires.value = "";
-                    categorie.value = "";
-                    titre.value = "";
-                    contact.value = "";
-                    commune.value = "";
                 }
                 else
                     callModal('errorModal', response);
@@ -907,33 +938,47 @@ const saveDecaissement = () => {
 
 const saveEncaissement = () => {
     let dateOpe = document.getElementById('date_ope');
-    let reception = document.getElementById('mbr_reception');
-    let mtt = document.getElementById('mtt_encaisse');
+    let mtt = document.getElementById('mtt_decaisse');
+    let nomDon = document.getElementById('nom_don');
+    let prenDon = document.getElementById('pren_don');
+    let titreDon = document.getElementById('titre_don');
+    let telDon = document.getElementById('tel_don');
+    let comDon = document.getElementById('commune');
+    let mbrInter = document.getElementById('mbr_inter');
     let commentaires = document.getElementById('commentaires');
     let categorie = document.getElementById('cate');
 
-    if (dateOpe && reception && mtt && commentaires) {
+    if (dateOpe && nomDon && mtt && mbrInter && commentaires) {
         $.post(
             'operations/encaissement/ajax/ajax_save_encaissement.php',
             {
-                dateOpe: dateOpe.value,
-                rcp: reception.value,
-                mtt: mtt.value,
-                com: commentaires.value,
-                cate: categorie.value
+                dateOpe: dateOpe.value.trim(),
+                mtt: mtt.value.trim(),
+                nom_don: nomDon.value.trim().toUpperCase(),
+                pren_don: prenDon.value.trim().toUpperCase(),
+                titre_don: titreDon.value.trim().toUpperCase(),
+                tel_don: telDon.value.trim(),
+                com_don: comDon.value.trim().toUpperCase(),
+                mbr_inter: mbrInter.value.trim().toUpperCase(),
+                com: commentaires.value.trim().toUpperCase(),
+                cate: categorie.value.trim()
             },
             function (response) {
                 console.log(response);
                 if (response === 'Saved') {
                     callModal('successModal');
                     dateOpe.value = "";
-                    reception.value = "";
                     mtt.value = "";
+                    nomDon.value = "";
+                    prenDon.value = "";
+                    titreDon.value = "";
+                    telDon.value = "";
+                    comDon.value = "";
+                    mbrInter.value = "";
                     commentaires.value = "";
-                    categorie.value = "";
                 }
-                else if (response === 'Not saved')
-                    callModal('errorModal', "Une erreur est survenue lors de la tentative d'enregistrement.");
+                else
+                    callModal('errorModal', response);
             }
         )
     }
