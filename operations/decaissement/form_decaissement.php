@@ -98,7 +98,7 @@
                             </form>
                         </div>
                         <div class="row">
-                            <button class="btn btn-primary faa-parent col-6 col-md-5 animated-hover col-lg-4 mx-auto"
+                            <button class="btn btn-primary faa-parent animated-hover col-auto px-4 mx-auto"
                                     id="enregistrer" onclick="saveDecaissement()">
                                 <i class="fas fa-save mr-2 faa-pulse"></i>
                                 Enregistrer

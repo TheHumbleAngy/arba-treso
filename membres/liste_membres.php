@@ -6,28 +6,26 @@
      * Time: 4:08 PM
      */
 ?>
-
+<input type="hidden" id="head_title" value="Liste des Membres">
 <div class="bg-white col-xl-10 mx-auto p-2" style="border-radius: 10px">
-
     <div class="container-fluid">
-        <h2 class="w-50 text-center py-2 mx-auto mb-4 cadre-titre">Liste des Membres <span>👪</span></h2>
-
-        <div class="col-lg-8 mx-auto row my-2 cadre p-4 justify-content-center">
-            <div class="col">
+        <div class="row mb-4 mx-auto">
+            <h2 class="col-auto text-center py-2 px-5 mx-auto cadre-titre">Liste des Membres <span>👪</span></h2>
+        </div>
+        <div class="col-auto row my-2 mx-0 cadre p-4">
+            <div class="col col-lg-auto">
                 <label for="membre">
-                    <input type="text" class="form-control text-uppercase" id="membre" placeholder="Membre..." aria-describedby="textHelp">
+                    <input type="text" class="form-control form-control-sm text-uppercase" id="membre" placeholder="Membre..." aria-describedby="textHelp">
                     <small id="textHelp" class="form-text text-muted">Renseigner soit le nom ou le prénom.</small>
                 </label>
             </div>
-            <div class="col justify-content-center">
-                <button class="btn btn-primary col-6" onclick="filterMember('listing')">
-                    Filtrer <i class="fa fa-arrow-right"></i>
+            <div class="col col-lg-auto">
+                <button class="btn btn-sm btn-primary px-4 font-weight-bolder" onclick="filterMember('listing')">
+                    Afficher <i class="fa fa-arrow-right"></i>
                 </button>
             </div>
         </div>
-
     </div>
-
     <div id="feedback" class="my-4">
         <div class="border border-primary rounded">
             <table class="table table-sm table-hover bg-light" id="arr_membres">

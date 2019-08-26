@@ -58,14 +58,14 @@
                                 <div class="modal-body">
                                     <blockquote class="blockquote">
                                         <form>
-                                            <div class="form-group">
+                                            <div class="form-group col-auto">
                                                 <label for="sav_categorie">Catégorie</label>
-                                                <input type="text" class="form-control text-uppercase" id="sav_categorie"
+                                                <input type="text" class="form-control form-control-sm text-uppercase" id="sav_categorie"
                                                        placeholder="...">
                                             </div>
-                                            <div class="form-group">
+                                            <div class="form-group col-auto">
                                                 <label for="sav_type_ope">Type d'opération</label>
-                                                <select class="custom-select text-uppercase" id="sav_type_ope">
+                                                <select class="custom-select custom-select-sm text-uppercase" id="sav_type_ope">
                                                     <option selected>-</option>
                                                     <option value="0">Décaissement</option>
                                                     <option value="1">Encaissement</option>
@@ -91,7 +91,7 @@
 
             <div class="row">
                 <a href="" id="proceder_param" role="button"
-                   class="btn btn-primary my-2 mx-auto faa-parent animated-hover col-6 col-md-5 col-lg-4">
+                   class="btn btn-sm btn-primary my-2 mx-auto faa-parent animated-hover col-auto px-md-4 font-weight-bolder">
                     Procéder
                     <i class="fa fa-arrow-right my-auto faa-passing ml-2"></i>
                 </a>

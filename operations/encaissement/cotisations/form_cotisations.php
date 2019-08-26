@@ -10,32 +10,39 @@
 <div class="bg-white col-xl-11 mx-auto p-2" style="border-radius: 10px">
 
     <div class="container-fluid">
-        <h2 class="w-50 text-center py-2 mx-auto mb-4 cadre-titre">Cotisations <span>💰</span></h2>
-        <form class="row my-2 cadre p-4 justify-content-center mx-auto col-md-8">
-            <div class="col ">
-                <div class="form-group row mb-0">
-                    <label for="param_annee" class="col-auto text-right">Année</label>
-                    <select class="custom-select custom-select-sm col-3 col-lg-2" name="annee" id="param_annee"
-                            onchange="setYearCotisation()">
+        <div class="row mb-4 mx-auto">
+            <h2 class="col-auto text-center py-2 px-5 mx-auto cadre-titre">Cotisations Mensuelles <span>💰</span></h2>
+        </div>
+        <form class="col-auto my-2 cadre p-4 mx-auto">
+            <div class="form-row mb-0 mx-0">
+                <div class="col-auto">
+                    <label for="param_annee" class="">Année</label>
+                    <select class="custom-select custom-select-sm" name="annee" id="param_annee">
                         <option value="">Sélectionner...</option>
                         <option value="<?php echo date('Y'); ?>">
                             <?php echo date('Y'); ?>
                         </option>
                     </select>
-                    <label for="date_ope" class="col-auto text-right">Date</label>
-                    <input type="date" id="date_ope" class="form-control form-control-sm col-3 col-lg-2" aria-describedby="passwordHelpInline">
+                </div>
+                <div class="col-auto">
+                    <label for="date_ope" class="">Date</label>
+                    <input type="date" id="date_ope" class="form-control form-control-sm"
+                           aria-describedby="passwordHelpInline" onchange="setYearCotisation()">
+                </div>
+                <div class="col-auto">
+                    <button class="btn btn-outline-primary faa-parent m-4 px-4"
+                            disabled type="button"
+                            id="enregistrer" onclick="saveCotisations()">
+                        <i class="fas fa-save mr-2 faa-pulse"></i>
+                        Enregistrer
+                    </button>
                 </div>
             </div>
         </form>
     </div>
 
     <div class="row">
-        <button class="btn btn-block btn-outline-primary faa-parent animated-hover col-lg-2 col-sm-3 mx-auto my-4"
-                disabled
-                id="enregistrer" onclick="saveCotisations()">
-            <i class="fas fa-save mr-2 faa-pulse"></i>
-            Enregistrer
-        </button>
+
     </div>
     <div id="feedback" class="mb-4"></div>
 

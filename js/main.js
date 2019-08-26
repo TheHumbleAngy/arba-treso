@@ -165,13 +165,15 @@ function topFunction() {
 
 const setYearCotisation = () => {
     const cbo = document.getElementById('param_annee');
+    const dateOpe = document.getElementById('date_ope');
     let response = document.getElementById('feedback');
 
-    if (cbo.value !== '') {
+    if (cbo.value !== '' && dateOpe.value !== '') {
         $.ajax({
             type: 'POST',
             url: 'operations/encaissement/cotisations/ajax/ajax_cotisations.php',
             success: function (data) {
+                document.getElementById('enregistrer').classList.add('animated-hover');
                 document.getElementById('enregistrer').disabled = false;
                 response.innerHTML = data;
                 namesLoader('autocompletion', 'coti_mbr', 'membres');
@@ -230,52 +232,58 @@ const setDateAdhesion = () => {
 
 const setParameter = (e, option) => {
     const cbo = document.getElementById('type_param');
+    const button = document.getElementById('proceder_param');
     const links = [
-        [ // operations
-            [
-                'index.php?page=operations/decaissement/form_decaissement&cat=', // [0, 0, 0]
-                'index.php?page=operations/encaissement/form_encaissement&cat=' // [0, 0, 1]
+        [ // [0] operations
+            [ // [0][0]
+                'index.php?page=operations/decaissement/form_decaissement&cat=', // [0][0][0]
+                'index.php?page=operations/encaissement/form_encaissement&cat=' // [0][0][1]
             ],
-            [
-                'index.php?page=operations/encaissement/cotisations/form_cotisations' // [0, 1, 0]
+            [ // [0][1]
+                'index.php?page=operations/encaissement/cotisations/form_cotisations' // [0][1][0]
             ]
         ],
-        [ // listes
-            'index.php?page=operations/encaissement/adhesions/liste_adhesions', // [1, 0]
-            'index.php?page=operations/encaissement/cotisations/liste_cotisations',  // [1, 1]
+        [ // [1] listes
+            'index.php?page=operations/encaissement/adhesions/liste_adhesions', // [1][0]
+            'index.php?page=operations/encaissement/cotisations/liste_cotisations',  // [1][1]
             'index.php?page=membres/liste_membres' // [1, 2]
         ],
-        [ // recherches
-            'index.php?page=recherches/recherche_membres', // [2, 0]
-            'index.php?page=recherches/recherche_operations'  // [2, 1]
+        [ // [2] recherches
+            'index.php?page=recherches/recherche_membres', // [2][0]
+            'index.php?page=recherches/recherche_operations'  // [2][1]
         ],
-        [ // stats
-            'index.php?page=stats/stats_membres', // [3, 0]
-            'index.php?page=stats/stats_operations', // [3, 1]
+        [ // [3] stats
+            'index.php?page=stats/stats_membres', // [3][0]
+            'index.php?page=stats/stats_operations', // [3][1]
         ]
     ];
-    const button = document.getElementById('proceder_param');
+
     console.log(cbo.value);
 
     if (cbo.value !== '') {
         let attr;
-        if (cbo.value === '0' && e.value) {
-            attr = links[option][cbo.value][0];
-            attr += e.value;
-        } else if (cbo.value === 0) {
-            attr = links[option][cbo.value]
-        } else if (cbo.value === '1' && e.value) {
-            if (e.value === 'CAT02') // modifier la valeur selon le code la categorie "cotisation"
-                attr = links[option][cbo.value];
-            else {
-                attr = links[option][0][cbo.value];
+
+        if (option === 0) {
+            if (cbo.value === '0' && e.value) {
+                attr = links[option][cbo.value][0];
                 attr += e.value;
             }
+            else if (cbo.value === '1' && e.value) {
+                if (e.value === 'CAT02') // update this value based on the id of "cotisation"
+                    attr = links[option][cbo.value];
+                else {
+                    attr = links[option][0][cbo.value];
+                    attr += e.value;
+                }
+            }
         }
+        else {
+            attr = links[option][e.value];
+        }
+
         console.log(attr);
         button.setAttribute('href', attr);
     }
-
 };
 
 const setGender = (e) => {
@@ -325,7 +333,8 @@ const namesLoader = (usage, id, entity, state, key) => {
                         for (let j = 0; j < arr.length; j++) {
                             temp[j] = arr[j][key];
                         }
-                        listMbr.list = temp;
+                        // Using the Set datatype, we create a new array without duplicate and assign it to the list to be added
+                        listMbr.list = [...new Set(temp)];
                     }
                     else
                         listMbr.list = arr;
@@ -396,7 +405,7 @@ const memberDataLoader = (e) => {
                             if (i === mois - 1) {
                                 // On vide tous les champs de saisie sauf celui du nom du membre, et on les rends modifiables
 
-                                trTdInput[i].value = arrCoti[j].montant_operation;
+                                trTdInput[i].value = numberFormat(arrCoti[j].montant_operation);
                                 trTdInput[i].setAttribute('readonly', true);
                             }
                         }
@@ -590,7 +599,7 @@ WHERE MONTH(date_operation) = ${mois} AND YEAR(date_operation) = ${annee} AND c.
 const cssAnimation = (e) => {
     // console.log(e)
 
-    e.classList.add()
+    e.classList.add();
     let classList = e.classList;
     console.log(classList)
 };
@@ -603,17 +612,20 @@ const procederConsultation = (fieldId) => {
     if (!document.getElementById(fieldId).disabled)
         param = document.getElementById(fieldId).value;
 
-    $.ajax({
-        type: 'POST',
-        url: 'consultations/ajax_resultat_consultation.php',
-        data: {
-            param: param,
-            year: annee
-        },
-        success: function (data) {
-            response.innerHTML = data;
-        }
-    })
+    if (annee) {
+        $.ajax({
+            type: 'POST',
+            url: 'consultations/ajax_resultat_consultation.php',
+            data: {
+                param: param,
+                year: annee
+            },
+            success: function (data) {
+                response.innerHTML = data;
+            }
+        })
+    }
+
 };
 
 const addRow = (tableId, rowNbr, option) => {
@@ -690,9 +702,10 @@ function numberFormat(nbr) {
 /* Savers */
 
 const saveCotisations = () => {
-    let annee = document.getElementById('param_annee');
+    const annee = document.getElementById('param_annee');
+    const dateOpe = document.getElementById('date_ope');
 
-    if (annee.value !== '') {
+    if (annee.value !== '' && dateOpe !== '') {
         const arr = document.getElementById('arr_cotisations').tBodies[0];
         let rows = arr.rows;
         let rowsNbr = rows.length;
@@ -777,7 +790,7 @@ const saveCotisations = () => {
         }
     }
     else
-        callModal('errorModal', "Veuillez sélectionner l'année SVP.");
+        callModal('errorModal', "Veuillez préciser l'année ET la date SVP.");
 };
 
 const saveAdhesions = () => {
