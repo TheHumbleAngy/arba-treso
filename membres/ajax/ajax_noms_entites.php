@@ -97,7 +97,6 @@
             echo json_encode($vil);
         }
     }
-//    elseif ($_POST['usage'] == 'listing' && $_POST['info'] == '' && $_POST['entity'] == 'membres') {
     elseif ($_POST['usage'] == 'listing' && $_POST['entity'] == 'membres') {
         $sql_mbr = "SELECT * FROM membres m INNER JOIN villes v on m.id_ville = v.id_ville INNER JOIN communes c on m.id_commune = c.id_commune";
 

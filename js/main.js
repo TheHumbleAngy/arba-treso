@@ -1034,7 +1034,8 @@ const filterMember = (usage) => {
         type: 'POST',
         data: {
             usage: usage,
-            info: info
+            info: info,
+            entity: 'membres'
         },
         url: 'membres/ajax/ajax_noms_entites.php',
         success: function (data) {
@@ -1100,6 +1101,71 @@ const filterMember = (usage) => {
 
                 // Styling the 6th cell of each line
                 cell = tab.rows[i].cells[tab.rows[i].cells.length - 1];
+                cell.classList.add('col-2');
+
+            }
+        }
+    })
+};
+
+const filterAdhesion = () => {
+    let mbr = document.getElementById('membre').value;
+
+    let info = mbr ? mbr : '';
+
+    $.ajax({
+        type: 'POST',
+        data: {
+            info: info
+        },
+        url: 'operations/encaissement/adhesions/ajax/ajax_liste_adhesions.php',
+        success: function (data) {
+            // console.log(JSON.parse(data));
+            let arr = JSON.parse(data),
+                n = arr.length;
+            const tab = document.getElementById('liste_membres');
+
+            while (tab.firstChild)
+                tab.removeChild(tab.firstChild);
+
+            for (let i = 0; i < n; i++) {
+                let row = tab.insertRow(-1);
+
+                let m = arr[i].length;
+                for (let j = 0; j < m; j++) {
+
+                    let newCell = row.insertCell(-1);
+
+                    let elt = '';
+                    let info = '';
+
+                    if (j === 0)
+                        elt = i + 1;
+                    else if (arr[i][j] !== null)
+                        elt = arr[i][j];
+
+                    info = document.createTextNode(elt);
+                    newCell.appendChild(info);
+                }
+            }
+
+            for (let i = 0; i < tab.rows.length; i++) {
+
+                // Styling the row
+                let tr = tab.rows[i];
+                tr.classList.add('row', 'mx-0');
+
+                // Styling the first cell of each line
+                let cell = tab.rows[i].cells[0];
+                cell.classList.add('col-1');
+                cell.classList.add('text-center', 'text-primary', 'font-weight-light');
+
+                // Styling the 2nd cell of each line
+                cell = tab.rows[i].cells[1];
+                cell.classList.add('col');
+
+                // Styling the 3rd cell of each line
+                cell = tab.rows[i].cells[2];
                 cell.classList.add('col-2');
 
             }
