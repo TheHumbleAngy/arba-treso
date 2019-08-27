@@ -129,37 +129,11 @@ h2.ncare {
     margin-bottom: 1.5rem;
 }
 
-#wrapper_membre {
-    width: calc(var(--wrapper-w) - 5vw);
-    background-color: #fff;
-    border-radius: 10px;
-    position: relative;
-    margin: 0 auto;
-    /*top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    margin: 20vh auto;*/
-}
-
 #wrapper_param {
     background-color: #fff;
     border-radius: 10px;
     margin: 20vh;
     padding: 1.5rem 3rem;
-}
-
-#wrapper_reporting {
-    width: 40vw;
-    height: 350px;
-    background-color: #fff;
-    border-radius: 10px;
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    margin: 30vh auto;
 }
 
 .retour {
@@ -606,9 +580,11 @@ input.ncare {
     color: #1A74B8 !important;
 }
 
-/*form:focus-within {
-    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);
-}*/
+.nav-item:hover {
+    background: rgba(0, 123, 255, 0.08);
+    border-radius: 5px;
+    font-stretch: condensed;
+}
 
 .col-05 {
     -ms-flex: 0 0 4.1666665%;

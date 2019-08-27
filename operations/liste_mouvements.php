@@ -2,25 +2,33 @@
     /**
      * Created by PhpStorm.
      * User: angem
-     * Date: 11-Jun-19
-     * Time: 4:08 PM
+     * Date: 27-Aug-19
+     * Time: 2:56 PM
      */
+
+    if (isset($_GET['typ'])) {
+        $id_typ = $_GET['typ'];
+
+        $libelle = $id_typ == 1 ? "Encaissements" : "Décaissements";
+    }
 ?>
-<input type="hidden" id="head_title" value="Liste des Membres">
-<div class="bg-white col-xl-10 mx-auto p-2" style="border-radius: 10px">
+<input type="hidden" id="head_title" value="Liste des <?php echo $libelle; ?>">
+<div class="bg-white col col-lg-10 mx-auto p-2" style="border-radius: 10px">
     <div class="container-fluid">
         <div class="row mb-4 mx-auto">
-            <h2 class="col-auto text-center py-2 px-5 mx-auto cadre-titre">Liste des Membres <span>👪</span></h2>
+            <h2 class="col-auto text-center py-2 px-5 mx-auto cadre-titre">Liste des <?php echo $libelle; ?> <span>👪</span></h2>
         </div>
         <div class="col-auto row my-2 mx-0 cadre p-4">
             <div class="col col-lg-auto">
-                <label for="membre">
-                    <input type="text" class="form-control form-control-sm text-uppercase" id="membre" placeholder="Membre..." aria-describedby="textHelp">
-                    <small id="textHelp" class="form-text text-muted">Renseigner le nom <strong>OU</strong> le prénom.</small>
+                <label for="date_ope">
+                    <input type="date" class="form-control form-control-sm" id="date_ope"
+                           placeholder="Membre..." aria-describedby="textHelp">
+                    <small id="textHelp" class="form-text text-muted">Renseigner la date de l'opération.
+                    </small>
                 </label>
             </div>
             <div class="col col-lg-auto">
-                <button class="btn btn-sm btn-primary px-4 font-weight-bolder" onclick="filterMember('listing')">
+                <button class="btn btn-sm btn-primary px-4 font-weight-bolder" onclick="filterMouvements(<?php echo $id_typ; ?>)">
                     Afficher <i class="fa fa-arrow-right"></i>
                 </button>
             </div>
@@ -28,19 +36,17 @@
     </div>
     <div id="feedback" class="my-4">
         <div class="border border-primary rounded">
-            <table class="table table-sm table-hover bg-light" id="arr_membres">
+            <table class="table table-sm table-hover bg-light" id="">
                 <thead class="bg-primary text-light">
                 <tr class="row mx-0">
                     <th class="col-1 text-center">N°</th>
-                    <th class="col">Membre</th>
-                    <th class="col-1">Genre</th>
-                    <th class="col-2 col-lg-1">Contact</th>
-                    <th class="col-2 col-lg-1">Commune</th>
-                    <th class="col-2 col-lg-1">Ville</th>
-                    <th class="col-2 col-lg-1">Adhésion</th>
+                    <th class="col-2">Date</th>
+                    <th class="col-2">Libellé</th>
+                    <th class="col-2">Montant</th>
+                    <th class="col">Interlocuteur</th>
                 </tr>
                 </thead>
-                <tbody id="liste_membres"></tbody>
+                <tbody id="liste_operations"></tbody>
             </table>
         </div>
     </div>

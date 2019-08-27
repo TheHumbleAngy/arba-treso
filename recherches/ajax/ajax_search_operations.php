@@ -23,7 +23,7 @@
             <th class="col">Observation</th>
         </tr>
         </thead>
-        <tbody id="liste_operation">
+        <tbody id="liste_operations">
 
         <?php
             $connection = mysqli_connect('localhost', 'root', '', 'gestion_treso_arba');

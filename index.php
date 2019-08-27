@@ -59,16 +59,9 @@
                 </a>
             </li>
             <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarConsultations" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <a class="nav-link" href="index.php?page=consultations/param_consultation" id="navbarConsultations" role="button" aria-haspopup="true" aria-expanded="false">
                     Consultations
                 </a>
-                <div class="dropdown-menu" aria-labelledby="navbarOperations">
-                    <a class="dropdown-item" href="index.php?page=operations/encaissement/cotisations/liste_cotisations">Cotisations</a>
-                    <a class="dropdown-item" href="">Dépenses</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="index.php?page=operations/encaissement/adhesions/liste_membres">Adhésions</a>
-                    <a class="dropdown-item" href="index.php?page=membres/liste_membres">Membres</a>
-                </div>
             </li>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarReporting" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

@@ -246,7 +246,9 @@ const setParameter = (e, option) => {
         [ // [1] listes
             'index.php?page=operations/encaissement/adhesions/liste_adhesions', // [1][0]
             'index.php?page=operations/encaissement/cotisations/liste_cotisations',  // [1][1]
-            'index.php?page=membres/liste_membres' // [1, 2]
+            'index.php?page=membres/liste_membres', // [1, 2]
+            'index.php?page=operations/liste_mouvements&typ=0', // [1, 3]
+            'index.php?page=operations/liste_mouvements&typ=1', // [1, 4]
         ],
         [ // [2] recherches
             'index.php?page=recherches/recherche_membres', // [2][0]
@@ -281,7 +283,7 @@ const setParameter = (e, option) => {
             attr = links[option][e.value];
         }
 
-        console.log(attr);
+        // console.log(attr);
         button.setAttribute('href', attr);
     }
 };
@@ -329,7 +331,7 @@ const namesLoader = (usage, id, entity, state, key) => {
                 for (let i = 0; i < input.length; i++) {
                     listMbr = new Awesomplete(input[i]);
 
-                    if (key === 1 || key === 0){
+                    if (key === 1 || key === 0) {
                         for (let j = 0; j < arr.length; j++) {
                             temp[j] = arr[j][key];
                         }
@@ -547,7 +549,10 @@ const getCagnotteMoisAnnee = (e) => {
     if (annee && mois) {
         let sql = `SELECT SUM(montant_operation) as total
 FROM operations o INNER JOIN mois m ON o.id_mois = m.id_mois
-WHERE numero_mois = '${mois}' AND annee_operation = ${annee}`;
+  INNER JOIN categories c on o.id_categorie = c.id_categorie
+  INNER JOIN types_operation to2 on c.id_typ_op = to2.id_typ_op
+WHERE numero_mois = '${mois}' AND annee_operation = ${annee} AND c.id_typ_op = 1`;
+        console.log(sql);
 
         $.ajax({
             type: 'POST',
@@ -575,7 +580,7 @@ const getRecetteMoisAnnee = (e) => {
 FROM operations o INNER JOIN mois m ON o.id_mois = m.id_mois
   INNER JOIN categories c on o.id_categorie = c.id_categorie
   INNER JOIN types_operation t on c.id_typ_op = t.id_typ_op
-WHERE MONTH(date_operation) = ${mois} AND YEAR(date_operation) = ${annee} AND c.id_typ_op = 1`;
+WHERE MONTH(date_operation) = ${mois} AND YEAR(date_operation) = ${annee} AND c.id_typ_op = 1`;console.log(sql);
 
         $.ajax({
             type: 'POST',
@@ -698,6 +703,10 @@ function numberFormat(nbr) {
         return nbr.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
 }
 
+const dateFormatter = (d) => {
+    let arr = d.split('-');
+    return `${arr[2]}-${arr[1]}-${arr[0]}`;
+};
 
 /* Savers */
 
@@ -951,7 +960,7 @@ const saveDecaissement = () => {
 
 const saveEncaissement = () => {
     let dateOpe = document.getElementById('date_ope');
-    let mtt = document.getElementById('mtt_decaisse');
+    let mtt = document.getElementById('mtt_encaisse');
     let nomDon = document.getElementById('nom_don');
     let prenDon = document.getElementById('pren_don');
     let titreDon = document.getElementById('titre_don');
@@ -1039,71 +1048,81 @@ const filterMember = (usage) => {
         },
         url: 'membres/ajax/ajax_noms_entites.php',
         success: function (data) {
-            let arr = JSON.parse(data),
-                n = arr.length;
-            const tab = document.getElementById('liste_membres');
+            if (data) {
+                let arr = JSON.parse(data),
+                    n = arr.length;
+                const tab = document.getElementById('liste_membres');
 
-            while (tab.firstChild)
-                tab.removeChild(tab.firstChild);
+                while (tab.firstChild)
+                    tab.removeChild(tab.firstChild);
 
-            for (let i = 0; i < n; i++) {
-                let row = tab.insertRow(-1);
+                for (let i = 0; i < n; i++) {
+                    let row = tab.insertRow(-1);
 
-                let m = arr[i].length;
-                for (let j = 0; j < m; j++) {
+                    let m = arr[i].length;
+                    for (let j = 0; j < m; j++) {
 
-                    let newCell = row.insertCell(-1);
+                        let newCell = row.insertCell(-1);
 
-                    let elt = '';
-                    let info = '';
+                        let elt = '';
+                        let info = '';
 
-                    if (j === 0) {
-                        elt = i + 1;
-                    } else if (arr[i][j] !== null) {
-                        elt = arr[i][j];
+                        if (j === 0)
+                            elt = i + 1;
+                        else if (arr[i][j] !== null)
+                            elt = arr[i][j];
+
+                        if (j === 2) {
+                            elt = elt === 'H' ? 'HOMME' : 'FEMME';
+                        }
+
+                        if (j === 6)
+                            elt = dateFormatter(elt);
+
+                        info = document.createTextNode(elt);
+                        newCell.appendChild(info);
                     }
+                }
 
-                    info = document.createTextNode(elt);
-                    newCell.appendChild(info);
+                for (let i = 0; i < tab.rows.length; i++) {
+
+                    // Styling the row
+                    let tr = tab.rows[i];
+                    tr.classList.add('row', 'mx-0');
+
+                    // Styling the first cell of each line
+                    let cell = tab.rows[i].cells[0];
+                    cell.classList.add('col-1');
+                    cell.classList.add('text-center', 'text-primary', 'font-weight-light');
+
+                    // Styling the 2nd cell of each line
+                    cell = tab.rows[i].cells[1];
+                    cell.classList.add('col', 'text-primary', 'font-weight-bold');
+
+                    // Styling the 3rd cell of each line
+                    cell = tab.rows[i].cells[2];
+                    cell.classList.add('col-1');
+
+                    // Styling the 4th cell of each line
+                    cell = tab.rows[i].cells[3];
+                    cell.classList.add('col-2', 'col-lg-1');
+
+                    // Styling the 5th cell of each line
+                    cell = tab.rows[i].cells[4];
+                    cell.classList.add('col-2', 'col-lg-1');
+
+                    // Styling the 6th cell of each line
+                    cell = tab.rows[i].cells[5];
+                    cell.classList.add('col-2', 'col-lg-1');
+
+                    // Styling the 6th cell of each line
+                    cell = tab.rows[i].cells[tab.rows[i].cells.length - 1];
+                    cell.classList.add('col-2', 'col-lg-1');
+
                 }
             }
-
-            for (let i = 0; i < tab.rows.length; i++) {
-
-                // Styling the row
-                let tr = tab.rows[i];
-                tr.classList.add('row', 'mx-0');
-
-                // Styling the first cell of each line
-                let cell = tab.rows[i].cells[0];
-                cell.classList.add('col-1');
-                cell.classList.add('text-center', 'text-primary', 'font-weight-light');
-
-                // Styling the 2nd cell of each line
-                cell = tab.rows[i].cells[1];
-                cell.classList.add('col');
-
-                // Styling the 3rd cell of each line
-                cell = tab.rows[i].cells[2];
-                cell.classList.add('col-2');
-
-                // Styling the 4th cell of each line
-                cell = tab.rows[i].cells[3];
-                cell.classList.add('col-2');
-
-                // Styling the 5th cell of each line
-                cell = tab.rows[i].cells[4];
-                cell.classList.add('col-2');
-
-                // Styling the 6th cell of each line
-                cell = tab.rows[i].cells[5];
-                cell.classList.add('col-1', 'text-primary', 'font-weight-bold');
-
-                // Styling the 6th cell of each line
-                cell = tab.rows[i].cells[tab.rows[i].cells.length - 1];
-                cell.classList.add('col-2');
-
-            }
+            else
+                callModal('feedbackModal', '😔 Aucun résultat ne correspond au critère de recherche.');
         }
     })
 };
@@ -1120,57 +1139,157 @@ const filterAdhesion = () => {
         },
         url: 'operations/encaissement/adhesions/ajax/ajax_liste_adhesions.php',
         success: function (data) {
-            // console.log(JSON.parse(data));
-            let arr = JSON.parse(data),
-                n = arr.length;
-            const tab = document.getElementById('liste_membres');
+            if (data) {
+                let arr = JSON.parse(data),
+                    n = arr.length;
+                const tab = document.getElementById('liste_membres');
 
-            while (tab.firstChild)
-                tab.removeChild(tab.firstChild);
+                while (tab.firstChild)
+                    tab.removeChild(tab.firstChild);
 
-            for (let i = 0; i < n; i++) {
-                let row = tab.insertRow(-1);
+                for (let i = 0; i < n; i++) {
+                    let row = tab.insertRow(-1);
 
-                let m = arr[i].length;
-                for (let j = 0; j < m; j++) {
+                    let m = arr[i].length;
+                    for (let j = 0; j < m; j++) {
 
-                    let newCell = row.insertCell(-1);
+                        let newCell = row.insertCell(-1);
 
-                    let elt = '';
-                    let info = '';
+                        let elt = '';
+                        let info = '';
 
-                    if (j === 0)
-                        elt = i + 1;
-                    else if (arr[i][j] !== null)
-                        elt = arr[i][j];
+                        if (j === 0)
+                            elt = i + 1;
+                        else if (arr[i][j] !== null)
+                            elt = arr[i][j];
 
-                    info = document.createTextNode(elt);
-                    newCell.appendChild(info);
+                        // Formatting the date
+                        if (j === 2)
+                            elt = dateFormatter(elt);
+
+                        // Formatting the amount
+                        if (j === 3)
+                            elt = numberFormat(elt);
+
+                        info = document.createTextNode(elt);
+                        newCell.appendChild(info);
+                    }
+                }
+
+                for (let i = 0; i < tab.rows.length; i++) {
+
+                    // Styling the row
+                    let tr = tab.rows[i];
+                    tr.classList.add('row', 'mx-0');
+
+                    // Styling the first cell of each line
+                    let cell = tab.rows[i].cells[0];
+                    cell.classList.add('col-1');
+                    cell.classList.add('text-center', 'text-primary', 'font-weight-light');
+
+                    // Styling the 2nd cell of each line
+                    cell = tab.rows[i].cells[1];
+                    cell.classList.add('col');
+
+                    // Styling the 3rd cell of each line
+                    cell = tab.rows[i].cells[2];
+                    cell.classList.add('col-2', 'text-primary', 'font-weight-bolder', 'text-center');
+
+                    // Styling the 4rd cell of each line
+                    cell = tab.rows[i].cells[3];
+                    cell.classList.add('col-1', 'text-right');
+
                 }
             }
-
-            for (let i = 0; i < tab.rows.length; i++) {
-
-                // Styling the row
-                let tr = tab.rows[i];
-                tr.classList.add('row', 'mx-0');
-
-                // Styling the first cell of each line
-                let cell = tab.rows[i].cells[0];
-                cell.classList.add('col-1');
-                cell.classList.add('text-center', 'text-primary', 'font-weight-light');
-
-                // Styling the 2nd cell of each line
-                cell = tab.rows[i].cells[1];
-                cell.classList.add('col');
-
-                // Styling the 3rd cell of each line
-                cell = tab.rows[i].cells[2];
-                cell.classList.add('col-2');
-
-            }
+            else
+                callModal('feedbackModal', '😔 Aucun résultat ne correspond au critère de recherche.');
         }
     })
+};
+
+const filterMouvements = (id) => {
+    let dateOpe = document.getElementById('date_ope').value;
+
+    let info = dateOpe ? dateOpe : '';
+
+    $.post(
+        'operations/ajax/ajax_liste_mouvements.php', // url
+        {
+            info: info,
+            type: id
+        },
+        function (data) {
+            if (data) {
+                let arr = JSON.parse(data),
+                    n = arr.length;
+                const tab = document.getElementById('liste_operations');
+
+                while (tab.firstChild)
+                    tab.removeChild(tab.firstChild);
+
+                for (let i = 0; i < n; i++) {
+                    let row = tab.insertRow(-1);
+
+                    let m = arr[i].length, j;
+                    for (let j = 0; j < m - 1; j++) {
+
+                        let newCell = row.insertCell(-1);
+
+                        let elt = '';
+                        let info = '';
+
+                        if (j === 0)
+                            elt = i + 1;
+                        else if (arr[i][j] !== null)
+                            elt = arr[i][j];
+
+                        if (j === 1)
+                            elt = dateFormatter(elt);
+
+                        if (j === 3)
+                            elt = numberFormat(elt);
+
+                        info = document.createTextNode(elt);
+                        newCell.appendChild(info);
+                    }
+                }
+
+                for (let i = 0; i < tab.rows.length; i++) {
+
+                    // Styling the row
+                    let tr = tab.rows[i];
+                    tr.classList.add('row', 'mx-0');
+
+                    // Styling the first cell of each line
+                    let cell = tab.rows[i].cells[0];
+                    cell.classList.add('col-1', 'text-center');
+
+                    // Styling the 2nd cell of each line
+                    cell = tab.rows[i].cells[1];
+                    cell.classList.add('col-2', 'text-primary', 'font-weight-bold');
+
+                    // Styling the 3rd cell of each line
+                    cell = tab.rows[i].cells[2];
+                    cell.classList.add('col-2');
+
+                    // Styling the 4th cell of each line
+                    cell = tab.rows[i].cells[3];
+                    cell.classList.add('col-2', 'text-primary', 'font-weight-bold');
+
+                    // Styling the 5th cell of each line
+                    cell = tab.rows[i].cells[4];
+                    cell.classList.add('col');
+
+                    let comments = `Commentaires:
+${arr[i][5]}`;
+                    tr.setAttribute('title', comments);
+                }
+            }
+            else
+                callModal('feedbackModal', '😔 Aucun résultat ne correspond au critère de recherche.');
+
+        }
+    );
 };
 
 const searchMember = (type) => {

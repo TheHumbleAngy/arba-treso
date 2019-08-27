@@ -10,9 +10,9 @@
 
         $qry = $_POST['info'];
         if ($qry)
-            $sql_mbr = "SELECT * FROM operations o INNER JOIN membres m ON o.id_membre = m.id_membre WHERE id_categorie = 'CAT01' AND m.nom_membre LIKE '%{$qry}%' OR m.pren_membre LIKE '%{$qry}%'";
+            $sql_mbr = "SELECT * FROM operations o INNER JOIN membres m ON o.id_membre = m.id_membre WHERE id_categorie = 'CAT01' AND m.nom_membre LIKE '%{$qry}%' OR m.pren_membre LIKE '%{$qry}%' ORDER BY nom_membre, pren_membre";
         else
-            $sql_mbr = "SELECT * FROM operations o INNER JOIN membres m ON o.id_membre = m.id_membre WHERE id_categorie = 'CAT01'";
+            $sql_mbr = "SELECT * FROM operations o INNER JOIN membres m ON o.id_membre = m.id_membre WHERE id_categorie = 'CAT01' ORDER BY nom_membre, pren_membre";
 
         $result = mysqli_query($connection, $sql_mbr);
         if ($result->num_rows > 0) {
@@ -22,7 +22,8 @@
             foreach ($membres as $membre) {
                 $mbr[$i][0] = $membre['id_membre'];
                 $mbr[$i][1] = $membre['nom_membre'] . " " . $membre['pren_membre'];
-                $mbr[$i++][2] = $membre['date_operation'];
+                $mbr[$i][2] = $membre['date_operation'];
+                $mbr[$i++][3] = $membre['montant_operation'];
             }
 
             $result->free();

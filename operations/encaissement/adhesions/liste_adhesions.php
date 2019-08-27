@@ -7,7 +7,7 @@
      */
     ?>
 <input type="hidden" id="head_title" value="Liste des Adhésions">
-<div class="bg-white col-xl-10 mx-auto p-2" style="border-radius: 10px">
+<div class="bg-white col col-lg-8 mx-auto p-2" style="border-radius: 10px">
     <div class="container-fluid">
         <div class="row mb-4 mx-auto">
             <h2 class="col-auto text-center py-2 px-5 mx-auto cadre-titre">Liste des Adhésions <span>👪</span></h2>
@@ -16,7 +16,7 @@
             <div class="col col-lg-auto">
                 <label for="membre">
                     <input type="text" class="form-control form-control-sm text-uppercase" id="membre" placeholder="Membre..." aria-describedby="textHelp">
-                    <small id="textHelp" class="form-text text-muted">Renseigner soit le nom ou le prénom.</small>
+                    <small id="textHelp" class="form-text text-muted">Renseigner le nom <strong>OU</strong> le prénom.</small>
                 </label>
             </div>
             <div class="col col-lg-auto">
@@ -34,10 +34,31 @@
                     <th class="col-1 text-center">N°</th>
                     <th class="col">Membre</th>
                     <th class="col-2">Date d'Adhésion</th>
+                    <th class="col-1">Montant</th>
                 </tr>
                 </thead>
                 <tbody id="liste_membres"></tbody>
             </table>
+        </div>
+    </div>
+
+    <!-- Modals -->
+    <div class="modal fade" id="feedbackModal" tabindex="-1" role="dialog" aria-labelledby="feedbackModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="feedbackModalLabel">ARBA ❌</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <blockquote class="blockquote">
+                        <p class="mb-0"></p>
+                    </blockquote>
+                </div>
+            </div>
         </div>
     </div>
 </div>

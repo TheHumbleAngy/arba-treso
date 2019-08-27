@@ -21,9 +21,12 @@
                     <select class="custom-select custom-select-sm" id="type_param"
                             onchange="setParameter(this, 1)">
                         <option value="">Sélectionner...</option>
-                        <option value="0">Adhésion</option>
-                        <option value="1">Cotisations annuelles</option>
-                        <option value="2">Membres</option>
+                        <option value="0">Liste des Adhésions</option>
+                        <option value="1">Liste des Cotisations annuelles</option>
+                        <option value="2">Liste des Membres</option>
+                        <option value="" disabled>-----</option>
+                        <option value="3">Liste des Décaissements</option>
+                        <option value="4">Liste des Encaissements</option>
                     </select>
                 </div>
             </div>
