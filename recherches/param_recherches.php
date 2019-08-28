@@ -6,7 +6,7 @@
      * Time: 5:16 PM
      */
     ?>
-<input type="hidden" id="head_title" value="parametrage Recherche">
+<input type="hidden" id="head_title" value="recherche">
 <div class="row">
     <div class="col-auto mx-auto">
         <div id="wrapper_param" class="shadow gradient">
@@ -22,13 +22,15 @@
                             onchange="setParameter(this, 2)">
                         <option value="">Sélectionner...</option>
                         <option value="0">Membres</option>
-                        <option value="1">Opérations</option>
+                        <option value="1">Cotisations annuelles</option>
+                        <option value="" disabled>-----</option>
+                        <option value="2">Mouvements</option>
                     </select>
                 </div>
             </div>
             <div class="row">
                 <a href="" id="proceder_param" role="button"
-                   class="btn btn-primary my-2 mx-auto faa-parent animated-hover w-50">
+                   class="btn btn-sm btn-primary my-2 mx-auto faa-parent animated-hover col-auto px-4 font-weight-bolder">
                     Procéder
                     <i class="fa fa-arrow-right my-auto faa-passing ml-2"></i>
                 </a>

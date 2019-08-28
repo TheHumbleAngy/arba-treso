@@ -2,15 +2,15 @@
     /**
      * Created by PhpStorm.
      * User: angem
-     * Date: 06-Jul-19
-     * Time: 9:54 AM
+     * Date: 28-Aug-19
+     * Time: 4:09 PM
      */
 ?>
-<input type="hidden" id="head_title" value="Recherche - Cotisations">
+<input type="hidden" id="head_title" value="Recherche - Mouvements">
 <div class="bg-white col-xl-10 mx-auto p-2" style="border-radius: 10px">
     <div class="container-fluid">
         <div class="row mb-4 mx-auto">
-            <h2 class="col-auto text-center py-2 px-5 mx-auto cadre-titre">Recherche - Cotisations <span>💰</span></h2>
+            <h2 class="col-auto text-center py-2 px-5 mx-auto cadre-titre">Recherche - Mouvements <span>🔄</span></h2>
         </div>
         <form novalidate>
             <div class="col-12 my-2 cadre px-4 py-2">
@@ -54,7 +54,7 @@
                         </div>
                         <div class="row mx-0 my-3">
                             <div class="col-11 mr-3">
-                                <h5 class="cadre-titre-search">Membre</h5>
+                                <h5 class="cadre-titre-search">Interlocuteur</h5>
                                 <div class="row">
                                     <label for="nom" class="col-4">
                                         <input type="text" class="form-control form-control-sm text-uppercase" id="nom"
@@ -66,20 +66,17 @@
                                     </label>
                                 </div>
                                 <div class="row">
-                                    <label for="genre" class="col-3">
-                                        <select class="custom-select custom-select-sm text-uppercase" id="genre">
-                                            <option value="">Genre...</option>
-                                            <option value="F">Femme</option>
-                                            <option value="H">Homme</option>
-                                        </select>
+                                    <label for="titre" class="col col-lg-auto">
+                                        <input type="text" class="form-control form-control-sm text-uppercase" id="titre"
+                                               placeholder="Titre...">
                                     </label>
-                                    <label for="commune" class="col">
+                                    <label for="commune" class="col col-lg-auto">
                                         <input type="text" class="form-control form-control-sm text-uppercase" id="commune"
                                                placeholder="Commune...">
                                     </label>
-                                    <label for="ville" class="col">
-                                        <input type="text" class="form-control form-control-sm text-uppercase" id="ville"
-                                               placeholder="Ville...">
+                                    <label for="contact" class="col col-lg-auto">
+                                        <input type="text" class="form-control form-control-sm text-uppercase" id="contact"
+                                               placeholder="Contact...">
                                     </label>
                                 </div>
                             </div>
@@ -114,7 +111,7 @@
                             </div>
                         </div>
                         <div class="row mx-0">
-                            <button class="btn btn-sm btn-danger col" type="reset" title="Reinitialiser les zones de saisie">
+                            <button class="btn btn-sm btn-outline-dark col" type="reset" title="Reinitialiser les zones de saisie">
                                 <i class="fas fa-undo"></i>
                             </button>
                         </div>
@@ -123,7 +120,7 @@
 
                 <div class="row my-2 justify-content-center">
                     <div class="col-2">
-                        <button class="btn btn-sm btn-primary col font-weight-bolder" onclick="searchCotisations()" title="Rechercher" type="button">
+                        <button class="btn btn-sm btn-primary col font-weight-bolder" onclick="searchMouvements()" title="Rechercher" type="button">
                             Rechercher <i class="fa fa-search ml-2"></i>
                         </button>
                     </div>

@@ -15,6 +15,14 @@ const titlePageUpdater = (title) => {
 
 /* Load the necessary elements here */
 $(document).ready(function () {
+    /* Centering the element on the page */
+    const nav = document.getElementById('myNav');
+    let content = document.getElementById('content');
+    let navHeight = window.getComputedStyle(nav).getPropertyValue('height');
+    if (content)
+        content.style.height = `calc(90vh - ${navHeight})`;
+    /* End centering */
+
     let pageTitle = document.getElementById('head_title').value;
     if (pageTitle)
         titlePageUpdater(pageTitle);
@@ -247,12 +255,12 @@ const setParameter = (e, option) => {
             'index.php?page=operations/encaissement/adhesions/liste_adhesions', // [1][0]
             'index.php?page=operations/encaissement/cotisations/liste_cotisations',  // [1][1]
             'index.php?page=membres/liste_membres', // [1, 2]
-            'index.php?page=operations/liste_mouvements&typ=0', // [1, 3]
-            'index.php?page=operations/liste_mouvements&typ=1', // [1, 4]
+            'index.php?page=operations/liste_mouvements' // [1, 3]
         ],
         [ // [2] recherches
             'index.php?page=recherches/recherche_membres', // [2][0]
-            'index.php?page=recherches/recherche_operations'  // [2][1]
+            'index.php?page=recherches/recherche_operations',  // [2][1]
+            'index.php?page=recherches/recherche_mouvements'  // [2][2]
         ],
         [ // [3] stats
             'index.php?page=stats/stats_membres', // [3][0]
@@ -698,6 +706,7 @@ const callModal = (id, msg) => {
     $('#' + id).modal('show');
 };
 
+// https://blog.abelotech.com/posts/number-currency-formatting-javascript/
 function numberFormat(nbr) {
     if (nbr)
         return nbr.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
@@ -1207,7 +1216,7 @@ const filterAdhesion = () => {
     })
 };
 
-const filterMouvements = (id) => {
+const filterMouvements = () => {
     let dateOpe = document.getElementById('date_ope').value;
 
     let info = dateOpe ? dateOpe : '';
@@ -1215,8 +1224,7 @@ const filterMouvements = (id) => {
     $.post(
         'operations/ajax/ajax_liste_mouvements.php', // url
         {
-            info: info,
-            type: id
+            info: info
         },
         function (data) {
             if (data) {
@@ -1351,7 +1359,13 @@ const searchMember = (type) => {
                     },
                     url: 'recherches/ajax/ajax_search_membres.php',
                     success: function (data) {
-                        response.innerHTML = data;
+                        if (data !== 'Not found')
+                            response.innerHTML = data;
+                        else {
+                            callModal('feedbackModal', `😔 Aucun résultat.
+Veuillez modifier les critères de recherche.`);
+                            response.innerHTML = '';
+                        }
                     }
                 })
             }
@@ -1359,7 +1373,7 @@ const searchMember = (type) => {
     }
 };
 
-const searchOperation = () => {
+const searchCotisations = () => {
     let typOp,
         categorie,
         annee,
@@ -1521,6 +1535,163 @@ const searchOperation = () => {
                 }
             })
         }
+    }
+};
+
+const searchMouvements = () => {
+    let typOp,
+        categorie,
+        annee,
+        mois,
+        nom,
+        prenoms,
+        membre,
+        commune,
+        dateOp,
+        commentaire;
+    let sql;
+    let response = document.getElementById('feedback');
+
+    typOp = document.getElementById('typ_op').value;
+    categorie = document.getElementById('categorie').value;
+
+    annee = document.getElementById('annee').value;
+    mois = document.getElementById('mois').value;
+
+    nom = document.getElementById('nom').value;
+    prenoms = document.getElementById('prenoms').value;
+    membre = document.getElementById('membre').value;
+    commune = document.getElementById('commune').value;
+
+    dateOp = document.getElementById('date_ope').value;
+    commentaire = document.getElementById('commentaire').value;
+
+    if (typOp !== '' || categorie !== '' || annee !== '' || mois !== '' || nom !== '' || prenoms !== '' || membre !== '' || commune !== '' || dateOp !== '' || commentaire !== '') {
+        sql = `SELECT DISTINCT date_operation_interlocuteur, libelle_typ_op, montant_operation, libelle_categorie, nom_interlocuteur, pren_interlocuteur, titre_interlocuteur, contact_interlocuteur, nom_membre, pren_membre FROM interlocuteurs i INNER JOIN operations_interlocuteurs oi on i.id_interlocuteur = oi.id_interlocuteur INNER JOIN operations o on oi.id_operation = o.id_operation INNER JOIN categories cat on o.id_categorie = cat.id_categorie INNER JOIN types_operation typ on cat.id_typ_op = typ.id_typ_op INNER JOIN membres m on o.id_membre = m.id_membre`;
+
+        if (typOp) {
+            if (sql.endsWith("'"))
+                sql += ` AND typ.id_typ_op = ${typOp}`;
+            else
+                sql += `typ.id_typ_op = '${typOp}'`;
+        }
+
+        if (categorie) {
+            if (sql.endsWith("'"))
+                sql += ` AND cat.libelle_categorie = '${categorie}'`;
+            else
+                sql += `cat.libelle_categorie = '${categorie}'`;
+        }
+
+        if (annee) {
+            if (sql.endsWith("'"))
+                sql += ` AND o.annee_operation = ${annee}`;
+            else
+                sql += `o.annee_operation = '${annee}'`;
+        }
+
+        if (mois) {
+            if (sql.endsWith("'"))
+                sql += ` AND mo.id_mois = '${mois}'`;
+            else
+                sql += `mo.id_mois = '${mois}'`;
+        }
+
+        if (nom) {
+            if (sql.endsWith("'"))
+                sql += ` AND i.nom_interlocuteur LIKE '%${nom}%'`;
+            else
+                sql += `i.nom_interlocuteur LIKE '%${nom}%'`;
+        }
+
+        if (prenoms) {
+            if (sql.endsWith("'"))
+                sql += ` AND i.pren_interlocuteur LIKE '%${prenoms}%'`;
+            else
+                sql += `i.pren_interlocuteur LIKE '%${prenoms}%'`;
+        }
+
+        if (membre) {
+            if (sql.endsWith("'"))
+                sql += ` AND m.nom_membre LIKE '%${membre}%' OR m.pren_membre LIKE '%${membre}%'`;
+            else
+                sql += `m.nom_membre LIKE '%${membre}%' OR m.pren_membre LIKE '%${membre}%'`;
+        }
+
+        if (commune) {
+            if (sql.endsWith("'"))
+                sql += ` AND i.localite_interlocuteur LIKE '%${commune}%'`;
+            else
+                sql += `i.localite_interlocuteur LIKE '%${commune}%'`;
+        }
+
+        if (dateOp) {
+            if (sql.endsWith("'"))
+                sql += ` AND oi.date_operation_interlocuteur = '${dateOp}'`;
+            else
+                sql += `oi.date_operation_interlocuteur = '${dateOp}'`;
+        }
+
+        if (commentaire) {
+            if (sql.endsWith("'"))
+                sql += ` AND oi.commentaires = '${commentaire}'`;
+            else
+                sql += `oi.commentaires = '${commentaire}'`;
+        }
+
+        sql += " ORDER BY date_operation_interlocuteur";
+        console.log(sql);
+        /*if (sql !== "SELECT * FROM membres WHERE ") {
+            $.ajax({
+                type: 'POST',
+                data: {
+                    info: sql.trim()
+                },
+                url: 'recherches/ajax/ajax_search_operations.php',
+                success: function (data) {
+                    let aDiv = document.getElementById('added_div');
+                    if (aDiv)
+                        aDiv.parentNode.removeChild(aDiv);
+
+                    let div = document.createElement('div');
+                    div.setAttribute('id', 'added_div');
+                    div.classList.add('row', 'justify-content-end', 'mt-4', 'mx-0', 'container-fluid');
+
+                    let formInline = document.createElement('form');
+                    formInline.classList.add('form-inline');
+
+                    let label = document.createElement('label');
+                    label.classList.add('mr-2');
+
+                    let text = document.createTextNode('Montant Total');
+
+                    let input = document.createElement('input');
+                    input.setAttribute('type', 'text');
+                    input.setAttribute('id', 'montant_total');
+                    input.setAttribute('readonly', 'true');
+                    input.classList.add('form-control', 'form-control-sm', 'text-right', 'font-weight-bold');
+
+                    label.appendChild(text);
+                    formInline.appendChild(label);
+                    formInline.appendChild(input);
+                    div.appendChild(formInline);
+
+                    let parent = response.parentNode;
+                    parent.insertBefore(div, response);
+
+                    // response.style.height = '40vh';
+                    response.style.overflow = 'auto';
+                    response.innerHTML = data;
+
+                    let total = 0;
+                    if (document.getElementById('total') && document.getElementById('montant_total')) {
+                        total = document.getElementById('total').value;
+                        total = numberFormat(total);
+                    }
+                    document.getElementById('montant_total').value = total;
+                }
+            })
+        }*/
     }
 };
 

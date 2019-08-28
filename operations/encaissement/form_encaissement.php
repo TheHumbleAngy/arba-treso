@@ -96,7 +96,7 @@
                             </form>
                         </div>
                         <div class="row">
-                            <button class="btn btn-primary faa-parent animated-hover col-auto px-4 mx-auto"
+                            <button class="btn btn-sm btn-primary faa-parent animated-hover col-auto px-4 mx-auto font-weight-bolder"
                                     id="enregistrer" onclick="saveEncaissement()">
                                 <i class="fas fa-save mr-2 faa-pulse"></i>
                                 Enregistrer

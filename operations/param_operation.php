@@ -75,11 +75,10 @@
                                     </blockquote>
                                 </div>
                                 <div class="modal-footer">
-
                                     <div id="alert_msg" class="mr-auto"></div>
-                                    <button type="button" class="btn btn-primary" id="btn_save"
+                                    <button type="button" class="btn btn-sm btn-primary faa-parent animated-hover col-auto px-4 font-weight-bolder" id="btn_save"
                                             onclick="saveCategorie()">
-                                        <i class="fa fa-save my-auto faa-passing ml-2"></i>
+                                        <i class="fa fa-save mr-2 faa-pulse"></i>
                                         Enregistrer
                                     </button>
                                 </div>

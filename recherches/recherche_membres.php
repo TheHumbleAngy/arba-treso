@@ -6,12 +6,12 @@
      * Time: 11:43 AM
      */
 ?>
-
+<input type="hidden" id="head_title" value="Recherche - Membres">
 <div class="bg-white col-10 mx-auto p-2" style="border-radius: 10px">
-
     <div class="container-fluid">
-        <h2 class="w-50 text-center py-2 mx-auto mb-4 cadre-titre">Recherche - Membres <span>👪</span></h2>
-
+        <div class="row mb-4 mx-auto">
+            <h2 class="col-auto text-center py-2 px-5 mx-auto cadre-titre">Recherche - Membres <span>👪</span></h2>
+        </div>
         <div class="col-12 mx-auto my-2 cadre p-4">
             <div class="row ">
                 <div class="col-7">
@@ -51,9 +51,9 @@
                 </div>
             </div>
             <div class="row mt-2 justify-content-center">
-                <div class="col-2">
-                    <button class="btn btn-primary col" onclick="searchMember('recherche')" title="Rechercher">
-                        <i class="fa fa-search"></i>
+                <div class="col-6 col-md-4 col-lg-2">
+                    <button class="btn btn-sm btn-primary col font-weight-bolder" onclick="searchMember('recherche')" title="Rechercher">
+                        Rechercher <i class="fa fa-search ml-2"></i>
                     </button>
                 </div>
             </div>
@@ -61,4 +61,24 @@
     </div>
 
     <div id="feedback" class="my-4"></div>
+
+    <!-- Modals -->
+    <div class="modal fade" id="feedbackModal" tabindex="-1" role="dialog" aria-labelledby="feedbackModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="feedbackModalLabel">ARBA ❌</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <blockquote class="blockquote">
+                        <p class="mb-0"></p>
+                    </blockquote>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

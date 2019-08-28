@@ -6,17 +6,17 @@
      * Time: 2:56 PM
      */
 
-    if (isset($_GET['typ'])) {
+    /*if (isset($_GET['typ'])) {
         $id_typ = $_GET['typ'];
 
         $libelle = $id_typ == 1 ? "Encaissements" : "Décaissements";
-    }
+    }*/
 ?>
-<input type="hidden" id="head_title" value="Liste des <?php echo $libelle; ?>">
+<input type="hidden" id="head_title" value="Liste des Mouvements">
 <div class="bg-white col col-lg-10 mx-auto p-2" style="border-radius: 10px">
     <div class="container-fluid">
         <div class="row mb-4 mx-auto">
-            <h2 class="col-auto text-center py-2 px-5 mx-auto cadre-titre">Liste des <?php echo $libelle; ?> <span>👪</span></h2>
+            <h2 class="col-auto text-center py-2 px-5 mx-auto cadre-titre">Liste des Mouvements <span>🔄</span></h2>
         </div>
         <div class="col-auto row my-2 mx-0 cadre p-4">
             <div class="col col-lg-auto">
@@ -28,7 +28,7 @@
                 </label>
             </div>
             <div class="col col-lg-auto">
-                <button class="btn btn-sm btn-primary px-4 font-weight-bolder" onclick="filterMouvements(<?php echo $id_typ; ?>)">
+                <button class="btn btn-sm btn-primary px-4 font-weight-bolder" onclick="filterMouvements()">
                     Afficher <i class="fa fa-arrow-right"></i>
                 </button>
             </div>

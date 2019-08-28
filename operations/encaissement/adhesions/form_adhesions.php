@@ -20,7 +20,7 @@
                 </label>
             </div>
             <div class="col-auto">
-                <button class="btn btn-outline-primary faa-parent animated-hover"
+                <button class="btn btn-sm btn-primary faa-parent animated-hover col-auto px-4 mx-auto font-weight-bolder"
                         disabled data-toggle="tooltip" data-placement="right" title="Enregistrer les informations entrées"
                         id="enregistrer" onclick="saveAdhesions()">
                     <i class="fas fa-save mr-2 faa-pulse"></i>

@@ -6,8 +6,8 @@
      * Time: 4:02 PM
      */
 
-    if (isset($_POST['type'])) {
-        $id_typ = $_POST['type'];
+    if (sizeof($_POST)) {
+//        $id_typ = $_POST['type'];
 
         $sql = "
 SELECT DISTINCT
@@ -22,12 +22,11 @@ FROM interlocuteurs i
   INNER JOIN operations_interlocuteurs o on i.id_interlocuteur = o.id_interlocuteur
   INNER JOIN operations o2 on o.id_operation = o2.id_operation
   INNER JOIN categories c on o2.id_categorie = c.id_categorie
-  INNER JOIN types_operation to2 on c.id_typ_op = to2.id_typ_op
-WHERE c.id_typ_op = {$id_typ}";
+  INNER JOIN types_operation to2 on c.id_typ_op = to2.id_typ_op";
 
         if (isset($_POST['info']) && $_POST['info'] != '') {
             $date = $_POST['info'];
-            $sql .= " AND o.date_operation_interlocuteur = '{$date}'";
+            $sql .= " WHERE o.date_operation_interlocuteur = '{$date}'";
         }
 
         $connection = mysqli_connect('localhost', 'root', '', 'gestion_treso_arba');

@@ -29,8 +29,8 @@
                     <input type="date" id="date_ope" class="form-control form-control-sm"
                            aria-describedby="passwordHelpInline" onchange="setYearCotisation()">
                 </div>
-                <div class="col-auto">
-                    <button class="btn btn-outline-primary faa-parent m-4 px-4"
+                <div class="col-auto d-flex align-items-center justify-content-center">
+                    <button class="btn btn-sm btn-primary faa-parent animated-hover col-auto px-4 mx-auto ml-md-5 font-weight-bolder"
                             disabled type="button"
                             id="enregistrer" onclick="saveCotisations()">
                         <i class="fas fa-save mr-2 faa-pulse"></i>

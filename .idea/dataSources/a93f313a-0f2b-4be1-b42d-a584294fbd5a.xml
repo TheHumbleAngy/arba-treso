@@ -1347,7 +1347,7 @@
     </column>
     <column id="313" parent="241" name="libelle_typ_op">
       <Position>2</Position>
-      <DataType>varchar(10)|0s</DataType>
+      <DataType>varchar(15)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>

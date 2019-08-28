@@ -38,7 +38,7 @@
 </head>
 <body class="bg-light">
 
-<nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top" id="myNav" style="/*background-color: #e3f2fd;*/">
+<nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top" id="myNav">
     <a class="navbar-brand" href="index.php" title="Accueil">
         <img src="images/logo_arba96x30.png" alt="ARBA" class="img-fluid">
     </a>
@@ -53,26 +53,20 @@
                     Adhésions
                 </a>
             </li>
-            <li class="nav-item dropdown">
+            <li class="nav-item">
                 <a class="nav-link" href="index.php?page=operations/param_operation" id="navbarOperations" role="button" aria-haspopup="true" aria-expanded="false">
                     Opérations
                 </a>
             </li>
-            <li class="nav-item dropdown">
+            <li class="nav-item">
                 <a class="nav-link" href="index.php?page=consultations/param_consultation" id="navbarConsultations" role="button" aria-haspopup="true" aria-expanded="false">
                     Consultations
                 </a>
             </li>
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarReporting" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <li class="nav-item">
+                <a class="nav-link" href="index.php?page=recherches/param_recherches" id="navbarReporting" role="button" aria-haspopup="true" aria-expanded="false">
                     Recherche
                 </a>
-                <div class="dropdown-menu" aria-labelledby="navbarOperations">
-                    <a class="dropdown-item" href="index.php?page=">Cotisations</a>
-                    <a class="dropdown-item" href="index.php?page=">Dépenses</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="index.php?page=">Membres</a>
-                </div>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="#" id="navbarStats" role="button" aria-haspopup="true" aria-expanded="false">
@@ -87,10 +81,8 @@
 </nav>
 
 <div class="container-fluid">
+    <?php include $page; ?>
 
-    <div id="content">
-        <?php include $page; ?>
-    </div>
     <button type="button" class="btn btn-outline-primary" id="goTop" title="Retour en haut" onclick="topFunction()">
         <i class="fas fa-arrow-up fa-2x faa-vertical animated"></i>
     </button>

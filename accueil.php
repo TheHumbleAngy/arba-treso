@@ -7,7 +7,7 @@
      */
 ?>
 <input type="hidden" id="head_title" value="accueil">
-<div class="parent mt-5">
+<div class="d-flex align-items-center justify-content-center" id="content">
     <div id="wrapper" class="shadow gradient">
         <div class="container-fluid">
             <div class="row justify-content-center">
