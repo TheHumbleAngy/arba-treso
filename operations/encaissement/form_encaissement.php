@@ -24,7 +24,8 @@
                 <div class="col-auto mx-auto">
                     <div id="wrapper_param" class="shadow gradient mt-5">
                         <div id="param_title" class="mb-md-4">
-                            <h2 class="">Fiche d'Encaissement <span class="badge badge-primary"><?php echo $libelle ?></span></h2>
+                            <h2 class="">Fiche d'Encaissement <span
+                                        class="badge badge-primary"><?php echo $libelle ?></span></h2>
                         </div>
                         <div class="row my-3 mx-0">
                             <form class="col">
@@ -41,7 +42,8 @@
                                         <label for="mtt_encaisse" class="font-weight-bold">Montant encaissé</label>
                                     </div>
                                     <div class="col col-xl-auto">
-                                        <input type="text" class="form-control form-control-sm text-right" id="mtt_encaisse"
+                                        <input type="text" class="form-control form-control-sm text-right"
+                                               id="mtt_encaisse"
                                                placeholder="0">
                                     </div>
                                 </div>
@@ -50,29 +52,34 @@
                                         <h5 class="cadre-titre-search font-weight-bolder">Le Donateur...</h5>
                                         <div class="form-group">
                                             <label for="nom_don" class="">Nom</label>
-                                            <input type="text" class="form-control form-control-sm text-uppercase" id="nom_don"
+                                            <input type="text" class="form-control form-control-sm text-uppercase"
+                                                   id="nom_don"
                                                    placeholder="Nom">
                                         </div>
                                         <div class="form-group">
                                             <label for="pren_don" class="">Prénoms</label>
-                                            <input type="text" class="form-control form-control-sm text-uppercase" id="pren_don"
+                                            <input type="text" class="form-control form-control-sm text-uppercase"
+                                                   id="pren_don"
                                                    placeholder="Prenoms">
                                         </div>
                                         <div class="row">
                                             <div class="form-group col">
                                                 <label for="titre_don" class="">Titre</label>
-                                                <input type="text" class="form-control form-control-sm text-uppercase" id="titre_don"
+                                                <input type="text" class="form-control form-control-sm text-uppercase"
+                                                       id="titre_don"
                                                        placeholder="Titre">
                                             </div>
                                             <div class="form-group col">
                                                 <label for="tel_don" class="">Contact</label>
-                                                <input type="text" class="form-control form-control-sm text-uppercase" id="tel_don"
+                                                <input type="text" class="form-control form-control-sm text-uppercase"
+                                                       id="tel_don"
                                                        placeholder="Contact">
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label for="commune" class="">Commune</label>
-                                            <input type="text" class="form-control form-control-sm text-uppercase" id="commune"
+                                            <input type="text" class="form-control form-control-sm text-uppercase"
+                                                   id="commune"
                                                    placeholder="Commune">
                                         </div>
                                     </div>
@@ -83,7 +90,8 @@
                                         <div class="row">
                                             <div class="form-group col-auto col-lg">
                                                 <label for="mbr_inter" class="">Membre</label>
-                                                <input type="text" class="form-control form-control-sm text-uppercase" id="mbr_inter"
+                                                <input type="text" class="form-control form-control-sm text-uppercase"
+                                                       id="mbr_inter"
                                                        placeholder="Membre">
                                             </div>
                                             <div class="form-group col-auto col-lg">
@@ -103,7 +111,8 @@
                             </button>
 
                             <!-- Modals -->
-                            <div class="modal fade" id="successModal" tabindex="-1" role="dialog" aria-labelledby="successModalLabel"
+                            <div class="modal fade" id="successModal" tabindex="-1" role="dialog"
+                                 aria-labelledby="successModalLabel"
                                  aria-hidden="true">
                                 <div class="modal-dialog modal-dialog-centered" role="document">
                                     <div class="modal-content">
@@ -122,7 +131,8 @@
                                 </div>
                             </div>
 
-                            <div class="modal fade" id="errorModal" tabindex="-1" role="dialog" aria-labelledby="errorYearModalLabel"
+                            <div class="modal fade" id="errorModal" tabindex="-1" role="dialog"
+                                 aria-labelledby="errorYearModalLabel"
                                  aria-hidden="true">
                                 <div class="modal-dialog modal-dialog-centered" role="document">
                                     <div class="modal-content">
@@ -147,3 +157,4 @@
             <?php
         }
     }
+?>

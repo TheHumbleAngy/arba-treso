@@ -243,13 +243,8 @@ const setParameter = (e, option) => {
     const button = document.getElementById('proceder_param');
     const links = [
         [ // [0] operations
-            [ // [0][0]
-                'index.php?page=operations/decaissement/form_decaissement&cat=', // [0][0][0]
-                'index.php?page=operations/encaissement/form_encaissement&cat=' // [0][0][1]
-            ],
-            [ // [0][1]
-                'index.php?page=operations/encaissement/cotisations/form_cotisations' // [0][1][0]
-            ]
+            'index.php?page=operations/decaissement/form_mouvement&cat=', // [0][0]
+            'index.php?page=operations/encaissement/cotisations/form_cotisations' // [0][1]
         ],
         [ // [1] listes
             'index.php?page=operations/encaissement/adhesions/liste_adhesions', // [1][0]
@@ -268,28 +263,21 @@ const setParameter = (e, option) => {
         ]
     ];
 
-    console.log(cbo.value);
+    console.log(cbo.value, e.value);
 
     if (cbo.value !== '') {
         let attr;
 
         if (option === 0) {
-            if (cbo.value === '0' && e.value) {
-                attr = links[option][cbo.value][0];
+            if (cbo.value === "1" && e.value === "CAT02") // update this value based on the id of "cotisation"
+                attr = links[option][cbo.value];
+            else {
+                attr = links[option][0];
                 attr += e.value;
             }
-            else if (cbo.value === '1' && e.value) {
-                if (e.value === 'CAT02') // update this value based on the id of "cotisation"
-                    attr = links[option][cbo.value];
-                else {
-                    attr = links[option][0][cbo.value];
-                    attr += e.value;
-                }
-            }
         }
-        else {
+        else
             attr = links[option][e.value];
-        }
 
         // console.log(attr);
         button.setAttribute('href', attr);
@@ -922,27 +910,27 @@ const saveCategorie = () => {
 const saveDecaissement = () => {
     let dateOpe = document.getElementById('date_ope');
     let mtt = document.getElementById('mtt_decaisse');
-    let nomDest = document.getElementById('nom_dest');
-    let prenDest = document.getElementById('pren_dest');
-    let titreDest = document.getElementById('titre_dest');
-    let telDest = document.getElementById('tel_dest');
-    let comDest = document.getElementById('commune');
+    let nomItl = document.getElementById('nom_itl');
+    let prenItl = document.getElementById('pren_itl');
+    let titreItl = document.getElementById('titre_itl');
+    let telItl = document.getElementById('tel_itl');
+    let comItl = document.getElementById('commune');
     let mbrInter = document.getElementById('mbr_inter');
     let commentaires = document.getElementById('commentaires');
     let categorie = document.getElementById('cate');
 
-    if (dateOpe && nomDest && mtt && mbrInter && commentaires) {
+    if (dateOpe && nomItl && mtt && mbrInter && commentaires) {
         $.post(
-            'operations/decaissement/ajax/ajax_save_decaissement.php',
+            'operations/decaissement/ajax/ajax_save_mouvement.php',
             {
                 dateOpe: dateOpe.value.trim(),
                 mtt: mtt.value.trim(),
-                nom_dest: nomDest.value.trim().toUpperCase(),
-                pren_dest: prenDest.value.trim().toUpperCase(),
-                titre_dest: titreDest.value.trim().toUpperCase(),
-                tel_dest: telDest.value.trim(),
-                com_dest: comDest.value.trim().toUpperCase(),
-                mbr_inter: mbrInter.value.trim().toUpperCase(),
+                nomItl: nomItl.value.trim().toUpperCase(),
+                prenItl: prenItl.value.trim().toUpperCase(),
+                titreItl: titreItl.value.trim().toUpperCase(),
+                telItl: telItl.value.trim(),
+                comItl: comItl.value.trim().toUpperCase(),
+                mbrInter: mbrInter.value.trim().toUpperCase(),
                 com: commentaires.value.trim().toUpperCase(),
                 cate: categorie.value.trim()
             },
@@ -952,59 +940,11 @@ const saveDecaissement = () => {
                     callModal('successModal');
                     dateOpe.value = "";
                     mtt.value = "";
-                    nomDest.value = "";
-                    prenDest.value = "";
-                    titreDest.value = "";
-                    telDest.value = "";
-                    comDest.value = "";
-                    mbrInter.value = "";
-                    commentaires.value = "";
-                }
-                else
-                    callModal('errorModal', response);
-            }
-        )
-    }
-};
-
-const saveEncaissement = () => {
-    let dateOpe = document.getElementById('date_ope');
-    let mtt = document.getElementById('mtt_encaisse');
-    let nomDon = document.getElementById('nom_don');
-    let prenDon = document.getElementById('pren_don');
-    let titreDon = document.getElementById('titre_don');
-    let telDon = document.getElementById('tel_don');
-    let comDon = document.getElementById('commune');
-    let mbrInter = document.getElementById('mbr_inter');
-    let commentaires = document.getElementById('commentaires');
-    let categorie = document.getElementById('cate');
-
-    if (dateOpe && nomDon && mtt && mbrInter && commentaires) {
-        $.post(
-            'operations/encaissement/ajax/ajax_save_encaissement.php',
-            {
-                dateOpe: dateOpe.value.trim(),
-                mtt: mtt.value.trim(),
-                nom_don: nomDon.value.trim().toUpperCase(),
-                pren_don: prenDon.value.trim().toUpperCase(),
-                titre_don: titreDon.value.trim().toUpperCase(),
-                tel_don: telDon.value.trim(),
-                com_don: comDon.value.trim().toUpperCase(),
-                mbr_inter: mbrInter.value.trim().toUpperCase(),
-                com: commentaires.value.trim().toUpperCase(),
-                cate: categorie.value.trim()
-            },
-            function (response) {
-                console.log(response);
-                if (response === 'Saved') {
-                    callModal('successModal');
-                    dateOpe.value = "";
-                    mtt.value = "";
-                    nomDon.value = "";
-                    prenDon.value = "";
-                    titreDon.value = "";
-                    telDon.value = "";
-                    comDon.value = "";
+                    nomItl.value = "";
+                    prenItl.value = "";
+                    titreItl.value = "";
+                    telItl.value = "";
+                    comItl.value = "";
                     mbrInter.value = "";
                     commentaires.value = "";
                 }

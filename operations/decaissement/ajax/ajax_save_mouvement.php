@@ -5,15 +5,15 @@
      * Date: 18-Aug-19
      * Time: 12:35 PM
      */
-    if (isset($_POST['dateOpe']) && isset($_POST['nom_dest']) && isset($_POST['pren_dest']) && isset($_POST['mtt']) && isset($_POST['mbr_inter']) && isset($_POST['com_dest']) && isset($_POST['cate'])) {
+    if (isset($_POST['dateOpe']) && isset($_POST['mtt']) && isset($_POST['nomItl']) && isset($_POST['prenItl']) && isset($_POST['mbrInter']) && isset($_POST['comItl']) && isset($_POST['cate'])) {
 
         $date_ope = $_POST['dateOpe'];
         $montant = $_POST['mtt'];
-        $nom_dest = $_POST['nom_dest'];
-        $pren_dest = $_POST['pren_dest'];
-        $titre_dest = isset($_POST['titre_dest']) ? $_POST['titre_dest'] : "";
-        $tel_dest = isset($_POST['tel_dest']) ? $_POST['tel_dest'] : "";
-        $com_dest = isset($_POST['com_dest']) ? $_POST['com_dest'] : "";
+        $nomItl = $_POST['nomItl'];
+        $prenItl = $_POST['prenItl'];
+        $titreItl = isset($_POST['titreItl']) ? $_POST['titreItl'] : "";
+        $telItl = isset($_POST['telItl']) ? $_POST['telItl'] : "";
+        $comItl = isset($_POST['comItl']) ? $_POST['comItl'] : "";
         $mbr_intermediaire = $_POST['mbr_inter'];
         $commentaires = $_POST['com'];
         $id_categorie = $_POST['cate'];
@@ -31,7 +31,6 @@
 
         // 1- First, we create a new line in table 'operations'
         // 2- Then, we do the same in table 'interlocuteurs'
-        // 3- Finally, we do the same in 'operations_interlocuteurs'
 
         /* - 1 - */
         $sql_last = "SELECT id_operation FROM operations ORDER BY id_operation DESC LIMIT 1";
@@ -72,7 +71,7 @@
             /* - 2 - */
 
             // Checking whether the name entered exists
-            $sql_exist = "SELECT * FROM interlocuteurs WHERE nom_interlocuteur = '{$nom_dest}' AND pren_interlocuteur = '{$pren_dest}'";
+            $sql_exist = "SELECT * FROM interlocuteurs WHERE nom_interlocuteur = '{$nomItl}' AND pren_interlocuteur = '{$prenItl}'";
             $result = mysqli_query($connection, $sql_exist);
             if ($result->num_rows > 0) {
                 // Getting the id of the existing "interlocuteur"
@@ -102,25 +101,13 @@
             }
 
             // Saving in table 'interlocuteurs'
-            $sql_dest = "INSERT INTO interlocuteurs (id_interlocuteur, nom_interlocuteur, pren_interlocuteur, titre_interlocuteur, contact_interlocuteur, localite_interlocuteur) VALUES ('{$id_interlocuteur}', '{$nom_dest}', '{$pren_dest}', '{$titre_dest}', '{$tel_dest}', '{$com_dest}')";
+            $sqlItl = "INSERT INTO interlocuteurs (id_interlocuteur, nom_interlocuteur, pren_interlocuteur, titre_interlocuteur, contact_interlocuteur, localite_interlocuteur) VALUES ('{$id_interlocuteur}', '{$nomItl}', '{$prenItl}', '{$titreItl}', '{$telItl}', '{$comItl}')";
 
-            if ($result = mysqli_query($connection, $sql_dest)) {
-
-                /* - 3 - */
-                // Saving in table 'operations_interlocuteurs'
-                $sql_op_dest = "INSERT INTO operations_interlocuteurs (id_operation, id_interlocuteur, date_operation_interlocuteur, commentaires) VALUES ('{$id_ope}', '{$id_interlocuteur}', '{$date_ope}', '{$com}')";
-
-                if ($result = mysqli_query($connection, $sql_op_dest))
-                    echo "Saved";
-                else {
-                    echo "{$id_ope} saved - {$id_interlocuteur} saved - {$id_ope}-{$id_interlocuteur} not saved  -  ";
-                    echo $sql_op_dest;
-                }
-
-            }
+            if ($result = mysqli_query($connection, $sqlItl))
+                echo "Saved";
             else {
                 echo "{$id_ope} saved - {$id_interlocuteur} not saved  -  ";
-                echo $sql_dest;
+                echo $sqlItl;
             }
 
         }

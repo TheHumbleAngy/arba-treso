@@ -5,27 +5,35 @@
      * Date: 8/15/2019
      * Time: 9:27 PM
      */
-
     if (isset($_GET['cat'])) {
         $id_categorie = $_GET['cat'];
-        $sql = "SELECT libelle_categorie FROM categories WHERE id_categorie = '{$id_categorie}'";
+        $sql = "SELECT c.id_typ_op, libelle_typ_op, libelle_categorie FROM categories c INNER JOIN types_operation to2 on c.id_typ_op = to2.id_typ_op WHERE id_categorie = '{$id_categorie}'";
 
         $connection = mysqli_connect('localhost', 'root', '', 'gestion_treso_arba');
         $result = mysqli_query($connection, $sql);
         if ($result->num_rows > 0) {
             $set = $result->fetch_all(MYSQLI_ASSOC);
 
-            $libelle = $set[0]['libelle_categorie'];
+            $id_typ = $set[0]['id_typ_op'];
+            $lib_typ = $set[0]['libelle_typ_op'];
+            $lib_cat = $set[0]['libelle_categorie'];
             mysqli_free_result($result);
             ?>
 
-            <input type="hidden" id="head_title" value="décaissement">
+            <input type="hidden" id="head_title" value="mouvements ♻️">
             <input type="hidden" id="cate" value="<?php echo $id_categorie; ?>">
             <div class="row">
                 <div class="col-auto mx-auto">
                     <div id="wrapper_param" class="shadow gradient mt-5">
                         <div id="param_title" class="mb-md-4">
-                            <h2 class="">Fiche de Décaissement <span class="badge badge-primary"><?php echo $libelle ?></span></h2>
+                            <h2 class="">
+                                <?php
+                                    if ($id_typ == 1)
+                                        echo "Fiche d'Encaissement <span class='badge badge-primary'>" . $lib_cat . "</span>";
+                                    else
+                                        echo "Fiche de Décaissement <span class='badge badge-primary'>" . $lib_cat . "</span>";
+                                ?>
+                            </h2>
                         </div>
                         <div class="row my-3 mx-0">
                             <form class="col">
@@ -39,41 +47,61 @@
                                 </div>
                                 <div class="row my-3 col col-lg-10">
                                     <div class="col-5 col-xl-6">
-                                        <label for="mtt_decaisse" class="font-weight-bold">Montant décaissé</label>
+                                        <label for="mtt_decaisse" class="font-weight-bold">
+                                            <?php
+                                                if ($id_typ == 1)
+                                                    echo "Montant encaissé";
+                                                else
+                                                    echo "Montant décaissé";
+                                            ?>
+                                        </label>
                                     </div>
                                     <div class="col col-xl-auto">
-                                        <input type="text" class="form-control form-control-sm text-right" id="mtt_decaisse"
+                                        <input type="text" class="form-control form-control-sm text-right"
+                                               id="mtt"
                                                placeholder="0">
                                     </div>
                                 </div>
                                 <div class="row my-4 col">
                                     <div class="col">
-                                        <h5 class="cadre-titre-search font-weight-bolder">Le Destinataire...</h5>
+                                        <h5 class="cadre-titre-search font-weight-bolder">
+                                            <?php
+                                                if ($id_typ == 1)
+                                                    echo "Le Donateur...";
+                                                else
+                                                    echo "Le Destinataire...";
+                                            ?>
+                                        </h5>
                                         <div class="form-group">
-                                            <label for="nom_dest" class="">Nom</label>
-                                            <input type="text" class="form-control form-control-sm text-uppercase" id="nom_dest"
+                                            <label for="nom_itl" class="">Nom</label>
+                                            <input type="text" class="form-control form-control-sm text-uppercase"
+                                                   id="nom_itl"
                                                    placeholder="Nom">
                                         </div>
                                         <div class="form-group">
-                                            <label for="pren_dest" class="">Prénoms</label>
-                                            <input type="text" class="form-control form-control-sm text-uppercase" id="pren_dest"
+                                            <label for="pren_itl" class="">Prénoms</label>
+                                            <input type="text" class="form-control form-control-sm text-uppercase"
+                                                   id="pren_itl"
                                                    placeholder="Prenoms">
                                         </div>
                                         <div class="row">
                                             <div class="form-group col">
-                                                <label for="titre_dest" class="">Titre</label>
-                                                <input type="text" class="form-control form-control-sm text-uppercase" id="titre_dest"
+                                                <label for="titre_itl" class="">Titre</label>
+                                                <input type="text" class="form-control form-control-sm text-uppercase"
+                                                       id="titre_itl"
                                                        placeholder="Titre">
                                             </div>
                                             <div class="form-group col">
-                                                <label for="tel_dest" class="">Contact</label>
-                                                <input type="text" class="form-control form-control-sm text-uppercase" id="tel_dest"
+                                                <label for="tel_itl" class="">Contact</label>
+                                                <input type="text" class="form-control form-control-sm text-uppercase"
+                                                       id="tel_itl"
                                                        placeholder="Contact">
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label for="commune" class="">Commune</label>
-                                            <input type="text" class="form-control form-control-sm text-uppercase" id="commune"
+                                            <input type="text" class="form-control form-control-sm text-uppercase"
+                                                   id="commune"
                                                    placeholder="Commune">
                                         </div>
                                     </div>
@@ -84,7 +112,8 @@
                                         <div class="row">
                                             <div class="form-group col-auto col-lg">
                                                 <label for="mbr_inter" class="">Membre</label>
-                                                <input type="text" class="form-control form-control-sm text-uppercase" id="mbr_inter"
+                                                <input type="text" class="form-control form-control-sm text-uppercase"
+                                                       id="mbr_inter"
                                                        placeholder="Membre">
 
                                             </div>
@@ -105,7 +134,8 @@
                             </button>
 
                             <!-- Modals -->
-                            <div class="modal fade" id="successModal" tabindex="-1" role="dialog" aria-labelledby="successModalLabel"
+                            <div class="modal fade" id="successModal" tabindex="-1" role="dialog"
+                                 aria-labelledby="successModalLabel"
                                  aria-hidden="true">
                                 <div class="modal-dialog modal-dialog-centered" role="document">
                                     <div class="modal-content">
@@ -124,7 +154,8 @@
                                 </div>
                             </div>
 
-                            <div class="modal fade" id="errorModal" tabindex="-1" role="dialog" aria-labelledby="errorYearModalLabel"
+                            <div class="modal fade" id="errorModal" tabindex="-1" role="dialog"
+                                 aria-labelledby="errorYearModalLabel"
                                  aria-hidden="true">
                                 <div class="modal-dialog modal-dialog-centered" role="document">
                                     <div class="modal-content">
@@ -146,7 +177,6 @@
                     </div>
                 </div>
             </div>
-
             <?php
         }
     }
