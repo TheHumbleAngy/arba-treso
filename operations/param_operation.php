@@ -28,10 +28,10 @@
             </div>
             <div class="row my-3 mx-0">
                 <div class="col-6 col-md-5">
-                    <label for="cate">Catégorie</label>
+                    <label for="categorie">Catégorie</label>
                 </div>
                 <div class="col">
-                    <select class="custom-select custom-select-sm" id="cate"
+                    <select class="custom-select custom-select-sm" id="categorie"
                             onchange="setParameter(this, 0)">
                         <option value="">Sélectionner...</option>
                     </select>

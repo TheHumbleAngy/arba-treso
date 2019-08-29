@@ -7,7 +7,7 @@
      */
 ?>
 <input type="hidden" id="head_title" value="Recherche - Cotisations">
-<div class="bg-white col-xl-10 mx-auto p-2" style="border-radius: 10px">
+<div class="bg-white col mx-auto p-2" style="border-radius: 10px">
     <div class="container-fluid">
         <div class="row mb-4 mx-auto">
             <h2 class="col-auto text-center py-2 px-5 mx-auto cadre-titre">Recherche - Cotisations <span>💰</span></h2>
@@ -18,42 +18,38 @@
                     <div class="col">
                         <div class="row mx-0 my-3">
                             <div class="col mr-4">
-                                <h5 class="cadre-titre-search">Type d'oprération</h5>
-                                <div class="row">
-                                    <label for="typ_op" class="col">
-                                        <select class="custom-select custom-select-sm text-uppercase" id="typ_op" onchange="">
-                                            <option value="">Type...</option>
-                                            <option value="0">Dépense</option>
-                                            <option value="1">Recette</option>
-                                        </select>
-                                    </label>
-                                    <label for="cate" class="col">
-                                        <select class="custom-select custom-select-sm text-uppercase" id="categorie">
-                                            <option value="">Categorie...</option>
-                                        </select>
-                                    </label>
-                                </div>
-                            </div>
-                            <div class="col ">
                                 <h5 class="cadre-titre-search">Période</h5>
                                 <div class="row">
                                     <label for="annee" class="col">
-                                        <select class="custom-select custom-select-sm text-uppercase" id="annee">
-                                            <option value="">Annee...</option>
+                                        <select class="custom-select custom-select-sm " id="annee">
+                                            <option value="">Année...</option>
                                             <option value="2019">2019</option>
                                         </select>
                                     </label>
                                     <label for="mois" class="col">
-                                        <select class="custom-select custom-select-sm text-uppercase" id="mois">
+                                        <select class="custom-select custom-select-sm " id="mois">
                                             <option value="">Mois...</option>
                                             <option value="M01">Janvier</option>
                                         </select>
                                     </label>
                                 </div>
                             </div>
+                            <div class="col ">
+                                <h5 class="cadre-titre-search">Localité</h5>
+                                <div class="row">
+                                    <label for="commune" class="col">
+                                        <input type="text" class="form-control form-control-sm text-uppercase" id="commune"
+                                               placeholder="Commune...">
+                                    </label>
+                                    <label for="ville" class="col">
+                                        <input type="text" class="form-control form-control-sm text-uppercase" id="ville"
+                                               placeholder="Ville...">
+                                    </label>
+                                </div>
+                            </div>
                         </div>
                         <div class="row mx-0 my-3">
-                            <div class="col-11 mr-3">
+                            <div class="col col-md-10 col-lg-8 mr-3">
                                 <h5 class="cadre-titre-search">Membre</h5>
                                 <div class="row">
                                     <label for="nom" class="col-4">
@@ -72,14 +68,6 @@
                                             <option value="F">Femme</option>
                                             <option value="H">Homme</option>
                                         </select>
-                                    </label>
-                                    <label for="commune" class="col">
-                                        <input type="text" class="form-control form-control-sm text-uppercase" id="commune"
-                                               placeholder="Commune...">
-                                    </label>
-                                    <label for="ville" class="col">
-                                        <input type="text" class="form-control form-control-sm text-uppercase" id="ville"
-                                               placeholder="Ville...">
                                     </label>
                                 </div>
                             </div>

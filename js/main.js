@@ -478,7 +478,7 @@ function fillMembers(list, cbo) {
 }
 
 const setCategorie = (e) => {
-    let cbo = document.getElementById('cate');
+    let cbo = document.getElementById('categorie');
 
     if (e.value) {
         let sql = `SELECT * FROM categories WHERE id_typ_op = ${e.value} AND libelle_categorie <> 'adhesion' ORDER BY libelle_categorie`;
@@ -494,7 +494,9 @@ const setCategorie = (e) => {
                 // console.log(categories);
                 if (categories !== 'Empty') {
                     fillCategories(categories, cbo, 'update');
-                    document.getElementById('proceder_param').setAttribute('href', '');
+                    let btn = document.getElementById('proceder_param');
+                    if (btn)
+                        btn.setAttribute('href', '');
                 }
 
             }
@@ -916,10 +918,10 @@ const saveDecaissement = () => {
     let telItl = document.getElementById('tel_itl');
     let comItl = document.getElementById('commune');
     let mbrInter = document.getElementById('mbr_inter');
-    let commentaires = document.getElementById('commentaires');
+    let obs_operation = document.getElementById('commentaires');
     let categorie = document.getElementById('cate');
 
-    if (dateOpe && nomItl && mtt && mbrInter && commentaires) {
+    if (dateOpe && nomItl && mtt && mbrInter && obs_operation) {
         $.post(
             'operations/decaissement/ajax/ajax_save_mouvement.php',
             {
@@ -931,7 +933,7 @@ const saveDecaissement = () => {
                 telItl: telItl.value.trim(),
                 comItl: comItl.value.trim().toUpperCase(),
                 mbrInter: mbrInter.value.trim().toUpperCase(),
-                com: commentaires.value.trim().toUpperCase(),
+                com: obs_operation.value.trim().toUpperCase(),
                 cate: categorie.value.trim()
             },
             function (response) {
@@ -946,7 +948,7 @@ const saveDecaissement = () => {
                     telItl.value = "";
                     comItl.value = "";
                     mbrInter.value = "";
-                    commentaires.value = "";
+                    obs_operation.value = "";
                 }
                 else
                     callModal('errorModal', response);
@@ -1071,7 +1073,7 @@ const filterMember = (usage) => {
                 }
             }
             else
-                callModal('feedbackModal', '😔 Aucun résultat ne correspond au critère de recherche.');
+                callModal('feedbackModal', '😔 Aucun résultat ne correspond au(x) critère(s) de recherche.');
         }
     })
 };
@@ -1151,7 +1153,7 @@ const filterAdhesion = () => {
                 }
             }
             else
-                callModal('feedbackModal', '😔 Aucun résultat ne correspond au critère de recherche.');
+                callModal('feedbackModal', '😔 Aucun résultat ne correspond au(x) critère(s) de recherche.');
         }
     })
 };
@@ -1234,7 +1236,7 @@ ${arr[i][5]}`;
                 }
             }
             else
-                callModal('feedbackModal', '😔 Aucun résultat ne correspond au critère de recherche.');
+                callModal('feedbackModal', '😔 Aucun résultat ne correspond au(x) critère(s) de recherche.');
 
         }
     );
@@ -1314,9 +1316,7 @@ Veuillez modifier les critères de recherche.`);
 };
 
 const searchCotisations = () => {
-    let typOp,
-        categorie,
-        annee,
+    let annee,
         mois,
         nom,
         prenoms,
@@ -1327,9 +1327,6 @@ const searchCotisations = () => {
         dateSaisie;
     let sql;
     let response = document.getElementById('feedback');
-
-    typOp = document.getElementById('typ_op').value;
-    categorie = document.getElementById('categorie').value;
 
     annee = document.getElementById('annee').value;
     mois = document.getElementById('mois').value;
@@ -1343,88 +1340,47 @@ const searchCotisations = () => {
     dateOp = document.getElementById('date_ope').value;
     dateSaisie = document.getElementById('date_saisie').value;
 
-    if (typOp !== '' || categorie !== '' || annee !== '' || mois !== '' || nom !== '' || prenoms !== '' || genre !== '' || commune !== '' || ville !== '' || dateOp !== '' || dateSaisie !== '') {
-        sql = `SELECT * FROM operations o INNER JOIN membres m on o.id_membre = m.id_membre INNER JOIN communes c on m.id_commune = c.id_commune INNER JOIN villes v on m.id_ville = v.id_ville INNER JOIN categories cat on o.id_categorie = cat.id_categorie INNER JOIN types_operation typ on cat.id_typ_op = typ.id_typ_op INNER JOIN mois mo on o.id_mois = mo.id_mois WHERE `;
-
-        if (typOp) {
-            if (sql.endsWith("'"))
-                sql += ` AND typ.id_typ_op = ${typOp}`;
-            else
-                sql += `typ.id_typ_op = '${typOp}'`;
-        }
-
-        if (categorie) {
-            if (sql.endsWith("'"))
-                sql += ` AND cat.libelle_categorie = '${categorie}'`;
-            else
-                sql += `cat.libelle_categorie = '${categorie}'`;
-        }
+    if (annee !== '' || mois !== '' || nom !== '' || prenoms !== '' || genre !== '' || commune !== '' || ville !== '' || dateOp !== '' || dateSaisie !== '') {
+        sql = `SELECT * FROM operations o INNER JOIN membres m on o.id_membre = m.id_membre INNER JOIN communes c on m.id_commune = c.id_commune INNER JOIN villes v on m.id_ville = v.id_ville INNER JOIN categories cat on o.id_categorie = cat.id_categorie INNER JOIN types_operation typ on cat.id_typ_op = typ.id_typ_op INNER JOIN mois mo on o.id_mois = mo.id_mois WHERE o.id_categorie = 'CAT02' `;
 
         if (annee) {
-            if (sql.endsWith("'"))
-                sql += ` AND o.annee_operation = ${annee}`;
-            else
-                sql += `o.annee_operation = '${annee}'`;
+            sql += ` AND o.annee_operation = ${annee}`;
         }
 
         if (mois) {
-            if (sql.endsWith("'"))
-                sql += ` AND mo.id_mois = '${mois}'`;
-            else
-                sql += `mo.id_mois = '${mois}'`;
+            sql += ` AND mo.id_mois = '${mois}'`;
         }
 
         if (nom) {
-            if (sql.endsWith("'"))
-                sql += ` AND m.nom_membre LIKE '%${nom}%'`;
-            else
-                sql += `m.nom_membre LIKE '%${nom}%'`;
+            sql += ` AND m.nom_membre LIKE '%${nom}%'`;
         }
 
         if (prenoms) {
-            if (sql.endsWith("'"))
-                sql += ` AND m.pren_membre LIKE '%${prenoms}%'`;
-            else
-                sql += `m.pren_membre LIKE '%${prenoms}%'`;
+            sql += ` AND m.pren_membre LIKE '%${prenoms}%'`;
         }
 
         if (genre) {
-            if (sql.endsWith("'"))
-                sql += ` AND m.genre_membre = '${genre}'`;
-            else
-                sql += `m.genre_membre = '${genre}'`;
+            sql += ` AND m.genre_membre = '${genre}'`;
         }
 
         if (commune) {
-            if (sql.endsWith("'"))
-                sql += ` AND c.libelle_commune LIKE '%${commune}%'`;
-            else
-                sql += `c.libelle_commune LIKE '%${commune}%'`;
+            sql += ` AND c.libelle_commune LIKE '%${commune}%'`;
         }
 
         if (ville) {
-            if (sql.endsWith("'"))
-                sql += ` AND v.libelle_ville LIKE '%${ville}%'`;
-            else
-                sql += `v.libelle_ville LIKE '%${ville}%'`;
+            sql += ` AND v.libelle_ville LIKE '%${ville}%'`;
         }
 
         if (dateOp) {
-            if (sql.endsWith("'"))
-                sql += ` AND o.date_operation = '${dateOp}'`;
-            else
-                sql += `o.date_operation = '${dateOp}'`;
+            sql += ` AND o.date_operation = '${dateOp}'`;
         }
 
         if (dateSaisie) {
-            if (sql.endsWith("'"))
-                sql += ` AND o.date_saisie_operation = '${dateSaisie}'`;
-            else
-                sql += `o.date_saisie_operation = '${dateSaisie}'`;
+            sql += ` AND o.date_saisie_operation = '${dateSaisie}'`;
         }
 
-        // console.log(sql);
-        if (sql !== "SELECT * FROM membres WHERE ") {
+        console.log(sql);
+        if (sql !== "SELECT * FROM operations o INNER JOIN membres m on o.id_membre = m.id_membre INNER JOIN communes c on m.id_commune = c.id_commune INNER JOIN villes v on m.id_ville = v.id_ville INNER JOIN categories cat on o.id_categorie = cat.id_categorie INNER JOIN types_operation typ on cat.id_typ_op = typ.id_typ_op INNER JOIN mois mo on o.id_mois = mo.id_mois WHERE o.id_categorie = 'CAT02' ") {
             $.ajax({
                 type: 'POST',
                 data: {
@@ -1462,7 +1418,7 @@ const searchCotisations = () => {
                     let parent = response.parentNode;
                     parent.insertBefore(div, response);
 
-                    // response.style.height = '40vh';
+                    response.style.maxHeight = '50vh';
                     response.style.overflow = 'auto';
                     response.innerHTML = data;
 
@@ -1488,6 +1444,7 @@ const searchMouvements = () => {
         titre,
         membre,
         commune,
+        contact,
         dateOp;
     let sql;
     let response = document.getElementById('feedback');
@@ -1501,28 +1458,29 @@ const searchMouvements = () => {
     nom = document.getElementById('nom').value;
     prenoms = document.getElementById('prenoms').value;
     titre = document.getElementById('titre').value;
+    commune = document.getElementById('commune').value;
+    contact = document.getElementById('contact').value;
 
     membre = document.getElementById('membre').value;
-    commune = document.getElementById('commune').value;
 
     dateOp = document.getElementById('date_ope').value;
     // commentaire = document.getElementById('commentaire').value;
 
     if (typOp !== '' || categorie !== '' || annee !== '' || mois !== '' || nom !== '' || prenoms !== '' || titre !== '' || membre !== '' || commune !== '' || dateOp !== '') {
-        sql = `SELECT DISTINCT date_operation_interlocuteur, libelle_typ_op, montant_operation, libelle_categorie, nom_interlocuteur, pren_interlocuteur, titre_interlocuteur, contact_interlocuteur, nom_membre, pren_membre FROM interlocuteurs i INNER JOIN operations_interlocuteurs oi on i.id_interlocuteur = oi.id_interlocuteur INNER JOIN operations o on oi.id_operation = o.id_operation INNER JOIN categories cat on o.id_categorie = cat.id_categorie INNER JOIN types_operation typ on cat.id_typ_op = typ.id_typ_op INNER JOIN membres m on o.id_membre = m.id_membre WHERE `;
+        sql = `SELECT DISTINCT id_operation, c.id_typ_op, date_operation, libelle_typ_op, montant_operation, libelle_categorie, nom_interlocuteur, pren_interlocuteur, titre_interlocuteur, contact_interlocuteur, nom_membre, pren_membre, obs_operation FROM interlocuteurs i INNER JOIN operations o on i.id_interlocuteur = o.id_interlocuteur INNER JOIN categories c on o.id_categorie = c.id_categorie INNER JOIN types_operation to2 on c.id_typ_op = to2.id_typ_op INNER JOIN membres m on o.id_membre = m.id_membre WHERE `;
 
         if (typOp) {
             if (sql.endsWith("'"))
-                sql += ` AND typ.id_typ_op = ${typOp}`;
+                sql += ` AND to2.id_typ_op = ${typOp}`;
             else
-                sql += `typ.id_typ_op = '${typOp}'`;
+                sql += `to2.id_typ_op = '${typOp}'`;
         }
 
         if (categorie) {
             if (sql.endsWith("'"))
-                sql += ` AND cat.libelle_categorie = '${categorie}'`;
+                sql += ` AND c.id_categorie = '${categorie}'`;
             else
-                sql += `cat.libelle_categorie = '${categorie}'`;
+                sql += `c.id_categorie = '${categorie}'`;
         }
 
         if (annee) {
@@ -1574,11 +1532,18 @@ const searchMouvements = () => {
                 sql += `i.localite_interlocuteur LIKE '%${commune}%'`;
         }
 
+        if (contact) {
+            if (sql.endsWith("'"))
+                sql += ` AND i.contact_interlocuteur LIKE '%${contact}%'`;
+            else
+                sql += `i.contact_interlocuteur LIKE '%${contact}%'`;
+        }
+
         if (dateOp) {
             if (sql.endsWith("'"))
-                sql += ` AND oi.date_operation_interlocuteur = '${dateOp}'`;
+                sql += ` AND oi.date_operation = '${dateOp}'`;
             else
-                sql += `oi.date_operation_interlocuteur = '${dateOp}'`;
+                sql += `oi.date_operation = '${dateOp}'`;
         }
 
         /*if (commentaire) {
@@ -1588,9 +1553,9 @@ const searchMouvements = () => {
                 sql += `oi.commentaires = '${commentaire}'`;
         }*/
 
-        sql += " ORDER BY date_operation_interlocuteur";
+        sql += " ORDER BY date_operation";
         console.log(sql);
-        if (sql !== "SELECT DISTINCT date_operation_interlocuteur, libelle_typ_op, montant_operation, libelle_categorie, nom_interlocuteur, pren_interlocuteur, titre_interlocuteur, contact_interlocuteur, nom_membre, pren_membre FROM interlocuteurs i INNER JOIN operations_interlocuteurs oi on i.id_interlocuteur = oi.id_interlocuteur INNER JOIN operations o on oi.id_operation = o.id_operation INNER JOIN categories cat on o.id_categorie = cat.id_categorie INNER JOIN types_operation typ on cat.id_typ_op = typ.id_typ_op INNER JOIN membres m on o.id_membre = m.id_membre WHERE  ORDER BY date_operation_interlocuteur") {
+        if (sql !== "SELECT DISTINCT id_operation, c.id_typ_op, date_operation, libelle_typ_op, montant_operation, libelle_categorie, nom_interlocuteur, pren_interlocuteur, titre_interlocuteur, contact_interlocuteur, nom_membre, pren_membre, obs_operation FROM interlocuteurs i INNER JOIN operations o on i.id_interlocuteur = o.id_interlocuteur INNER JOIN categories c on o.id_categorie = c.id_categorie INNER JOIN types_operation to2 on c.id_typ_op = to2.id_typ_op INNER JOIN membres m on o.id_membre = m.id_membre WHERE ORDER BY date_operation") {
             $.ajax({
                 type: 'POST',
                 data: {
@@ -1598,46 +1563,52 @@ const searchMouvements = () => {
                 },
                 url: 'recherches/ajax/ajax_search_mouvements.php',
                 success: function (data) {
-                    let aDiv = document.getElementById('added_div');
-                    if (aDiv)
-                        aDiv.parentNode.removeChild(aDiv);
 
-                    let div = document.createElement('div');
-                    div.setAttribute('id', 'added_div');
-                    div.classList.add('row', 'justify-content-end', 'mt-4', 'mx-0', 'container-fluid');
+                    if (!data.includes('Not found')) {
+                        let aDiv = document.getElementById('added_div');
+                        if (aDiv)
+                            aDiv.parentNode.removeChild(aDiv);
 
-                    let formInline = document.createElement('form');
-                    formInline.classList.add('form-inline');
+                        let div = document.createElement('div');
+                        div.setAttribute('id', 'added_div');
+                        div.classList.add('row', 'justify-content-end', 'mt-4', 'mx-0', 'container-fluid');
 
-                    let label = document.createElement('label');
-                    label.classList.add('mr-2');
+                        let formInline = document.createElement('form');
+                        formInline.classList.add('form-inline');
 
-                    let text = document.createTextNode('Montant Total');
+                        let label = document.createElement('label');
+                        label.classList.add('mr-2');
 
-                    let input = document.createElement('input');
-                    input.setAttribute('type', 'text');
-                    input.setAttribute('id', 'montant_total');
-                    input.setAttribute('readonly', 'true');
-                    input.classList.add('form-control', 'form-control-sm', 'text-right', 'font-weight-bold');
+                        let text = document.createTextNode('Montant Cumulé');
 
-                    label.appendChild(text);
-                    formInline.appendChild(label);
-                    formInline.appendChild(input);
-                    div.appendChild(formInline);
+                        let input = document.createElement('input');
+                        input.setAttribute('type', 'text');
+                        input.setAttribute('id', 'montant_cumule');
+                        input.setAttribute('readonly', 'true');
+                        input.classList.add('form-control', 'form-control-sm', 'text-right', 'font-weight-bold');
 
-                    let parent = response.parentNode;
-                    parent.insertBefore(div, response);
+                        label.appendChild(text);
+                        formInline.appendChild(label);
+                        formInline.appendChild(input);
+                        div.appendChild(formInline);
 
-                    // response.style.height = '40vh';
-                    response.style.overflow = 'auto';
-                    response.innerHTML = data;
+                        let parent = response.parentNode;
+                        parent.insertBefore(div, response);
 
-                    let total = 0;
-                    if (document.getElementById('total') && document.getElementById('montant_total')) {
-                        total = document.getElementById('total').value;
-                        total = numberFormat(total);
+                        response.style.maxHeight = '50vh';
+                        response.style.overflow = 'auto';
+                        response.innerHTML = data;
+
+                        let total = 0;
+                        if (document.getElementById('total') && document.getElementById('montant_cumule')) {
+                            total = document.getElementById('total').value;
+                            total = numberFormat(total);
+                        }
+                        document.getElementById('montant_cumule').value = total;
                     }
-                    document.getElementById('montant_total').value = total;
+                    else
+                        callModal('feedbackModal', '😔 Aucun résultat ne correspond au(x) critère(s) de recherche.');
+
                 }
             })
         }
