@@ -1490,7 +1490,7 @@ const searchCotisations = () => {
                 data: {
                     info: sql.trim()
                 },
-                url: 'recherches/ajax/ajax_search_operations.php',
+                url: 'recherches/ajax/ajax_search_cotisations.php',
                 success: function (data) {
                     let aDiv = document.getElementById('added_div');
                     if (aDiv)
@@ -1545,10 +1545,10 @@ const searchMouvements = () => {
         mois,
         nom,
         prenoms,
+        titre,
         membre,
         commune,
-        dateOp,
-        commentaire;
+        dateOp;
     let sql;
     let response = document.getElementById('feedback');
 
@@ -1560,14 +1560,16 @@ const searchMouvements = () => {
 
     nom = document.getElementById('nom').value;
     prenoms = document.getElementById('prenoms').value;
+    titre = document.getElementById('titre').value;
+
     membre = document.getElementById('membre').value;
     commune = document.getElementById('commune').value;
 
     dateOp = document.getElementById('date_ope').value;
-    commentaire = document.getElementById('commentaire').value;
+    // commentaire = document.getElementById('commentaire').value;
 
-    if (typOp !== '' || categorie !== '' || annee !== '' || mois !== '' || nom !== '' || prenoms !== '' || membre !== '' || commune !== '' || dateOp !== '' || commentaire !== '') {
-        sql = `SELECT DISTINCT date_operation_interlocuteur, libelle_typ_op, montant_operation, libelle_categorie, nom_interlocuteur, pren_interlocuteur, titre_interlocuteur, contact_interlocuteur, nom_membre, pren_membre FROM interlocuteurs i INNER JOIN operations_interlocuteurs oi on i.id_interlocuteur = oi.id_interlocuteur INNER JOIN operations o on oi.id_operation = o.id_operation INNER JOIN categories cat on o.id_categorie = cat.id_categorie INNER JOIN types_operation typ on cat.id_typ_op = typ.id_typ_op INNER JOIN membres m on o.id_membre = m.id_membre`;
+    if (typOp !== '' || categorie !== '' || annee !== '' || mois !== '' || nom !== '' || prenoms !== '' || titre !== '' || membre !== '' || commune !== '' || dateOp !== '') {
+        sql = `SELECT DISTINCT date_operation_interlocuteur, libelle_typ_op, montant_operation, libelle_categorie, nom_interlocuteur, pren_interlocuteur, titre_interlocuteur, contact_interlocuteur, nom_membre, pren_membre FROM interlocuteurs i INNER JOIN operations_interlocuteurs oi on i.id_interlocuteur = oi.id_interlocuteur INNER JOIN operations o on oi.id_operation = o.id_operation INNER JOIN categories cat on o.id_categorie = cat.id_categorie INNER JOIN types_operation typ on cat.id_typ_op = typ.id_typ_op INNER JOIN membres m on o.id_membre = m.id_membre WHERE `;
 
         if (typOp) {
             if (sql.endsWith("'"))
@@ -1611,6 +1613,13 @@ const searchMouvements = () => {
                 sql += `i.pren_interlocuteur LIKE '%${prenoms}%'`;
         }
 
+        if (titre) {
+            if (sql.endsWith("'"))
+                sql += ` AND i.titre_interlocuteur LIKE '%${titre}%'`;
+            else
+                sql += `i.titre_interlocuteur LIKE '%${titre}%'`;
+        }
+
         if (membre) {
             if (sql.endsWith("'"))
                 sql += ` AND m.nom_membre LIKE '%${membre}%' OR m.pren_membre LIKE '%${membre}%'`;
@@ -1632,22 +1641,22 @@ const searchMouvements = () => {
                 sql += `oi.date_operation_interlocuteur = '${dateOp}'`;
         }
 
-        if (commentaire) {
+        /*if (commentaire) {
             if (sql.endsWith("'"))
                 sql += ` AND oi.commentaires = '${commentaire}'`;
             else
                 sql += `oi.commentaires = '${commentaire}'`;
-        }
+        }*/
 
         sql += " ORDER BY date_operation_interlocuteur";
         console.log(sql);
-        /*if (sql !== "SELECT * FROM membres WHERE ") {
+        if (sql !== "SELECT DISTINCT date_operation_interlocuteur, libelle_typ_op, montant_operation, libelle_categorie, nom_interlocuteur, pren_interlocuteur, titre_interlocuteur, contact_interlocuteur, nom_membre, pren_membre FROM interlocuteurs i INNER JOIN operations_interlocuteurs oi on i.id_interlocuteur = oi.id_interlocuteur INNER JOIN operations o on oi.id_operation = o.id_operation INNER JOIN categories cat on o.id_categorie = cat.id_categorie INNER JOIN types_operation typ on cat.id_typ_op = typ.id_typ_op INNER JOIN membres m on o.id_membre = m.id_membre WHERE  ORDER BY date_operation_interlocuteur") {
             $.ajax({
                 type: 'POST',
                 data: {
                     info: sql.trim()
                 },
-                url: 'recherches/ajax/ajax_search_operations.php',
+                url: 'recherches/ajax/ajax_search_mouvements.php',
                 success: function (data) {
                     let aDiv = document.getElementById('added_div');
                     if (aDiv)
@@ -1691,7 +1700,7 @@ const searchMouvements = () => {
                     document.getElementById('montant_total').value = total;
                 }
             })
-        }*/
+        }
     }
 };
 

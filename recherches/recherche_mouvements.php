@@ -21,15 +21,15 @@
                                 <h5 class="cadre-titre-search">Type d'oprération</h5>
                                 <div class="row">
                                     <label for="typ_op" class="col">
-                                        <select class="custom-select custom-select-sm text-uppercase" id="typ_op" onchange="">
+                                        <select class="custom-select custom-select-sm" id="typ_op" onchange="">
                                             <option value="">Type...</option>
-                                            <option value="0">Dépense</option>
-                                            <option value="1">Recette</option>
+                                            <option value="0">Encaissement</option>
+                                            <option value="1">Décaissement</option>
                                         </select>
                                     </label>
                                     <label for="cate" class="col">
-                                        <select class="custom-select custom-select-sm text-uppercase" id="categorie">
-                                            <option value="">Categorie...</option>
+                                        <select class="custom-select custom-select-sm" id="categorie">
+                                            <option value="">Catégorie...</option>
                                         </select>
                                     </label>
                                 </div>
@@ -38,13 +38,13 @@
                                 <h5 class="cadre-titre-search">Période</h5>
                                 <div class="row">
                                     <label for="annee" class="col">
-                                        <select class="custom-select custom-select-sm text-uppercase" id="annee">
-                                            <option value="">Annee...</option>
+                                        <select class="custom-select custom-select-sm" id="annee">
+                                            <option value="">Année...</option>
                                             <option value="2019">2019</option>
                                         </select>
                                     </label>
                                     <label for="mois" class="col">
-                                        <select class="custom-select custom-select-sm text-uppercase" id="mois">
+                                        <select class="custom-select custom-select-sm" id="mois">
                                             <option value="">Mois...</option>
                                             <option value="M01">Janvier</option>
                                         </select>
@@ -53,8 +53,8 @@
                             </div>
                         </div>
                         <div class="row mx-0 my-3">
-                            <div class="col-11 mr-3">
-                                <h5 class="cadre-titre-search">Interlocuteur</h5>
+                            <div class="col-8">
+                                <h5 class="cadre-titre-search">Bénéficiaire - Donateur</h5>
                                 <div class="row">
                                     <label for="nom" class="col-4">
                                         <input type="text" class="form-control form-control-sm text-uppercase" id="nom"
@@ -80,6 +80,15 @@
                                     </label>
                                 </div>
                             </div>
+                            <div class="col-4">
+                                <h5 class="cadre-titre-search">Membre Intermédiaire</h5>
+                                <div class="row">
+                                    <label for="nom" class="col">
+                                        <input type="text" class="form-control form-control-sm text-uppercase" id="membre"
+                                               placeholder="Nom ou prenoms...">
+                                    </label>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="col-auto">
@@ -91,30 +100,18 @@
                                         <label for="date_ope">
                                             <input type="date" id="date_ope" class="form-control form-control-sm"
                                                    aria-describedby="textHelp">
-                                            <small id="textHelp" class="form-text text-muted">Date de l'opération</small>
-                                        </label>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row mx-0 my-3">
-                            <div class="col px-0">
-                                <div class="row">
-                                    <div class="col">
-                                        <label for="date_saisie">
-                                            <input type="date" id="date_saisie" class="form-control form-control-sm"
-                                                   aria-describedby="textHelp">
-                                            <small id="textHelp" class="form-text text-muted">Date de saisie de l'opération</small>
+                                            <small id="textHelp" class="form-text text-muted">...de l'opération</small>
                                         </label>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="row mx-0">
-                            <button class="btn btn-sm btn-outline-dark col" type="reset" title="Reinitialiser les zones de saisie">
+                            <button class="btn btn-sm btn-outline-dark col" type="reset" title="Reinitialiser les zones de saisie" aria-describedby="textHelp">
                                 <i class="fas fa-undo"></i>
                             </button>
                         </div>
+                        <small id="textHelp" class="form-text text-muted">Réinitialiser les champs</small>
                     </div>
                 </div>
 

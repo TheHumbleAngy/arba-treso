@@ -94,7 +94,7 @@
                                         <label for="date_ope">
                                             <input type="date" id="date_ope" class="form-control form-control-sm"
                                                    aria-describedby="textHelp">
-                                            <small id="textHelp" class="form-text text-muted">Date de l'opération</small>
+                                            <small id="textHelp" class="form-text text-muted">...de l'opération</small>
                                         </label>
                                     </div>
                                 </div>
@@ -107,17 +107,18 @@
                                         <label for="date_saisie">
                                             <input type="date" id="date_saisie" class="form-control form-control-sm"
                                                    aria-describedby="textHelp">
-                                            <small id="textHelp" class="form-text text-muted">Date de saisie de l'opération</small>
+                                            <small id="textHelp" class="form-text text-muted">...de saisie de l'opération</small>
                                         </label>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="row mx-0">
-                            <button class="btn btn-sm btn-danger col" type="reset" title="Reinitialiser les zones de saisie">
+                            <button class="btn btn-sm btn-outline-dark col" type="reset" title="Reinitialiser les zones de saisie" aria-describedby="textHelp">
                                 <i class="fas fa-undo"></i>
                             </button>
                         </div>
+                        <small id="textHelp" class="form-text text-muted">Réinitialiser les champs</small>
                     </div>
                 </div>
 

@@ -1,15 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.5
+-- version 4.6.4
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1:3306
--- Generation Time: Aug 22, 2019 at 06:49 PM
--- Server version: 5.7.26
--- PHP Version: 7.2.18
+-- Host: 127.0.0.1
+-- Generation Time: Aug 29, 2019 at 02:11 PM
+-- Server version: 5.7.14
+-- PHP Version: 7.0.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
-START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -21,6 +19,8 @@ SET time_zone = "+00:00";
 --
 -- Database: `gestion_treso_arba`
 --
+CREATE DATABASE IF NOT EXISTS `gestion_treso_arba` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+USE `gestion_treso_arba`;
 
 -- --------------------------------------------------------
 
@@ -28,13 +28,10 @@ SET time_zone = "+00:00";
 -- Table structure for table `categories`
 --
 
-DROP TABLE IF EXISTS `categories`;
-CREATE TABLE IF NOT EXISTS `categories` (
+CREATE TABLE `categories` (
   `id_categorie` varchar(5) NOT NULL,
   `id_typ_op` tinyint(1) NOT NULL,
-  `libelle_categorie` varchar(20) NOT NULL,
-  PRIMARY KEY (`id_categorie`),
-  KEY `id_typ_op` (`id_typ_op`)
+  `libelle_categorie` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -54,11 +51,9 @@ INSERT INTO `categories` (`id_categorie`, `id_typ_op`, `libelle_categorie`) VALU
 -- Table structure for table `communes`
 --
 
-DROP TABLE IF EXISTS `communes`;
-CREATE TABLE IF NOT EXISTS `communes` (
+CREATE TABLE `communes` (
   `id_commune` varchar(6) NOT NULL,
-  `libelle_commune` varchar(20) NOT NULL,
-  PRIMARY KEY (`id_commune`)
+  `libelle_commune` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -270,13 +265,10 @@ INSERT INTO `communes` (`id_commune`, `libelle_commune`) VALUES
 -- Table structure for table `fonctions`
 --
 
-DROP TABLE IF EXISTS `fonctions`;
-CREATE TABLE IF NOT EXISTS `fonctions` (
+CREATE TABLE `fonctions` (
   `id_fonction` varchar(5) NOT NULL,
   `id_groupe` varchar(5) NOT NULL,
-  `libelle_fonction` varchar(40) NOT NULL,
-  PRIMARY KEY (`id_fonction`),
-  KEY `id_groupe` (`id_groupe`)
+  `libelle_fonction` varchar(40) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -308,11 +300,9 @@ INSERT INTO `fonctions` (`id_fonction`, `id_groupe`, `libelle_fonction`) VALUES
 -- Table structure for table `groupes`
 --
 
-DROP TABLE IF EXISTS `groupes`;
-CREATE TABLE IF NOT EXISTS `groupes` (
+CREATE TABLE `groupes` (
   `id_groupe` varchar(5) NOT NULL,
-  `libelle_groupe` varchar(20) NOT NULL,
-  PRIMARY KEY (`id_groupe`)
+  `libelle_groupe` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -329,15 +319,13 @@ INSERT INTO `groupes` (`id_groupe`, `libelle_groupe`) VALUES
 -- Table structure for table `interlocuteurs`
 --
 
-DROP TABLE IF EXISTS `interlocuteurs`;
-CREATE TABLE IF NOT EXISTS `interlocuteurs` (
+CREATE TABLE `interlocuteurs` (
   `id_interlocuteur` varchar(6) NOT NULL,
   `nom_interlocuteur` varchar(30) NOT NULL,
   `pren_interlocuteur` varchar(30) NOT NULL,
   `titre_interlocuteur` varchar(30) NOT NULL,
   `contact_interlocuteur` varchar(30) NOT NULL,
-  `localite_interlocuteur` varchar(100) NOT NULL,
-  PRIMARY KEY (`id_interlocuteur`)
+  `localite_interlocuteur` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -345,7 +333,8 @@ CREATE TABLE IF NOT EXISTS `interlocuteurs` (
 --
 
 INSERT INTO `interlocuteurs` (`id_interlocuteur`, `nom_interlocuteur`, `pren_interlocuteur`, `titre_interlocuteur`, `contact_interlocuteur`, `localite_interlocuteur`) VALUES
-('ITL01', 'ADJE', 'LEOPOLD', 'GARDIEN', '20 21 22 04', 'ADJAME');
+('ITL01', 'ADJE', 'LEOPOLD', 'GARDIEN', '20 21 22 04', 'ADJAME'),
+('ITL02', 'TECHMY', 'LUC', '', '56 20 30 10', 'TREICHVILLE');
 
 -- --------------------------------------------------------
 
@@ -353,8 +342,7 @@ INSERT INTO `interlocuteurs` (`id_interlocuteur`, `nom_interlocuteur`, `pren_int
 -- Table structure for table `membres`
 --
 
-DROP TABLE IF EXISTS `membres`;
-CREATE TABLE IF NOT EXISTS `membres` (
+CREATE TABLE `membres` (
   `id_membre` varchar(10) NOT NULL,
   `id_fonction` varchar(5) NOT NULL,
   `id_commune` varchar(6) NOT NULL,
@@ -363,11 +351,7 @@ CREATE TABLE IF NOT EXISTS `membres` (
   `pren_membre` varchar(30) NOT NULL,
   `genre_membre` char(1) NOT NULL COMMENT 'F/H',
   `contact_membre` varchar(11) DEFAULT NULL,
-  `date_crea_membre` date DEFAULT NULL,
-  PRIMARY KEY (`id_membre`),
-  KEY `id_commune` (`id_commune`),
-  KEY `id_ville` (`id_ville`),
-  KEY `id_fonction` (`id_fonction`)
+  `date_crea_membre` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -402,12 +386,10 @@ INSERT INTO `membres` (`id_membre`, `id_fonction`, `id_commune`, `id_ville`, `no
 -- Table structure for table `mois`
 --
 
-DROP TABLE IF EXISTS `mois`;
-CREATE TABLE IF NOT EXISTS `mois` (
+CREATE TABLE `mois` (
   `id_mois` varchar(3) NOT NULL,
   `libelle_mois` varchar(15) NOT NULL,
-  `numero_mois` varchar(2) NOT NULL,
-  PRIMARY KEY (`id_mois`)
+  `numero_mois` varchar(2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -434,78 +416,52 @@ INSERT INTO `mois` (`id_mois`, `libelle_mois`, `numero_mois`) VALUES
 -- Table structure for table `operations`
 --
 
-DROP TABLE IF EXISTS `operations`;
-CREATE TABLE IF NOT EXISTS `operations` (
+CREATE TABLE `operations` (
   `id_operation` varchar(10) NOT NULL,
   `id_membre` varchar(10) NOT NULL,
   `id_mois` varchar(3) NOT NULL,
   `id_categorie` varchar(5) NOT NULL,
+  `id_interlocuteur` varchar(6) DEFAULT NULL,
   `montant_operation` int(10) NOT NULL,
   `obs_operation` varchar(100) NOT NULL,
   `date_saisie_operation` date NOT NULL,
   `date_operation` date NOT NULL,
-  `annee_operation` smallint(4) NOT NULL,
-  PRIMARY KEY (`id_operation`),
-  KEY `id_mois` (`id_mois`),
-  KEY `id_categorie` (`id_categorie`),
-  KEY `id_membre` (`id_membre`)
+  `annee_operation` smallint(4) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `operations`
 --
 
-INSERT INTO `operations` (`id_operation`, `id_membre`, `id_mois`, `id_categorie`, `montant_operation`, `obs_operation`, `date_saisie_operation`, `date_operation`, `annee_operation`) VALUES
-('19-OP-0001', 'M19001', 'M08', 'CAT01', 2000, 'FRAIS ADHESION', '2019-08-02', '2019-08-02', 2019),
-('19-OP-0002', 'M19002', 'M08', 'CAT01', 1000, 'FRAIS ADHESION', '2019-08-02', '2019-08-02', 2019),
-('19-OP-0003', 'M19001', 'M01', 'CAT02', 2000, 'COTISATION MENSUELLE', '2019-08-02', '2019-08-02', 2019),
-('19-OP-0004', 'M19001', 'M02', 'CAT02', 2000, 'COTISATION MENSUELLE', '2019-08-02', '2019-08-02', 2019),
-('19-OP-0005', 'M19001', 'M03', 'CAT02', 2000, 'COTISATION MENSUELLE', '2019-08-02', '2019-08-02', 2019),
-('19-OP-0006', 'M19001', 'M04', 'CAT02', 2000, 'COTISATION MENSUELLE', '2019-08-02', '2019-08-02', 2019),
-('19-OP-0007', 'M19001', 'M05', 'CAT02', 2000, 'COTISATION MENSUELLE', '2019-08-02', '2019-08-02', 2019),
-('19-OP-0008', 'M19001', 'M06', 'CAT02', 2000, 'COTISATION MENSUELLE', '2019-08-02', '2019-08-02', 2019),
-('19-OP-0009', 'M19001', 'M07', 'CAT02', 2000, 'COTISATION MENSUELLE', '2019-08-02', '2019-08-02', 2019),
-('19-OP-0010', 'M19002', 'M01', 'CAT02', 1000, 'COTISATION MENSUELLE', '2019-08-02', '2019-08-02', 2019),
-('19-OP-0011', 'M19002', 'M02', 'CAT02', 1000, 'COTISATION MENSUELLE', '2019-08-02', '2019-08-02', 2019),
-('19-OP-0012', 'M19002', 'M03', 'CAT02', 1000, 'COTISATION MENSUELLE', '2019-08-02', '2019-08-02', 2019),
-('19-OP-0013', 'M19003', 'M08', 'CAT01', 2000, 'FRAIS ADHESION', '2019-08-03', '2019-08-03', 2019),
-('19-OP-0014', 'M19004', 'M08', 'CAT01', 2000, 'FRAIS ADHESION', '2019-08-03', '2019-08-03', 2019),
-('19-OP-0015', 'M19005', 'M08', 'CAT01', 2000, 'FRAIS ADHESION', '2019-08-03', '2019-08-03', 2019),
-('19-OP-0016', 'M19006', 'M08', 'CAT01', 2000, 'FRAIS ADHESION', '2019-08-04', '2019-08-04', 2019),
-('19-OP-0017', 'M19002', 'M04', 'CAT02', 1000, 'COTISATION MENSUELLE', '2019-08-03', '2019-08-04', 2019),
-('19-OP-0018', 'M19002', 'M05', 'CAT02', 1000, 'COTISATION MENSUELLE', '2019-08-03', '2019-08-04', 2019),
-('19-OP-0019', 'M19002', 'M06', 'CAT02', 1000, 'COTISATION MENSUELLE', '2019-08-03', '2019-08-04', 2019),
-('19-OP-0020', 'M19007', 'M08', 'CAT01', 2000, 'FRAIS ADHESION', '2019-08-04', '2019-08-04', 2019),
-('19-OP-0021', 'M19002', 'M07', 'CAT02', 1000, 'COTISATION MENSUELLE', '2019-08-04', '2019-08-04', 2019),
-('19-OP-0022', 'M19001', 'M08', 'CAT02', 2000, 'COTISATION MENSUELLE', '2019-08-04', '2019-08-04', 2019),
-('19-OP-0023', 'M19002', 'M08', 'CAT04', 3000, 'A l\'ordre de GARDIEN.\nPour les frais de location de la salle Ã  ce jour.', '2019-08-19', '2019-08-04', 2019),
-('19-OP-0024', 'M19006', 'M08', 'CAT03', 200000, 'A l\'ordre de LOKOSSUE PAUL.\nPour le compte des frais de l\'AG', '2019-08-19', '2019-02-03', 2019),
-('19-OP-0025', 'M19008', 'M08', 'CAT01', 1, 'FRAIS ADHESION', '2019-08-21', '2019-08-21', 2019),
-('19-OP-0026', 'M19008', 'M08', 'CAT02', 1000, 'COTISATION MENSUELLE', '2019-08-21', '2019-08-21', 2019),
-('19-OP-0027', 'M19002', 'M08', 'CAT04', 3000, 'DECAISSEMENT', '2019-08-22', '2019-08-22', 2019);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `operations_interlocuteurs`
---
-
-DROP TABLE IF EXISTS `operations_interlocuteurs`;
-CREATE TABLE IF NOT EXISTS `operations_interlocuteurs` (
-  `id_operation` varchar(10) NOT NULL,
-  `id_interlocuteur` varchar(6) NOT NULL,
-  `date_operation_interlocuteur` date NOT NULL,
-  `commentaires` varchar(100) NOT NULL,
-  KEY `id_operation` (`id_operation`),
-  KEY `id_interlocuteur` (`id_interlocuteur`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `operations_interlocuteurs`
---
-
-INSERT INTO `operations_interlocuteurs` (`id_operation`, `id_interlocuteur`, `date_operation_interlocuteur`, `commentaires`) VALUES
-('19-OP-0027', 'ITL01', '2019-08-22', 'FRAIS DE LOCATION DE LA SALLE DE RÃ‰UNION.');
+INSERT INTO `operations` (`id_operation`, `id_membre`, `id_mois`, `id_categorie`, `id_interlocuteur`, `montant_operation`, `obs_operation`, `date_saisie_operation`, `date_operation`, `annee_operation`) VALUES
+('19-OP-0001', 'M19001', 'M08', 'CAT01', NULL, 2000, 'FRAIS ADHESION', '2019-08-02', '2019-08-02', 2019),
+('19-OP-0002', 'M19002', 'M08', 'CAT01', NULL, 1000, 'FRAIS ADHESION', '2019-08-02', '2019-08-02', 2019),
+('19-OP-0003', 'M19001', 'M01', 'CAT02', NULL, 2000, 'COTISATION MENSUELLE', '2019-08-02', '2019-08-02', 2019),
+('19-OP-0004', 'M19001', 'M02', 'CAT02', NULL, 2000, 'COTISATION MENSUELLE', '2019-08-02', '2019-08-02', 2019),
+('19-OP-0005', 'M19001', 'M03', 'CAT02', NULL, 2000, 'COTISATION MENSUELLE', '2019-08-02', '2019-08-02', 2019),
+('19-OP-0006', 'M19001', 'M04', 'CAT02', NULL, 2000, 'COTISATION MENSUELLE', '2019-08-02', '2019-08-02', 2019),
+('19-OP-0007', 'M19001', 'M05', 'CAT02', NULL, 2000, 'COTISATION MENSUELLE', '2019-08-02', '2019-08-02', 2019),
+('19-OP-0008', 'M19001', 'M06', 'CAT02', NULL, 2000, 'COTISATION MENSUELLE', '2019-08-02', '2019-08-02', 2019),
+('19-OP-0009', 'M19001', 'M07', 'CAT02', NULL, 2000, 'COTISATION MENSUELLE', '2019-08-02', '2019-08-02', 2019),
+('19-OP-0010', 'M19002', 'M01', 'CAT02', NULL, 1000, 'COTISATION MENSUELLE', '2019-08-02', '2019-08-02', 2019),
+('19-OP-0011', 'M19002', 'M02', 'CAT02', NULL, 1000, 'COTISATION MENSUELLE', '2019-08-02', '2019-08-02', 2019),
+('19-OP-0012', 'M19002', 'M03', 'CAT02', NULL, 1000, 'COTISATION MENSUELLE', '2019-08-02', '2019-08-02', 2019),
+('19-OP-0013', 'M19003', 'M08', 'CAT01', NULL, 2000, 'FRAIS ADHESION', '2019-08-03', '2019-08-03', 2019),
+('19-OP-0014', 'M19004', 'M08', 'CAT01', NULL, 2000, 'FRAIS ADHESION', '2019-08-03', '2019-08-03', 2019),
+('19-OP-0015', 'M19005', 'M08', 'CAT01', NULL, 2000, 'FRAIS ADHESION', '2019-08-03', '2019-08-03', 2019),
+('19-OP-0016', 'M19006', 'M08', 'CAT01', NULL, 2000, 'FRAIS ADHESION', '2019-08-04', '2019-08-04', 2019),
+('19-OP-0017', 'M19002', 'M04', 'CAT02', NULL, 1000, 'COTISATION MENSUELLE', '2019-08-03', '2019-08-04', 2019),
+('19-OP-0018', 'M19002', 'M05', 'CAT02', NULL, 1000, 'COTISATION MENSUELLE', '2019-08-03', '2019-08-04', 2019),
+('19-OP-0019', 'M19002', 'M06', 'CAT02', NULL, 1000, 'COTISATION MENSUELLE', '2019-08-03', '2019-08-04', 2019),
+('19-OP-0020', 'M19007', 'M08', 'CAT01', NULL, 2000, 'FRAIS ADHESION', '2019-08-04', '2019-08-04', 2019),
+('19-OP-0021', 'M19002', 'M07', 'CAT02', NULL, 1000, 'COTISATION MENSUELLE', '2019-08-04', '2019-08-04', 2019),
+('19-OP-0022', 'M19001', 'M08', 'CAT02', NULL, 2000, 'COTISATION MENSUELLE', '2019-08-04', '2019-08-04', 2019),
+('19-OP-0023', 'M19002', 'M08', 'CAT04', NULL, 3000, 'A l\'ordre de GARDIEN.\nPour les frais de location de la salle Ã  ce jour.', '2019-08-19', '2019-08-04', 2019),
+('19-OP-0024', 'M19006', 'M08', 'CAT03', NULL, 200000, 'A l\'ordre de LOKOSSUE PAUL.\nPour le compte des frais de l\'AG', '2019-08-19', '2019-02-03', 2019),
+('19-OP-0025', 'M19008', 'M08', 'CAT01', NULL, 2000, 'FRAIS ADHESION', '2019-08-21', '2019-08-21', 2019),
+('19-OP-0026', 'M19008', 'M08', 'CAT02', NULL, 1000, 'COTISATION MENSUELLE', '2019-08-21', '2019-08-21', 2019),
+('19-OP-0027', 'M19002', 'M08', 'CAT04', 'ITL01', 3000, 'FRAIS DE LOCATION DE LA SALLE DE REUNION.', '2019-08-22', '2019-08-22', 2019),
+('19-OP-0028', 'M19001', 'M08', 'CAT05', 'ITL02', 50000, 'DON EN REMERCIEMENT DU SOUTIEN APPORTE PENDANT L\'ENTERREMENT.', '2019-08-27', '2019-08-27', 2019);
 
 -- --------------------------------------------------------
 
@@ -513,11 +469,9 @@ INSERT INTO `operations_interlocuteurs` (`id_operation`, `id_interlocuteur`, `da
 -- Table structure for table `types_operation`
 --
 
-DROP TABLE IF EXISTS `types_operation`;
-CREATE TABLE IF NOT EXISTS `types_operation` (
+CREATE TABLE `types_operation` (
   `id_typ_op` tinyint(1) NOT NULL,
-  `libelle_typ_op` varchar(10) NOT NULL,
-  PRIMARY KEY (`id_typ_op`)
+  `libelle_typ_op` varchar(15) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -525,8 +479,8 @@ CREATE TABLE IF NOT EXISTS `types_operation` (
 --
 
 INSERT INTO `types_operation` (`id_typ_op`, `libelle_typ_op`) VALUES
-(0, 'DEPENSE'),
-(1, 'RECETTE');
+(0, 'DECAISSEMENT'),
+(1, 'ENCAISSEMENT');
 
 -- --------------------------------------------------------
 
@@ -534,12 +488,10 @@ INSERT INTO `types_operation` (`id_typ_op`, `libelle_typ_op`) VALUES
 -- Table structure for table `villes`
 --
 
-DROP TABLE IF EXISTS `villes`;
-CREATE TABLE IF NOT EXISTS `villes` (
+CREATE TABLE `villes` (
   `id_ville` varchar(6) NOT NULL,
   `libelle_ville` varchar(20) NOT NULL,
-  `region_ville` varchar(20) NOT NULL,
-  PRIMARY KEY (`id_ville`)
+  `region_ville` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -589,6 +541,79 @@ INSERT INTO `villes` (`id_ville`, `libelle_ville`, `region_ville`) VALUES
 ('VIL40', 'ZUENOULA', 'MARAHOUE');
 
 --
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `categories`
+--
+ALTER TABLE `categories`
+  ADD PRIMARY KEY (`id_categorie`),
+  ADD KEY `id_typ_op` (`id_typ_op`);
+
+--
+-- Indexes for table `communes`
+--
+ALTER TABLE `communes`
+  ADD PRIMARY KEY (`id_commune`);
+
+--
+-- Indexes for table `fonctions`
+--
+ALTER TABLE `fonctions`
+  ADD PRIMARY KEY (`id_fonction`),
+  ADD KEY `id_groupe` (`id_groupe`);
+
+--
+-- Indexes for table `groupes`
+--
+ALTER TABLE `groupes`
+  ADD PRIMARY KEY (`id_groupe`);
+
+--
+-- Indexes for table `interlocuteurs`
+--
+ALTER TABLE `interlocuteurs`
+  ADD PRIMARY KEY (`id_interlocuteur`);
+
+--
+-- Indexes for table `membres`
+--
+ALTER TABLE `membres`
+  ADD PRIMARY KEY (`id_membre`),
+  ADD KEY `id_commune` (`id_commune`),
+  ADD KEY `id_ville` (`id_ville`),
+  ADD KEY `id_fonction` (`id_fonction`);
+
+--
+-- Indexes for table `mois`
+--
+ALTER TABLE `mois`
+  ADD PRIMARY KEY (`id_mois`);
+
+--
+-- Indexes for table `operations`
+--
+ALTER TABLE `operations`
+  ADD PRIMARY KEY (`id_operation`),
+  ADD KEY `id_mois` (`id_mois`),
+  ADD KEY `id_categorie` (`id_categorie`),
+  ADD KEY `id_membre` (`id_membre`),
+  ADD KEY `id_interlocuteur` (`id_interlocuteur`);
+
+--
+-- Indexes for table `types_operation`
+--
+ALTER TABLE `types_operation`
+  ADD PRIMARY KEY (`id_typ_op`);
+
+--
+-- Indexes for table `villes`
+--
+ALTER TABLE `villes`
+  ADD PRIMARY KEY (`id_ville`);
+
+--
 -- Constraints for dumped tables
 --
 
@@ -618,15 +643,8 @@ ALTER TABLE `membres`
 ALTER TABLE `operations`
   ADD CONSTRAINT `operations_ibfk_2` FOREIGN KEY (`id_mois`) REFERENCES `mois` (`id_mois`),
   ADD CONSTRAINT `operations_ibfk_3` FOREIGN KEY (`id_categorie`) REFERENCES `categories` (`id_categorie`),
-  ADD CONSTRAINT `operations_ibfk_4` FOREIGN KEY (`id_membre`) REFERENCES `membres` (`id_membre`);
-
---
--- Constraints for table `operations_interlocuteurs`
---
-ALTER TABLE `operations_interlocuteurs`
-  ADD CONSTRAINT `operations_interlocuteurs_ibfk_1` FOREIGN KEY (`id_operation`) REFERENCES `operations` (`id_operation`),
-  ADD CONSTRAINT `operations_interlocuteurs_ibfk_2` FOREIGN KEY (`id_interlocuteur`) REFERENCES `interlocuteurs` (`id_interlocuteur`);
-COMMIT;
+  ADD CONSTRAINT `operations_ibfk_4` FOREIGN KEY (`id_membre`) REFERENCES `membres` (`id_membre`),
+  ADD CONSTRAINT `operations_ibfk_5` FOREIGN KEY (`id_interlocuteur`) REFERENCES `interlocuteurs` (`id_interlocuteur`);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
