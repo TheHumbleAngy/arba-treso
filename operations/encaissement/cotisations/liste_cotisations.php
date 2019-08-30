@@ -60,14 +60,14 @@
                         </select>
                     </label>
                 </div>
-                <div class="col col-xl-auto">
+                <div class="col ">
                     <label for="cagnotte">
                         <input type="text" class="form-control form-control-sm text-right" id="cagnotte" value="0"
                                readonly aria-describedby="textHelpCagnotte">
                         <small id="textHelpCagnotte" class="form-text text-muted text-right">Cagnotte.</small>
                     </label>
                 </div>
-                <div class="col col-xl-auto">
+                <div class="col ">
                     <label for="recette">
                         <input type="text" class="form-control form-control-sm text-right" id="recette" value="0"
                                readonly aria-describedby="textHelpRecette">
@@ -77,5 +77,5 @@
             </div>
         </div>
     </div>
-    <div id="feedback" class="mb-4"></div>
+    <div id="feedback" class="my-lg-4"></div>
 </div>

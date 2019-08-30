@@ -24,7 +24,7 @@
                 <div class="col-auto mx-auto">
                     <div id="wrapper_param" class="shadow gradient mt-5">
                         <div id="param_title" class="mb-md-4">
-                            <h2 class="">Fiche d'Encaissement <span
+                            <h2 class="my-2">Fiche d'Encaissement <span
                                         class="badge badge-primary"><?php echo $libelle ?></span></h2>
                         </div>
                         <div class="row my-3 mx-0">

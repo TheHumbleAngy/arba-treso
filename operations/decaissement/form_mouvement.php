@@ -26,12 +26,12 @@
                 <div class="col-auto mx-auto">
                     <div id="wrapper_param" class="shadow gradient mt-5">
                         <div id="param_title" class="mb-md-4">
-                            <h2 class="">
+                            <h2 class="my-2">
                                 <?php
                                     if ($id_typ == 1)
-                                        echo "Fiche d'Encaissement <span class='badge badge-primary'>" . $lib_cat . "</span>";
+                                        echo "Fiche d'Encaissement pour <span class='badge badge-primary'>" . $lib_cat . "</span>";
                                     else
-                                        echo "Fiche de Décaissement <span class='badge badge-primary'>" . $lib_cat . "</span>";
+                                        echo "Fiche de Décaissement pour <span class='badge badge-primary'>" . $lib_cat . "</span>";
                                 ?>
                             </h2>
                         </div>

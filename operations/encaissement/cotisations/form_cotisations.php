@@ -16,18 +16,26 @@
         <form class="col-auto my-2 cadre p-4 mx-auto">
             <div class="form-row mb-0 mx-0">
                 <div class="col-auto">
-                    <label for="param_annee" class="">Année</label>
-                    <select class="custom-select custom-select-sm" name="annee" id="param_annee">
-                        <option value="">Sélectionner...</option>
-                        <option value="<?php echo date('Y'); ?>">
-                            <?php echo date('Y'); ?>
-                        </option>
-                    </select>
+                    <label for="param_annee" class="">
+                        <select class="custom-select custom-select-sm" name="annee" id="param_annee" aria-describedby="textHelp">
+                            <option value="">Sélectionner...</option>
+                            <option value="<?php echo date('Y'); ?>">
+                                <?php echo date('Y'); ?>
+                            </option>
+                        </select>
+                        <small id="textHelp" class="form-text text-muted">Année</small>
+                    </label>
+
+
                 </div>
                 <div class="col-auto">
-                    <label for="date_ope" class="">Date</label>
-                    <input type="date" id="date_ope" class="form-control form-control-sm"
-                           aria-describedby="passwordHelpInline" onchange="setYearCotisation()">
+                    <label for="date_ope" class="">
+                        <input type="date" id="date_ope" class="form-control form-control-sm"
+                               aria-describedby="passwordHelpInline" onchange="setYearCotisation()">
+                        <small id="textHelp" class="form-text text-muted">Date</small>
+                    </label>
+
+
                 </div>
                 <div class="col-auto d-flex align-items-center justify-content-center">
                     <button class="btn btn-sm btn-primary faa-parent animated-hover col-auto px-4 mx-auto ml-md-5 font-weight-bolder"
@@ -44,7 +52,7 @@
     <div class="row">
 
     </div>
-    <div id="feedback" class="mb-4"></div>
+    <div id="feedback" class="my-lg-4"></div>
 
     <!-- Modals -->
     <div class="modal fade" id="successModal" tabindex="-1" role="dialog" aria-labelledby="successModalLabel"

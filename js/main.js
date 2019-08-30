@@ -675,7 +675,7 @@ const addRow = (tableId, rowNbr, option) => {
     }
 
     if (!option)
-        namesLoader('autocompletion');
+        namesLoader('autocompletion', 'coti_mbr', 'membres');
 };
 
 const fieldCheck = (field) => {
@@ -1056,19 +1056,19 @@ const filterMember = (usage) => {
 
                     // Styling the 4th cell of each line
                     cell = tab.rows[i].cells[3];
-                    cell.classList.add('col-2', 'col-lg-1');
+                    cell.classList.add('col-2', 'col-xl-1');
 
                     // Styling the 5th cell of each line
                     cell = tab.rows[i].cells[4];
-                    cell.classList.add('col-2', 'col-lg-1');
+                    cell.classList.add('col-2', 'col-xl-1');
 
                     // Styling the 6th cell of each line
                     cell = tab.rows[i].cells[5];
-                    cell.classList.add('col-2', 'col-lg-1');
+                    cell.classList.add('col-1', 'col-xl-1');
 
                     // Styling the 6th cell of each line
                     cell = tab.rows[i].cells[tab.rows[i].cells.length - 1];
-                    cell.classList.add('col-2', 'col-lg-1');
+                    cell.classList.add('col-1', 'col-xl-1');
 
                 }
             }
@@ -1220,7 +1220,7 @@ const filterMouvements = () => {
 
                     // Styling the 3rd cell of each line
                     cell = tab.rows[i].cells[2];
-                    cell.classList.add('col-2');
+                    cell.classList.add('col');
 
                     // Styling the 4th cell of each line
                     cell = tab.rows[i].cells[3];
@@ -1228,7 +1228,7 @@ const filterMouvements = () => {
 
                     // Styling the 5th cell of each line
                     cell = tab.rows[i].cells[4];
-                    cell.classList.add('col');
+                    cell.classList.add('col-2');
 
                     let comments = `Commentaires:
 ${arr[i][5]}`;

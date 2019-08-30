@@ -29,7 +29,7 @@
             </div>
         </div>
     </div>
-    <div id="feedback" class="mb-4"></div>
+    <div id="feedback" class="my-lg-4"></div>
 
     <!-- Modals -->
     <div class="modal fade" id="successModal" tabindex="-1" role="dialog" aria-labelledby="successModalLabel"

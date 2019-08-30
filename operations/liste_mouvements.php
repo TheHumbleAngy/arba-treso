@@ -41,9 +41,9 @@
                 <tr class="row mx-0">
                     <th class="col-1 text-center">N°</th>
                     <th class="col-2">Date</th>
-                    <th class="col-2">Libellé</th>
+                    <th class="col">Commentaire</th>
                     <th class="col-2">Montant</th>
-                    <th class="col">Interlocuteur</th>
+                    <th class="col-2">Interlocuteur</th>
                 </tr>
                 </thead>
                 <tbody id="liste_operations"></tbody>

@@ -49,27 +49,27 @@
     <div class="collapse navbar-collapse" id="navbarText">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item">
-                <a class="nav-link" href="index.php?page=operations/encaissement/adhesions/form_adhesions" id="navbarAdhesions" role="button" aria-haspopup="true" aria-expanded="false">
+                <a class="nav-link mx-2" href="index.php?page=operations/encaissement/adhesions/form_adhesions" id="navbarAdhesions" role="button" aria-haspopup="true" aria-expanded="false">
                     Adhésions
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="index.php?page=operations/param_operation" id="navbarOperations" role="button" aria-haspopup="true" aria-expanded="false">
+                <a class="nav-link mx-2" href="index.php?page=operations/param_operation" id="navbarOperations" role="button" aria-haspopup="true" aria-expanded="false">
                     Opérations
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="index.php?page=consultations/param_consultation" id="navbarConsultations" role="button" aria-haspopup="true" aria-expanded="false">
+                <a class="nav-link mx-2" href="index.php?page=consultations/param_consultation" id="navbarConsultations" role="button" aria-haspopup="true" aria-expanded="false">
                     Consultations
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="index.php?page=recherches/param_recherches" id="navbarReporting" role="button" aria-haspopup="true" aria-expanded="false">
+                <a class="nav-link mx-2" href="index.php?page=recherches/param_recherches" id="navbarReporting" role="button" aria-haspopup="true" aria-expanded="false">
                     Recherche
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#" id="navbarStats" role="button" aria-haspopup="true" aria-expanded="false">
+                <a class="nav-link mx-2" href="#" id="navbarStats" role="button" aria-haspopup="true" aria-expanded="false">
                     Statistiques
                 </a>
             </li>
