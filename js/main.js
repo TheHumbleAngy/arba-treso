@@ -1011,7 +1011,7 @@ const filterMember = (usage) => {
                     let row = tab.insertRow(-1);
 
                     let m = arr[i].length;
-                    for (let j = 0; j < m; j++) {
+                    for (let j = 0; j < m + 1; j++) {
 
                         let newCell = row.insertCell(-1);
 
