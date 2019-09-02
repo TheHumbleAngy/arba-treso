@@ -54,6 +54,11 @@
                 </a>
             </li>
             <li class="nav-item">
+                <a class="nav-link mx-2" href="index.php?page=operations/encaissement/cotisations/form_cotisations" id="navbarCotisations" role="button" aria-haspopup="true" aria-expanded="false">
+                    Cotisations
+                </a>
+            </li>
+            <li class="nav-item">
                 <a class="nav-link mx-2" href="index.php?page=operations/param_operation" id="navbarOperations" role="button" aria-haspopup="true" aria-expanded="false">
                     Opérations
                 </a>
