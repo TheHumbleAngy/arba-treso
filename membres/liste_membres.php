@@ -7,7 +7,7 @@
      */
 ?>
 <input type="hidden" id="head_title" value="Liste des Membres">
-<div class="bg-white col-lg-11 col-xl-10 mx-auto p-2" style="border-radius: 10px">
+<div class="bg-white col-xl-11 col-xl-10 mx-auto p-2" style="border-radius: 10px">
     <div class="container-fluid">
         <div class="row mb-4 mx-auto">
             <h2 class="col-auto text-center py-2 px-5 mx-auto cadre-titre">Liste des Membres <span>👪</span></h2>
@@ -32,6 +32,7 @@
                 <thead class="bg-primary text-light">
                 <tr class="row mx-0">
                     <th class="col-1 text-center">N°</th>
+                    <th class="col-1">Id.</th>
                     <th class="col">Membre</th>
                     <th class="col-1">Genre</th>
                     <th class="col-2 col-xl-1">Contact</th>

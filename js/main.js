@@ -1010,8 +1010,8 @@ const filterMember = (usage) => {
                 for (let i = 0; i < n; i++) {
                     let row = tab.insertRow(-1);
 
-                    let m = arr[i].length;
-                    for (let j = 0; j < m + 1; j++) {
+                    let m = arr[i].length; console.log(m);
+                    for (let j = 0; j < m; j++) {
 
                         let newCell = row.insertCell(-1);
 
@@ -1023,11 +1023,11 @@ const filterMember = (usage) => {
                         else if (arr[i][j] !== null)
                             elt = arr[i][j];
 
-                        if (j === 2) {
+                        if (j === 3) {
                             elt = elt === 'H' ? 'HOMME' : 'FEMME';
                         }
 
-                        if (j === 6)
+                        if (j === 7)
                             elt = dateFormatter(elt);
 
                         info = document.createTextNode(elt);
@@ -1048,25 +1048,29 @@ const filterMember = (usage) => {
 
                     // Styling the 2nd cell of each line
                     cell = tab.rows[i].cells[1];
+                    cell.classList.add('col-1', 'text-center', 'text-primary');
+
+                    // Styling the 3nd cell of each line
+                    cell = tab.rows[i].cells[2];
                     cell.classList.add('col', 'text-primary', 'font-weight-bold');
 
                     // Styling the 3rd cell of each line
-                    cell = tab.rows[i].cells[2];
+                    cell = tab.rows[i].cells[3];
                     cell.classList.add('col-1');
 
                     // Styling the 4th cell of each line
-                    cell = tab.rows[i].cells[3];
-                    cell.classList.add('col-2', 'col-xl-1');
-
-                    // Styling the 5th cell of each line
                     cell = tab.rows[i].cells[4];
                     cell.classList.add('col-2', 'col-xl-1');
 
-                    // Styling the 6th cell of each line
+                    // Styling the 5th cell of each line
                     cell = tab.rows[i].cells[5];
-                    cell.classList.add('col-1', 'col-xl-1');
+                    cell.classList.add('col-2', 'col-xl-1');
 
                     // Styling the 6th cell of each line
+                    cell = tab.rows[i].cells[6];
+                    cell.classList.add('col-1', 'col-xl-1');
+
+                    // Styling the 7th cell of each line
                     cell = tab.rows[i].cells[tab.rows[i].cells.length - 1];
                     cell.classList.add('col-1', 'col-xl-1');
 
@@ -1148,7 +1152,7 @@ const filterAdhesion = () => {
 
                     // Styling the 4rd cell of each line
                     cell = tab.rows[i].cells[3];
-                    cell.classList.add('col-1', 'text-right');
+                    cell.classList.add('col-2', 'text-right');
 
                 }
             }

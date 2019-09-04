@@ -33,8 +33,8 @@
                 <tr class="row mx-0">
                     <th class="col-1 text-center">N°</th>
                     <th class="col">Membre</th>
-                    <th class="col-2">Date d'Adhésion</th>
-                    <th class="col-1">Montant</th>
+                    <th class="col-auto">Date d'Adhésion</th>
+                    <th class="col-2 text-right">Montant</th>
                 </tr>
                 </thead>
                 <tbody id="liste_membres"></tbody>
