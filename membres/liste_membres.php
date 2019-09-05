@@ -38,7 +38,7 @@
                     <th class="col-2 col-xl-1">Contact</th>
                     <th class="col-2 col-xl-1">Commune</th>
                     <th class="col-1 col-xl-1">Ville</th>
-                    <th class="col-1 col-xl-1">Adhésion</th>
+<!--                    <th class="col-1 col-xl-1">Adhésion</th>-->
                 </tr>
                 </thead>
                 <tbody id="liste_membres"></tbody>

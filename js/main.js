@@ -254,7 +254,7 @@ const setParameter = (e, option) => {
         ],
         [ // [2] recherches
             'index.php?page=recherches/recherche_membres', // [2][0]
-            'index.php?page=recherches/recherche_operations',  // [2][1]
+            'index.php?page=recherches/recherche_cotisations',  // [2][1]
             'index.php?page=recherches/recherche_mouvements'  // [2][2]
         ],
         [ // [3] stats
@@ -1010,7 +1010,7 @@ const filterMember = (usage) => {
                 for (let i = 0; i < n; i++) {
                     let row = tab.insertRow(-1);
 
-                    let m = arr[i].length; console.log(m);
+                    let m = arr[i].length;
                     for (let j = 0; j < m; j++) {
 
                         let newCell = row.insertCell(-1);
@@ -1071,8 +1071,8 @@ const filterMember = (usage) => {
                     cell.classList.add('col-1', 'col-xl-1');
 
                     // Styling the 7th cell of each line
-                    cell = tab.rows[i].cells[tab.rows[i].cells.length - 1];
-                    cell.classList.add('col-1', 'col-xl-1');
+                    /*cell = tab.rows[i].cells[tab.rows[i].cells.length - 1];
+                    cell.classList.add('col-1', 'col-xl-1');*/
 
                 }
             }
@@ -1263,16 +1263,16 @@ const searchMember = (type) => {
 
             if (nom) {
                 if (sql.endsWith("'"))
-                    sql += ` AND m.nom_membre = '${nom}'`;
+                    sql += ` AND m.nom_membre LIKE '%${nom}%'`;
                 else
-                    sql += `m.nom_membre = '${nom}'`;
+                    sql += `m.nom_membre LIKE '%${nom}%'`;
             }
 
             if (prenoms) {
                 if (sql.endsWith("'"))
-                    sql += ` AND m.pren_membre = '${prenoms}'`;
+                    sql += ` AND m.pren_membre LIKE '%${prenoms}%'`;
                 else
-                    sql += `m.pren_membre = '${prenoms}'`;
+                    sql += `m.pren_membre LIKE '%${prenoms}%'`;
             }
 
             if (genre) {
@@ -1315,6 +1315,10 @@ Veuillez modifier les critères de recherche.`);
                     }
                 })
             }
+        }
+        else {
+            callModal('feedbackModal', `🤔 Veuillez spécifier un critère de recherche.`);
+            response.innerHTML = '';
         }
     }
 };

@@ -100,31 +100,7 @@
     elseif ($_POST['usage'] == 'listing' && $_POST['entity'] == 'membres' && $_POST['info'] != '') {
         $param = $_POST['info'];
 
-        $sql_mbr = "SELECT * FROM membres WHERE nom_membre LIKE '%{$param}%' OR pren_membre LIKE '%{$param}%'";
-
-        $result = mysqli_query($connection, $sql_mbr);
-        if ($result->num_rows > 0) {
-            $membres = $result->fetch_all(MYSQLI_ASSOC);
-            $i = 0;
-
-            foreach ($membres as $membre) {
-                $mbr[$i][0] = $membre['id_membre'];
-                $mbr[$i][1] = $membre['nom_membre'] . " " .$membre['pren_membre'];
-                $mbr[$i][2] = $membre['genre_membre'];
-                $mbr[$i][3] = $membre['contact_membre'];
-                $mbr[$i][4] = $membre['libelle_commune'];
-                $mbr[$i][5] = $membre['libelle_ville'];
-                $mbr[$i++][6] = $membre['date_crea_membre'];
-            }
-
-            $result->free();
-            $connection->close();
-
-            echo json_encode($mbr);
-        }
-    }
-    elseif ($_POST['usage'] == 'listing' && $_POST['entity'] == 'membres') {
-        $sql_mbr = "SELECT DISTINCT m.id_membre, nom_membre, pren_membre, genre_membre, contact_membre, libelle_commune, libelle_ville, date_operation FROM membres m INNER JOIN operations o ON o.id_membre = m.id_membre INNER JOIN villes v on m.id_ville = v.id_ville INNER JOIN communes c on m.id_commune = c.id_commune WHERE id_categorie = 'CAT01' ORDER BY nom_membre, pren_membre ";
+        $sql_mbr = "SELECT id_membre, nom_membre, pren_membre, genre_membre, contact_membre, libelle_commune, libelle_ville FROM membres m INNER JOIN villes v on m.id_ville = v.id_ville INNER JOIN communes c on m.id_commune = c.id_commune WHERE nom_membre LIKE '%{$param}%' OR pren_membre LIKE '%{$param}%' GROUP BY id_membre ORDER BY nom_membre, pren_membre ";
 
         $result = mysqli_query($connection, $sql_mbr);
         if ($result->num_rows > 0) {
@@ -138,8 +114,33 @@
                 $mbr[$i][3] = $membre['genre_membre'];
                 $mbr[$i][4] = $membre['contact_membre'];
                 $mbr[$i][5] = $membre['libelle_commune'];
-                $mbr[$i][6] = $membre['libelle_ville'];
-                $mbr[$i++][7] = $membre['date_operation'];
+                $mbr[$i++][6] = $membre['libelle_ville'];
+//                $mbr[$i++][7] = $membre['date_operation'];
+            }
+
+            $result->free();
+            $connection->close();
+
+            echo json_encode($mbr);
+        }
+    }
+    elseif ($_POST['usage'] == 'listing' && $_POST['entity'] == 'membres') {
+        $sql_mbr = "SELECT id_membre, nom_membre, pren_membre, genre_membre, contact_membre, libelle_commune, libelle_ville FROM membres m INNER JOIN villes v on m.id_ville = v.id_ville INNER JOIN communes c on m.id_commune = c.id_commune GROUP BY id_membre ORDER BY nom_membre, pren_membre ";
+
+        $result = mysqli_query($connection, $sql_mbr);
+        if ($result->num_rows > 0) {
+            $membres = $result->fetch_all(MYSQLI_ASSOC);
+            $i = 0;
+
+            foreach ($membres as $membre) {
+                $mbr[$i][0] = $membre['id_membre'];
+                $mbr[$i][1] = $membre['id_membre'];
+                $mbr[$i][2] = $membre['nom_membre'] . " " .$membre['pren_membre'];
+                $mbr[$i][3] = $membre['genre_membre'];
+                $mbr[$i][4] = $membre['contact_membre'];
+                $mbr[$i][5] = $membre['libelle_commune'];
+                $mbr[$i++][6] = $membre['libelle_ville'];
+//                $mbr[$i++][7] = $membre['date_operation'];
             }
 
             $result->free();

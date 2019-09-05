@@ -10,9 +10,9 @@
 
         $qry = $_POST['info'];
         if ($qry)
-            $sql_mbr = "SELECT DISTINCT * FROM operations o INNER JOIN membres m ON o.id_membre = m.id_membre WHERE id_categorie = 'CAT01' AND m.nom_membre LIKE '%{$qry}%' OR m.pren_membre LIKE '%{$qry}%' ORDER BY nom_membre, pren_membre";
+            $sql_mbr = "SELECT * FROM membres m INNER JOIN operations o ON o.id_membre = m.id_membre WHERE id_categorie = 'CAT01' AND (nom_membre LIKE '%{$qry}%' OR pren_membre LIKE '%{$qry}%') ORDER BY nom_membre, pren_membre";
         else
-            $sql_mbr = "SELECT DISTINCT * FROM membres m INNER JOIN operations o ON o.id_membre = m.id_membre WHERE id_categorie = 'CAT01' ORDER BY nom_membre, pren_membre";
+            $sql_mbr = "SELECT * FROM membres m INNER JOIN operations o ON o.id_membre = m.id_membre WHERE id_categorie = 'CAT01' ORDER BY nom_membre, pren_membre";
 
         $result = mysqli_query($connection, $sql_mbr);
         if ($result->num_rows > 0) {
