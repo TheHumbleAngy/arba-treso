@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 29, 2019 at 02:11 PM
+-- Generation Time: Sep 07, 2019 at 09:38 AM
 -- Server version: 5.7.14
 -- PHP Version: 7.0.10
 
@@ -19,8 +19,6 @@ SET time_zone = "+00:00";
 --
 -- Database: `gestion_treso_arba`
 --
-CREATE DATABASE IF NOT EXISTS `gestion_treso_arba` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
-USE `gestion_treso_arba`;
 
 -- --------------------------------------------------------
 
@@ -366,19 +364,19 @@ INSERT INTO `membres` (`id_membre`, `id_fonction`, `id_commune`, `id_ville`, `no
 ('M19005', 'FCT01', 'COM048', 'VIL02', 'DJAN', 'KATO ALBERT', 'H', NULL, NULL),
 ('M19006', 'FCT01', 'COM002', 'VIL02', 'LOKOSSUE', 'PAUL', 'H', '07 02 03 05', NULL),
 ('M19007', 'FCT01', 'COM113', 'VIL02', 'BROU', 'SOUMAN', 'H', '01 02 03 04', NULL),
-('M19008', 'FCT02', 'COM048', 'VIL03', 'M\'BRA', 'KOUASSI RICHARD', 'H', '47 30 40 41', NULL),
-('M19009', 'FCT03', 'COM197', 'VIL04', 'KOUADIO', 'MARIE', 'F', '09 96 37 56', NULL),
-('M19010', 'FCT04', 'COM048', 'VIL05', 'KOUASSI', 'N\'GORAN LAURENT', 'H', '47 08 29 57', NULL),
-('M19011', 'FCT05', 'COM048', 'VIL06', 'DIBY', 'SYLVESTRE', 'H', '07 96 09 09', NULL),
-('M19012', 'FCT06', 'COM113', 'VIL07', 'N\'DRI', 'KOUASSI FRANCOIS', 'H', NULL, NULL),
-('M19013', 'FCT09', 'COM197', 'VIL08', 'KOUAKOU', 'AMENAN CECILE', 'F', '04 00 11 06', NULL),
-('M19014', 'FCT10', 'COM002', 'VIL09', 'KONAN', 'KONAN PIERRE', 'H', '58 33 48 84', NULL),
-('M19015', 'FCT11', 'COM048', 'VIL10', 'KONGO', 'FIRMIN', 'H', '07 66 34 98', NULL),
-('M19016', 'FCT12', 'COM197', 'VIL11', 'N\'GOHISSE', 'LUCIE', 'F', '06 91 39 06', NULL),
-('M19017', 'FCT13', 'COM197', 'VIL12', 'BROU', 'MARIETTE', 'F', NULL, NULL),
-('M19018', 'FCT14', 'COM002', 'VIL13', 'KOFFI', 'JONAS', 'H', '07 79 88 57', NULL),
-('M19019', 'FCT15', 'COM048', 'VIL14', 'KONAN', 'KAN GEORGES', 'H', '05 36 66 92', NULL),
-('M19020', 'FCT16', 'COM048', 'VIL15', 'TANOH', 'KOUAME PARFAIT', 'H', '49 12 05 16', NULL);
+('M19008', 'FCT02', 'COM048', 'VIL02', 'M\'BRA', 'KOUASSI RICHARD', 'H', '47 30 40 41', NULL),
+('M19009', 'FCT03', 'COM197', 'VIL02', 'KOUADIO', 'MARIE', 'F', '09 96 37 56', NULL),
+('M19010', 'FCT04', 'COM048', 'VIL02', 'KOUASSI', 'N\'GORAN LAURENT', 'H', '47 08 29 57', NULL),
+('M19011', 'FCT05', 'COM048', 'VIL02', 'DIBY', 'SYLVESTRE', 'H', '07 96 09 09', NULL),
+('M19012', 'FCT06', 'COM113', 'VIL02', 'N\'DRI', 'KOUASSI FRANCOIS', 'H', NULL, NULL),
+('M19013', 'FCT09', 'COM197', 'VIL02', 'KOUAKOU', 'AMENAN CECILE', 'F', '04 00 11 06', NULL),
+('M19014', 'FCT10', 'COM002', 'VIL02', 'KONAN', 'KONAN PIERRE', 'H', '58 33 48 84', NULL),
+('M19015', 'FCT11', 'COM048', 'VIL02', 'KONGO', 'FIRMIN', 'H', '07 66 34 98', NULL),
+('M19016', 'FCT12', 'COM197', 'VIL02', 'N\'GOHISSE', 'LUCIE', 'F', '06 91 39 06', NULL),
+('M19017', 'FCT13', 'COM197', 'VIL02', 'BROU', 'MARIETTE', 'F', NULL, NULL),
+('M19018', 'FCT14', 'COM002', 'VIL02', 'KOFFI', 'JONAS', 'H', '07 79 88 57', NULL),
+('M19019', 'FCT15', 'COM048', 'VIL02', 'KONAN', 'KAN GEORGES', 'H', '05 36 66 92', NULL),
+('M19020', 'FCT16', 'COM048', 'VIL02', 'TANOH', 'KOUAME PARFAIT', 'H', '49 12 05 16', NULL);
 
 -- --------------------------------------------------------
 
