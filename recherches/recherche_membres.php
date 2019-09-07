@@ -62,9 +62,9 @@
                         </div>
                     </div>
                 </div>
-                <div class="row mt-2 justify-content-center">
+                <div class="row my-2 justify-content-center">
                     <div class="col-6 col-md-4 col-lg-2">
-                        <button class="btn btn-sm btn-primary col font-weight-bolder" onclick="searchMember('recherche')" title="Rechercher">
+                        <button class="btn btn-sm btn-primary col font-weight-bolder" onclick="searchMember('recherche')" title="Rechercher" type="button">
                             Rechercher <i class="fa fa-search ml-2"></i>
                         </button>
                     </div>

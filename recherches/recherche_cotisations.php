@@ -111,7 +111,7 @@
                 </div>
 
                 <div class="row my-2 justify-content-center">
-                    <div class="col-2">
+                    <div class="col-6 col-md-4 col-lg-2">
                         <button class="btn btn-sm btn-primary col font-weight-bolder" onclick="searchCotisations()" title="Rechercher" type="button">
                             Rechercher <i class="fa fa-search ml-2"></i>
                         </button>
