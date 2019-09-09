@@ -2,13 +2,13 @@
 
 let selectedLabel, unselectedLabel;
 
-const titlePageUpdater = (title) => {
+const setPageTitle = (title) => {
     let children = document.getElementsByTagName('head')[0].children;
     for (let child of children) {
         if (child.nodeName === 'TITLE') {
             child.text += ` - ${title.charAt(0).toUpperCase() + title.slice(1)}`;
 
-            break;
+            return child.text;
         }
     }
 };
@@ -25,7 +25,7 @@ $(document).ready(function () {
 
     let pageTitle = document.getElementById('head_title').value;
     if (pageTitle)
-        titlePageUpdater(pageTitle);
+        setPageTitle(pageTitle);
 
     let paramAnnee = document.getElementById('param_annee');
     if (paramAnnee) {
@@ -157,21 +157,20 @@ $(document).ready(function () {
 
 // When the user scrolls down 20px from the top of the document, show the button
 window.onscroll = function () {
-    if ($(document).scrollTop > 20 || document.documentElement.scrollTop > 20) {
+    if ($(document).scrollTop > 20 || document.documentElement.scrollTop > 20)
         $('#goTop').css("display", "block");
-    } else {
+    else
         $('#goTop').css("display", "none");
-    }
 };
 
-function topFunction() {
+function getToTop() {
     $('html').animate({scrollTop: 0}, 'slow');
 }
 
 
 /* Setters and loaders */
 
-const setYearCotisation = () => {
+const showCotisations = () => {
     const cbo = document.getElementById('param_annee');
     const dateOpe = document.getElementById('date_ope');
     let response = document.getElementById('feedback');
@@ -231,7 +230,7 @@ const setDateAdhesion = () => {
                                 selectVil.appendChild(option);
                             }
                         }
-                    });
+                    })
                 }
             }
         })
@@ -465,18 +464,6 @@ function fillCategories(list, cbo, status) {
     }
 }
 
-function fillMembers(list, cbo) {
-    if (cbo.length === 1) {
-        for (const member of list) {
-            let n = cbo.length - 1;
-            let elt = cbo.options[n].cloneNode(true);
-            elt.value = member.id_membre;
-            elt.text = member.nom_membre + ' ' + member.pren_membre;
-            cbo.appendChild(elt);
-        }
-    }
-}
-
 const setCategorie = (e) => {
     let cbo = document.getElementById('categorie');
 
@@ -599,15 +586,7 @@ WHERE MONTH(date_operation) = ${mois} AND YEAR(date_operation) = ${annee} AND c.
 
 /* Custom functions */
 
-const cssAnimation = (e) => {
-    // console.log(e)
-
-    e.classList.add();
-    let classList = e.classList;
-    console.log(classList)
-};
-
-const procederConsultation = (fieldId) => {
+const displayConsultations = (fieldId) => {
     let param = '',
         annee = document.getElementById('param_annee').value,
         response = document.getElementById('feedback');
@@ -631,7 +610,7 @@ const procederConsultation = (fieldId) => {
 
 };
 
-const addRow = (tableId, rowNbr, option) => {
+const rowAdder = (tableId, rowNbr, option) => {
     // We take in account the table body only
     const tab = document.getElementById(tableId).tBodies[0];
     let newRow, len, m, input, select;
@@ -678,23 +657,23 @@ const addRow = (tableId, rowNbr, option) => {
         namesLoader('autocompletion', 'coti_mbr', 'membres');
 };
 
-const fieldCheck = (field) => {
+const isFieldEmpty = (field) => {
     return document.getElementById(field).value === '';
 };
 
-const clearFields = (tag) => {
+function clearFields() {
     let elts = document.getElementsByTagName(tag);
 
     for (const elt of elts) {
         elt.value = '';
     }
-};
+}
 
-const callModal = (id, msg) => {
+function showModal (id, msg) {
     if (msg)
         document.getElementById(id).getElementsByTagName('p')[0].textContent = msg;
     $('#' + id).modal('show');
-};
+}
 
 // https://blog.abelotech.com/posts/number-currency-formatting-javascript/
 function numberFormat(nbr) {
@@ -702,10 +681,10 @@ function numberFormat(nbr) {
         return nbr.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
 }
 
-const dateFormatter = (d) => {
+function dateReformat (d) {
     let arr = d.split('-');
     return `${arr[2]}-${arr[1]}-${arr[0]}`;
-};
+}
 
 /* Savers */
 
@@ -779,9 +758,9 @@ const saveCotisations = () => {
                 },
                 success: function (data) {
                     // console.log(JSON.parse(data));
-                    // callModal('successModal');
+                    // showModal('successModal');
                     if (data === 'Data saved!') {
-                        callModal('successModal');
+                        showModal('successModal');
 
                         let response = document.getElementById('feedback');
                         response.innerHTML = '';
@@ -791,14 +770,14 @@ const saveCotisations = () => {
                         dateOpe = '';
                         document.getElementById('enregistrer').disabled = true;
                     } else
-                        callModal('errorModal', data);
+                        showModal('errorModal', data);
 
                 }
             });
         }
     }
     else
-        callModal('errorModal', "Veuillez préciser l'année ET la date SVP.");
+        showModal('errorModal', "Veuillez préciser l'année ET la date SVP.");
 };
 
 const saveAdhesions = () => {
@@ -856,18 +835,18 @@ const saveAdhesions = () => {
                     console.log(data);
 
                     if (data === 'Data saved') {
-                        callModal('successModal', 'La liste des adhérents a bien été enregistrée 👍');
+                        showModal('successModal', 'La liste des adhérents a bien été enregistrée 👍');
                         date.value = '';
                         document.getElementById('feedback').innerHTML = '';
                         document.getElementById('enregistrer').disabled = true;
                     }
                     else
-                        callModal('errorModal', data);
+                        showModal('errorModal', data);
                 }
             })
         }
     } else
-        callModal('errorModal');
+        showModal('errorModal');
 };
 
 const saveCategorie = () => {
@@ -903,7 +882,7 @@ const saveCategorie = () => {
                 else
                     alertType = 'info';
 
-                callAlert(alertType, data, feedback);
+                showAlert(alertType, data, feedback);
             }
         );
     }
@@ -939,7 +918,7 @@ const saveDecaissement = () => {
             function (response) {
                 console.log(response);
                 if (response === 'Saved') {
-                    callModal('successModal');
+                    showModal('successModal');
                     dateOpe.value = "";
                     mtt.value = "";
                     nomItl.value = "";
@@ -951,13 +930,13 @@ const saveDecaissement = () => {
                     obs_operation.value = "";
                 }
                 else
-                    callModal('errorModal', response);
+                    showModal('errorModal', response);
             }
         )
     }
 };
 
-const callAlert = (type, msg, parentNode) => {
+function showAlert (type, msg, parentNode) {
     const alertType = 'alert-' + type;
 
     let div = document.createElement('div');
@@ -981,11 +960,11 @@ const callAlert = (type, msg, parentNode) => {
     div.appendChild(button);
 
     parentNode.appendChild(div);
-};
+}
 
 /* Searchers */
 
-const filterMember = (usage) => {
+const displayMembres = (usage) => {
     let info, mbr = document.getElementById('membre').value;
 
     info = mbr ? mbr : '';
@@ -1028,7 +1007,7 @@ const filterMember = (usage) => {
                         }
 
                         if (j === 7)
-                            elt = dateFormatter(elt);
+                            elt = dateReformat(elt);
 
                         info = document.createTextNode(elt);
                         newCell.appendChild(info);
@@ -1077,12 +1056,12 @@ const filterMember = (usage) => {
                 }
             }
             else
-                callModal('feedbackModal', '😔 Aucun résultat ne correspond au(x) critère(s) de recherche.');
+                showModal('feedbackModal', '😔 Aucun résultat ne correspond au(x) critère(s) de recherche.');
         }
     })
 };
 
-const filterAdhesion = () => {
+const displayAdhesions = () => {
     let mbr = document.getElementById('membre').value;
 
     let info = mbr ? mbr : '';
@@ -1120,7 +1099,7 @@ const filterAdhesion = () => {
 
                         // Formatting the date
                         if (j === 2)
-                            elt = dateFormatter(elt);
+                            elt = dateReformat(elt);
 
                         // Formatting the amount
                         if (j === 3)
@@ -1157,12 +1136,12 @@ const filterAdhesion = () => {
                 }
             }
             else
-                callModal('feedbackModal', '😔 Aucun résultat ne correspond au(x) critère(s) de recherche.');
+                showModal('feedbackModal', '😔 Aucun résultat ne correspond au(x) critère(s) de recherche.');
         }
     })
 };
 
-const filterMouvements = () => {
+const displayMouvements = () => {
     let dateOpe = document.getElementById('date_ope').value;
 
     let info = dateOpe ? dateOpe : '';
@@ -1198,7 +1177,7 @@ const filterMouvements = () => {
                             elt = arr[i][j];
 
                         if (j === 1)
-                            elt = dateFormatter(elt);
+                            elt = dateReformat(elt);
 
                         if (j === 3)
                             elt = numberFormat(elt);
@@ -1216,7 +1195,7 @@ const filterMouvements = () => {
 
                     // Styling the first cell of each line
                     let cell = tab.rows[i].cells[0];
-                    cell.classList.add('col-1', 'text-center');
+                    cell.classList.add('col-1', 'text-center', 'text-primary', 'font-weight-light');
 
                     // Styling the 2nd cell of each line
                     cell = tab.rows[i].cells[1];
@@ -1240,13 +1219,13 @@ ${arr[i][5]}`;
                 }
             }
             else
-                callModal('feedbackModal', '😔 Aucun résultat ne correspond au(x) critère(s) de recherche.');
+                showModal('feedbackModal', '😔 Aucun résultat ne correspond au(x) critère(s) de recherche.');
 
         }
     );
 };
 
-const searchMember = (type) => {
+const findMembres = (type) => {
 
     if (type === 'recherche') {
         let nom, prenoms, genre, commune, ville, sql;
@@ -1308,7 +1287,7 @@ const searchMember = (type) => {
                         if (data !== 'Not found')
                             response.innerHTML = data;
                         else {
-                            callModal('feedbackModal', `😔 Aucun résultat.
+                            showModal('feedbackModal', `😔 Aucun résultat.
 Veuillez modifier les critères de recherche.`);
                             response.innerHTML = '';
                         }
@@ -1317,13 +1296,13 @@ Veuillez modifier les critères de recherche.`);
             }
         }
         else {
-            callModal('feedbackModal', `🤔 Veuillez spécifier un critère de recherche.`);
+            showModal('feedbackModal', `🤔 Veuillez spécifier un critère de recherche.`);
             response.innerHTML = '';
         }
     }
 };
 
-const searchCotisations = () => {
+const findCotisations = () => {
     let annee,
         mois,
         nom,
@@ -1387,7 +1366,7 @@ const searchCotisations = () => {
             sql += ` AND o.date_saisie_operation = '${dateSaisie}'`;
         }
 
-        console.log(sql);
+        // console.log(sql);
         if (sql !== "SELECT * FROM operations o INNER JOIN membres m on o.id_membre = m.id_membre INNER JOIN communes c on m.id_commune = c.id_commune INNER JOIN villes v on m.id_ville = v.id_ville INNER JOIN categories cat on o.id_categorie = cat.id_categorie INNER JOIN types_operation typ on cat.id_typ_op = typ.id_typ_op INNER JOIN mois mo on o.id_mois = mo.id_mois WHERE o.id_categorie = 'CAT02' ") {
             $.ajax({
                 type: 'POST',
@@ -1440,9 +1419,13 @@ const searchCotisations = () => {
             })
         }
     }
+    else {
+        showModal('feedbackModal', `🤔 Veuillez spécifier un critère de recherche.`);
+        response.innerHTML = '';
+    }
 };
 
-const searchMouvements = () => {
+const findMouvements = () => {
     let typOp,
         categorie,
         annee,
@@ -1615,11 +1598,15 @@ const searchMouvements = () => {
                         document.getElementById('montant_cumule').value = total;
                     }
                     else
-                        callModal('feedbackModal', '😔 Aucun résultat ne correspond au(x) critère(s) de recherche.');
+                        showModal('feedbackModal', '😔 Aucun résultat ne correspond au(x) critère(s) de recherche.');
 
                 }
             })
         }
+    }
+    else {
+        showModal('feedbackModal', `🤔 Veuillez spécifier un critère de recherche.`);
+        response.innerHTML = '';
     }
 };
 

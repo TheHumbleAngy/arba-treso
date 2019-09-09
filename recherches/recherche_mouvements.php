@@ -123,7 +123,7 @@
 
                 <div class="row my-2 justify-content-center">
                     <div class="col-2">
-                        <button class="btn btn-sm btn-primary col font-weight-bolder" onclick="searchMouvements()"
+                        <button class="btn btn-sm btn-primary col font-weight-bolder" onclick="findMouvements()"
                                 title="Rechercher" type="button">
                             Rechercher <i class="fa fa-search ml-2"></i>
                         </button>

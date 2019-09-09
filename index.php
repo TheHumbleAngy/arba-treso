@@ -88,7 +88,7 @@
 <div class="container-fluid">
     <?php include $page; ?>
 
-    <button type="button" class="btn btn-outline-primary" id="goTop" title="Retour en haut" onclick="topFunction()">
+    <button type="button" class="btn btn-outline-primary" id="goTop" title="Retour en haut" onclick="getToTop()">
         <i class="fas fa-arrow-up fa-2x faa-vertical animated"></i>
     </button>
 </div>

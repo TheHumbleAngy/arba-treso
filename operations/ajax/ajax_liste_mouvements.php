@@ -7,7 +7,6 @@
      */
 
     if (sizeof($_POST)) {
-//        $id_typ = $_POST['type'];
 
         $sql = "
 SELECT DISTINCT

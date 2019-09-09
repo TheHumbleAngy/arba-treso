@@ -56,7 +56,7 @@
             <input type="text" id="mtt" class="form-control form-control-sm text-right" title="Frais" readonly>
         </td>
         <td>
-            <button class="btn btn-sm btn-outline-success" onclick="addRow('arr_adhesions', 2, true)">
+            <button class="btn btn-sm btn-outline-success" onclick="rowAdder('arr_adhesions', 2, true)">
                 <i class="fas fa-plus-circle faa-float"></i>
             </button>
         </td>

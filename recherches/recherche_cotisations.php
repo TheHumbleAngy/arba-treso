@@ -112,7 +112,7 @@
 
                 <div class="row my-2 justify-content-center">
                     <div class="col-6 col-md-4 col-lg-2">
-                        <button class="btn btn-sm btn-primary col font-weight-bolder" onclick="searchCotisations()" title="Rechercher" type="button">
+                        <button class="btn btn-sm btn-primary col font-weight-bolder" onclick="findCotisations()" title="Rechercher" type="button">
                             Rechercher <i class="fa fa-search ml-2"></i>
                         </button>
                     </div>
@@ -122,4 +122,24 @@
     </div>
 
     <div id="feedback" class="my-4"></div>
+
+    <!-- Modals -->
+    <div class="modal fade" id="feedbackModal" tabindex="-1" role="dialog" aria-labelledby="feedbackModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="feedbackModalLabel">ARBA ❌</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <blockquote class="blockquote">
+                        <p class="mb-0"></p>
+                    </blockquote>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

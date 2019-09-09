@@ -20,7 +20,7 @@
                 </label>
             </div>
             <div class="col col-lg-auto">
-                <button class="btn btn-sm btn-primary px-4 font-weight-bolder" onclick="filterAdhesion()">
+                <button class="btn btn-sm btn-primary px-4 font-weight-bolder" onclick="displayAdhesions()">
                     Afficher <i class="fa fa-arrow-right ml-1"></i>
                 </button>
             </div>

@@ -18,7 +18,7 @@
                 <table class="table table-sm table-hover bg-light" id="arr_operations">
                     <thead class="bg-primary text-light">
                     <tr class="row mx-0">
-                        <th class="col-05">N°</th>
+                        <th class="col-05 text-center">N°</th>
                         <th class="col-1" title="Identifiant">Id.</th>
                         <th class="col-2">Membre</th>
                         <th class="col">Localité</th>
@@ -54,7 +54,7 @@
                             $obs_operation = $operation['obs_operation'];
                             ?>
                             <tr class="row mx-0">
-                                <td class="col-05 text-primary text-right">
+                                <td class="text-center text-primary font-weight-light col-05">
                                 <span class="text-uppercase">
                                     <?php echo ++$i; ?>
                                 </span>
@@ -103,13 +103,13 @@
                                 </td>
                                 <td class="col-1">
                                 <span class="text-uppercase" title="Date de l'opération <?php echo $id_operation; ?>">
-                                    <?php echo $date_operation; ?>
+                                    <?php echo date("d-m-Y", strtotime($date_operation)); ?>
                                 </span>
                                 </td>
                                 <td class="col-1">
                                 <span class="text-uppercase"
                                       title="Date de saisie de l'opération <?php echo $id_operation; ?>">
-                                    <?php echo $date_saisie_operation; ?>
+                                    <?php echo date("d-m-Y", strtotime($date_saisie_operation)); ?>
                                 </span>
                                 </td>
                                 <td class="col">

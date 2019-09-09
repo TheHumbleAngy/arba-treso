@@ -31,7 +31,7 @@
                 <div class="col-auto">
                     <label for="date_ope" class="">
                         <input type="date" id="date_ope" class="form-control form-control-sm"
-                               aria-describedby="passwordHelpInline" onchange="setYearCotisation()">
+                               aria-describedby="passwordHelpInline" onchange="showCotisations()">
                         <small id="textHelp" class="form-text text-muted">Date</small>
                     </label>
 

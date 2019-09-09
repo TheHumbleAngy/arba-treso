@@ -5,12 +5,6 @@
      * Date: 27-Aug-19
      * Time: 2:56 PM
      */
-
-    /*if (isset($_GET['typ'])) {
-        $id_typ = $_GET['typ'];
-
-        $libelle = $id_typ == 1 ? "Encaissements" : "Décaissements";
-    }*/
 ?>
 <input type="hidden" id="head_title" value="Liste des Mouvements">
 <div class="bg-white col col-lg-10 mx-auto p-2" style="border-radius: 10px">
@@ -28,7 +22,7 @@
                 </label>
             </div>
             <div class="col col-lg-auto">
-                <button class="btn btn-sm btn-primary px-4 font-weight-bolder" onclick="filterMouvements()">
+                <button class="btn btn-sm btn-primary px-4 font-weight-bolder" onclick="displayMouvements()">
                     Afficher <i class="fa fa-arrow-right"></i>
                 </button>
             </div>

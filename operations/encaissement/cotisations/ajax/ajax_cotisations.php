@@ -72,7 +72,7 @@
             <input type="text" id="dec" class="form-control form-control-sm " title="Décembre">
         </td>
         <td>
-            <button class="btn btn-sm btn-outline-success" onclick="addRow('arr_cotisations', 10)">
+            <button class="btn btn-sm btn-outline-success" onclick="rowAdder('arr_cotisations', 10)">
                 <i class="fas fa-plus-circle faa-float"></i>
             </button>
         </td>
