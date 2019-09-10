@@ -28,31 +28,33 @@
                         <div id="param_title" class="mb-md-4">
                             <h2 class="my-2">
                                 <?php
-                                    if ($id_typ == 1)
+                                    if ($id_typ == 1) {
                                         echo "Fiche d'Encaissement pour <span class='badge badge-primary'>" . $lib_cat . "</span>";
-                                    else
+                                    } else {
                                         echo "Fiche de Décaissement pour <span class='badge badge-primary'>" . $lib_cat . "</span>";
+                                    }
                                 ?>
                             </h2>
                         </div>
                         <div class="row my-3 mx-0">
                             <form class="col">
                                 <div class="row my-3 col col-lg-10">
-                                    <div class="col-5 col-xl-6">
-                                        <label for="date_ope">Date</label>
+                                    <div class="col-6">
+                                        <label for="date_ope">Date*</label>
                                     </div>
                                     <div class="col-auto col-xl-6">
                                         <input type="date" class="form-control form-control-sm" id="date_ope">
                                     </div>
                                 </div>
                                 <div class="row my-3 col col-lg-10">
-                                    <div class="col-5 col-xl-6">
-                                        <label for="mtt_decaisse" class="font-weight-bold">
+                                    <div class="col-6">
+                                        <label for="mtt" class="font-weight-bold">
                                             <?php
-                                                if ($id_typ == 1)
-                                                    echo "Montant encaissé";
-                                                else
-                                                    echo "Montant décaissé";
+                                                if ($id_typ == 1) {
+                                                    echo "Montant encaissé*";
+                                                } else {
+                                                    echo "Montant décaissé*";
+                                                }
                                             ?>
                                         </label>
                                     </div>
@@ -66,14 +68,15 @@
                                     <div class="col">
                                         <h5 class="cadre-titre-search font-weight-bolder">
                                             <?php
-                                                if ($id_typ == 1)
+                                                if ($id_typ == 1) {
                                                     echo "Le Donateur...";
-                                                else
+                                                } else {
                                                     echo "Le Destinataire...";
+                                                }
                                             ?>
                                         </h5>
                                         <div class="form-group">
-                                            <label for="nom_itl" class="">Nom</label>
+                                            <label for="nom_itl" class="">Nom*</label>
                                             <input type="text" class="form-control form-control-sm text-uppercase"
                                                    id="nom_itl"
                                                    placeholder="Nom">
@@ -111,14 +114,14 @@
                                         <h5 class="cadre-titre-search font-weight-bolder">L'Intermédiaire...</h5>
                                         <div class="row">
                                             <div class="form-group col-auto col-lg">
-                                                <label for="mbr_inter" class="">Membre</label>
+                                                <label for="mbr_inter" class="">Membre*</label>
                                                 <input type="text" class="form-control form-control-sm text-uppercase"
                                                        id="mbr_inter"
                                                        placeholder="Membre">
 
                                             </div>
                                             <div class="form-group col-auto col-lg">
-                                                <label for="commentaires" class="">Commentaires</label>
+                                                <label for="commentaires" class="">Commentaires*</label>
                                                 <textarea id="commentaires" class="form-control"></textarea>
                                             </div>
                                         </div>

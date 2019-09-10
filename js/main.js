@@ -902,9 +902,9 @@ const saveCategorie = () => {
     }
 };
 
-const saveDecaissement = () => {
+function saveDecaissement() {
     let dateOpe = document.getElementById('date_ope');
-    let mtt = document.getElementById('mtt_decaisse');
+    let mtt = document.getElementById('mtt');
     let nomItl = document.getElementById('nom_itl');
     let prenItl = document.getElementById('pren_itl');
     let titreItl = document.getElementById('titre_itl');
@@ -914,7 +914,8 @@ const saveDecaissement = () => {
     let obsOperation = document.getElementById('commentaires');
     let categorie = document.getElementById('cate');
 
-    if (dateOpe && nomItl && mtt && mbrInter && obsOperation) {
+    console.log(dateOpe.value, mtt.value, nomItl.value, prenItl.value, titreItl.value, telItl.value, comItl.value, mbrInter.value, obsOperation.value, categorie.value);
+    if (dateOpe.value && nomItl.value && mtt.value && mbrInter.value && obsOperation.value) {
         $.post(
             'operations/decaissement/ajax/ajax_save_mouvement.php',
             {
@@ -948,7 +949,9 @@ const saveDecaissement = () => {
             }
         )
     }
-};
+    else
+        showModal('errorModal', 'Veuillez renseigner TOUS les champs suivis de (*) SVP.')
+}
 
 function showAlert (type, msg, parentNode) {
     const alertType = 'alert-' + type;
@@ -1497,9 +1500,9 @@ const findMouvements = () => {
 
         if (mois) {
             if (sql.endsWith("'"))
-                sql += ` AND mo.id_mois = '${mois}'`;
+                sql += ` AND id_mois = '${mois}'`;
             else
-                sql += `mo.id_mois = '${mois}'`;
+                sql += `id_mois = '${mois}'`;
         }
 
         if (nom) {
@@ -1546,17 +1549,10 @@ const findMouvements = () => {
 
         if (dateOp) {
             if (sql.endsWith("'"))
-                sql += ` AND oi.date_operation = '${dateOp}'`;
+                sql += ` AND date_operation = '${dateOp}'`;
             else
-                sql += `oi.date_operation = '${dateOp}'`;
+                sql += `date_operation = '${dateOp}'`;
         }
-
-        /*if (commentaire) {
-            if (sql.endsWith("'"))
-                sql += ` AND oi.commentaires = '${commentaire}'`;
-            else
-                sql += `oi.commentaires = '${commentaire}'`;
-        }*/
 
         sql += " ORDER BY date_operation";
         console.log(sql);

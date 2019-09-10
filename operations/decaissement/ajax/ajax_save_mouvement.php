@@ -14,7 +14,7 @@
         $titreItl = isset($_POST['titreItl']) ? $_POST['titreItl'] : "";
         $telItl = isset($_POST['telItl']) ? $_POST['telItl'] : "";
         $comItl = isset($_POST['comItl']) ? $_POST['comItl'] : "";
-        $mbr_intermediaire = $_POST['mbr_inter'];
+        $mbr_intermediaire = $_POST['mbrInter'];
         $commentaires = $_POST['com'];
         $id_categorie = $_POST['cate'];
 
@@ -29,10 +29,50 @@
 
         $com = mysqli_real_escape_string($connection, $commentaires);
 
-        // 1- First, we create a new line in table 'operations'
-        // 2- Then, we do the same in table 'interlocuteurs'
+        // 1- First, we create an "interlocuteur"
+        // 2- Then, we create an "operation" related to it
 
         /* - 1 - */
+        // Checking whether the name entered exists
+        $test = true;
+        $sql_exist = "SELECT * FROM interlocuteurs WHERE nom_interlocuteur = '{$nomItl}' AND pren_interlocuteur = '{$prenItl}'";
+        $result = mysqli_query($connection, $sql_exist);
+        if ($result->num_rows > 0) {
+            // Getting the id of the existing "interlocuteur"
+            $ids = $result->fetch_all(MYSQLI_ASSOC);
+
+            foreach ($ids as $id) {
+                $id_interlocuteur = $id['id_interlocuteur'];
+            }
+
+            $test = false;
+        } else {
+            $sql_last = "SELECT id_interlocuteur FROM interlocuteurs ORDER BY id_interlocuteur DESC LIMIT 1";
+
+            $result = mysqli_query($connection, $sql_last);
+            $number = 0;
+            if ($result->num_rows > 0) {
+                $ids = $result->fetch_all(MYSQLI_ASSOC);
+
+                foreach ($ids as $id) {
+                    $id_last = $id['id_interlocuteur'];
+                }
+
+                $number = substr($id_last, 3);
+            }
+
+            $number = sprintf('%02d', ++$number);
+            $id_interlocuteur = "ITL" . $number;
+        }
+
+        if ($test) {
+            // Saving in table 'interlocuteurs'
+            $sqlItl = "INSERT INTO interlocuteurs (id_interlocuteur, nom_interlocuteur, pren_interlocuteur, titre_interlocuteur, contact_interlocuteur, localite_interlocuteur) VALUES ('{$id_interlocuteur}', '{$nomItl}', '{$prenItl}', '{$titreItl}', '{$telItl}', '{$comItl}')";
+
+            $result = mysqli_query($connection, $sqlItl);
+        }
+
+        /* - 2 - */
         $sql_last = "SELECT id_operation FROM operations ORDER BY id_operation DESC LIMIT 1";
 
         $result = mysqli_query($connection, $sql_last);
@@ -55,7 +95,8 @@
         $id_mois = "M" . date('m');
         $today = date('Y-m-d');
         $an = substr($today, 0, 4);
-        $obs = "DECAISSEMENT";
+//        $obs = "DECAISSEMENT";
+        $obs = $com;
 
         $sql_intermediaire = "SELECT id_membre FROM membres WHERE nom_membre = '{$nom}' AND pren_membre = '{$prenoms}'";
         $result = mysqli_query($connection, $sql_intermediaire);
@@ -65,58 +106,14 @@
             $id_intermediaire = $id['id_membre'];
         }
 
-        $sql_op = "INSERT INTO operations (id_operation, id_membre, id_mois, id_categorie, montant_operation, obs_operation, date_saisie_operation, date_operation, annee_operation) VALUES ('{$id_ope}', '{$id_intermediaire}', '{$id_mois}', '{$id_categorie}', {$montant}, '{$obs}', '{$today}', '{$date_ope}', {$an})";
+        $sql_op = "INSERT INTO operations (id_operation, id_membre, id_mois, id_interlocuteur, id_categorie, montant_operation, obs_operation, date_saisie_operation, date_operation, annee_operation) VALUES ('{$id_ope}', '{$id_intermediaire}', '{$id_mois}', '{$id_interlocuteur}', '{$id_categorie}', {$montant}, '{$obs}', '{$today}', '{$date_ope}', {$an})";
         if ($result = mysqli_query($connection, $sql_op)) {
-
-            /* - 2 - */
-
-            // Checking whether the name entered exists
-            $sql_exist = "SELECT * FROM interlocuteurs WHERE nom_interlocuteur = '{$nomItl}' AND pren_interlocuteur = '{$prenItl}'";
-            $result = mysqli_query($connection, $sql_exist);
-            if ($result->num_rows > 0) {
-                // Getting the id of the existing "interlocuteur"
-                $ids = $result->fetch_all(MYSQLI_ASSOC);
-
-                foreach ($ids as $id) {
-                    $id_interlocuteur = $id['id_interlocuteur'];
-                }
-            }
-            else {
-                $sql_last = "SELECT id_interlocuteur FROM interlocuteurs ORDER BY id_interlocuteur DESC LIMIT 1";
-
-                $result = mysqli_query($connection, $sql_last);
-                $number = 0;
-                if ($result->num_rows > 0) {
-                    $ids = $result->fetch_all(MYSQLI_ASSOC);
-
-                    foreach ($ids as $id) {
-                        $id_last = $id['id_interlocuteur'];
-                    }
-
-                    $number = substr($id_last, 3);
-                }
-
-                $number = sprintf('%02d', ++$number);
-                $id_interlocuteur = "ITL" . $number;
-            }
-
-            // Saving in table 'interlocuteurs'
-            $sqlItl = "INSERT INTO interlocuteurs (id_interlocuteur, nom_interlocuteur, pren_interlocuteur, titre_interlocuteur, contact_interlocuteur, localite_interlocuteur) VALUES ('{$id_interlocuteur}', '{$nomItl}', '{$prenItl}', '{$titreItl}', '{$telItl}', '{$comItl}')";
-
-            if ($result = mysqli_query($connection, $sqlItl))
-                echo "Saved";
-            else {
-                echo "{$id_ope} saved - {$id_interlocuteur} not saved  -  ";
-                echo $sqlItl;
-            }
-
-        }
-        else {
-            echo "{$id_ope} not saved  -  ";
-            echo $sql_intermediaire . "  -  ";
+            echo "Saved";
+        } else {
+            echo "{$id_interlocuteur} saved - {$id_ope} not saved  -  ";
+            echo $sqlItl;
             echo $sql_op;
         }
-
     }
     else
         echo "Veuillez renseigner tous les champs";
