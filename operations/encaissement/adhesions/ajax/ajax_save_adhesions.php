@@ -29,7 +29,7 @@
             $id_commune = strtoupper(trim($data[$i][3]));
             $id_ville = strtoupper(trim($data[$i][4]));
             $genre = $data[$i][5];
-            $mtt = $data[$i][6];
+            $mtt = $data[$i][6] * 1000;
 
             // Checking that info to be saved do not exist already
             $sql_mbr_exist = "SELECT * FROM membres WHERE nom_membre = '{$nom}' AND pren_membre = '{$pren}' AND genre_membre = '{$genre}'";
