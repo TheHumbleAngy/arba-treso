@@ -48,8 +48,8 @@
 
             // "KOUAKOU ANGE" "M01, 2000" "M02, 2000" "M03, 1000" "M04, 3000" "M11, 2000"
             $nom_mbr = explode(' ', $mbr[$i], 2); //
-            $nom = $nom_mbr[0];
-            $prenoms = $nom_mbr[1];
+            $nom = mysqli_real_escape_string($connection, $nom_mbr[0]);
+            $prenoms = mysqli_real_escape_string($connection, $nom_mbr[1]);
             $an = $_POST['year'];
             $today = date('Y-m-d');
 

@@ -2,7 +2,7 @@
 
 let selectedLabel, unselectedLabel;
 
-const setPageTitle = (title) => {
+function setPageTitle(title) {
     let children = document.getElementsByTagName('head')[0].children;
     for (let child of children) {
         if (child.nodeName === 'TITLE') {
@@ -11,7 +11,7 @@ const setPageTitle = (title) => {
             return child.text;
         }
     }
-};
+}
 
 /* Load the necessary elements here */
 $(document).ready(function () {
@@ -29,17 +29,17 @@ $(document).ready(function () {
 
     let paramAnnee = document.getElementById('param_annee');
     if (paramAnnee) {
-        cboYearLoader(paramAnnee, 2);
+        cboYearListLoader(paramAnnee, 2);
     }
 
     let annee = document.getElementById('annee');
     if (annee) {
-        cboYearLoader(annee, 4);
+        cboYearListLoader(annee, 4);
     }
 
     let cagnotteAnnee = document.getElementById('cagnotte_annee');
     if (cagnotteAnnee) {
-        cboYearLoader(cagnotteAnnee, 2);
+        cboYearListLoader(cagnotteAnnee, 2);
     }
 
     let mois = document.getElementById('mois');
@@ -170,7 +170,7 @@ function getToTop() {
 
 /* Setters and loaders */
 
-const showCotisations = () => {
+function showCotisations() {
     const cbo = document.getElementById('param_annee');
     const dateOpe = document.getElementById('date_ope');
     let response = document.getElementById('feedback');
@@ -187,9 +187,9 @@ const showCotisations = () => {
             }
         })
     }
-};
+}
 
-const setDateAdhesion = () => {
+function setDateAdhesion() {
     const dateAdhe = document.getElementById('date_adhe');
     let response = document.getElementById('feedback');
 
@@ -212,7 +212,7 @@ const setDateAdhesion = () => {
                             let arrCom = arr[0];
                             let arrVil = arr[1];
 
-                            /*Fill list of communes*/
+                            /* Fill list of communes */
                             for (const elt of arrCom) {
                                 let option = document.createElement('option');
                                 option.value = elt[0];
@@ -221,7 +221,7 @@ const setDateAdhesion = () => {
                                 selectCom.appendChild(option);
                             }
 
-                            /*Fill list of villes*/
+                            /* Fill list of villes */
                             for (const elt of arrVil) {
                                 let option = document.createElement('option');
                                 option.value = elt[0];
@@ -235,9 +235,9 @@ const setDateAdhesion = () => {
             }
         })
     }
-};
+}
 
-const setParameter = (e, option) => {
+function setParameter(e, option) {
     const cbo = document.getElementById('type_param');
     const button = document.getElementById('proceder_param');
     const links = [
@@ -281,18 +281,19 @@ const setParameter = (e, option) => {
         // console.log(attr);
         button.setAttribute('href', attr);
     }
-};
+}
 
-const setGender = (e) => {
+function setGender(e) {
     const tr = e.closest('tr'),
         gender = e.value;
     let n = tr.cells.length,
         mtt = tr.cells[n - 2].getElementsByTagName('input')[0];
 
-    mtt.value = gender === 'H' ? numberFormat(2000) : numberFormat(1000);
-};
+    // mtt.value = gender === 'H' ? numberFormat(2000) : numberFormat(1000);
+    mtt.value = numberFormat(1000);
+}
 
-const cboYearLoader = (cbo, nbr) => {
+function cboYearListLoader(cbo, nbr) {
     let n, elt;
 
     for (let i = 0; i < nbr; i++) {
@@ -302,9 +303,9 @@ const cboYearLoader = (cbo, nbr) => {
         elt.text = elt.value;
         cbo.appendChild(elt);
     }
-};
+}
 
-const namesLoader = (usage, id, entity, state, key) => {
+function namesLoader(usage, id, entity, state, key) {
     $.ajax({
         type: 'POST',
         url: 'membres/ajax/ajax_noms_entites.php',
@@ -330,7 +331,7 @@ const namesLoader = (usage, id, entity, state, key) => {
                         for (let j = 0; j < arr.length; j++) {
                             temp[j] = arr[j][key];
                         }
-                        // Using the Set datatype, we create a new array without duplicate and assign it to the list to be added
+                        // Using the "Set" datatype, we create a new array without duplicate and assign it to the list to be added
                         listMbr.list = [...new Set(temp)];
                     }
                     else
@@ -339,9 +340,9 @@ const namesLoader = (usage, id, entity, state, key) => {
             }
         }
     })
-};
+}
 
-const memberDataLoader = (e) => {
+function memberCotisationLoader(e) {
     // check the emptiness of the field
     if (e.value) {
         let mbr = e.value.split(' ');
@@ -361,7 +362,8 @@ const memberDataLoader = (e) => {
                 prenMbr += `${mbr[i]}`;
         }
 
-        sql = `SELECT id_mois, montant_operation FROM operations o INNER JOIN membres m ON o.id_membre = m.id_membre WHERE m.nom_membre = '${nomMbr}' AND m.pren_membre = '${prenMbr}' AND o.annee_operation = '${annee}' AND o.id_categorie = 'CAT02' ORDER BY id_mois;`;
+        sql = `SELECT id_mois, montant_operation FROM operations o INNER JOIN membres m ON o.id_membre = m.id_membre WHERE m.nom_membre = "${nomMbr}" AND m.pren_membre = "${prenMbr}" AND o.annee_operation = '${annee}' AND o.id_categorie = 'CAT02' ORDER BY id_mois`;
+        console.log(sql);
 
         $.ajax({
             type: 'POST',
@@ -411,9 +413,9 @@ const memberDataLoader = (e) => {
             }
         })
     }
-};
+}
 
-const setGraphLabelColor = (rdoName) => {
+function setGraphLabelColor(rdoName) {
     let elt, radios;
 
     radios = document.getElementsByName(rdoName);
@@ -445,9 +447,9 @@ const setGraphLabelColor = (rdoName) => {
                 unselectedLabel.classList.remove('text-primary');
         }
     }
-};
+}
 
-function fillCategories(list, cbo, status) {
+function categoriesFiller(list, cbo, status) {
     if (status === 'update') {
         // Delete the existing list
         if (cbo.options.length > 1) {
@@ -464,7 +466,7 @@ function fillCategories(list, cbo, status) {
     }
 }
 
-const setCategorie = (e) => {
+function setCategories(e) {
     let cbo = document.getElementById('categorie');
 
     if (e.value) {
@@ -480,7 +482,7 @@ const setCategorie = (e) => {
                 let categories = JSON.parse(data);
                 // console.log(categories);
                 if (categories !== 'Empty') {
-                    fillCategories(categories, cbo, 'update');
+                    categoriesFiller(categories, cbo, 'update');
                     let btn = document.getElementById('proceder_param');
                     if (btn)
                         btn.setAttribute('href', '');
@@ -489,17 +491,18 @@ const setCategorie = (e) => {
             }
         })
     }
-};
+}
 
 const setMoisCagnotte = (e) => {
     let listeMois = document.getElementById('cagnotte_mois');
 
     if (e.value) {
-        listeMois.disabled = false;
         let cbo = document.getElementById('cagnotte_mois');
 
-        if (cbo.length === 1) {
+        // if (cbo.length === 1) {
+        //     let sql = `SELECT m.id_mois, libelle_mois FROM mois m INNER JOIN operations o ON m.id_mois = o.id_mois WHERE annee_operation = ${e.value} GROUP BY m.id_mois, libelle_mois`;
             let sql = `SELECT * FROM mois`;
+            console.log(sql);
 
             $.ajax({
                 type: 'POST',
@@ -508,18 +511,29 @@ const setMoisCagnotte = (e) => {
                 },
                 url: 'operations/encaissement/cotisations/ajax/ajax_mbr_coti_mois.php',
                 success: function (data) {
-                    let months = JSON.parse(data);
-                    for (const month of months) {
-                        let n = cbo.length - 1;
-                        let elt = cbo.options[n].cloneNode(true);
-                        elt.value = month.numero_mois;
-                        elt.text = month.libelle_mois.toUpperCase();
-                        cbo.appendChild(elt);
+                    if (data) {
+                        let months = JSON.parse(data);
+                        // console.log(months);
+                        // months = [...new Set(months)];
+                        // console.log(months);
+                        // if (months.length >= 1) {
+                            for (const month of months) {
+                                let n = cbo.length - 1;
+                                let elt = cbo.options[n].cloneNode(true);
+                                elt.value = month.numero_mois;
+                                elt.text = month.libelle_mois.toUpperCase();
+                                cbo.appendChild(elt);
+                            }
+
+                            listeMois.disabled = false;
+                        // }
                     }
+
                 }
-            });
-        }
-    } else {
+            })
+        // }
+    }
+    else {
         listeMois.options[0].selected = true;
         listeMois.disabled = true;
         document.getElementById('cagnotte').value = 0;
@@ -535,15 +549,14 @@ const getCagnotteMoisAnnee = (e) => {
         let sql = `SELECT SUM(montant_operation) as total
 FROM operations o INNER JOIN mois m ON o.id_mois = m.id_mois
   INNER JOIN categories c on o.id_categorie = c.id_categorie
-  INNER JOIN types_operation to2 on c.id_typ_op = to2.id_typ_op
-WHERE numero_mois = '${mois}' AND annee_operation = ${annee} AND c.id_typ_op = 1`;
+WHERE numero_mois = ${mois} AND annee_operation = ${annee} AND o.id_categorie = 'CAT02'`;
         console.log(sql);
 
         $.ajax({
             type: 'POST',
             url: 'operations/encaissement/cotisations/ajax/ajax_mbr_coti_mois.php',
             data: {
-                qry: sql
+                info: sql
             },
             success: function (data) {
                 const info = JSON.parse(data);
@@ -565,13 +578,14 @@ const getRecetteMoisAnnee = (e) => {
 FROM operations o INNER JOIN mois m ON o.id_mois = m.id_mois
   INNER JOIN categories c on o.id_categorie = c.id_categorie
   INNER JOIN types_operation t on c.id_typ_op = t.id_typ_op
-WHERE MONTH(date_operation) = ${mois} AND YEAR(date_operation) = ${annee} AND c.id_typ_op = 1`;console.log(sql);
+WHERE numero_mois = ${mois} AND YEAR(date_operation) = ${annee} AND c.id_typ_op = 1`;
+        console.log(sql);
 
         $.ajax({
             type: 'POST',
             url: 'operations/encaissement/cotisations/ajax/ajax_mbr_coti_mois.php',
             data: {
-                qry: sql
+                info: sql
             },
             success: function (data) {
                 const info = JSON.parse(data);
@@ -657,7 +671,7 @@ const rowAdder = (tableId, rowNbr, option) => {
         namesLoader('autocompletion', 'coti_mbr', 'membres');
 };
 
-const isFieldEmpty = (field) => {
+const isFieldEmpty = field => {
     return document.getElementById(field).value === '';
 };
 
@@ -869,7 +883,7 @@ const saveCategorie = () => {
 
                 // console.log(typeParam.value, arr[0].id_typ_op);
                 if (typeParam.value === arr[0].id_typ_op)
-                    fillCategories(arr, cbo, 'new');
+                    categoriesFiller(arr, cbo, 'new');
 
                 if (data !== "Error while saving data" && data !== "Already in database") {
                     alertType = 'success';
@@ -897,10 +911,10 @@ const saveDecaissement = () => {
     let telItl = document.getElementById('tel_itl');
     let comItl = document.getElementById('commune');
     let mbrInter = document.getElementById('mbr_inter');
-    let obs_operation = document.getElementById('commentaires');
+    let obsOperation = document.getElementById('commentaires');
     let categorie = document.getElementById('cate');
 
-    if (dateOpe && nomItl && mtt && mbrInter && obs_operation) {
+    if (dateOpe && nomItl && mtt && mbrInter && obsOperation) {
         $.post(
             'operations/decaissement/ajax/ajax_save_mouvement.php',
             {
@@ -912,7 +926,7 @@ const saveDecaissement = () => {
                 telItl: telItl.value.trim(),
                 comItl: comItl.value.trim().toUpperCase(),
                 mbrInter: mbrInter.value.trim().toUpperCase(),
-                com: obs_operation.value.trim().toUpperCase(),
+                com: obsOperation.value.trim().toUpperCase(),
                 cate: categorie.value.trim()
             },
             function (response) {
@@ -927,7 +941,7 @@ const saveDecaissement = () => {
                     telItl.value = "";
                     comItl.value = "";
                     mbrInter.value = "";
-                    obs_operation.value = "";
+                    obsOperation.value = "";
                 }
                 else
                     showModal('errorModal', response);
@@ -962,7 +976,7 @@ function showAlert (type, msg, parentNode) {
     parentNode.appendChild(div);
 }
 
-/* Searchers */
+/* Search methods */
 
 const displayMembres = (usage) => {
     let info, mbr = document.getElementById('membre').value;
@@ -1163,7 +1177,7 @@ const displayMouvements = () => {
                 for (let i = 0; i < n; i++) {
                     let row = tab.insertRow(-1);
 
-                    let m = arr[i].length, j;
+                    let m = arr[i].length;
                     for (let j = 0; j < m - 1; j++) {
 
                         let newCell = row.insertCell(-1);

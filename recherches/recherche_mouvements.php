@@ -21,7 +21,7 @@
                                 <h5 class="cadre-titre-search">Type d'oprération</h5>
                                 <div class="row">
                                     <label for="typ_op" class="col">
-                                        <select class="custom-select custom-select-sm" id="typ_op" onchange="setCategorie(this)">
+                                        <select class="custom-select custom-select-sm" id="typ_op" onchange="setCategories(this)">
                                             <option value="">Type...</option>
                                             <option value="0">Décaissement</option>
                                             <option value="1">Encaissement</option>

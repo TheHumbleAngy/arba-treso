@@ -19,7 +19,7 @@
                 </div>
                 <div class="col">
                     <select class="custom-select custom-select-sm" id="type_param"
-                            onchange="setCategorie(this)">
+                            onchange="setCategories(this)">
                         <option value="">Sélectionner...</option>
                         <option value="0">Décaissement</option>
                         <option value="1">Encaissement</option>

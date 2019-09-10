@@ -33,7 +33,7 @@
             <span class="" id="numero">1</span>
         </td>
         <td>
-            <input type="text" id="coti_mbr" class="form-control form-control-sm text-uppercase awesomplete" onblur="memberDataLoader(this)" title="Membre">
+            <input type="text" id="coti_mbr" class="form-control form-control-sm text-uppercase awesomplete" onblur="memberCotisationLoader(this)" title="Membre">
         </td>
         <td>
             <input type="text" id="jan" class="form-control form-control-sm " title="Janvier">
