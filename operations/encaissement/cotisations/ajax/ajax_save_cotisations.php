@@ -19,7 +19,7 @@
         $count = 0;
         $obs = "COTISATION MENSUELLE";
 
-        $connection = mysqli_connect('localhost', 'root', '', 'gestion_treso_arba');
+        require_once ($_SERVER['DOCUMENT_ROOT'] . '/includes/dbconnect.php');
 
         for ($i = 0; $i < $n; $i++) {
 

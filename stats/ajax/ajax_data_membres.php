@@ -6,7 +6,7 @@
      * Time: 7:15 AM
      */
 
-    $connection = mysqli_connect('localhost', 'root', '', 'gestion_treso_arba');
+    require_once ($_SERVER['DOCUMENT_ROOT'] . '/includes/dbconnect.php');
 
     if (isset($_GET['entity']) && isset($_GET['prop'])) {
         $entity = $_GET['entity'];

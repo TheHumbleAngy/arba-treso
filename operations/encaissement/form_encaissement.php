@@ -9,7 +9,7 @@
         $id_categorie = $_GET['cat'];
         $sql = "SELECT libelle_categorie FROM categories WHERE id_categorie = '{$id_categorie}'";
 
-        $connection = mysqli_connect('localhost', 'root', '', 'gestion_treso_arba');
+        require_once ($_SERVER['DOCUMENT_ROOT'] . '/includes/dbconnect.php');
         $result = mysqli_query($connection, $sql);
         if ($result->num_rows > 0) {
             $set = $result->fetch_all(MYSQLI_ASSOC);

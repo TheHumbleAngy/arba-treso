@@ -9,7 +9,7 @@
         $libelle = strtoupper($_POST['libelle']);
         $type = $_POST['type'];
 
-        $connection = mysqli_connect('localhost', 'root', '', 'gestion_treso_arba');
+        require_once ($_SERVER['DOCUMENT_ROOT'] . '/includes/dbconnect.php');
 
         // Checking whether the entered "categories" exists
         $sql = "SELECT * FROM categories WHERE libelle_categorie = '{$libelle}' AND id_typ_op = {$type}";
@@ -53,7 +53,7 @@
     elseif (isset($_POST['info'])) {
         $sql = $_POST['info'];
 
-        $connection = mysqli_connect('localhost', 'root', '', 'gestion_treso_arba');
+        require_once ($_SERVER['DOCUMENT_ROOT'] . '/includes/dbconnect.php');
         $result = mysqli_query($connection, $sql);
         if ($result->num_rows > 0) {
             $set = $result->fetch_all(MYSQLI_ASSOC);

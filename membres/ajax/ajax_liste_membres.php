@@ -5,7 +5,7 @@
      * Date: 11-Jun-19
      * Time: 4:41 PM
      */
-    $connection = mysqli_connect('localhost', 'root', '', 'gestion_treso_arba');
+    require_once ($_SERVER['DOCUMENT_ROOT'] . '/includes/dbconnect.php');
 
     $sql_mbr = "SELECT * FROM membres";
 

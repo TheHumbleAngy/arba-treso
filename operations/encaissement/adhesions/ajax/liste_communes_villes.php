@@ -5,7 +5,7 @@
      * Date: 7/13/2019
      * Time: 5:10 PM
      */
-    $connection = mysqli_connect('localhost', 'root', '', 'gestion_treso_arba');
+    require_once ($_SERVER['DOCUMENT_ROOT'] . '/includes/dbconnect.php');
 
     $sql = "SELECT * FROM communes";
 

@@ -26,24 +26,7 @@
             </div>
         </div>
     </div>
-    <div id="feedback" class="my-4">
-        <div class="border border-primary rounded">
-            <table class="table table-sm table-hover bg-light" id="arr_membres">
-                <thead class="bg-primary text-light">
-                <tr class="row mx-0">
-                    <th class="col-1 text-center">N°</th>
-                    <th class="col-1">Id.</th>
-                    <th class="col">Membre</th>
-                    <th class="col-1">Genre</th>
-                    <th class="col-2 col-xl-1">Contact</th>
-                    <th class="col-2 col-xl-1">Commune</th>
-                    <th class="col-1 col-xl-1">Ville</th>
-                </tr>
-                </thead>
-                <tbody id="liste_membres"></tbody>
-            </table>
-        </div>
-    </div>
+    <div id="feedback" class="my-4"></div>
 
     <!-- Modals -->
     <div class="modal fade" id="feedbackModal" tabindex="-1" role="dialog" aria-labelledby="feedbackModalLabel"

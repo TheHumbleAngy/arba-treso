@@ -5,7 +5,7 @@
      * Date: 29-Jun-19
      * Time: 5:51 AM
      */
-    $connection = mysqli_connect('localhost', 'root', '', 'gestion_treso_arba');
+    require_once ($_SERVER['DOCUMENT_ROOT'] . '/includes/dbconnect.php');
 
     if (isset($_POST['info'])) {
         $sql = $_POST['info'];

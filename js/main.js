@@ -284,8 +284,8 @@ function setParameter(e, option) {
 }
 
 function setGender(e) {
-    const tr = e.closest('tr'),
-        gender = e.value;
+    const tr = e.closest('tr');
+        // gender = e.value;
     let n = tr.cells.length,
         mtt = tr.cells[n - 2].getElementsByTagName('input')[0];
 
@@ -351,7 +351,7 @@ function memberCotisationLoader(e) {
             sql;
         let annee = document.getElementById('param_annee').value;
 
-        const mois = [];
+        // const mois = [];
 
         for (let i = 0; i < mbr.length; i++) {
             if (i === 0)
@@ -671,7 +671,7 @@ const rowAdder = (tableId, rowNbr, option) => {
         namesLoader('autocompletion', 'coti_mbr', 'membres');
 };
 
-const isFieldEmpty = field => {
+/*const isFieldEmpty = field => {
     return document.getElementById(field).value === '';
 };
 
@@ -681,7 +681,7 @@ function clearFields() {
     for (const elt of elts) {
         elt.value = '';
     }
-}
+}*/
 
 function showModal (id, msg) {
     if (msg)
@@ -983,6 +983,7 @@ function showAlert (type, msg, parentNode) {
 
 const displayMembres = (usage) => {
     let info, mbr = document.getElementById('membre').value;
+    let response = document.getElementById('feedback');
 
     info = mbr ? mbr : '';
 
@@ -993,84 +994,100 @@ const displayMembres = (usage) => {
             info: info,
             entity: 'membres'
         },
-        url: 'membres/ajax/ajax_noms_entites.php',
+        url: 'membres/ajax/ajax_resultat_consultation_membres.php',
         success: function (data) {
+            let info;
+            let elt;
+            let newCell;
             if (data) {
-                let arr = JSON.parse(data),
+                response.innerHTML = data;
+                /*let arr = JSON.parse(data),
                     n = arr.length;
                 const tab = document.getElementById('liste_membres');
 
                 while (tab.firstChild)
                     tab.removeChild(tab.firstChild);
 
-                for (let i = 0; i < n; i++) {
+                for (let i = 0; i < n; i++) { // Going through each row
                     let row = tab.insertRow(-1);
 
                     let m = arr[i].length;
-                    for (let j = 0; j < m; j++) {
+                    for (let j = 0; j < m; j++) { // Going through each cell of the ith row
 
-                        let newCell = row.insertCell(-1);
+                        newCell = row.insertCell(-1);
 
-                        let elt = '';
-                        let info = '';
+                        elt = '';
+                        info = '';
 
                         if (j === 0)
                             elt = i + 1;
                         else if (arr[i][j] !== null)
                             elt = arr[i][j];
 
-                        if (j === 3) {
+                        if (j === 3)
                             elt = elt === 'H' ? 'HOMME' : 'FEMME';
-                        }
 
-                        if (j === 7)
-                            elt = dateReformat(elt);
+                        /!*if (j === 7)
+                            elt = dateReformat(elt);*!/
 
                         info = document.createTextNode(elt);
                         newCell.appendChild(info);
                     }
+
+                    // Create a new cell containing a button, for "Actions"
+                    newCell = row.insertCell(-1);
+
+                    info = document.createElement("button");
+                    info.classList.add('btn', 'btn-sm', 'btn-outline-primary', 'font-weight-bolder');
+
+                    elt = document.createElement("i");
+                    elt.classList.add('fa', 'fa-plus-circle');
+                    elt.setAttribute("data-toggle", "modal");
+                    elt.setAttribute("data-target", "#updateModal");
+
+                    info.appendChild(elt);
+                    newCell.appendChild(info);
                 }
 
-                for (let i = 0; i < tab.rows.length; i++) {
+                for (let i = 0; i < tab.rows.length; i++) { // Going through each row and applying styles to each cell
 
                     // Styling the row
                     let tr = tab.rows[i];
                     tr.classList.add('row', 'mx-0');
 
-                    // Styling the first cell of each line
+                    // Styling the 1st cell of the ith line
                     let cell = tab.rows[i].cells[0];
-                    cell.classList.add('col-1');
-                    cell.classList.add('text-center', 'text-primary', 'font-weight-light');
+                    cell.classList.add('col-05', 'text-center', 'text-primary', 'font-weight-light'); // N°
 
-                    // Styling the 2nd cell of each line
+                    // Styling the 2nd cell of the ith line
                     cell = tab.rows[i].cells[1];
-                    cell.classList.add('col-1', 'text-center', 'text-primary');
+                    cell.classList.add('col-1', 'text-right', 'text-primary'); // Id.
 
-                    // Styling the 3nd cell of each line
+                    // Styling the 3nd cell of the ith line
                     cell = tab.rows[i].cells[2];
-                    cell.classList.add('col', 'text-primary', 'font-weight-bold');
+                    cell.classList.add('col', 'text-primary', 'font-weight-bold'); // Membre
 
-                    // Styling the 3rd cell of each line
+                    // Styling the 3rd cell of the ith line
                     cell = tab.rows[i].cells[3];
-                    cell.classList.add('col-1');
+                    cell.classList.add('col-1'); // Genre
 
-                    // Styling the 4th cell of each line
+                    // Styling the 4th cell of the ith line
                     cell = tab.rows[i].cells[4];
-                    cell.classList.add('col-2', 'col-xl-1');
+                    cell.classList.add('col-2', 'col-xl-1'); // Contact
 
-                    // Styling the 5th cell of each line
+                    // Styling the 5th cell of the ith line
                     cell = tab.rows[i].cells[5];
-                    cell.classList.add('col-2', 'col-xl-1');
+                    cell.classList.add('col-2', 'col-xl-1'); // Commune
 
-                    // Styling the 6th cell of each line
+                    // Styling the 6th cell of the ith line
                     cell = tab.rows[i].cells[6];
-                    cell.classList.add('col-1', 'col-xl-1');
+                    cell.classList.add('col-1', 'col-xl-1'); // Ville
 
                     // Styling the 7th cell of each line
-                    /*cell = tab.rows[i].cells[tab.rows[i].cells.length - 1];
-                    cell.classList.add('col-1', 'col-xl-1');*/
+                    cell = tab.rows[i].cells[tab.rows[i].cells.length - 1];
+                    cell.classList.add('col-1', 'text-center'); // Actions
 
-                }
+                }*/
             }
             else
                 showModal('feedbackModal', '😔 Aucun résultat ne correspond au(x) critère(s) de recherche.');

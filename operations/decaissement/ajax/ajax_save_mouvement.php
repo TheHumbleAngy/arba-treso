@@ -25,7 +25,7 @@
         $id_mois = "M" . date('m');
         $year = date('y');
 
-        $connection = mysqli_connect('localhost', 'root', '', 'gestion_treso_arba');
+        require_once ($_SERVER['DOCUMENT_ROOT'] . '/includes/dbconnect.php');
 
         $com = mysqli_real_escape_string($connection, $commentaires);
 

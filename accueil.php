@@ -6,7 +6,7 @@
      * Time: 2:35 PM
      */
 ?>
-<input type="hidden" id="head_title" value="accueil">
+<input type="hidden" id="head_title" value="accueil 🏠">
 <div class="d-flex align-items-center justify-content-center" id="content">
     <div id="wrapper" class="shadow gradient">
         <div class="container-fluid">

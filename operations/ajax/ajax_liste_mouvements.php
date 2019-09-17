@@ -27,7 +27,7 @@ FROM interlocuteurs i
             $sql .= " WHERE o.date_operation = '{$date}'";
         }
 
-        $connection = mysqli_connect('localhost', 'root', '', 'gestion_treso_arba');
+        require_once ($_SERVER['DOCUMENT_ROOT'] . '/includes/dbconnect.php');
         $result = mysqli_query($connection, $sql);
         if ($result->num_rows > 0) {
             $mvts = $result->fetch_all(MYSQLI_ASSOC);

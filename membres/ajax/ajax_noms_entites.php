@@ -6,7 +6,7 @@
      * Time: 11:56 AM
      */
 
-    $connection = mysqli_connect('localhost', 'root', '', 'gestion_treso_arba');
+    require_once ($_SERVER['DOCUMENT_ROOT'] . '/includes/dbconnect.php');
 
     if ($_POST['usage'] == 'autocompletion' && $_POST['entity'] == 'membres') {
         $sql_mbr = "SELECT * FROM membres";
@@ -133,7 +133,7 @@
             $i = 0;
 
             foreach ($membres as $membre) {
-                $mbr[$i][0] = $membre['id_membre'];
+                $mbr[$i][0] = "";
                 $mbr[$i][1] = $membre['id_membre'];
                 $mbr[$i][2] = $membre['nom_membre'] . " " .$membre['pren_membre'];
                 $mbr[$i][3] = $membre['genre_membre'];
