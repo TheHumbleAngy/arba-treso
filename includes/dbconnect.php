@@ -5,7 +5,6 @@
         if (!isset($connection)) {
             $config = parse_ini_file($_SERVER['DOCUMENT_ROOT'] . '/credentials/config.ini');
             $connection = mysqli_connect($config['hostname'], $config['username'], $config['password'], $config['dbname']);
-//            require_once ($_SERVER['DOCUMENT_ROOT'] . '/includes/dbconnect.php');
         }
 
         if ($connection === false)
