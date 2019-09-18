@@ -1,4 +1,9 @@
 <?php
+    ini_set("log_errors", 1);
+    ini_set("display_errors", 1); // TODO: Update to 0 in production
+    ini_set("error_log", dirname(__FILE__) . "/db_error.log");
+    error_reporting(E_ALL);
+
     function db_connect() {
         static $connection;
 

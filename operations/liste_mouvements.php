@@ -28,22 +28,7 @@
             </div>
         </div>
     </div>
-    <div id="feedback" class="my-4">
-        <div class="border border-primary rounded">
-            <table class="table table-sm table-hover bg-light" id="">
-                <thead class="bg-primary text-light">
-                <tr class="row mx-0">
-                    <th class="col-1 text-center">N°</th>
-                    <th class="col-2">Date</th>
-                    <th class="col">Commentaire</th>
-                    <th class="col-2">Montant</th>
-                    <th class="col-2">Interlocuteur</th>
-                </tr>
-                </thead>
-                <tbody id="liste_operations"></tbody>
-            </table>
-        </div>
-    </div>
+    <div id="feedback" class="my-4"></div>
 
     <!-- Modals -->
     <div class="modal fade" id="feedbackModal" tabindex="-1" role="dialog" aria-labelledby="feedbackModalLabel"

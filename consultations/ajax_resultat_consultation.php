@@ -28,7 +28,7 @@
             <th class="mx-lg-1 text-center">Tot.</th>
         </tr>
         </thead>
-        <tbody>
+        <tbody id="liste_cotisations">
 
         <?php
             require_once ($_SERVER['DOCUMENT_ROOT'] . '/includes/dbconnect.php');
@@ -57,7 +57,7 @@
                             </span>
                             </td>
                             <td class="">
-                            <span class="text-uppercase">
+                            <span class="text-uppercase text-primary">
                                 <?php echo $nom_mbr . " " . $pren_mbr; ?>
                             </span>
                             </td>

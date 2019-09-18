@@ -1,0 +1,60 @@
+[18-Sep-2019 15:05:11 UTC] PHP Notice:  Undefined index: usage in W:\wamp64\www\arba-treso\membres\ajax\ajax_resultat_consultation_membres.php on line 202
+[18-Sep-2019 15:05:11 UTC] PHP Stack trace:
+[18-Sep-2019 15:05:11 UTC] PHP   1. {main}() W:\wamp64\www\arba-treso\membres\ajax\ajax_resultat_consultation_membres.php:0
+[18-Sep-2019 15:43:30 UTC] PHP Warning:  mysqli_result::free(): Couldn't fetch mysqli_result in W:\wamp64\www\arba-treso\operations\ajax\ajax_liste_mouvements.php on line 67
+[18-Sep-2019 15:43:30 UTC] PHP Stack trace:
+[18-Sep-2019 15:43:30 UTC] PHP   1. {main}() W:\wamp64\www\arba-treso\operations\ajax\ajax_liste_mouvements.php:0
+[18-Sep-2019 15:43:30 UTC] PHP   2. mysqli_result->free() W:\wamp64\www\arba-treso\operations\ajax\ajax_liste_mouvements.php:67
+[18-Sep-2019 15:43:30 UTC] PHP Warning:  mysqli::close(): Couldn't fetch mysqli in W:\wamp64\www\arba-treso\operations\ajax\ajax_liste_mouvements.php on line 68
+[18-Sep-2019 15:43:30 UTC] PHP Stack trace:
+[18-Sep-2019 15:43:30 UTC] PHP   1. {main}() W:\wamp64\www\arba-treso\operations\ajax\ajax_liste_mouvements.php:0
+[18-Sep-2019 15:43:30 UTC] PHP   2. mysqli->close() W:\wamp64\www\arba-treso\operations\ajax\ajax_liste_mouvements.php:68
+[18-Sep-2019 15:46:26 UTC] PHP Warning:  date_format() expects parameter 1 to be DateTimeInterface, string given in W:\wamp64\www\arba-treso\operations\ajax\ajax_liste_mouvements.php on line 48
+[18-Sep-2019 15:46:26 UTC] PHP Stack trace:
+[18-Sep-2019 15:46:26 UTC] PHP   1. {main}() W:\wamp64\www\arba-treso\operations\ajax\ajax_liste_mouvements.php:0
+[18-Sep-2019 15:46:26 UTC] PHP   2. date_format() W:\wamp64\www\arba-treso\operations\ajax\ajax_liste_mouvements.php:48
+[18-Sep-2019 15:46:26 UTC] PHP Warning:  date_format() expects parameter 1 to be DateTimeInterface, string given in W:\wamp64\www\arba-treso\operations\ajax\ajax_liste_mouvements.php on line 48
+[18-Sep-2019 15:46:26 UTC] PHP Stack trace:
+[18-Sep-2019 15:46:26 UTC] PHP   1. {main}() W:\wamp64\www\arba-treso\operations\ajax\ajax_liste_mouvements.php:0
+[18-Sep-2019 15:46:26 UTC] PHP   2. date_format() W:\wamp64\www\arba-treso\operations\ajax\ajax_liste_mouvements.php:48
+[18-Sep-2019 15:46:26 UTC] PHP Warning:  date_format() expects parameter 1 to be DateTimeInterface, string given in W:\wamp64\www\arba-treso\operations\ajax\ajax_liste_mouvements.php on line 48
+[18-Sep-2019 15:46:26 UTC] PHP Stack trace:
+[18-Sep-2019 15:46:26 UTC] PHP   1. {main}() W:\wamp64\www\arba-treso\operations\ajax\ajax_liste_mouvements.php:0
+[18-Sep-2019 15:46:26 UTC] PHP   2. date_format() W:\wamp64\www\arba-treso\operations\ajax\ajax_liste_mouvements.php:48
+[18-Sep-2019 15:46:26 UTC] PHP Warning:  date_format() expects parameter 1 to be DateTimeInterface, string given in W:\wamp64\www\arba-treso\operations\ajax\ajax_liste_mouvements.php on line 48
+[18-Sep-2019 15:46:26 UTC] PHP Stack trace:
+[18-Sep-2019 15:46:26 UTC] PHP   1. {main}() W:\wamp64\www\arba-treso\operations\ajax\ajax_liste_mouvements.php:0
+[18-Sep-2019 15:46:26 UTC] PHP   2. date_format() W:\wamp64\www\arba-treso\operations\ajax\ajax_liste_mouvements.php:48
+[18-Sep-2019 15:46:26 UTC] PHP Warning:  date_format() expects parameter 1 to be DateTimeInterface, string given in W:\wamp64\www\arba-treso\operations\ajax\ajax_liste_mouvements.php on line 48
+[18-Sep-2019 15:46:26 UTC] PHP Stack trace:
+[18-Sep-2019 15:46:26 UTC] PHP   1. {main}() W:\wamp64\www\arba-treso\operations\ajax\ajax_liste_mouvements.php:0
+[18-Sep-2019 15:46:26 UTC] PHP   2. date_format() W:\wamp64\www\arba-treso\operations\ajax\ajax_liste_mouvements.php:48
+[18-Sep-2019 15:46:58 UTC] PHP Notice:  A non well formed numeric value encountered in W:\wamp64\www\arba-treso\operations\ajax\ajax_liste_mouvements.php on line 48
+[18-Sep-2019 15:46:58 UTC] PHP Stack trace:
+[18-Sep-2019 15:46:58 UTC] PHP   1. {main}() W:\wamp64\www\arba-treso\operations\ajax\ajax_liste_mouvements.php:0
+[18-Sep-2019 15:46:58 UTC] PHP   2. date() W:\wamp64\www\arba-treso\operations\ajax\ajax_liste_mouvements.php:48
+[18-Sep-2019 15:46:58 UTC] PHP Notice:  A non well formed numeric value encountered in W:\wamp64\www\arba-treso\operations\ajax\ajax_liste_mouvements.php on line 48
+[18-Sep-2019 15:46:58 UTC] PHP Stack trace:
+[18-Sep-2019 15:46:58 UTC] PHP   1. {main}() W:\wamp64\www\arba-treso\operations\ajax\ajax_liste_mouvements.php:0
+[18-Sep-2019 15:46:58 UTC] PHP   2. date() W:\wamp64\www\arba-treso\operations\ajax\ajax_liste_mouvements.php:48
+[18-Sep-2019 15:46:58 UTC] PHP Notice:  A non well formed numeric value encountered in W:\wamp64\www\arba-treso\operations\ajax\ajax_liste_mouvements.php on line 48
+[18-Sep-2019 15:46:58 UTC] PHP Stack trace:
+[18-Sep-2019 15:46:58 UTC] PHP   1. {main}() W:\wamp64\www\arba-treso\operations\ajax\ajax_liste_mouvements.php:0
+[18-Sep-2019 15:46:58 UTC] PHP   2. date() W:\wamp64\www\arba-treso\operations\ajax\ajax_liste_mouvements.php:48
+[18-Sep-2019 15:46:58 UTC] PHP Notice:  A non well formed numeric value encountered in W:\wamp64\www\arba-treso\operations\ajax\ajax_liste_mouvements.php on line 48
+[18-Sep-2019 15:46:58 UTC] PHP Stack trace:
+[18-Sep-2019 15:46:58 UTC] PHP   1. {main}() W:\wamp64\www\arba-treso\operations\ajax\ajax_liste_mouvements.php:0
+[18-Sep-2019 15:46:58 UTC] PHP   2. date() W:\wamp64\www\arba-treso\operations\ajax\ajax_liste_mouvements.php:48
+[18-Sep-2019 15:46:58 UTC] PHP Notice:  A non well formed numeric value encountered in W:\wamp64\www\arba-treso\operations\ajax\ajax_liste_mouvements.php on line 48
+[18-Sep-2019 15:46:58 UTC] PHP Stack trace:
+[18-Sep-2019 15:46:58 UTC] PHP   1. {main}() W:\wamp64\www\arba-treso\operations\ajax\ajax_liste_mouvements.php:0
+[18-Sep-2019 15:46:58 UTC] PHP   2. date() W:\wamp64\www\arba-treso\operations\ajax\ajax_liste_mouvements.php:48
+[18-Sep-2019 15:57:18 UTC] PHP Notice:  Trying to get property 'num_rows' of non-object in W:\wamp64\www\arba-treso\operations\ajax\ajax_liste_mouvements.php on line 32
+[18-Sep-2019 15:57:18 UTC] PHP Stack trace:
+[18-Sep-2019 15:57:18 UTC] PHP   1. {main}() W:\wamp64\www\arba-treso\operations\ajax\ajax_liste_mouvements.php:0
+[18-Sep-2019 15:57:46 UTC] PHP Notice:  Trying to get property 'num_rows' of non-object in W:\wamp64\www\arba-treso\operations\ajax\ajax_liste_mouvements.php on line 32
+[18-Sep-2019 15:57:46 UTC] PHP Stack trace:
+[18-Sep-2019 15:57:46 UTC] PHP   1. {main}() W:\wamp64\www\arba-treso\operations\ajax\ajax_liste_mouvements.php:0
+[18-Sep-2019 15:59:10 UTC] PHP Notice:  Trying to get property 'num_rows' of non-object in W:\wamp64\www\arba-treso\operations\ajax\ajax_liste_mouvements.php on line 32
+[18-Sep-2019 15:59:10 UTC] PHP Stack trace:
+[18-Sep-2019 15:59:10 UTC] PHP   1. {main}() W:\wamp64\www\arba-treso\operations\ajax\ajax_liste_mouvements.php:0

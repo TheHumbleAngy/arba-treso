@@ -618,6 +618,9 @@ const displayConsultations = (fieldId) => {
             },
             success: function (data) {
                 response.innerHTML = data;
+                let liste = document.getElementById('liste_cotisations');
+                if (!liste.childElementCount)
+                    showModal('feedbackModal', '😔 Aucun résultat ne correspond à ce critère de recherche.');
             }
         })
     }
@@ -981,113 +984,56 @@ function showAlert (type, msg, parentNode) {
 
 /* Search methods */
 
-const displayMembres = (usage) => {
-    let info, mbr = document.getElementById('membre').value;
-    let response = document.getElementById('feedback');
+function displayMembres() {
+    let info, mbr, response;
 
+    mbr = document.getElementById('membre').value;
+    response = document.getElementById('feedback');
     info = mbr ? mbr : '';
 
     $.ajax({
         type: 'POST',
         data: {
-            usage: usage,
             info: info,
             entity: 'membres'
         },
         url: 'membres/ajax/ajax_resultat_consultation_membres.php',
         success: function (data) {
-            if (data)
-                response.innerHTML = data;
-            else
-                showModal('feedbackModal', '😔 Aucun résultat ne correspond au(x) critère(s) de recherche.');
+            response.innerHTML = data;
+            let liste = document.getElementById('liste_membres');
+            if (!liste.childElementCount)
+                showModal('feedbackModal', '😔 Aucun résultat ne correspond à ce critère de recherche.');
         }
     })
-};
+}
 
-const displayAdhesions = () => {
-    let mbr = document.getElementById('membre').value;
+function displayAdhesions() {
+    let info, mbr, response;
 
-    let info = mbr ? mbr : '';
+    mbr = document.getElementById('membre').value;
+    response = document.getElementById('feedback');
+    info = mbr ? mbr : '';
 
     $.ajax({
         type: 'POST',
         data: {
             info: info
         },
-        url: 'operations/encaissement/adhesions/ajax/ajax_liste_adhesions.php',
+        url: 'operations/encaissement/adhesions/ajax/ajax_resultat_consultation_adhesions.php',
         success: function (data) {
-            if (data) {
-                let arr = JSON.parse(data),
-                    n = arr.length;
-                const tab = document.getElementById('liste_membres');
-
-                while (tab.firstChild)
-                    tab.removeChild(tab.firstChild);
-
-                for (let i = 0; i < n; i++) {
-                    let row = tab.insertRow(-1);
-
-                    let m = arr[i].length;
-                    for (let j = 0; j < m; j++) {
-
-                        let newCell = row.insertCell(-1);
-
-                        let elt = '';
-                        let info = '';
-
-                        if (j === 0)
-                            elt = i + 1;
-                        else if (arr[i][j] !== null)
-                            elt = arr[i][j];
-
-                        // Formatting the date
-                        if (j === 2)
-                            elt = dateReformat(elt);
-
-                        // Formatting the amount
-                        if (j === 3)
-                            elt = numberFormat(elt);
-
-                        info = document.createTextNode(elt);
-                        newCell.appendChild(info);
-                    }
-                }
-
-                for (let i = 0; i < tab.rows.length; i++) {
-
-                    // Styling the row
-                    let tr = tab.rows[i];
-                    tr.classList.add('row', 'mx-0');
-
-                    // Styling the first cell of each line
-                    let cell = tab.rows[i].cells[0];
-                    cell.classList.add('col-1');
-                    cell.classList.add('text-center', 'text-primary', 'font-weight-light');
-
-                    // Styling the 2nd cell of each line
-                    cell = tab.rows[i].cells[1];
-                    cell.classList.add('col');
-
-                    // Styling the 3rd cell of each line
-                    cell = tab.rows[i].cells[2];
-                    cell.classList.add('col-2', 'text-primary', 'font-weight-bolder', 'text-center');
-
-                    // Styling the 4rd cell of each line
-                    cell = tab.rows[i].cells[3];
-                    cell.classList.add('col-2', 'text-right');
-
-                }
-            }
-            else
-                showModal('feedbackModal', '😔 Aucun résultat ne correspond au(x) critère(s) de recherche.');
+            response.innerHTML = data;
+            let liste = document.getElementById('liste_membres');
+            if (!liste.childElementCount)
+                showModal('feedbackModal', '😔 Aucun résultat ne correspond à ce critère de recherche.');
         }
     })
-};
+}
 
-const displayMouvements = () => {
-    let dateOpe = document.getElementById('date_ope').value;
+function displayMouvements() {
+    let dateOpe, info, response;
 
-    let info = dateOpe ? dateOpe : '';
+    dateOpe = document.getElementById('date_ope').value;
+    info = dateOpe ? dateOpe : '';
 
     $.post(
         'operations/ajax/ajax_liste_mouvements.php', // url
@@ -1095,80 +1041,16 @@ const displayMouvements = () => {
             info: info
         },
         function (data) {
-            if (data) {
-                let arr = JSON.parse(data),
-                    n = arr.length;
-                const tab = document.getElementById('liste_operations');
-
-                while (tab.firstChild)
-                    tab.removeChild(tab.firstChild);
-
-                for (let i = 0; i < n; i++) {
-                    let row = tab.insertRow(-1);
-
-                    let m = arr[i].length;
-                    for (let j = 0; j < m - 1; j++) {
-
-                        let newCell = row.insertCell(-1);
-
-                        let elt = '';
-                        let info = '';
-
-                        if (j === 0)
-                            elt = i + 1;
-                        else if (arr[i][j] !== null)
-                            elt = arr[i][j];
-
-                        if (j === 1)
-                            elt = dateReformat(elt);
-
-                        if (j === 3)
-                            elt = numberFormat(elt);
-
-                        info = document.createTextNode(elt);
-                        newCell.appendChild(info);
-                    }
-                }
-
-                for (let i = 0; i < tab.rows.length; i++) {
-
-                    // Styling the row
-                    let tr = tab.rows[i];
-                    tr.classList.add('row', 'mx-0');
-
-                    // Styling the first cell of each line
-                    let cell = tab.rows[i].cells[0];
-                    cell.classList.add('col-1', 'text-center', 'text-primary', 'font-weight-light');
-
-                    // Styling the 2nd cell of each line
-                    cell = tab.rows[i].cells[1];
-                    cell.classList.add('col-2', 'text-primary', 'font-weight-bold');
-
-                    // Styling the 3rd cell of each line
-                    cell = tab.rows[i].cells[2];
-                    cell.classList.add('col');
-
-                    // Styling the 4th cell of each line
-                    cell = tab.rows[i].cells[3];
-                    cell.classList.add('col-2', 'text-primary', 'font-weight-bold');
-
-                    // Styling the 5th cell of each line
-                    cell = tab.rows[i].cells[4];
-                    cell.classList.add('col-2');
-
-                    let comments = `Commentaires:
-${arr[i][5]}`;
-                    tr.setAttribute('title', comments);
-                }
-            }
-            else
-                showModal('feedbackModal', '😔 Aucun résultat ne correspond au(x) critère(s) de recherche.');
-
+            response = document.getElementById('feedback');
+            response.innerHTML = data;
+            let liste = document.getElementById('liste_cotisations');
+            if (!liste.childElementCount)
+                showModal('feedbackModal', '😔 Aucun résultat ne correspond à ce critère de recherche.');
         }
     );
-};
+}
 
-const findMembres = (type) => {
+function findMembres(type) {
 
     if (type === 'recherche') {
         let nom, prenoms, genre, commune, ville, sql;
@@ -1237,15 +1119,14 @@ Veuillez modifier les critères de recherche.`);
                     }
                 })
             }
-        }
-        else {
+        } else {
             showModal('feedbackModal', `🤔 Veuillez spécifier un critère de recherche.`);
             response.innerHTML = '';
         }
     }
-};
+}
 
-const findCotisations = () => {
+function findCotisations() {
     let annee,
         mois,
         nom,
@@ -1361,14 +1242,13 @@ const findCotisations = () => {
                 }
             })
         }
-    }
-    else {
+    } else {
         showModal('feedbackModal', `🤔 Veuillez spécifier un critère de recherche.`);
         response.innerHTML = '';
     }
-};
+}
 
-const findMouvements = () => {
+function findMouvements() {
     let typOp,
         categorie,
         annee,
@@ -1532,19 +1412,17 @@ const findMouvements = () => {
                             total = numberFormat(total);
                         }
                         document.getElementById('montant_cumule').value = total;
-                    }
-                    else
+                    } else
                         showModal('feedbackModal', '😔 Aucun résultat ne correspond au(x) critère(s) de recherche.');
 
                 }
             })
         }
-    }
-    else {
+    } else {
         showModal('feedbackModal', `🤔 Veuillez spécifier un critère de recherche.`);
         response.innerHTML = '';
     }
-};
+}
 
 /* Stats */
 

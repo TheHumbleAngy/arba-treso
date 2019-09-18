@@ -7,7 +7,7 @@
      */
     ?>
 <input type="hidden" id="head_title" value="Liste des Adhésions">
-<div class="bg-white col col-lg-8 mx-auto p-2" style="border-radius: 10px">
+<div class="bg-white col col-md-10 col-lg-8 col-xl-6 mx-auto p-2" style="border-radius: 10px">
     <div class="container-fluid">
         <div class="row mb-4 mx-auto">
             <h2 class="col-auto text-center py-2 px-5 mx-auto cadre-titre">Liste des Adhésions <span>👪</span></h2>
@@ -26,21 +26,7 @@
             </div>
         </div>
     </div>
-    <div id="feedback" class="my-4">
-        <div class="border border-primary rounded">
-            <table class="table table-sm table-hover bg-light" id="arr_membres">
-                <thead class="bg-primary text-light">
-                <tr class="row mx-0">
-                    <th class="col-1 text-center">N°</th>
-                    <th class="col">Membre</th>
-                    <th class="col-auto">Date d'Adhésion</th>
-                    <th class="col-2 text-right">Montant</th>
-                </tr>
-                </thead>
-                <tbody id="liste_membres"></tbody>
-            </table>
-        </div>
-    </div>
+    <div id="feedback" class="my-4"></div>
 
     <!-- Modals -->
     <div class="modal fade" id="feedbackModal" tabindex="-1" role="dialog" aria-labelledby="feedbackModalLabel"
