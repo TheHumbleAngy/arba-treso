@@ -1,9 +1,5 @@
 <?php
-    if (isset($_GET['page'])) {
-        $page = $_GET['page'];
-    } else {
-        $page = "accueil";
-    }
+    $page = isset($_GET['page']) ? $_GET['page'] : "accueil";
     $page .= '.php';
 
     $date = date('l, \l\e j F Y');
@@ -36,9 +32,9 @@
     <!-- Chartjs -->
     <script src="addons/node_modules/chart.js/dist/Chart.js"></script>
 </head>
-<body class="bg-light">
+<body>
 
-<nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top" id="myNav">
+<nav class="navbar navbar-expand-lg navbar-light sticky-top" id="myNav">
     <a class="navbar-brand" href="index.php" title="Accueil">
         <img src="images/logo_arba96x30.png" alt="ARBA" class="img-fluid">
     </a>
@@ -49,44 +45,54 @@
     <div class="collapse navbar-collapse" id="navbarText">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item">
-                <a class="nav-link mx-2" href="index.php?page=operations/encaissement/adhesions/form_adhesions" id="navbarAdhesions" role="button" aria-haspopup="true" aria-expanded="false">
+                <a class="nav-link mx-2" href="index.php?page=operations/encaissement/adhesions/form_adhesions"
+                   id="navbarAdhesions" role="button" aria-haspopup="true" aria-expanded="false">
                     Adhésions
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link mx-2" href="index.php?page=operations/encaissement/cotisations/form_cotisations" id="navbarCotisations" role="button" aria-haspopup="true" aria-expanded="false">
+                <a class="nav-link mx-2" href="index.php?page=operations/encaissement/cotisations/form_cotisations"
+                   id="navbarCotisations" role="button" aria-haspopup="true" aria-expanded="false">
                     Cotisations
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link mx-2" href="index.php?page=operations/param_operation" id="navbarOperations" role="button" aria-haspopup="true" aria-expanded="false">
+                <a class="nav-link mx-2" href="index.php?page=operations/param_operation" id="navbarOperations"
+                   role="button" aria-haspopup="true" aria-expanded="false">
                     Opérations
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link mx-2" href="index.php?page=consultations/param_consultation" id="navbarConsultations" role="button" aria-haspopup="true" aria-expanded="false">
+                <a class="nav-link mx-2" href="index.php?page=consultations/param_consultation" id="navbarConsultations"
+                   role="button" aria-haspopup="true" aria-expanded="false">
                     Consultations
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link mx-2" href="index.php?page=recherches/param_recherches" id="navbarReporting" role="button" aria-haspopup="true" aria-expanded="false">
+                <a class="nav-link mx-2" href="index.php?page=recherches/param_recherches" id="navbarReporting"
+                   role="button" aria-haspopup="true" aria-expanded="false">
                     Recherche
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link mx-2" href="#" id="navbarStats" role="button" aria-haspopup="true" aria-expanded="false">
+                <a class="nav-link mx-2" href="#" id="navbarStats" role="button" aria-haspopup="true"
+                   aria-expanded="false">
                     Statistiques
                 </a>
             </li>
         </ul>
         <span class="navbar-text">
-            <?php echo $date;?>
+            <?php echo $date; ?>
         </span>
     </div>
 </nav>
 
-<div class="container-fluid">
-    <?php include $page; ?>
+<div class="container-fluid mt-xl-2">
+    <?php
+        if (isset($page)) {
+            include $page;
+        }
+    ?>
 
     <button type="button" class="btn btn-outline-primary" id="goTop" title="Retour en haut" onclick="getToTop()">
         <i class="fas fa-arrow-up fa-2x faa-vertical animated"></i>
@@ -100,5 +106,10 @@
 <!-- Custom js file -->
 <script type="text/javascript" src="js/main.js"></script>
 <script type="text/javascript" src="addons/awesomplete/awesomplete.js"></script>
+<script type="text/javascript" src="addons/moment/moment.min.js"></script>
+<script>
+    moment.locale('fr');
+    console.log(moment().format('LLLL'));
+</script>
 </body>
 </html>

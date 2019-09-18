@@ -33,7 +33,7 @@
 
 @font-face {
     font-family: 'Roboto-regular';
-    src: url(../fonts/Roboto-Regular.ttf);
+    /*src: url(../fonts/Roboto-Regular.ttf);*/
 }
 
 table.ncare th {
@@ -47,6 +47,10 @@ table.ncare th {
 
 body {
     height: 100vh;
+}
+
+body, nav {
+    background-color: rgb(238, 238, 238);
 }
 
 #arba {

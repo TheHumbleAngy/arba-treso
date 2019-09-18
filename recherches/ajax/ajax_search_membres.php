@@ -5,10 +5,11 @@
      * Date: 29-Jun-19
      * Time: 5:51 AM
      */
-    require_once ($_SERVER['DOCUMENT_ROOT'] . '/includes/dbconnect.php');
+    require_once($_SERVER['DOCUMENT_ROOT'] . '/includes/dbconnect.php');
 
     if (isset($_POST['info'])) {
         $sql = $_POST['info'];
+        $sql .= " ORDER BY m.nom_membre, m.pren_membre";
 
         $result = mysqli_query($connection, $sql);
         if ($result->num_rows > 0) {
@@ -19,20 +20,21 @@
                 <table class="table table-sm table-hover bg-light" id="arr_membres">
                     <thead class="bg-primary text-light">
                     <tr class="row mx-0">
-                        <th class="text-center col-1">N°</th>
+                        <th class="text-center col-05">N°</th>
+                        <th class="col-1 text-center" title="Identifiant">Id.</th>
                         <th class="col">Nom</th>
                         <th class="col">Prénoms</th>
                         <th class="col-1 text-center">Genre</th>
                         <th class="col">Contacts</th>
                         <th class="col">Commune</th>
                         <th class="col">Ville</th>
-                        <!--<th class="col">Adhésion</th>-->
                     </tr>
                     </thead>
                     <tbody id="liste_membres">
 
                     <?php
                         foreach ($membres as $membre) {
+                            $id_mbr = $membre['id_membre'];
                             $nom_mbr = $membre['nom_membre'];
                             $pren_mbr = $membre['pren_membre'];
                             $gender = $membre['genre_membre'];
@@ -42,44 +44,34 @@
                             $date = $membre['date_crea_membre'];
                             ?>
                             <tr class="row mx-0">
-                                <td class="text-center text-primary font-weight-light col-1">
-                                <span class="">
+                                <td class="text-center text-primary font-weight-light col-05">
                                     <?php echo ++$i; ?>
-                                </span>
                                 </td>
-                                <td class="col">
-                                <span class="text-uppercase">
+                                <td class="text-center text-primary col-1">
+                                    <?php echo $id_mbr; ?>
+                                </td>
+                                <td class="col text-uppercase">
                                     <?php echo $nom_mbr; ?>
-                                </span>
                                 </td>
-                                <td class="col">
-                                <span class="text-uppercase">
+                                <td class="col text-uppercase">
                                     <?php echo $pren_mbr; ?>
-                                </span>
                                 </td>
-                                <td class="col-1 text-center">
-                                    <?php if ($gender == 'H') { ?>
-                                    <span class="text-uppercase text-primary" title="Homme">
-                                <?php } else { ?>
-                                        <span class="text-uppercase text-primary" title="Femme">
-                                <?php } ?>
-                                <?php echo $gender; ?>
-                                    </span>
+                                <?php if ($gender == 'H') { ?>
+                                <td class="col-1 text-center text-uppercase text-primary" title="Homme">
+                                    <?php }
+                                        else { ?>
+                                <td class="col-1 text-center text-uppercase text-primary" title="Femme">
+                                    <?php } ?>
+                                    <?php echo $gender; ?>
                                 </td>
                                 <td class="col">
-                                <span class="text-uppercase">
                                     <?php echo $contacts; ?>
-                                </span>
                                 </td>
                                 <td class="col">
-                                <span class="text-uppercase">
                                     <?php echo $com; ?>
-                                </span>
                                 </td>
                                 <td class="col">
-                                <span class="text-uppercase">
                                     <?php echo $vil; ?>
-                                </span>
                                 </td>
                             </tr>
                             <?php
@@ -90,9 +82,9 @@
             </div>
 
             <?php
-        }
-        else
+        } else {
             echo "Not found";
+        }
         $result->free();
         $connection->close();
     }
