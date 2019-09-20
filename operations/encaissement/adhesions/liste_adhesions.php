@@ -7,7 +7,7 @@
      */
     ?>
 <input type="hidden" id="head_title" value="Liste des Adhésions">
-<div class="bg-white col col-md-10 col-lg-8 col-xl-6 mx-auto p-2" style="border-radius: 10px">
+<div class="bg-white col col-md-10 col-lg-8 col-xl-6 mx-auto p-2 shadow-sm mb-4" style="border-radius: 10px">
     <div class="container-fluid">
         <div class="row mb-4 mx-auto">
             <h2 class="col-auto text-center py-2 px-5 mx-auto cadre-titre">Liste des Adhésions <span>👪</span></h2>

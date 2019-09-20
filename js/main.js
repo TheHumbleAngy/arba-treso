@@ -167,6 +167,12 @@ function getToTop() {
     $('html').animate({scrollTop: 0}, 'slow');
 }
 
+window.onscroll = function () {
+    if (document.body.scrollTop > 10 || document.documentElement.scrollTop > 10)
+        document.getElementById('myNav').classList.add('shadow');
+    else
+        document.getElementById('myNav').classList.remove('shadow');
+};
 
 /* Setters and loaders */
 
@@ -178,6 +184,9 @@ function showCotisations() {
     if (cbo.value !== '' && dateOpe.value !== '') {
         $.ajax({
             type: 'POST',
+            data: {
+                info: moment(dateOpe.value).format('dddd Do MMMM YYYY')
+            },
             url: 'operations/encaissement/cotisations/ajax/ajax_cotisations.php',
             success: function (data) {
                 document.getElementById('enregistrer').classList.add('animated-hover');
@@ -703,6 +712,51 @@ function dateReformat (d) {
     return `${arr[2]}-${arr[1]}-${arr[0]}`;
 }
 
+function getSolde(e) {
+    let dDay;
+    if (e)
+        dDay = e.value;
+    else
+        dDay = moment().format('YYYY-MM-DD');
+
+    $.post(
+        'operations/ajax/ajax_solde.php',
+        {
+            day: dDay,
+            status: 3
+        },
+        function (data) {
+            if (data && data !== "Void") {
+                showModal('soldeModal', `Le solde, à la date du ${moment(dDay).format('dddd Do MMMM YYYY')}, est de ${data}F CFA`);
+            }
+        }
+    );
+}
+
+function getSoldeInd(e) {
+    let dDay, membre;
+    if (e) dDay = e.value;
+    membre = document.getElementById('membre_ind').value;
+
+    $.post(
+        'operations/ajax/ajax_solde.php',
+        {
+            year: annee,
+            day: dDay,
+            mbr: membre,
+            status: 1
+        },
+        function (data) {
+            if (data && data !== "Void") {
+                if (dDay)
+                    showModal('soldeModal', `Le solde, à la date du ${moment(dDay).format('dddd Do MMMM YYYY')}, est de ${data}F CFA`);
+                else
+                    showModal('soldeModal', `Le solde à ce jour est de ${data}F CFA`);
+            }
+        }
+    );
+}
+
 /* Savers */
 
 const saveCotisations = () => {
@@ -1043,9 +1097,13 @@ function displayMouvements() {
         function (data) {
             response = document.getElementById('feedback');
             response.innerHTML = data;
-            let liste = document.getElementById('liste_cotisations');
+            let liste = document.getElementById('liste_mouvements');
             if (!liste.childElementCount)
                 showModal('feedbackModal', '😔 Aucun résultat ne correspond à ce critère de recherche.');
+            else {
+                document.getElementById('montant_total').value = document.getElementById('total').value;
+                document.getElementById('montant_total').setAttribute('readonly', 'true');
+            }
         }
     );
 }
@@ -1278,7 +1336,6 @@ function findMouvements() {
     membre = document.getElementById('membre').value;
 
     dateOp = document.getElementById('date_ope').value;
-    // commentaire = document.getElementById('commentaire').value;
 
     if (typOp !== '' || categorie !== '' || annee !== '' || mois !== '' || nom !== '' || prenoms !== '' || titre !== '' || membre !== '' || commune !== '' || dateOp !== '') {
         sql = `SELECT DISTINCT id_operation, c.id_typ_op, date_operation, libelle_typ_op, montant_operation, libelle_categorie, nom_interlocuteur, pren_interlocuteur, titre_interlocuteur, contact_interlocuteur, nom_membre, pren_membre, obs_operation FROM interlocuteurs i INNER JOIN operations o on i.id_interlocuteur = o.id_interlocuteur INNER JOIN categories c on o.id_categorie = c.id_categorie INNER JOIN types_operation to2 on c.id_typ_op = to2.id_typ_op INNER JOIN membres m on o.id_membre = m.id_membre WHERE `;

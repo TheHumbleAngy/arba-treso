@@ -8,7 +8,7 @@
 ?>
 
 <div class="border border-primary rounded">
-    <table class="table table-sm table-hover arr_consultation bg-light rounded position-sticky" id="arr_coti_gnl">
+    <table class="table table-sm table-hover arr_consultation bg-light rounded" id="arr_coti_gnl">
         <thead class="bg-primary text-light">
         <tr>
             <th class="text-center">N°</th>

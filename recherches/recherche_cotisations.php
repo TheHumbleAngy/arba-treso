@@ -7,7 +7,7 @@
      */
 ?>
 <input type="hidden" id="head_title" value="Recherche - Cotisations">
-<div class="bg-white col mx-auto p-2" style="border-radius: 10px">
+<div class="bg-white col mx-auto p-2 shadow-sm mb-2" style="border-radius: 10px">
     <div class="container-fluid">
         <div class="row mb-4 mx-auto">
             <h2 class="col-auto text-center py-2 px-5 mx-auto cadre-titre">Recherche - Cotisations <span>💰</span></h2>
@@ -18,7 +18,7 @@
                     <div class="col">
                         <div class="row mx-0 my-3">
                             <div class="col mr-4">
-                                <h5 class="cadre-titre-search">Période</h5>
+                                <h5 class="cadre-titre-recherche">Période</h5>
                                 <div class="row">
                                     <label for="annee" class="col">
                                         <select class="custom-select custom-select-sm " id="annee">
@@ -35,7 +35,7 @@
                                 </div>
                             </div>
                             <div class="col ">
-                                <h5 class="cadre-titre-search">Localité</h5>
+                                <h5 class="cadre-titre-recherche">Localité</h5>
                                 <div class="row">
                                     <label for="commune" class="col">
                                         <input type="text" class="form-control form-control-sm text-uppercase" id="commune"
@@ -50,7 +50,7 @@
                         </div>
                         <div class="row mx-0 my-3">
                             <div class="col col-md-10 col-lg-8 mr-3">
-                                <h5 class="cadre-titre-search">Membre</h5>
+                                <h5 class="cadre-titre-recherche">Membre</h5>
                                 <div class="row">
                                     <label for="nom" class="col-4">
                                         <input type="text" class="form-control form-control-sm text-uppercase" id="nom"
@@ -76,7 +76,7 @@
                     <div class="col-auto">
                         <div class="row mx-0 my-3">
                             <div class="col px-0">
-                                <h5 class="cadre-titre-search">Dates</h5>
+                                <h5 class="cadre-titre-recherche">Dates</h5>
                                 <div class="row">
                                     <div class="col">
                                         <label for="date_ope">
@@ -111,11 +111,9 @@
                 </div>
 
                 <div class="row my-2 justify-content-center">
-                    <div class="col-6 col-md-4 col-lg-2">
-                        <button class="btn btn-sm btn-primary col font-weight-bolder" onclick="findCotisations()" title="Rechercher" type="button">
-                            Rechercher <i class="fa fa-search ml-2"></i>
-                        </button>
-                    </div>
+                    <button class="btn btn-sm btn-primary col-auto px-lg-4 font-weight-bolder" onclick="findCotisations()" title="Rechercher" type="button">
+                        Rechercher <i class="fa fa-search ml-2"></i>
+                    </button>
                 </div>
             </div>
         </form>

@@ -7,7 +7,7 @@
      */
 ?>
 <input type="hidden" id="head_title" value="Liste des Mouvements">
-<div class="bg-white col col-lg-10 mx-auto p-2" style="border-radius: 10px">
+<div class="bg-white col col-lg-10 mx-auto p-2 shadow-sm" style="border-radius: 10px">
     <div class="container-fluid">
         <div class="row mb-4 mx-auto">
             <h2 class="col-auto text-center py-2 px-5 mx-auto cadre-titre">Liste des Mouvements <span>🔄</span></h2>

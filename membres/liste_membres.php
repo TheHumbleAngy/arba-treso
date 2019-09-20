@@ -7,7 +7,7 @@
      */
 ?>
 <input type="hidden" id="head_title" value="Liste des Membres">
-<div class="bg-white col-xl-11 col-xl-10 mx-auto p-2" style="border-radius: 10px">
+<div class="bg-white col-xl-11 col-xl-10 mx-auto p-2 shadow-sm mb-4" style="border-radius: 10px">
     <div class="container-fluid">
         <div class="row mb-4 mx-auto">
             <h2 class="col-auto text-center py-2 px-5 mx-auto cadre-titre">Liste des Membres <span>👪</span></h2>

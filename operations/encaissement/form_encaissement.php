@@ -49,7 +49,7 @@
                                 </div>
                                 <div class="row my-4 col">
                                     <div class="col">
-                                        <h5 class="cadre-titre-search font-weight-bolder">Le Donateur...</h5>
+                                        <h5 class="cadre-titre-recherche font-weight-bolder">Le Donateur...</h5>
                                         <div class="form-group">
                                             <label for="nom_don" class="">Nom</label>
                                             <input type="text" class="form-control form-control-sm text-uppercase"
@@ -86,7 +86,7 @@
                                 </div>
                                 <div class="row my-4 col">
                                     <div class="col">
-                                        <h5 class="cadre-titre-search font-weight-bolder">Réceptionné par...</h5>
+                                        <h5 class="cadre-titre-recherche font-weight-bolder">Réceptionné par...</h5>
                                         <div class="row">
                                             <div class="form-group col-auto col-lg">
                                                 <label for="mbr_inter" class="">Membre</label>

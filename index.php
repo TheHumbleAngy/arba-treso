@@ -1,8 +1,6 @@
 <?php
     $page = isset($_GET['page']) ? $_GET['page'] : "accueil";
     $page .= '.php';
-
-    $date = date('l, \l\e j F Y');
 ?>
 
 <!DOCTYPE html>
@@ -23,7 +21,6 @@
     <!-- Custom style -->
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="css/media_styles.css">
-    <link rel="stylesheet" href="css/custom_form.css">
     <link rel="stylesheet" href="addons/awesomplete/awesomplete.css">
 
     <!--    font-->
@@ -75,17 +72,41 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link mx-2" href="#" id="navbarStats" role="button" aria-haspopup="true"
+                <a class="nav-link mx-2" href="index.php?page=stats/param_stats" id="navbarStats" role="button" aria-haspopup="true"
                    aria-expanded="false">
                     Statistiques
                 </a>
             </li>
         </ul>
-        <span class="navbar-text">
-            <?php echo $date; ?>
-        </span>
+        <span class="navbar-text" id="curr_date"></span>
     </div>
 </nav>
+
+<div id="widget_solde" class="shadow-sm text-primary gradient faa-float animated" onclick="getSolde()">
+    <i class="fa fa-info"></i>
+</div>
+<!-- Modals -->
+<div class="modal fade" id="soldeModal" tabindex="-1" role="dialog" aria-labelledby="soldeModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="soldeModalLabel">ARBA ℹ️</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <label for="date_solde" class="ml-auto">
+                    <input type="date" id="date_solde" class="form-control form-control-sm" onchange="getSolde(this)">
+                </label>
+                <blockquote class="blockquote">
+                    <p class="mb-0"></p>
+                </blockquote>
+            </div>
+        </div>
+    </div>
+</div>
 
 <div class="container-fluid mt-xl-2">
     <?php
@@ -104,12 +125,15 @@
 <script type="text/javascript" src="addons/bootstrap/js/bootstrap.js"></script>
 
 <!-- Custom js file -->
-<script type="text/javascript" src="js/main.js"></script>
 <script type="text/javascript" src="addons/awesomplete/awesomplete.js"></script>
 <script type="text/javascript" src="addons/moment/moment.min.js"></script>
+<script type="text/javascript" src="js/main.js"></script>
 <script>
     moment.locale('fr');
-    console.log(moment().format('LLLL'));
+    setInterval(function () {
+        let currentDateTime = moment().format('dddd Do MMMM YYYY, HH:mm');
+        document.getElementById('curr_date').textContent = currentDateTime.charAt(0).toUpperCase() + currentDateTime.slice(1);
+    });
 </script>
 </body>
 </html>

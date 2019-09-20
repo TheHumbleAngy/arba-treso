@@ -11,7 +11,7 @@
     <div id="wrapper" class="shadow gradient">
         <div class="container-fluid">
             <div class="row justify-content-center">
-                <div class="col-6 col-xl-7 d-flex flex-column justify-content-center" id="arba">
+                <div class="col-6 col-xl-7 d-flex flex-column justify-content-center">
                     <img src="images/logo_arba944x668.png" alt="logo_arba" class="img-fluid mb-sm-2">
                 </div>
                 <div class="col col-xl-5 my-auto" style="z-index: 1;">

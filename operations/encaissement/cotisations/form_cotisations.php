@@ -7,8 +7,7 @@
      */
 ?>
 <input type="hidden" id="head_title" value="cotisations">
-<div class="bg-white col-xl-11 mx-auto p-2" style="border-radius: 10px">
-
+<div class="bg-white col-xl-11 mx-auto p-2 shadow-sm mb-4" style="border-radius: 10px">
     <div class="container-fluid">
         <div class="row mb-4 mx-auto">
             <h2 class="col-auto text-center py-2 px-5 mx-auto cadre-titre">Cotisations Mensuelles <span>💰</span></h2>
@@ -25,8 +24,6 @@
                         </select>
                         <small id="textHelp" class="form-text text-muted">Année</small>
                     </label>
-
-
                 </div>
                 <div class="col-auto">
                     <label for="date_ope" class="">
@@ -34,8 +31,6 @@
                                aria-describedby="passwordHelpInline" onchange="showCotisations()">
                         <small id="textHelp" class="form-text text-muted">Date</small>
                     </label>
-
-
                 </div>
                 <div class="col-auto d-flex align-items-center justify-content-center">
                     <button class="btn btn-sm btn-primary faa-parent animated-hover col-auto px-4 mx-auto ml-md-5 font-weight-bolder"
