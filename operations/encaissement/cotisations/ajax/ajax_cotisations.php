@@ -6,11 +6,7 @@
      * Time: 2:42 PM
      */
 ?>
-<blockquote>
-    <p class="mb-0">
-        Saisie des cotisations du <?php echo $_POST['info']; ?>
-    </p>
-</blockquote>
+
 <table class="table table-sm table-hover bg-light font-weight-light" id="arr_cotisations">
     <thead class="bg-primary text-light">
     <tr>

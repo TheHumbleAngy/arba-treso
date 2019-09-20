@@ -25,7 +25,7 @@ SELECT *
             <form class="form-inline">
                 <label for="montant_total" class="mr-2 font-weight-bolder">Montant Total</label>
                 <input type="text" id="montant_total"
-                        class="form-control form-control-sm text-right font-weight-bold">
+                        class="form-control form-control-sm text-right font-weight-bold text-primary">
             </form>
         </div>
         <div class="border border-primary rounded">
@@ -63,10 +63,10 @@ SELECT *
                                 <td class="col-2">
                                     <?php echo date("d-m-Y", strtotime($date_ope)); ?>
                                 </td>
-                                <td class="col">
+                                <td class="col text-truncate">
                                     <?php echo $obs_ope; ?>
                                 </td>
-                                <td class="col-2">
+                                <td class="col-2 text-truncate">
                                     <?php echo $inter; ?>
                                 </td>
                                 <?php

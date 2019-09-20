@@ -14,6 +14,13 @@
         $result = mysqli_query($connection, $sql);
         if ($result->num_rows > 0) {
             ?>
+            <div id="added_div" class="row justify-content-end my-4 mx-0 container-fluid">
+                <form class="form-inline">
+                    <label for="montant_total" class="mr-2 font-weight-bolder">Montant Total</label>
+                    <input type="text" id="montant_total"
+                           class="form-control form-control-sm text-right font-weight-bold text-primary">
+                </form>
+            </div>
             <div class="border border-primary rounded" style="max-width: 150%">
                 <table class="table table-sm table-hover bg-light" id="arr_operations">
                     <thead class="bg-primary text-light">
@@ -22,16 +29,15 @@
                         <th class="col" title="">Id.</th>
                         <th class="col" title="Date Mouvement">Date</th>
                         <th class="col" title="Type du Mouvement">Type</th>
-                        <th class="col">Montant</th>
+                        <th class="col text-center">Montant</th>
                         <th class="col">Catégorie</th>
-                        <th class="col">Nom</th>
-                        <th class="col">Prénoms</th>
+                        <th class="col text-truncate" title="Nom de l'interlocuteur">Nom Interlocuteur</th>
                         <th class="col">Titre</th>
                         <th class="col">Contact</th>
                         <th class="col-2">Membre</th>
                     </tr>
                     </thead>
-                    <tbody id="liste_operations">
+                    <tbody id="liste_mouvements">
 
                     <?php
                         $mouvements = $result->fetch_all(MYSQLI_ASSOC);
@@ -54,24 +60,16 @@
                             ?>
                             <tr class="row mx-0">
                                 <td class="col-05 text-primary text-right">
-                                <span class="text-uppercase">
                                     <?php echo ++$i; ?>
-                                </span>
                                 </td>
-                                <td class="col text-primary font-weight-bold">
-                                <span class="text-uppercase" title="Identifiant de l'opération">
+                                <td class="col text-primary font-weight-bold text-truncate" title="Identifiant de l'opération">
                                     <?php echo $id_operation; ?>
-                                </span>
                                 </td>
-                                <td class="col">
-                                <span class="text-uppercase" title="Date de l'opération">
+                                <td class="col" title="Date de l'opération">
                                     <?php echo date("d-m-Y", strtotime($date_operation)); ?>
-                                </span>
                                 </td>
                                 <td class="col">
-                                <span class="text-uppercase">
                                     <?php echo $libelle_typ_op; ?>
-                                </span>
                                 </td>
                                 <td class="col text-right">
                                     <?php
@@ -84,35 +82,19 @@
                                     ?>
                                 </td>
                                 <td class="col">
-                                <span class="text-uppercase"
-                                      title="Catégorie de l'opération <?php echo $id_operation; ?>">
                                     <?php echo $libelle_categorie; ?>
-                                </span>
                                 </td>
-                                <td class="col">
-                                <span class="text-uppercase">
-                                    <?php echo $nom_interlocuteur; ?>
-                                </span>
+                                <td class="col text-truncate" title="<?php echo $nom_interlocuteur . " " . $pren_interlocuteur; ?>">
+                                    <?php echo $nom_interlocuteur . " " . $pren_interlocuteur; ?>
                                 </td>
-                                <td class="col">
-                                <span class="text-uppercase">
-                                    <?php echo $pren_interlocuteur; ?>
-                                </span>
-                                </td>
-                                <td class="col">
-                                <span class="text-uppercase">
+                                <td class="col text-truncate" title="<?php echo $titre_interlocuteur; ?>">
                                     <?php echo $titre_interlocuteur; ?>
-                                </span>
                                 </td>
-                                <td class="col">
-                                <span class="text-uppercase">
+                                <td class="col text-truncate" title="<?php echo $contact_interlocuteur; ?>">
                                     <?php echo $contact_interlocuteur; ?>
-                                </span>
                                 </td>
-                                <td class="col-2">
-                                <span class="text-uppercase">
+                                <td class="col-2 text-truncate" title="<?php echo $nom_membre . " " . $pren_membre; ?>">
                                     <?php echo $nom_membre . " " . $pren_membre; ?>
-                                </span>
                                 </td>
                             </tr>
                             <?php
@@ -134,7 +116,7 @@
     }
 
     if (isset($tot) && $tot != 0) {
-        echo '<input type="hidden" id="total" value="' . $tot . '">';
+        echo '<input type="hidden" id="total" value="' . number_format($tot, 0, "", ".") . '">';
     }
 ?>
 

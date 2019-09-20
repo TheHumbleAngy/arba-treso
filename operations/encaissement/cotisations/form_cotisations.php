@@ -40,6 +40,9 @@
                         Enregistrer
                     </button>
                 </div>
+                <div class="col d-flex align-items-center justify-content-center">
+                    <span id="message"></span>
+                </div>
             </div>
         </form>
     </div>

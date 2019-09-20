@@ -14,6 +14,13 @@
         $result = mysqli_query($connection, $sql);
         if ($result->num_rows > 0) {
             ?>
+            <div id="added_div" class="row justify-content-end my-4 mx-0 container-fluid">
+                <form class="form-inline">
+                    <label for="montant_total" class="mr-2 font-weight-bolder">Montant Total</label>
+                    <input type="text" id="montant_total"
+                           class="form-control form-control-sm text-right font-weight-bold text-success">
+                </form>
+            </div>
             <div class="border border-primary rounded" style="width: 150%">
                 <table class="table table-sm table-hover bg-light" id="arr_operations">
                     <thead class="bg-primary text-light">
@@ -23,15 +30,14 @@
                         <th class="col-2">Membre</th>
                         <th class="col">Localité</th>
                         <th class="col-1" title="Type Opération">Type Op.</th>
-                        <th class="col-1">Catégorie</th>
-                        <th class="col-1">Montant</th>
+                        <th class="col-1 text-center">Montant</th>
                         <th class="col-1">Période</th>
                         <th class="col-1" title="Date Opération">Date Op.</th>
                         <th class="col-1">Date Saisie</th>
                         <th class="col">Observation</th>
                     </tr>
                     </thead>
-                    <tbody id="liste_operations">
+                    <tbody id="liste_cotisations">
 
                     <?php
                         $operations = $result->fetch_all(MYSQLI_ASSOC);
@@ -55,67 +61,34 @@
                             ?>
                             <tr class="row mx-0">
                                 <td class="text-center text-primary font-weight-light col-05">
-                                <span class="text-uppercase">
                                     <?php echo ++$i; ?>
-                                </span>
                                 </td>
-                                <td class="col-1 text-primary font-weight-bold">
-                                <span class="text-uppercase" title="Identifiant de l'opération">
+                                <td class="col-1 text-primary font-weight-bold text-truncate" title="Identifiant de l'opération">
                                     <?php echo $id_operation; ?>
-                                </span>
                                 </td>
-                                <td class="col-2">
-                                <span class="text-uppercase" title="Membre">
+                                <td class="col-2 text-uppercase" title="Membre">
                                     <?php echo $nom_membre . ' ' . $pren_membre; ?>
-                                </span>
                                 </td>
-                                <td class="col">
-                                <span class="text-uppercase" title="Localité">
+                                <td class="col text-uppercase text-truncate" title="Localité">
                                     <?php echo $libelle_commune . ', ' . $libelle_ville; ?>
-                                </span>
                                 </td>
-                                <td class="col-1">
-                                <span class="text-uppercase" title="Type de l'opération <?php echo $id_operation; ?>">
+                                <td class="col-1 text-uppercase text-truncate" title="Type de l'opération <?php echo $id_operation; ?>">
                                     <?php echo $libelle_typ_op; ?>
-                                </span>
                                 </td>
-                                <td class="col-1">
-                                <span class="text-uppercase"
-                                      title="Catégorie de l'opération <?php echo $id_operation; ?>">
-                                    <?php echo $libelle_categorie; ?>
-                                </span>
+                                <td class="col-1 text-right font-weight-bolder text-success" title="Montant de l'opération <?php echo $id_operation; ?>">
+                                    <?php echo number_format($montant_operation, 0, '', '.'); ?>
                                 </td>
-                                <td class="col-1 text-right ">
-                                    <?php
-                                        if ($id_typ_op == 1) {
-                                            echo "<span class=\"font-weight-bolder text-success\" title=\"Montant de l'opération " . $id_operation . "\">" . number_format($montant_operation, 0, '', '.') . "</span>";
-                                        } else {
-                                            echo "<span class=\"font-weight-bolder text-danger\" title=\"Montant de l'opération " . $id_operation . "\">" . number_format($montant_operation, 0, '', '.') . "</span>";
-                                            $montant_operation = $montant_operation * -1;
-                                        }
-                                    ?>
-                                </td>
-                                <td class="col-1">
-                                <span class="text-uppercase"
-                                      title="Période de l'opération <?php echo $id_operation; ?>">
+                                <td class="col-1 text-uppercase text-truncate" title="Période de l'opération <?php echo $id_operation; ?>">
                                     <?php echo $libelle_mois . ' ' . $annee_operation; ?>
-                                </span>
                                 </td>
-                                <td class="col-1">
-                                <span class="text-uppercase" title="Date de l'opération <?php echo $id_operation; ?>">
+                                <td class="col-1 text-uppercase" title="Date de l'opération <?php echo $id_operation; ?>">
                                     <?php echo date("d-m-Y", strtotime($date_operation)); ?>
-                                </span>
                                 </td>
-                                <td class="col-1">
-                                <span class="text-uppercase"
-                                      title="Date de saisie de l'opération <?php echo $id_operation; ?>">
+                                <td class="col-1" title="Date de saisie de l'opération <?php echo $id_operation; ?>">
                                     <?php echo date("d-m-Y", strtotime($date_saisie_operation)); ?>
-                                </span>
                                 </td>
-                                <td class="col">
-                                <span class="text-uppercase" title="Observation <?php echo $id_operation; ?>">
+                                <td class="col text-truncate" title="Observation <?php echo $id_operation; ?>">
                                     <?php echo $obs_operation; ?>
-                                </span>
                                 </td>
                             </tr>
                             <?php
@@ -136,6 +109,6 @@
     }
 
     if (isset($tot) && $tot != 0) {
-        echo '<input type="hidden" id="total" value="' . $tot . '">';
+        echo '<input type="hidden" id="total" value="' . number_format($tot, 0, "", ".") . '">';
     }
 ?>

@@ -14,6 +14,17 @@
         </div>
         <div class="col-auto row my-2 mx-0 cadre p-4">
             <div class="col col-lg-auto">
+                <div class="form-group row mb-0 mx-0">
+                    <label for="param_annee" class=""></label>
+                    <select class="custom-select custom-select-sm" name="annee" id="param_annee">
+                        <option value="">Année</option>
+                        <option value="<?php echo date('Y'); ?>">
+                            <?php echo date('Y'); ?>
+                        </option>
+                    </select>
+                </div>
+            </div>
+            <div class="col col-lg-auto">
                 <label for="date_ope">
                     <input type="date" class="form-control form-control-sm" id="date_ope"
                            placeholder="Membre..." aria-describedby="textHelp">
