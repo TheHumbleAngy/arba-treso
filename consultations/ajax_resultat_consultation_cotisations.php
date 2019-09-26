@@ -6,9 +6,15 @@
      * Time: 9:55 AM
      */
 ?>
-
+<div id="added_div" class="row justify-content-end my-4 mx-0 container-fluid">
+    <form class="form-inline">
+        <label for="montant_total" class="mr-2 font-weight-bolder">Montant Total</label>
+        <input type="text" id="montant_total"
+               class="form-control form-control-sm text-right font-weight-bold text-success">
+    </form>
+</div>
 <div class="border border-primary rounded">
-    <table class="table table-sm table-hover arr_consultation bg-light rounded position-sticky" id="arr_coti_gnl">
+    <table class="table table-sm table-hover arr_consultation bg-light rounded" id="arr_coti_gnl">
         <thead class="bg-primary text-light">
         <tr>
             <th class="text-center">N°</th>
@@ -42,6 +48,7 @@
                 if ($result->num_rows > 0) {
                     $membres = $result->fetch_all(MYSQLI_ASSOC);
                     $i = 1;
+                    $total_gnl = 0;
                     foreach ($membres as $membre) {
                         $id_mbr = $membre['id_membre'];
                         $nom_mbr = $membre['nom_membre'];
@@ -57,13 +64,12 @@
                             </span>
                             </td>
                             <td class="">
-                            <span class="text-uppercase text-primary">
+                            <span class="text-uppercase text-primary text-truncate">
                                 <?php echo $nom_mbr . " " . $pren_mbr; ?>
                             </span>
                             </td>
 
                             <?php
-
                                 /* Debut liste cotisations */
                                 for ($j = 1; $j <= 12; $j++) {
 
@@ -94,10 +100,9 @@
                                 }
                                 /* Fin liste cotisations */
                             ?>
-
                             <td class="text-right text-primary font-weight-bold">
                             <span class="">
-                                <?php echo number_format($total, 0, ',', '.'); ?>
+                                <?php echo number_format($total, 0, ',', '.'); $total_gnl += $total; ?>
                             </span>
                             </td>
                         </tr>
@@ -115,6 +120,7 @@
                 if ($result->num_rows > 0) {
                     $membres = $result->fetch_all(MYSQLI_ASSOC);
                     $i = 1;
+                    $total_gnl = 0;
                     foreach ($membres as $membre) {
                         $id_mbr = $membre['id_membre'];
                         $nom_mbr = $membre['nom_membre'];
@@ -129,14 +135,13 @@
                                 <?php echo $i++; ?>
                             </span>
                             </td>
-                            <td class="">
-                            <span class="text-uppercase">
+                            <td class="text-truncate">
+                            <span class="text-uppercase text-primary text-uppercase">
                                 <?php echo $nom_mbr . " " . $pren_mbr; ?>
                             </span>
                             </td>
 
                             <?php
-
                                 /* Debut liste cotisations annuelles */
                                 for ($j = 1; $j <= 12; $j++) {
 
@@ -169,7 +174,7 @@
                             ?>
                             <td class="text-right text-primary font-weight-bold">
                             <span class="">
-                                <?php echo number_format($total, 0, ',', '.'); ?>
+                                <?php echo number_format($total, 0, ',', '.'); $total_gnl += $total; ?>
                             </span>
                             </td>
                         </tr>
@@ -181,6 +186,7 @@
                 $connection->close();
             }
         ?>
+        <input type="hidden" id="total" value="<?php echo number_format($total_gnl, 0, "", ".");?>">
         </tbody>
     </table>
 </div>

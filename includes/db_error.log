@@ -58,3 +58,50 @@
 [18-Sep-2019 15:59:10 UTC] PHP Notice:  Trying to get property 'num_rows' of non-object in W:\wamp64\www\arba-treso\operations\ajax\ajax_liste_mouvements.php on line 32
 [18-Sep-2019 15:59:10 UTC] PHP Stack trace:
 [18-Sep-2019 15:59:10 UTC] PHP   1. {main}() W:\wamp64\www\arba-treso\operations\ajax\ajax_liste_mouvements.php:0
+[19-Sep-2019 12:29:17 UTC] PHP Notice:  Undefined index: info in W:\wamp64\www\arba-treso\operations\ajax\ajax_solde.php on line 3
+[19-Sep-2019 12:29:17 UTC] PHP Stack trace:
+[19-Sep-2019 12:29:17 UTC] PHP   1. {main}() W:\wamp64\www\arba-treso\operations\ajax\ajax_solde.php:0
+[19-Sep-2019 12:29:31 UTC] PHP Notice:  Undefined index: info in W:\wamp64\www\arba-treso\operations\ajax\ajax_solde.php on line 3
+[19-Sep-2019 12:29:31 UTC] PHP Stack trace:
+[19-Sep-2019 12:29:31 UTC] PHP   1. {main}() W:\wamp64\www\arba-treso\operations\ajax\ajax_solde.php:0
+[19-Sep-2019 17:24:01 UTC] PHP Notice:  Trying to get property 'num_rows' of non-object in W:\wamp64\www\arba-treso\stats\ajax\ajax_data_membres.php on line 57
+[19-Sep-2019 17:24:01 UTC] PHP Stack trace:
+[19-Sep-2019 17:24:01 UTC] PHP   1. {main}() W:\wamp64\www\arba-treso\stats\ajax\ajax_data_membres.php:0
+[19-Sep-2019 17:24:01 UTC] PHP Fatal error:  Uncaught Error: Call to a member function free() on boolean in W:\wamp64\www\arba-treso\stats\ajax\ajax_data_membres.php:65
+Stack trace:
+#0 {main}
+  thrown in W:\wamp64\www\arba-treso\stats\ajax\ajax_data_membres.php on line 65
+[19-Sep-2019 17:24:05 UTC] PHP Notice:  Trying to get property 'num_rows' of non-object in W:\wamp64\www\arba-treso\stats\ajax\ajax_data_membres.php on line 57
+[19-Sep-2019 17:24:05 UTC] PHP Stack trace:
+[19-Sep-2019 17:24:05 UTC] PHP   1. {main}() W:\wamp64\www\arba-treso\stats\ajax\ajax_data_membres.php:0
+[19-Sep-2019 17:24:05 UTC] PHP Fatal error:  Uncaught Error: Call to a member function free() on boolean in W:\wamp64\www\arba-treso\stats\ajax\ajax_data_membres.php:65
+Stack trace:
+#0 {main}
+  thrown in W:\wamp64\www\arba-treso\stats\ajax\ajax_data_membres.php on line 65
+[20-Sep-2019 10:52:18 UTC] PHP Notice:  Undefined index: dDay in W:\wamp64\www\arba-treso\operations\ajax\ajax_solde.php on line 6
+[20-Sep-2019 10:52:18 UTC] PHP Stack trace:
+[20-Sep-2019 10:52:18 UTC] PHP   1. {main}() W:\wamp64\www\arba-treso\operations\ajax\ajax_solde.php:0
+[20-Sep-2019 10:52:26 UTC] PHP Notice:  Undefined index: dDay in W:\wamp64\www\arba-treso\operations\ajax\ajax_solde.php on line 6
+[20-Sep-2019 10:52:26 UTC] PHP Stack trace:
+[20-Sep-2019 10:52:26 UTC] PHP   1. {main}() W:\wamp64\www\arba-treso\operations\ajax\ajax_solde.php:0
+[20-Sep-2019 11:45:58 UTC] PHP Notice:  Undefined index: nom_interlocuteur in W:\wamp64\www\arba-treso\operations\ajax\ajax_liste_mouvements.php on line 48
+[20-Sep-2019 11:45:58 UTC] PHP Stack trace:
+[20-Sep-2019 11:45:58 UTC] PHP   1. {main}() W:\wamp64\www\arba-treso\operations\ajax\ajax_liste_mouvements.php:0
+[20-Sep-2019 11:45:58 UTC] PHP Notice:  Undefined index: pren_interlocuteur in W:\wamp64\www\arba-treso\operations\ajax\ajax_liste_mouvements.php on line 48
+[20-Sep-2019 11:45:58 UTC] PHP Stack trace:
+[20-Sep-2019 11:45:58 UTC] PHP   1. {main}() W:\wamp64\www\arba-treso\operations\ajax\ajax_liste_mouvements.php:0
+[20-Sep-2019 11:45:58 UTC] PHP Notice:  Undefined index: nom_interlocuteur in W:\wamp64\www\arba-treso\operations\ajax\ajax_liste_mouvements.php on line 48
+[20-Sep-2019 11:45:58 UTC] PHP Stack trace:
+[20-Sep-2019 11:45:58 UTC] PHP   1. {main}() W:\wamp64\www\arba-treso\operations\ajax\ajax_liste_mouvements.php:0
+[20-Sep-2019 11:45:58 UTC] PHP Notice:  Undefined index: pren_interlocuteur in W:\wamp64\www\arba-treso\operations\ajax\ajax_liste_mouvements.php on line 48
+[20-Sep-2019 11:45:58 UTC] PHP Stack trace:
+[20-Sep-2019 11:45:58 UTC] PHP   1. {main}() W:\wamp64\www\arba-treso\operations\ajax\ajax_liste_mouvements.php:0
+[20-Sep-2019 11:45:58 UTC] PHP Notice:  Undefined index: nom_interlocuteur in W:\wamp64\www\arba-treso\operations\ajax\ajax_liste_mouvements.php on line 48
+[20-Sep-2019 11:45:58 UTC] PHP Stack trace:
+[20-Sep-2019 11:45:58 UTC] PHP   1. {main}() W:\wamp64\www\arba-treso\operations\ajax\ajax_liste_mouvements.php:0
+[20-Sep-2019 11:45:58 UTC] PHP Notice:  Undefined index: pren_interlocuteur in W:\wamp64\www\arba-treso\operations\ajax\ajax_liste_mouvements.php on line 48
+[20-Sep-2019 11:45:58 UTC] PHP Stack trace:
+[20-Sep-2019 11:45:58 UTC] PHP   1. {main}() W:\wamp64\www\arba-treso\operations\ajax\ajax_liste_mouvements.php:0
+[25-Sep-2019 17:56:33 UTC] PHP Notice:  Undefined variable: total_gnl in W:\wamp64\www\arba-treso\consultations\ajax_resultat_consultation_cotisations.php on line 189
+[25-Sep-2019 17:56:33 UTC] PHP Stack trace:
+[25-Sep-2019 17:56:33 UTC] PHP   1. {main}() W:\wamp64\www\arba-treso\consultations\ajax_resultat_consultation_cotisations.php:0

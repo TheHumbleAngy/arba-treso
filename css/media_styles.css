@@ -14,57 +14,12 @@
     }
 }
 
-.myInput_text {
-    border: none;
-    padding-left: 0;
-    padding-right: 0;
-    padding-top: 0;
-    padding-bottom: 0.4em;
-    background-color: transparent;
-    font-size: 2em;
-    height: auto;
+@media (max-width: 992px) {
+    .nav-item {
+        padding: 0 0.5rem !important;
+    }
 
-    -webkit-border-radius: 0;
-    -moz-border-radius: 0;
-    border-radius: 0;
-}
-
-.myGroup .form-control:focus {
-    -webkit-box-shadow: 0 0 0 0 transparent;
-    -moz-box-shadow: 0 0 0 0 transparent;
-    box-shadow: 0 0 0 0 transparent;
-}
-
-.label-test {
-    position: relative;
-    display: inline-block;
-}
-
-.label-test::after {
-    content: '';
-    position: absolute;
-}
-
-.myGroup .label-test::after {
-    top: 98%;
-    height: 2px !important;
-    width: 30%;
-    background-color: rgba(27, 112, 182, 0.8);
-}
-
-.myGroup:focus-within .label-test::after {
-    width: 100%;
-
-    -webkit-transition: 0.5s ease all;
-    -moz-transition: 0.5s ease all;
-    -o-transition: 0.5s ease all;
-    transition: 0.5s ease all;
-}
-
-.myGroup:focus-within .myInput_text {
-    box-shadow: 0 0.2rem 0.5rem rgba(0, 0, 0, 0.15);
-}
-
-.btn-xl {
-    padding: 1rem 1.75rem;
+    .navbar-text {
+        display: none;
+    }
 }

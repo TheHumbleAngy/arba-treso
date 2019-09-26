@@ -7,7 +7,7 @@
      */
 ?>
 <input type="hidden" id="head_title" value="Liste des Cotisations">
-<div class="bg-white col-xl-11 mx-auto p-2" style="border-radius: 10px">
+<div class="bg-white col-xl-11 mx-auto p-2 shadow-sm mb-4" style="border-radius: 10px">
     <div class="container-fluid">
         <div class="row mb-4 mx-auto">
             <h2 class="col-auto text-center py-2 px-5 mx-auto cadre-titre">Liste des Cotisations Annuelles <span>📖</span></h2>
@@ -35,7 +35,7 @@
                     </label>
                 </div>
                 <div class="col col-lg-auto">
-                    <button class="btn btn-sm btn-primary px-4 font-weight-bolder" onclick="displayConsultations('param')">
+                    <button class="btn btn-sm btn-primary px-4 font-weight-bolder" onclick="displayConsultations()">
                         Afficher <i class="fa fa-arrow-right ml-1"></i>
                     </button>
                 </div>
@@ -77,7 +77,13 @@
             </div>
         </div>
     </div>
-    <div id="feedback" class="my-lg-4"></div>
+    <div id="feedback" class="my-lg-4">
+        <div class="d-flex justify-content-center">
+            <div class="spinner-grow" role="status" style="display: none">
+                <span class="sr-only">Loading...</span>
+            </div>
+        </div>
+    </div>
 
     <!-- Modals -->
     <div class="modal fade" id="feedbackModal" tabindex="-1" role="dialog" aria-labelledby="feedbackModalLabel"

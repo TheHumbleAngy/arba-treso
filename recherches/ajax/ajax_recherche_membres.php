@@ -53,7 +53,7 @@
                                 <td class="col text-uppercase">
                                     <?php echo $nom_mbr; ?>
                                 </td>
-                                <td class="col text-uppercase">
+                                <td class="col text-uppercase text-truncate">
                                     <?php echo $pren_mbr; ?>
                                 </td>
                                 <?php if ($gender == 'H') { ?>
@@ -64,7 +64,7 @@
                                     <?php } ?>
                                     <?php echo $gender; ?>
                                 </td>
-                                <td class="col">
+                                <td class="col text-truncate">
                                     <?php echo $contacts; ?>
                                 </td>
                                 <td class="col">

@@ -44,10 +44,10 @@
                                 <td class="col-1 text-right text-primary">
                                     <?php echo $id_mbr; ?>
                                 </td>
-                                <td class="col text-primary font-weight-bold">
+                                <td class="col text-primary font-weight-bold text-truncate">
                                     <?php echo $nom_mbr . " " . $pren_mbr; ?>
                                 </td>
-                                <td class="col-1">
+                                <td class="col-1 text-truncate">
                                     <?php
                                         if ($genre_membre == "H") {
                                             echo "HOMME";
@@ -59,10 +59,10 @@
                                 <td class="col-2 col-xl-1">
                                     <?php echo $contact_membre; ?>
                                 </td>
-                                <td class="col-2 col-xl-1">
+                                <td class="col-2 col-xl-1 text-truncate">
                                     <?php echo $libelle_commune; ?>
                                 </td>
-                                <td class="col-1 col-xl-1">
+                                <td class="col-1 col-xl-1 text-truncate">
                                     <?php echo $libelle_ville; ?>
                                 </td>
                                 <td class="col-1 text-center">
@@ -225,10 +225,10 @@
                                 <td class="col-1 text-center text-primary">
                                     <?php echo $id_mbr; ?>
                                 </td>
-                                <td class="col text-primary font-weight-bold">
+                                <td class="col text-primary font-weight-bold text-truncate">
                                     <?php echo $nom_mbr . " " . $pren_mbr; ?>
                                 </td>
-                                <td class="col-1">
+                                <td class="col-1 text-truncate">
                                     <?php
                                         if ($genre_membre == "H") {
                                             echo "HOMME";
@@ -237,13 +237,13 @@
                                         }
                                     ?>
                                 </td>
-                                <td class="col-2 col-xl-1">
+                                <td class="col-2 col-xl-1 text-truncate">
                                     <?php echo $contact_membre; ?>
                                 </td>
-                                <td class="col-2 col-xl-1">
+                                <td class="col-2 col-xl-1 text-truncate">
                                     <?php echo $libelle_commune; ?>
                                 </td>
-                                <td class="col-1 col-xl-1">
+                                <td class="col-1 col-xl-1 text-truncate">
                                     <?php echo $libelle_ville; ?>
                                 </td>
                                 <td class="col-1 text-center">

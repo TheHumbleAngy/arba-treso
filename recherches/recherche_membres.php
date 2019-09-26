@@ -7,7 +7,7 @@
      */
 ?>
 <input type="hidden" id="head_title" value="Recherche - Membres">
-<div class="bg-white col-10 mx-auto p-2" style="border-radius: 10px">
+<div class="bg-white col-10 mx-auto p-2 shadow-sm mb-2" style="border-radius: 10px">
     <div class="container-fluid">
         <div class="row mb-4 mx-auto">
             <h2 class="col-auto text-center py-2 px-5 mx-auto cadre-titre">Recherche - Membres <span>👪</span></h2>
@@ -16,7 +16,7 @@
             <div class="col-12 mx-auto my-2 cadre p-4">
                 <div class="row ">
                     <div class="col-7">
-                        <h5 class="cadre-titre-search">Membre</h5>
+                        <h5 class="cadre-titre-recherche">Membre</h5>
                         <div class="row">
                             <label for="nom" class="col">
                                 <input type="text" class="form-control form-control-sm text-uppercase" id="nom"
@@ -38,7 +38,7 @@
                         </div>
                     </div>
                     <div class="col">
-                        <h5 class="cadre-titre-search">Localité</h5>
+                        <h5 class="cadre-titre-recherche">Localité</h5>
                         <div class="row">
                             <label for="commune" class="col">
                                 <input type="text" class="form-control form-control-sm text-uppercase awesomplete" id="commune"
@@ -63,11 +63,9 @@
                     </div>
                 </div>
                 <div class="row my-2 justify-content-center">
-                    <div class="col-6 col-md-4 col-lg-2">
-                        <button class="btn btn-sm btn-primary col font-weight-bolder" onclick="findMembres('recherche')" title="Rechercher" type="button">
-                            Rechercher <i class="fa fa-search ml-2"></i>
-                        </button>
-                    </div>
+                    <button class="btn btn-sm btn-primary col-auto px-lg-4 font-weight-bolder" onclick="findMembres('recherche')" type="button">
+                        Rechercher <i class="fa fa-search ml-2"></i>
+                    </button>
                 </div>
             </div>
         </form>

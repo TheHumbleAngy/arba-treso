@@ -1,6 +1,7 @@
 "use strict";
 
-let selectedLabel, unselectedLabel;
+// Global variables
+var selectedLabel, unselectedLabel, state;
 
 function setPageTitle(title) {
     let children = document.getElementsByTagName('head')[0].children;
@@ -152,6 +153,24 @@ $(document).ready(function () {
         namesLoader('autocompletion', 'mbr_inter', 'membres');
     }
 
+    $(document).ajaxStart(function () {
+        $('.spinner-grow').css('display', 'block');
+    });
+
+    $(document).ajaxComplete(function () {
+        $('.spinner-grow').css('display', 'none');
+    });
+
+    /*let widget = document.getElementById('widget_solde');
+    if (widget) {
+        widget.addEventListener('click', function () {
+            if (widget.classList.contains('animated'))
+                widget.classList.remove('animated');
+            else
+                widget.classList.add('animated');
+        })
+    }*/
+
     $('[data-toggle="tooltip"]').tooltip();
 });
 
@@ -161,31 +180,42 @@ window.onscroll = function () {
         $('#goTop').css("display", "block");
     else
         $('#goTop').css("display", "none");
+
+    if (document.body.scrollTop > 10 || document.documentElement.scrollTop > 10)
+        document.getElementById('myNav').classList.add('shadow');
+    else
+        document.getElementById('myNav').classList.remove('shadow');
 };
 
 function getToTop() {
     $('html').animate({scrollTop: 0}, 'slow');
 }
 
-
 /* Setters and loaders */
 
-function showCotisations() {
+function setDateCotisations() {
     const cbo = document.getElementById('param_annee');
     const dateOpe = document.getElementById('date_ope');
     let response = document.getElementById('feedback');
 
-    if (cbo.value !== '' && dateOpe.value !== '') {
-        $.ajax({
-            type: 'POST',
-            url: 'operations/encaissement/cotisations/ajax/ajax_cotisations.php',
-            success: function (data) {
-                document.getElementById('enregistrer').classList.add('animated-hover');
-                document.getElementById('enregistrer').disabled = false;
-                response.innerHTML = data;
-                namesLoader('autocompletion', 'coti_mbr', 'membres');
-            }
-        })
+    if (dateOpe.value !== '') {
+        document.getElementById('enregistrer').disabled = false;
+        document.getElementById('message').innerText = "Saisie des cotisations au " + moment(dateOpe.value).format('dddd Do MMMM YYYY') + ", pour l'exercice " + cbo.value;
+        if (response.innerHTML === '') {
+            $.ajax({
+                type: 'POST',
+                url: 'operations/encaissement/cotisations/ajax/ajax_cotisations.php',
+                success: function (data) {
+                    document.getElementById('enregistrer').classList.add('animated-hover');
+                    response.innerHTML = data;
+                    namesLoader('autocompletion', 'coti_mbr', 'membres');
+                }
+            })
+        }
+    }
+    else {
+        document.getElementById('enregistrer').disabled = true;
+        // response.innerHTML = '';
     }
 }
 
@@ -194,46 +224,53 @@ function setDateAdhesion() {
     let response = document.getElementById('feedback');
 
     if (dateAdhe.value !== '') {
-        $.ajax({
-            type: 'POST',
-            url: 'operations/encaissement/adhesions/ajax/ajax_adhesions.php',
-            success: function (data) {
-                document.getElementById('enregistrer').disabled = false;
-                response.innerHTML = data;
+        document.getElementById('enregistrer').disabled = false;
+        document.getElementById('message').innerText = "Saisie des adhésions au " + moment(dateAdhe.value).format('dddd Do MMMM YYYY') + ".";
+        if (response.innerHTML === '') {
+            $.ajax({
+                type: 'POST',
+                url: 'operations/encaissement/adhesions/ajax/ajax_adhesions.php',
+                success: function (data) {
+                    response.innerHTML = data;
 
-                const selectCom = document.getElementById('com');
-                const selectVil = document.getElementById('vil');
-                if (selectCom && selectVil) {
-                    $.ajax({
-                        type: 'GET',
-                        url: 'operations/encaissement/adhesions/ajax/liste_communes_villes.php',
-                        success: function (data) {
-                            let arr = JSON.parse(data);
-                            let arrCom = arr[0];
-                            let arrVil = arr[1];
+                    const selectCom = document.getElementById('com');
+                    const selectVil = document.getElementById('vil');
+                    if (selectCom && selectVil) {
+                        $.ajax({
+                            type: 'GET',
+                            url: 'operations/encaissement/adhesions/ajax/liste_communes_villes.php',
+                            success: function (data) {
+                                let arr = JSON.parse(data);
+                                let arrCom = arr[0];
+                                let arrVil = arr[1];
 
-                            /* Fill list of communes */
-                            for (const elt of arrCom) {
-                                let option = document.createElement('option');
-                                option.value = elt[0];
-                                option.innerText = elt[1];
+                                /* Fill list of communes */
+                                for (const elt of arrCom) {
+                                    let option = document.createElement('option');
+                                    option.value = elt[0];
+                                    option.innerText = elt[1];
 
-                                selectCom.appendChild(option);
+                                    selectCom.appendChild(option);
+                                }
+
+                                /* Fill list of villes */
+                                for (const elt of arrVil) {
+                                    let option = document.createElement('option');
+                                    option.value = elt[0];
+                                    option.innerText = elt[1];
+
+                                    selectVil.appendChild(option);
+                                }
                             }
-
-                            /* Fill list of villes */
-                            for (const elt of arrVil) {
-                                let option = document.createElement('option');
-                                option.value = elt[0];
-                                option.innerText = elt[1];
-
-                                selectVil.appendChild(option);
-                            }
-                        }
-                    })
+                        })
+                    }
                 }
-            }
-        })
+            })
+        }
+    }
+    else {
+        document.getElementById('enregistrer').disabled = true;
+        // response.innerHTML = '';
     }
 }
 
@@ -600,18 +637,18 @@ WHERE numero_mois = ${mois} AND YEAR(date_operation) = ${annee} AND c.id_typ_op 
 
 /* Custom functions */
 
-const displayConsultations = (fieldId) => {
+const displayConsultations = () => {
     let param = '',
         annee = document.getElementById('param_annee').value,
         response = document.getElementById('feedback');
 
-    if (!document.getElementById(fieldId).disabled)
-        param = document.getElementById(fieldId).value;
+    if (!document.getElementById('param').disabled)
+        param = document.getElementById('param').value;
 
     if (annee) {
         $.ajax({
             type: 'POST',
-            url: 'consultations/ajax_resultat_consultation.php',
+            url: 'consultations/ajax_resultat_consultation_cotisations.php',
             data: {
                 param: param,
                 year: annee
@@ -621,6 +658,10 @@ const displayConsultations = (fieldId) => {
                 let liste = document.getElementById('liste_cotisations');
                 if (!liste.childElementCount)
                     showModal('feedbackModal', '😔 Aucun résultat ne correspond à ce critère de recherche.');
+                else {
+                    document.getElementById('montant_total').value = document.getElementById('total').value;
+                    document.getElementById('montant_total').setAttribute('readonly', true);
+                }
             }
         })
     }
@@ -703,6 +744,41 @@ function dateReformat (d) {
     return `${arr[2]}-${arr[1]}-${arr[0]}`;
 }
 
+function showSolde(status, date) {
+    let dDay;
+    dDay = date ? date : moment().format('YYYY-MM-DD');
+
+    $.post(
+        'operations/ajax/ajax_solde.php',
+        {
+            day: dDay,
+            status: status
+        },
+        function (data) {
+            if (data !== "Void") {
+                let entity;
+                switch (status) {
+                    case 1:
+                        entity = 'des cotisations';
+                        break;
+                    case 2:
+                        entity = 'des adhésions';
+                        break;
+                    case 3:
+                        entity = 'des mouvements';
+                        break;
+
+                    default:
+                        entity = 'général';
+                        break;
+                }
+
+                showModal('soldeModal', `Le solde ${entity} au ${moment(dDay).format('dddd Do MMMM YYYY')} est de ${data}F CFA.`);
+            }
+        },
+    );
+}
+
 /* Savers */
 
 const saveCotisations = () => {
@@ -774,8 +850,6 @@ const saveCotisations = () => {
                     year: annee.value
                 },
                 success: function (data) {
-                    // console.log(JSON.parse(data));
-                    // showModal('successModal');
                     if (data === 'Data saved!') {
                         showModal('successModal');
 
@@ -1030,22 +1104,26 @@ function displayAdhesions() {
 }
 
 function displayMouvements() {
-    let dateOpe, info, response;
+    let dateOpe, dDay, year, response;
 
     dateOpe = document.getElementById('date_ope').value;
-    info = dateOpe ? dateOpe : '';
+    dDay = dateOpe ? dateOpe : '';
 
     $.post(
-        'operations/ajax/ajax_liste_mouvements.php', // url
+        'operations/ajax/ajax_resultat_mouvements.php', // url
         {
-            info: info
+            info: dDay
         },
         function (data) {
             response = document.getElementById('feedback');
             response.innerHTML = data;
-            let liste = document.getElementById('liste_cotisations');
+            let liste = document.getElementById('liste_mouvements');
             if (!liste.childElementCount)
                 showModal('feedbackModal', '😔 Aucun résultat ne correspond à ce critère de recherche.');
+            else {
+                document.getElementById('montant_total').value = document.getElementById('total').value;
+                document.getElementById('montant_total').setAttribute('readonly', 'true');
+            }
         }
     );
 }
@@ -1107,7 +1185,7 @@ function findMembres(type) {
                     data: {
                         info: sql.trim()
                     },
-                    url: 'recherches/ajax/ajax_search_membres.php',
+                    url: 'recherches/ajax/ajax_recherche_membres.php',
                     success: function (data) {
                         if (data !== 'Not found')
                             response.innerHTML = data;
@@ -1197,48 +1275,18 @@ function findCotisations() {
                 data: {
                     info: sql.trim()
                 },
-                url: 'recherches/ajax/ajax_search_cotisations.php',
+                url: 'recherches/ajax/ajax_recherche_cotisations.php',
                 success: function (data) {
-                    let aDiv = document.getElementById('added_div');
-                    if (aDiv)
-                        aDiv.parentNode.removeChild(aDiv);
-
-                    let div = document.createElement('div');
-                    div.setAttribute('id', 'added_div');
-                    div.classList.add('row', 'justify-content-end', 'mt-4', 'mx-0', 'container-fluid');
-
-                    let formInline = document.createElement('form');
-                    formInline.classList.add('form-inline');
-
-                    let label = document.createElement('label');
-                    label.classList.add('mr-2');
-
-                    let text = document.createTextNode('Montant Total');
-
-                    let input = document.createElement('input');
-                    input.setAttribute('type', 'text');
-                    input.setAttribute('id', 'montant_total');
-                    input.setAttribute('readonly', 'true');
-                    input.classList.add('form-control', 'form-control-sm', 'text-right', 'font-weight-bold');
-
-                    label.appendChild(text);
-                    formInline.appendChild(label);
-                    formInline.appendChild(input);
-                    div.appendChild(formInline);
-
-                    let parent = response.parentNode;
-                    parent.insertBefore(div, response);
-
                     response.style.maxHeight = '50vh';
                     response.style.overflow = 'auto';
                     response.innerHTML = data;
-
-                    let total = 0;
-                    if (document.getElementById('total') && document.getElementById('montant_total')) {
-                        total = document.getElementById('total').value;
-                        total = numberFormat(total);
+                    let liste = document.getElementById('liste_cotisations');
+                    if (!liste.childElementCount)
+                        showModal('feedbackModal', '😔 Aucun résultat ne correspond à ce critère de recherche.');
+                    else {
+                        document.getElementById('montant_total').value = document.getElementById('total').value;
+                        document.getElementById('montant_total').setAttribute('readonly', true);
                     }
-                    document.getElementById('montant_total').value = total;
                 }
             })
         }
@@ -1278,7 +1326,6 @@ function findMouvements() {
     membre = document.getElementById('membre').value;
 
     dateOp = document.getElementById('date_ope').value;
-    // commentaire = document.getElementById('commentaire').value;
 
     if (typOp !== '' || categorie !== '' || annee !== '' || mois !== '' || nom !== '' || prenoms !== '' || titre !== '' || membre !== '' || commune !== '' || dateOp !== '') {
         sql = `SELECT DISTINCT id_operation, c.id_typ_op, date_operation, libelle_typ_op, montant_operation, libelle_categorie, nom_interlocuteur, pren_interlocuteur, titre_interlocuteur, contact_interlocuteur, nom_membre, pren_membre, obs_operation FROM interlocuteurs i INNER JOIN operations o on i.id_interlocuteur = o.id_interlocuteur INNER JOIN categories c on o.id_categorie = c.id_categorie INNER JOIN types_operation to2 on c.id_typ_op = to2.id_typ_op INNER JOIN membres m on o.id_membre = m.id_membre WHERE `;
@@ -1361,60 +1408,25 @@ function findMouvements() {
         }
 
         sql += " ORDER BY date_operation";
-        console.log(sql);
+        // console.log(sql);
         if (sql !== "SELECT DISTINCT id_operation, c.id_typ_op, date_operation, libelle_typ_op, montant_operation, libelle_categorie, nom_interlocuteur, pren_interlocuteur, titre_interlocuteur, contact_interlocuteur, nom_membre, pren_membre, obs_operation FROM interlocuteurs i INNER JOIN operations o on i.id_interlocuteur = o.id_interlocuteur INNER JOIN categories c on o.id_categorie = c.id_categorie INNER JOIN types_operation to2 on c.id_typ_op = to2.id_typ_op INNER JOIN membres m on o.id_membre = m.id_membre WHERE ORDER BY date_operation") {
             $.ajax({
                 type: 'POST',
                 data: {
                     info: sql.trim()
                 },
-                url: 'recherches/ajax/ajax_search_mouvements.php',
+                url: 'recherches/ajax/ajax_recherche_mouvements.php',
                 success: function (data) {
-
-                    if (!data.includes('Not found')) {
-                        let aDiv = document.getElementById('added_div');
-                        if (aDiv)
-                            aDiv.parentNode.removeChild(aDiv);
-
-                        let div = document.createElement('div');
-                        div.setAttribute('id', 'added_div');
-                        div.classList.add('row', 'justify-content-end', 'mt-4', 'mx-0', 'container-fluid');
-
-                        let formInline = document.createElement('form');
-                        formInline.classList.add('form-inline');
-
-                        let label = document.createElement('label');
-                        label.classList.add('mr-2');
-
-                        let text = document.createTextNode('Montant Cumulé');
-
-                        let input = document.createElement('input');
-                        input.setAttribute('type', 'text');
-                        input.setAttribute('id', 'montant_cumule');
-                        input.setAttribute('readonly', 'true');
-                        input.classList.add('form-control', 'form-control-sm', 'text-right', 'font-weight-bold');
-
-                        label.appendChild(text);
-                        formInline.appendChild(label);
-                        formInline.appendChild(input);
-                        div.appendChild(formInline);
-
-                        let parent = response.parentNode;
-                        parent.insertBefore(div, response);
-
-                        response.style.maxHeight = '50vh';
-                        response.style.overflow = 'auto';
-                        response.innerHTML = data;
-
-                        let total = 0;
-                        if (document.getElementById('total') && document.getElementById('montant_cumule')) {
-                            total = document.getElementById('total').value;
-                            total = numberFormat(total);
-                        }
-                        document.getElementById('montant_cumule').value = total;
-                    } else
-                        showModal('feedbackModal', '😔 Aucun résultat ne correspond au(x) critère(s) de recherche.');
-
+                    response.style.maxHeight = '50vh';
+                    response.style.overflow = 'auto';
+                    response.innerHTML = data;
+                    let liste = document.getElementById('liste_mouvements');
+                    if (!liste.childElementCount)
+                        showModal('feedbackModal', '😔 Aucun résultat ne correspond à ce critère de recherche.');
+                    else {
+                        document.getElementById('montant_total').value = document.getElementById('total').value;
+                        document.getElementById('montant_total').setAttribute('readonly', true);
+                    }
                 }
             })
         }

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<dataSource name="gestion_treso_arba@localhost">
-  <database-model serializer="dbm" rdbms="MYSQL" format-version="4.9">
+<dataSource name="MySQL - gestion_treso_arba@localhost">
+  <database-model serializer="dbm" dbms="MYSQL" family-id="MYSQL" format-version="4.15">
     <root id="1">
       <ServerVersion>5.7.26</ServerVersion>
       <DefaultEngine>MyISAM</DefaultEngine>
@@ -9,11 +9,12 @@
     </root>
     <schema id="2" parent="1" name="gestion_treso_arba">
       <Current>1</Current>
-      <Visible>1</Visible>
       <Collation>latin1_swedish_ci</Collation>
+      <Visible>1</Visible>
     </schema>
     <schema id="3" parent="1" name="information_schema">
       <Collation>utf8_general_ci</Collation>
+      <Substituted>1</Substituted>
     </schema>
     <schema id="4" parent="1" name="mysql">
       <Collation>latin1_swedish_ci</Collation>
@@ -971,7 +972,6 @@
     </key>
     <foreign-key id="244" parent="229" name="categories_ibfk_1">
       <ColNames>id_typ_op</ColNames>
-      <RefSchemaName>gestion_treso_arba</RefSchemaName>
       <RefTableName>types_operation</RefTableName>
       <RefColNames>id_typ_op</RefColNames>
     </foreign-key>
@@ -1021,7 +1021,6 @@
     </key>
     <foreign-key id="253" parent="231" name="fonctions_ibfk_1">
       <ColNames>id_groupe</ColNames>
-      <RefSchemaName>gestion_treso_arba</RefSchemaName>
       <RefTableName>groupes</RefTableName>
       <RefColNames>id_groupe</RefColNames>
     </foreign-key>
@@ -1155,19 +1154,16 @@
     </key>
     <foreign-key id="277" parent="234" name="membres_ibfk_3">
       <ColNames>id_fonction</ColNames>
-      <RefSchemaName>gestion_treso_arba</RefSchemaName>
       <RefTableName>fonctions</RefTableName>
       <RefColNames>id_fonction</RefColNames>
     </foreign-key>
     <foreign-key id="278" parent="234" name="membres_ibfk_1">
       <ColNames>id_commune</ColNames>
-      <RefSchemaName>gestion_treso_arba</RefSchemaName>
       <RefTableName>communes</RefTableName>
       <RefColNames>id_commune</RefColNames>
     </foreign-key>
     <foreign-key id="279" parent="234" name="membres_ibfk_2">
       <ColNames>id_ville</ColNames>
-      <RefSchemaName>gestion_treso_arba</RefSchemaName>
       <RefTableName>villes</RefTableName>
       <RefColNames>id_ville</RefColNames>
     </foreign-key>
@@ -1276,25 +1272,21 @@
     </key>
     <foreign-key id="299" parent="236" name="operations_ibfk_4">
       <ColNames>id_membre</ColNames>
-      <RefSchemaName>gestion_treso_arba</RefSchemaName>
       <RefTableName>membres</RefTableName>
       <RefColNames>id_membre</RefColNames>
     </foreign-key>
     <foreign-key id="300" parent="236" name="operations_ibfk_2">
       <ColNames>id_mois</ColNames>
-      <RefSchemaName>gestion_treso_arba</RefSchemaName>
       <RefTableName>mois</RefTableName>
       <RefColNames>id_mois</RefColNames>
     </foreign-key>
     <foreign-key id="301" parent="236" name="operations_ibfk_3">
       <ColNames>id_categorie</ColNames>
-      <RefSchemaName>gestion_treso_arba</RefSchemaName>
       <RefTableName>categories</RefTableName>
       <RefColNames>id_categorie</RefColNames>
     </foreign-key>
     <foreign-key id="302" parent="236" name="operations_ibfk_5">
       <ColNames>id_interlocuteur</ColNames>
-      <RefSchemaName>gestion_treso_arba</RefSchemaName>
       <RefTableName>interlocuteurs</RefTableName>
       <RefColNames>id_interlocuteur</RefColNames>
     </foreign-key>

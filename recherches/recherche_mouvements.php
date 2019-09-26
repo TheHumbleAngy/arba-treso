@@ -7,7 +7,7 @@
      */
 ?>
 <input type="hidden" id="head_title" value="Recherche - Mouvements">
-<div class="bg-white col mx-auto p-2" style="border-radius: 10px">
+<div class="bg-white col mx-auto p-2 shadow-sm mb-2" style="border-radius: 10px">
     <div class="container-fluid">
         <div class="row mb-4 mx-auto">
             <h2 class="col-auto text-center py-2 px-5 mx-auto cadre-titre">Recherche - Mouvements <span>🔄</span></h2>
@@ -18,7 +18,7 @@
                     <div class="col">
                         <div class="row mx-0 my-3">
                             <div class="col mr-4">
-                                <h5 class="cadre-titre-search">Type d'oprération</h5>
+                                <h5 class="cadre-titre-recherche">Type d'oprération</h5>
                                 <div class="row">
                                     <label for="typ_op" class="col">
                                         <select class="custom-select custom-select-sm" id="typ_op" onchange="setCategories(this)">
@@ -35,7 +35,7 @@
                                 </div>
                             </div>
                             <div class="col ">
-                                <h5 class="cadre-titre-search">Période</h5>
+                                <h5 class="cadre-titre-recherche">Période</h5>
                                 <div class="row">
                                     <label for="annee" class="col">
                                         <select class="custom-select custom-select-sm" id="annee">
@@ -54,7 +54,7 @@
                         </div>
                         <div class="row mx-0 my-3">
                             <div class="col-8">
-                                <h5 class="cadre-titre-search">Bénéficiaire - Donateur</h5>
+                                <h5 class="cadre-titre-recherche">Bénéficiaire - Donateur</h5>
                                 <div class="row">
                                     <label for="nom" class="col-4">
                                         <input type="text" class="form-control form-control-sm text-uppercase" id="nom"
@@ -85,7 +85,7 @@
                                 </div>
                             </div>
                             <div class="col-4">
-                                <h5 class="cadre-titre-search">Membre Intermédiaire</h5>
+                                <h5 class="cadre-titre-recherche">Membre Intermédiaire</h5>
                                 <div class="row">
                                     <label for="nom" class="col">
                                         <input type="text" class="form-control form-control-sm text-uppercase"
@@ -99,7 +99,7 @@
                     <div class="col-auto">
                         <div class="row mx-0 my-3">
                             <div class="col px-0">
-                                <h5 class="cadre-titre-search">Dates</h5>
+                                <h5 class="cadre-titre-recherche">Dates</h5>
                                 <div class="row">
                                     <div class="col">
                                         <label for="date_ope">
@@ -122,12 +122,9 @@
                 </div>
 
                 <div class="row my-2 justify-content-center">
-                    <div class="col-2">
-                        <button class="btn btn-sm btn-primary col font-weight-bolder" onclick="findMouvements()"
-                                title="Rechercher" type="button">
-                            Rechercher <i class="fa fa-search ml-2"></i>
-                        </button>
-                    </div>
+                    <button class="btn btn-sm btn-primary col-auto px-lg-4 font-weight-bolder" onclick="findMouvements()" type="button">
+                        Rechercher <i class="fa fa-search ml-2"></i>
+                    </button>
                 </div>
             </div>
         </form>

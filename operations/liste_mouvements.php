@@ -7,12 +7,23 @@
      */
 ?>
 <input type="hidden" id="head_title" value="Liste des Mouvements">
-<div class="bg-white col col-lg-10 mx-auto p-2" style="border-radius: 10px">
+<div class="bg-white col col-lg-10 mx-auto p-2 shadow-sm" style="border-radius: 10px">
     <div class="container-fluid">
         <div class="row mb-4 mx-auto">
             <h2 class="col-auto text-center py-2 px-5 mx-auto cadre-titre">Liste des Mouvements <span>🔄</span></h2>
         </div>
         <div class="col-auto row my-2 mx-0 cadre p-4">
+            <div class="col col-lg-auto">
+                <div class="form-group row mb-0 mx-0">
+                    <label for="param_annee" class=""></label>
+                    <select class="custom-select custom-select-sm" name="annee" id="param_annee">
+                        <option value="">Année</option>
+                        <option value="<?php echo date('Y'); ?>">
+                            <?php echo date('Y'); ?>
+                        </option>
+                    </select>
+                </div>
+            </div>
             <div class="col col-lg-auto">
                 <label for="date_ope">
                     <input type="date" class="form-control form-control-sm" id="date_ope"

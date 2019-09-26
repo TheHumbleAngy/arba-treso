@@ -7,7 +7,7 @@
      */
 ?>
 <input type="hidden" id="head_title" value="adhésions">
-<div class="bg-white col-11a col-xl-10 mx-auto p-2" style="border-radius: 10px">
+<div class="bg-white col-11a col-xl-10 mx-auto p-2 shadow-sm mb-4" style="border-radius: 10px">
     <div class="container-fluid">
         <div class="row mb-4 mx-auto">
             <h2 class="col-auto text-center py-2 px-5 mx-auto cadre-titre">Adhésions <span>🤝</span></h2>
@@ -19,13 +19,15 @@
                     <small id="textHelp" class="form-text text-muted">Entrez la date.</small>
                 </label>
             </div>
-            <div class="col-auto">
+            <div class="col-auto d-flex align-items-center justify-content-center">
                 <button class="btn btn-sm btn-primary faa-parent animated-hover col-auto px-4 mx-auto font-weight-bolder"
-                        disabled data-toggle="tooltip" data-placement="right" title="Enregistrer les informations entrées"
-                        id="enregistrer" onclick="saveAdhesions()">
+                        disabled id="enregistrer" onclick="saveAdhesions()">
                     <i class="fas fa-save mr-2 faa-pulse"></i>
                     Enregistrer
                 </button>
+            </div>
+            <div class="col d-flex align-items-center justify-content-center">
+                <p class="lead" id="message"></p>
             </div>
         </div>
     </div>
