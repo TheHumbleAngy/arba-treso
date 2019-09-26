@@ -102,3 +102,6 @@ Stack trace:
 [20-Sep-2019 11:45:58 UTC] PHP Notice:  Undefined index: pren_interlocuteur in W:\wamp64\www\arba-treso\operations\ajax\ajax_liste_mouvements.php on line 48
 [20-Sep-2019 11:45:58 UTC] PHP Stack trace:
 [20-Sep-2019 11:45:58 UTC] PHP   1. {main}() W:\wamp64\www\arba-treso\operations\ajax\ajax_liste_mouvements.php:0
+[25-Sep-2019 17:56:33 UTC] PHP Notice:  Undefined variable: total_gnl in W:\wamp64\www\arba-treso\consultations\ajax_resultat_consultation_cotisations.php on line 189
+[25-Sep-2019 17:56:33 UTC] PHP Stack trace:
+[25-Sep-2019 17:56:33 UTC] PHP   1. {main}() W:\wamp64\www\arba-treso\consultations\ajax_resultat_consultation_cotisations.php:0

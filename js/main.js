@@ -1,6 +1,7 @@
 "use strict";
 
-let selectedLabel, unselectedLabel;
+// Global variables
+var selectedLabel, unselectedLabel, state;
 
 function setPageTitle(title) {
     let children = document.getElementsByTagName('head')[0].children;
@@ -152,6 +153,24 @@ $(document).ready(function () {
         namesLoader('autocompletion', 'mbr_inter', 'membres');
     }
 
+    $(document).ajaxStart(function () {
+        $('.spinner-grow').css('display', 'block');
+    });
+
+    $(document).ajaxComplete(function () {
+        $('.spinner-grow').css('display', 'none');
+    });
+
+    /*let widget = document.getElementById('widget_solde');
+    if (widget) {
+        widget.addEventListener('click', function () {
+            if (widget.classList.contains('animated'))
+                widget.classList.remove('animated');
+            else
+                widget.classList.add('animated');
+        })
+    }*/
+
     $('[data-toggle="tooltip"]').tooltip();
 });
 
@@ -174,26 +193,29 @@ function getToTop() {
 
 /* Setters and loaders */
 
-function showCotisations() {
+function setDateCotisations() {
     const cbo = document.getElementById('param_annee');
     const dateOpe = document.getElementById('date_ope');
     let response = document.getElementById('feedback');
 
-    if (cbo.value !== '' && dateOpe.value !== '') {
-        $.ajax({
-            type: 'POST',
-            data: {
-                info: moment(dateOpe.value).format('dddd Do MMMM YYYY')
-            },
-            url: 'operations/encaissement/cotisations/ajax/ajax_cotisations.php',
-            success: function (data) {
-                document.getElementById('enregistrer').classList.add('animated-hover');
-                document.getElementById('enregistrer').disabled = false;
-                document.getElementById('message').innerText = "Saisie des cotisations au " + moment(dateOpe.value).format('dddd Do MMMM YYYY') + ", pour l'exercice " + cbo.value;
-                response.innerHTML = data;
-                namesLoader('autocompletion', 'coti_mbr', 'membres');
-            }
-        })
+    if (dateOpe.value !== '') {
+        document.getElementById('enregistrer').disabled = false;
+        document.getElementById('message').innerText = "Saisie des cotisations au " + moment(dateOpe.value).format('dddd Do MMMM YYYY') + ", pour l'exercice " + cbo.value;
+        if (response.innerHTML === '') {
+            $.ajax({
+                type: 'POST',
+                url: 'operations/encaissement/cotisations/ajax/ajax_cotisations.php',
+                success: function (data) {
+                    document.getElementById('enregistrer').classList.add('animated-hover');
+                    response.innerHTML = data;
+                    namesLoader('autocompletion', 'coti_mbr', 'membres');
+                }
+            })
+        }
+    }
+    else {
+        document.getElementById('enregistrer').disabled = true;
+        // response.innerHTML = '';
     }
 }
 
@@ -202,46 +224,53 @@ function setDateAdhesion() {
     let response = document.getElementById('feedback');
 
     if (dateAdhe.value !== '') {
-        $.ajax({
-            type: 'POST',
-            url: 'operations/encaissement/adhesions/ajax/ajax_adhesions.php',
-            success: function (data) {
-                document.getElementById('enregistrer').disabled = false;
-                response.innerHTML = data;
+        document.getElementById('enregistrer').disabled = false;
+        document.getElementById('message').innerText = "Saisie des adhésions au " + moment(dateAdhe.value).format('dddd Do MMMM YYYY') + ".";
+        if (response.innerHTML === '') {
+            $.ajax({
+                type: 'POST',
+                url: 'operations/encaissement/adhesions/ajax/ajax_adhesions.php',
+                success: function (data) {
+                    response.innerHTML = data;
 
-                const selectCom = document.getElementById('com');
-                const selectVil = document.getElementById('vil');
-                if (selectCom && selectVil) {
-                    $.ajax({
-                        type: 'GET',
-                        url: 'operations/encaissement/adhesions/ajax/liste_communes_villes.php',
-                        success: function (data) {
-                            let arr = JSON.parse(data);
-                            let arrCom = arr[0];
-                            let arrVil = arr[1];
+                    const selectCom = document.getElementById('com');
+                    const selectVil = document.getElementById('vil');
+                    if (selectCom && selectVil) {
+                        $.ajax({
+                            type: 'GET',
+                            url: 'operations/encaissement/adhesions/ajax/liste_communes_villes.php',
+                            success: function (data) {
+                                let arr = JSON.parse(data);
+                                let arrCom = arr[0];
+                                let arrVil = arr[1];
 
-                            /* Fill list of communes */
-                            for (const elt of arrCom) {
-                                let option = document.createElement('option');
-                                option.value = elt[0];
-                                option.innerText = elt[1];
+                                /* Fill list of communes */
+                                for (const elt of arrCom) {
+                                    let option = document.createElement('option');
+                                    option.value = elt[0];
+                                    option.innerText = elt[1];
 
-                                selectCom.appendChild(option);
+                                    selectCom.appendChild(option);
+                                }
+
+                                /* Fill list of villes */
+                                for (const elt of arrVil) {
+                                    let option = document.createElement('option');
+                                    option.value = elt[0];
+                                    option.innerText = elt[1];
+
+                                    selectVil.appendChild(option);
+                                }
                             }
-
-                            /* Fill list of villes */
-                            for (const elt of arrVil) {
-                                let option = document.createElement('option');
-                                option.value = elt[0];
-                                option.innerText = elt[1];
-
-                                selectVil.appendChild(option);
-                            }
-                        }
-                    })
+                        })
+                    }
                 }
-            }
-        })
+            })
+        }
+    }
+    else {
+        document.getElementById('enregistrer').disabled = true;
+        // response.innerHTML = '';
     }
 }
 
@@ -715,48 +744,38 @@ function dateReformat (d) {
     return `${arr[2]}-${arr[1]}-${arr[0]}`;
 }
 
-function getSolde(e) {
+function showSolde(status, date) {
     let dDay;
-    if (e)
-        dDay = e.value;
-    else
-        dDay = moment().format('YYYY-MM-DD');
+    dDay = date ? date : moment().format('YYYY-MM-DD');
 
     $.post(
         'operations/ajax/ajax_solde.php',
         {
             day: dDay,
-            status: 3
+            status: status
         },
         function (data) {
-            if (data && data !== "Void") {
-                showModal('soldeModal', `Le solde, à la date du ${moment(dDay).format('dddd Do MMMM YYYY')}, est de ${data}F CFA`);
+            if (data !== "Void") {
+                let entity;
+                switch (status) {
+                    case 1:
+                        entity = 'des cotisations';
+                        break;
+                    case 2:
+                        entity = 'des adhésions';
+                        break;
+                    case 3:
+                        entity = 'des mouvements';
+                        break;
+
+                    default:
+                        entity = 'général';
+                        break;
+                }
+
+                showModal('soldeModal', `Le solde ${entity} au ${moment(dDay).format('dddd Do MMMM YYYY')} est de ${data}F CFA.`);
             }
-        }
-    );
-}
-
-function getSoldeInd(e) {
-    let dDay, membre;
-    if (e) dDay = e.value;
-    membre = document.getElementById('membre_ind').value;
-
-    $.post(
-        'operations/ajax/ajax_solde.php',
-        {
-            year: annee,
-            day: dDay,
-            mbr: membre,
-            status: 1
         },
-        function (data) {
-            if (data && data !== "Void") {
-                if (dDay)
-                    showModal('soldeModal', `Le solde, à la date du ${moment(dDay).format('dddd Do MMMM YYYY')}, est de ${data}F CFA`);
-                else
-                    showModal('soldeModal', `Le solde à ce jour est de ${data}F CFA`);
-            }
-        }
     );
 }
 
@@ -831,8 +850,6 @@ const saveCotisations = () => {
                     year: annee.value
                 },
                 success: function (data) {
-                    // console.log(JSON.parse(data));
-                    // showModal('successModal');
                     if (data === 'Data saved!') {
                         showModal('successModal');
 

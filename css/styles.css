@@ -224,9 +224,8 @@ body, nav {
     margin: 1em 0;
 }
 
-#widget_solde {
+#w_solde_gnl, #w_solde_coti, #w_solde_adhe, #w_solde_mvt {
     position: fixed;
-    top: 80px;
     right: 0.5vw;
     z-index: 10;
     width: 45px;
@@ -235,4 +234,20 @@ body, nav {
     border-radius: 50%;
     text-align: center;
     cursor: pointer;
+}
+
+#w_solde_gnl {
+    top: 80px;
+}
+
+#w_solde_coti {
+    top: 130px;
+}
+
+#w_solde_adhe {
+    top: 180px;
+}
+
+#w_solde_mvt {
+    top: 230px;
 }

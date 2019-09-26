@@ -82,9 +82,22 @@
     </div>
 </nav>
 
-<div id="widget_solde" class="shadow-sm text-primary gradient faa-float animated" onclick="getSolde()">
-    <i class="fa fa-info"></i>
+<div id="w_solde_gnl" class="shadow-sm text-primary gradient faa-float animated" onclick="showSolde(state = 0)">
+    <span>SG</span>
 </div>
+
+<div id="w_solde_coti" class="shadow-sm text-success gradient-in faa-pulse animated d-none" onclick="showSolde(state = 1)">
+    <span>SC</span>
+</div>
+
+<div id="w_solde_adhe" class="shadow-sm text-danger gradient-out faa-wrench animated d-none" onclick="showSolde(state = 2)">
+    <span>SA</span>
+</div>
+
+<div id="w_solde_mvt" class="shadow-sm text-warning gradient faa-bounce animated d-none" onclick="showSolde(state = 3)">
+    <span>SM</span>
+</div>
+
 <!-- Modals -->
 <div class="modal fade" id="soldeModal" tabindex="-1" role="dialog" aria-labelledby="soldeModalLabel"
      aria-hidden="true">
@@ -98,7 +111,7 @@
             </div>
             <div class="modal-body">
                 <label for="date_solde" class="ml-auto">
-                    <input type="date" id="date_solde" class="form-control form-control-sm" onchange="getSolde(this)">
+                    <input type="date" id="date_solde" class="form-control form-control-sm" onchange="showSolde(state, this.value)">
                 </label>
                 <blockquote class="blockquote">
                     <p class="mb-0"></p>

@@ -19,12 +19,15 @@
                     <small id="textHelp" class="form-text text-muted">Entrez la date.</small>
                 </label>
             </div>
-            <div class="col-auto">
+            <div class="col-auto d-flex align-items-center justify-content-center">
                 <button class="btn btn-sm btn-primary faa-parent animated-hover col-auto px-4 mx-auto font-weight-bolder"
                         disabled id="enregistrer" onclick="saveAdhesions()">
                     <i class="fas fa-save mr-2 faa-pulse"></i>
                     Enregistrer
                 </button>
+            </div>
+            <div class="col d-flex align-items-center justify-content-center">
+                <p class="lead" id="message"></p>
             </div>
         </div>
     </div>

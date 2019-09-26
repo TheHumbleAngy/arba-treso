@@ -77,7 +77,13 @@
             </div>
         </div>
     </div>
-    <div id="feedback" class="my-lg-4"></div>
+    <div id="feedback" class="my-lg-4">
+        <div class="d-flex justify-content-center">
+            <div class="spinner-grow" role="status" style="display: none">
+                <span class="sr-only">Loading...</span>
+            </div>
+        </div>
+    </div>
 
     <!-- Modals -->
     <div class="modal fade" id="feedbackModal" tabindex="-1" role="dialog" aria-labelledby="feedbackModalLabel"
