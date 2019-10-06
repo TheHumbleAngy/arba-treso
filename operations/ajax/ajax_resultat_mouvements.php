@@ -43,10 +43,10 @@ SELECT *
                 <?php
                     require_once($_SERVER['DOCUMENT_ROOT'] . '/includes/dbconnect.php');
                     $result = mysqli_query($connection, $sql);
+                    $total = 0;
                     if ($result->num_rows > 0) {
                         $mouvements = $result->fetch_all(MYSQLI_ASSOC);
                         $i = 1;
-                        $total = 0;
 
                         foreach ($mouvements as $mouvement) {
                             $id_ope = $mouvement['id_operation'];

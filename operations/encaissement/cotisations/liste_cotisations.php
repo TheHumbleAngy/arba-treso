@@ -79,7 +79,7 @@
     </div>
     <div id="feedback" class="my-lg-4">
         <div class="d-flex justify-content-center">
-            <div class="spinner-grow" role="status" style="display: none">
+            <div class="spinner-grow text-primary" role="status" style="display: none">
                 <span class="sr-only">Loading...</span>
             </div>
         </div>

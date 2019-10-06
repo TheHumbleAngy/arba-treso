@@ -20,13 +20,19 @@
                 </label>
             </div>
             <div class="col col-lg-auto">
-                <button class="btn btn-sm btn-primary px-4 font-weight-bolder" onclick="displayMembres('listing')">
+                <button class="btn btn-sm btn-primary px-4 font-weight-bolder" onclick="displayMembres()">
                     Afficher <i class="fa fa-arrow-right ml-1"></i>
                 </button>
             </div>
         </div>
     </div>
-    <div id="feedback" class="my-4"></div>
+    <div id="feedback" class="my-4">
+        <div class="d-flex justify-content-center">
+            <div class="spinner-grow text-primary" role="status" style="display: none">
+                <span class="sr-only">Loading...</span>
+            </div>
+        </div>
+    </div>
 
     <!-- Modals -->
     <div class="modal fade" id="feedbackModal" tabindex="-1" role="dialog" aria-labelledby="feedbackModalLabel"

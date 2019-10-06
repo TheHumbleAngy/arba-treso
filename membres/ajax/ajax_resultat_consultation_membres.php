@@ -1,4 +1,5 @@
-<?php if (isset($_POST['entity']) && ($_POST['info'] != "")): ?>
+<?php if (isset($_POST['entity']) && ($_POST['info'] != "empty")): ?>
+    <?php echo $_POST['entity'] . " " . $_POST['info'];?>
     <div class="border border-primary rounded">
         <table class="table table-sm table-hover bg-light" id="arr_membres">
             <thead class="bg-primary text-light">
@@ -86,66 +87,97 @@
                                                     </button>
                                                 </div>
                                                 <div class="modal-body">
+                                                    <?php
+                                                        /*$sql_fct = "SELECT * FROM fonctions";
+                                                        $sql_com = "SELECT * FROM communes";
+                                                        $res_fct = mysqli_query($connection, $sql_fct);
+                                                        $res_com = mysqli_query($connection, $sql_com);*/
+                                                    ?>
+
                                                     <blockquote class="blockquote">
                                                         <form>
                                                             <div class="row mx-0">
                                                                 <div class="form-group col col-lg-4">
-                                                                    <label for="fct_mbr" class="">Fonction</label>
+                                                                    <label for="fct_mbr<?php echo $id_mbr; ?>" class="">Fonction</label>
                                                                     <select class="custom-select custom-select-sm text-uppercase"
-                                                                            id="fct_mbr">
+                                                                            id="fct_mbr<?php echo $id_mbr; ?>">
                                                                         <option selected>-</option>
-                                                                        <option value="0">Décaissement</option>
-                                                                        <option value="1">Encaissement</option>
+                                                                        <?php
+//                                                                            while ($row = mysqli_fetch_row($res_fct)) {
+//                                                                                $j = 0;
+//                                                                                do { ?>
+<!--                                                                                    <option value="--><?php //echo $row['id_fonction']; ?><!--">-->
+<!--                                                                                        --><?php //echo $row['libelle_fonction'];
+//                                                                                            $j++; ?>
+<!--                                                                                    </option>-->
+<!--                                                                                    --><?php
+//                                                                                } while ($j < sizeof($row));
+//                                                                            }
+                                                                        ?>
                                                                     </select>
                                                                 </div>
                                                             </div>
                                                             <div class="row mx-0">
                                                                 <div class="form-group col col-lg-4">
-                                                                    <label for="nom_mbr" class="">Nom*</label>
+                                                                    <label for="nom_mbr<?php echo $id_mbr; ?>" class="">Nom*</label>
                                                                     <input type="text"
                                                                            class="form-control form-control-sm text-uppercase"
-                                                                           id="nom_mbr" value="<?php echo $nom_mbr; ?>"
+                                                                           id="nom_mbr<?php echo $id_mbr; ?>"
+                                                                           value="<?php echo $nom_mbr; ?>"
                                                                            placeholder="Nom">
                                                                 </div>
                                                                 <div class="form-group col">
-                                                                    <label for="pren_mbr" class="">Prénoms</label>
+                                                                    <label for="pren_mbr<?php echo $id_mbr; ?>"
+                                                                           class="">Prénoms</label>
                                                                     <input type="text"
                                                                            class="form-control form-control-sm text-uppercase"
-                                                                           id="pren_mbr"
+                                                                           id="pren_mbr<?php echo $id_mbr; ?>"
                                                                            value="<?php echo $pren_mbr; ?>"
                                                                            placeholder="Prenoms">
                                                                 </div>
                                                             </div>
                                                             <div class="row mx-0">
                                                                 <div class="form-group col-auto">
-                                                                    <label for="genre" class="">Genre</label>
+                                                                    <label for="genre<?php echo $id_mbr; ?>" class="">Genre</label>
                                                                     <select class="custom-select custom-select-sm text-uppercase"
-                                                                            id="genre">
+                                                                            id="genre<?php echo $id_mbr; ?>">
                                                                         <option selected>-</option>
                                                                         <option value="0">Femme</option>
                                                                         <option value="1">Homme</option>
                                                                     </select>
                                                                 </div>
                                                                 <div class="form-group col-auto">
-                                                                    <label for="contact" class="">Contact</label>
+                                                                    <label for="contact<?php echo $id_mbr; ?>" class="">Contact</label>
                                                                     <input type="text"
                                                                            class="form-control form-control-sm text-uppercase"
-                                                                           id="contact"
+                                                                           id="contact<?php echo $id_mbr; ?>"
                                                                            value="<?php echo $contact_membre; ?>">
                                                                 </div>
                                                             </div>
                                                             <div class="row mx-0">
                                                                 <div class="form-group col-auto">
-                                                                    <label for="commune" class="">Commune</label>
+                                                                    <label for="commune<?php echo $id_mbr; ?>" class="">Commune</label>
                                                                     <select class="custom-select custom-select-sm text-uppercase"
-                                                                            id="commune">
+                                                                            id="commune<?php echo $id_mbr; ?>">
                                                                         <option selected>-</option>
+                                                                        <?php
+                                                                            /*while ($row = mysqli_fetch_row($res_com)) {
+                                                                                $j = 0;
+                                                                                do { */?><!--
+                                                                                    <option value="<?php /*echo $row['id_commune']; */?>">
+                                                                                        <?php /*echo $row['libelle_commune'];
+                                                                                            $j++; */?>
+                                                                                    </option>
+                                                                                    --><?php
+/*                                                                                } while ($j < sizeof($row));
+                                                                            }*/
+                                                                        ?>
                                                                     </select>
                                                                 </div>
                                                                 <div class="form-group col-auto">
-                                                                    <label for="ville" class="">Ville</label>
+                                                                    <label for="ville<?php echo $id_mbr; ?>" class="">Ville</label>
                                                                     <select class="custom-select custom-select-sm text-uppercase"
-                                                                            id="ville">
+                                                                            id="ville<?php echo $id_mbr; ?>">
                                                                         <option selected>-</option>
                                                                     </select>
                                                                 </div>
@@ -180,7 +212,7 @@
             </tbody>
         </table>
     </div>
-<?php elseif (isset($_POST['entity'])): ?>
+<?php elseif (isset($_POST['entity']) && ($_POST['info'] == "empty")): ?>
     <div class="border border-primary rounded">
         <table class="table table-sm table-hover bg-light" id="arr_membres">
             <thead class="bg-primary text-light">
@@ -222,7 +254,7 @@
                                 <td class="col-05 text-center text-primary font-weight-light">
                                     <?php echo $i++; ?>
                                 </td>
-                                <td class="col-1 text-center text-primary">
+                                <td class="col-1 text-right text-primary">
                                     <?php echo $id_mbr; ?>
                                 </td>
                                 <td class="col text-primary font-weight-bold text-truncate">
@@ -237,7 +269,7 @@
                                         }
                                     ?>
                                 </td>
-                                <td class="col-2 col-xl-1 text-truncate">
+                                <td class="col-2 col-xl-1">
                                     <?php echo $contact_membre; ?>
                                 </td>
                                 <td class="col-2 col-xl-1 text-truncate">
@@ -267,66 +299,98 @@
                                                     </button>
                                                 </div>
                                                 <div class="modal-body">
+                                                    <?php
+                                                        /*$sql_fct = "SELECT * FROM fonctions";
+                                                        $sql_com = "SELECT * FROM communes";
+                                                        $res_fct = mysqli_query($connection, $sql_fct);
+                                                        $res_com = mysqli_query($connection, $sql_com);*/
+                                                    ?>
+
                                                     <blockquote class="blockquote">
                                                         <form>
                                                             <div class="row mx-0">
                                                                 <div class="form-group col col-lg-4">
-                                                                    <label for="fct_mbr" class="">Fonction</label>
+                                                                    <label for="fct_mbr<?php echo $id_mbr; ?>" class="">Fonction</label>
                                                                     <select class="custom-select custom-select-sm text-uppercase"
-                                                                            id="fct_mbr">
+                                                                            id="fct_mbr<?php echo $id_mbr; ?>">
                                                                         <option selected>-</option>
-                                                                        <option value="0">Décaissement</option>
-                                                                        <option value="1">Encaissement</option>
+                                                                        <?php
+                                                                            /*$functions = $res_fct->fetch_all(MYSQLI_ASSOC);
+                                                                            while ($row = mysqli_fetch_row($res_fct)) {
+                                                                                $j = 0;
+                                                                                do { */?><!--
+                                                                                    <option value="<?php /*echo $row['id_fonction']; */?>">
+                                                                                        <?php /*echo $row['libelle_fonction'];
+                                                                                            $j++; */?>
+                                                                                    </option>
+                                                                                    --><?php
+/*                                                                                } while ($j < sizeof($row));
+                                                                            }*/
+                                                                        ?>
                                                                     </select>
                                                                 </div>
                                                             </div>
                                                             <div class="row mx-0">
                                                                 <div class="form-group col col-lg-4">
-                                                                    <label for="nom_mbr" class="">Nom*</label>
+                                                                    <label for="nom_mbr<?php echo $id_mbr; ?>" class="">Nom*</label>
                                                                     <input type="text"
                                                                            class="form-control form-control-sm text-uppercase"
-                                                                           id="nom_mbr" value="<?php echo $nom_mbr; ?>"
+                                                                           id="nom_mbr<?php echo $id_mbr; ?>"
+                                                                           value="<?php echo $nom_mbr; ?>"
                                                                            placeholder="Nom">
                                                                 </div>
                                                                 <div class="form-group col">
-                                                                    <label for="pren_mbr" class="">Prénoms</label>
+                                                                    <label for="pren_mbr<?php echo $id_mbr; ?>"
+                                                                           class="">Prénoms</label>
                                                                     <input type="text"
                                                                            class="form-control form-control-sm text-uppercase"
-                                                                           id="pren_mbr"
+                                                                           id="pren_mbr<?php echo $id_mbr; ?>"
                                                                            value="<?php echo $pren_mbr; ?>"
                                                                            placeholder="Prenoms">
                                                                 </div>
                                                             </div>
                                                             <div class="row mx-0">
                                                                 <div class="form-group col-auto">
-                                                                    <label for="genre" class="">Genre</label>
+                                                                    <label for="genre<?php echo $id_mbr; ?>" class="">Genre</label>
                                                                     <select class="custom-select custom-select-sm text-uppercase"
-                                                                            id="genre">
+                                                                            id="genre<?php echo $id_mbr; ?>">
                                                                         <option selected>-</option>
                                                                         <option value="0">Femme</option>
                                                                         <option value="1">Homme</option>
                                                                     </select>
                                                                 </div>
                                                                 <div class="form-group col-auto">
-                                                                    <label for="contact" class="">Contact</label>
+                                                                    <label for="contact<?php echo $id_mbr; ?>" class="">Contact</label>
                                                                     <input type="text"
                                                                            class="form-control form-control-sm text-uppercase"
-                                                                           id="contact"
+                                                                           id="contact<?php echo $id_mbr; ?>"
                                                                            value="<?php echo $contact_membre; ?>">
                                                                 </div>
                                                             </div>
                                                             <div class="row mx-0">
                                                                 <div class="form-group col-auto">
-                                                                    <label for="commune" class="">Commune</label>
+                                                                    <label for="commune<?php echo $id_mbr; ?>" class="">Commune</label>
                                                                     <select class="custom-select custom-select-sm text-uppercase"
-                                                                            id="commune">
+                                                                            id="commune<?php echo $id_mbr; ?>">
                                                                         <option selected>-</option>
+                                                                        <?php
+                                                                            /*while ($row = mysqli_fetch_row($res_com)) {
+                                                                                $j = 0;
+                                                                                do { */?><!--
+                                                                                    <option value="<?php /*echo $row['id_commune']; */?>">
+                                                                                        <?php /*echo $row['libelle_commune'];
+                                                                                            $j++; */?>
+                                                                                    </option>
+                                                                                    --><?php
+/*                                                                                } while ($j < sizeof($row));
+                                                                            }*/
+                                                                        ?>
                                                                     </select>
                                                                 </div>
                                                                 <div class="form-group col-auto">
-                                                                    <label for="ville" class="">Ville</label>
+                                                                    <label for="ville<?php echo $id_mbr; ?>" class="">Ville</label>
                                                                     <select class="custom-select custom-select-sm text-uppercase"
-                                                                            id="ville">
+                                                                            id="ville<?php echo $id_mbr; ?>">
                                                                         <option selected>-</option>
                                                                     </select>
                                                                 </div>

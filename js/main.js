@@ -1063,7 +1063,7 @@ function displayMembres() {
 
     mbr = document.getElementById('membre').value;
     response = document.getElementById('feedback');
-    info = mbr ? mbr : '';
+    info = (mbr !== '') ? mbr : 'empty';
 
     $.ajax({
         type: 'POST',
@@ -1107,7 +1107,7 @@ function displayMouvements() {
     let dateOpe, dDay, year, response;
 
     dateOpe = document.getElementById('date_ope').value;
-    dDay = dateOpe ? dateOpe : '';
+    dDay = (dateOpe !== '') ? dateOpe : ''; // TODO: check all variable updated from ternary operators
 
     $.post(
         'operations/ajax/ajax_resultat_mouvements.php', // url
