@@ -11,8 +11,7 @@
                 $sql = "
 SELECT SUM(montant_operation) total_cotisations
 FROM operations o
-WHERE id_categorie = 'CAT02' AND date_operation <= '{$day}'
-                ";
+WHERE id_categorie = 'CAT02' AND YEAR(date_operation) = 2019 AND date_operation <= '{$day}'";
                 break;
 
             case 2:
@@ -74,7 +73,8 @@ SELECT (
                 foreach ($res as $tot) {
                     $solde = $tot[0];
                 }
-                echo number_format($solde, 0, "", ".");
+                $arr = [$sql, number_format($solde, 0, "", ".")];
+                echo json_encode($arr);
             }
             else
                 echo "Void";

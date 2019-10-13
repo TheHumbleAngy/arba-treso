@@ -1,5 +1,4 @@
 <?php if (isset($_POST['entity']) && ($_POST['info'] != "empty")): ?>
-    <?php echo $_POST['entity'] . " " . $_POST['info'];?>
     <div class="border border-primary rounded">
         <table class="table table-sm table-hover bg-light" id="arr_membres">
             <thead class="bg-primary text-light">

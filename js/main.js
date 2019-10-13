@@ -747,6 +747,8 @@ function dateReformat (d) {
 function showSolde(status, date) {
     let dDay;
     dDay = date ? date : moment().format('YYYY-MM-DD');
+    document.getElementById('mbr_solde').value = "";
+    namesLoader('autocompletion', 'mbr_solde', 'membres');
 
     $.post(
         'operations/ajax/ajax_solde.php',
@@ -756,24 +758,26 @@ function showSolde(status, date) {
         },
         function (data) {
             if (data !== "Void") {
-                let entity;
+                let info, arr, anSolde;
+                arr = JSON.parse(data);
                 switch (status) {
                     case 1:
-                        entity = 'des cotisations';
+                        info = 'des cotisations';
                         break;
                     case 2:
-                        entity = 'des adhésions';
+                        info = 'des adhésions';
                         break;
                     case 3:
-                        entity = 'des mouvements';
+                        info = 'des mouvements';
                         break;
 
                     default:
-                        entity = 'général';
+                        info = 'général';
                         break;
                 }
-
-                showModal('soldeModal', `Le solde ${entity} au ${moment(dDay).format('dddd Do MMMM YYYY')} est de ${data}F CFA.`);
+                anSolde = document.getElementById('an_solde');
+                anSolde.value = new Date().getFullYear();
+                showModal('soldeModal', `Le solde ${info} au ${moment(dDay).format('dddd Do MMMM YYYY')} est de ${arr[1]}F CFA.`);
             }
         },
     );

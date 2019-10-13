@@ -32,7 +32,7 @@
 <body>
 
 <nav class="navbar navbar-expand-lg navbar-light sticky-top" id="myNav">
-    <a class="navbar-brand" href="index.php" title="Accueil">
+    <a class="navbar-brand" href="index.php" data-toggle="tooltip" data-placement="bottom" title="Accueil">
         <img src="images/logo_arba96x30.png" alt="ARBA" class="img-fluid">
     </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText"
@@ -82,11 +82,11 @@
     </div>
 </nav>
 
-<div id="w_solde_gnl" class="shadow-sm text-primary gradient faa-float animated" onclick="showSolde(state = 0)">
+<div id="w_solde_gnl" class="shadow-sm text-primary gradient faa-float animated" onclick="showSolde(state = 0)" data-toggle="tooltip" data-placement="left" title="Solde Général">
     <span>SG</span>
 </div>
 
-<div id="w_solde_coti" class="shadow-sm text-success gradient-in faa-pulse animated d-none" onclick="showSolde(state = 1)">
+<div id="w_solde_coti" class="shadow-sm text-success gradient-in faa-pulse animated " onclick="showSolde(state = 1)">
     <span>SC</span>
 </div>
 
@@ -110,9 +110,21 @@
                 </button>
             </div>
             <div class="modal-body">
-                <label for="date_solde" class="ml-auto">
-                    <input type="date" id="date_solde" class="form-control form-control-sm" onchange="showSolde(state, this.value)">
-                </label>
+                <div class="row">
+                    <div class="col">
+                        <input type="text" id="mbr_solde" class="form-control form-control-sm text-uppercase awesomplete invalid-feedback" placeholder="membre   ">
+                    </div>
+                </div>
+                <div class="row my-2">
+                    <div class="col">
+                        <input type="date" id="date_solde" class="form-control form-control-sm" onchange="showSolde(state, this.value)">
+                    </div>
+                    <div class="col">
+                        <input type="number" id="an_solde" class="form-control form-control-sm">
+                    </div>
+                </div>
+
+
                 <blockquote class="blockquote">
                     <p class="mb-0"></p>
                 </blockquote>
