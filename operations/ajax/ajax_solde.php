@@ -4,14 +4,21 @@
     if (isset($_POST['status']) && isset($_POST['day'])) {
         $status = $_POST['status'];
         $day = $_POST['day'];
+        $member = $_POST['mbr'];
+        $an_solde = $_POST['year'];
+
+        if ($member == "")
+            $member = "Kouakou Ange";
+
+        $mbr = explode(' ', $member, 2);
 
         switch ($status) {
             case 1:
                 /* solde des cotisations à une date donnee */
                 $sql = "
 SELECT SUM(montant_operation) total_cotisations
-FROM operations o
-WHERE id_categorie = 'CAT02' AND YEAR(date_operation) = 2019 AND date_operation <= '{$day}'";
+FROM operations o INNER JOIN membres m on o.id_membre = m.id_membre
+WHERE nom_membre = '{$mbr[0]}' AND pren_membre = '{$mbr[1]}' AND id_categorie = 'CAT02' AND YEAR(date_operation) = {$an_solde} AND date_operation <= '{$day}'";
                 break;
 
             case 2:

@@ -745,15 +745,19 @@ function dateReformat (d) {
 }
 
 function showSolde(status, date) {
-    let dDay;
+    let dDay, member, anSolde;
     dDay = date ? date : moment().format('YYYY-MM-DD');
     document.getElementById('mbr_solde').value = "";
     namesLoader('autocompletion', 'mbr_solde', 'membres');
+    anSolde = document.getElementById('an_solde').value;
+    member = document.getElementById('mbr_solde').value;
 
     $.post(
         'operations/ajax/ajax_solde.php',
         {
             day: dDay,
+            mbr: member,
+            year: anSolde,
             status: status
         },
         function (data) {
@@ -777,7 +781,9 @@ function showSolde(status, date) {
                 }
                 anSolde = document.getElementById('an_solde');
                 anSolde.value = new Date().getFullYear();
-                showModal('soldeModal', `Le solde ${info} au ${moment(dDay).format('dddd Do MMMM YYYY')} est de ${arr[1]}F CFA.`);
+                let p = document.getElementById('soldeModal').getElementsByTagName('p')[0];
+                p.textContent = `Le solde ${info} au ${moment(dDay).format('dddd Do MMMM YYYY')} est de ${arr[1]}F CFA.`;
+                //showModal('soldeModal', `Le solde ${info} au ${moment(dDay).format('dddd Do MMMM YYYY')} est de ${arr[1]}F CFA.`);
             }
         },
     );

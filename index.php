@@ -86,7 +86,7 @@
     <span>SG</span>
 </div>
 
-<div id="w_solde_coti" class="shadow-sm text-success gradient-in faa-pulse animated " onclick="showSolde(state = 1)">
+<div id="w_solde_coti" class="shadow-sm text-success gradient-in faa-pulse animated " onclick="showModal('soldeModal','Veuillez renseigner le nom du membre')">
     <span>SC</span>
 </div>
 
@@ -112,7 +112,8 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="col">
-                        <input type="text" id="mbr_solde" class="form-control form-control-sm text-uppercase awesomplete invalid-feedback" placeholder="membre   ">
+                        <input type="text" id="mbr_solde" class="form-control form-control-sm text-uppercase awesomplete"
+                               placeholder="membre" onblur="showSolde(state = 1)">
                     </div>
                 </div>
                 <div class="row my-2">
@@ -123,8 +124,6 @@
                         <input type="number" id="an_solde" class="form-control form-control-sm">
                     </div>
                 </div>
-
-
                 <blockquote class="blockquote">
                     <p class="mb-0"></p>
                 </blockquote>
